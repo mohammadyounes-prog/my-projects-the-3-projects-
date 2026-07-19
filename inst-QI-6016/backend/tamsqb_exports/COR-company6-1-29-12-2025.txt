@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-company6-1-29-12-2025 (ID: 115)
+Category: CAT-company6-1-29-12-2025 (ID: 368)
+--------------------------------------------------
+
+Local Question ID: 667
+Bank Question ID: 4023
+FilterData Entry:
+  filters_added: 6
+  details: [(4023, 1, '5', 1), (4023, 2, '2', 1), (4023, 32, 'easy', 1), (4023, 53, 'company6', 1), (4023, 33, '1', 1), (4023, 665, 'Collaboration and Teamwork', 3)]
+
+--------------------
+

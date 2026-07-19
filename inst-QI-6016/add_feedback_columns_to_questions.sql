@@ -1,0 +1,2 @@
+ALTER TABLE questions ADD COLUMN feedback_score INTEGER DEFAULT 0;
+ALTER TABLE questions ADD COLUMN feedback_count INTEGER DEFAULT 0;

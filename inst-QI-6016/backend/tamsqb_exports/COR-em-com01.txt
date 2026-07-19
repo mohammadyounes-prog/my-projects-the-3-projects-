@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-em-com01 (ID: 166)
+Category: CAT-em-com01-2-21-02-2026 (ID: 778)
+--------------------------------------------------
+
+Local Question ID: 1275
+Bank Question ID: 4665
+FilterData Entry:
+  filters_added: 5
+  details: [(4665, 1, '5', 1), (4665, 2, '0', 1), (4665, 32, 'medium', 1), (4665, 53, 'em-com01', 1), (4665, 33, '1', 1)]
+
+--------------------
+

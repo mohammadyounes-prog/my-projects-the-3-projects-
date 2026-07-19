@@ -1,0 +1,14 @@
+TamsQB Export for Course: 29-11-2025 (ID: 24)
+Category: superadmin-1 (ID: 185)
+--------------------------------------------------
+
+Local Question ID: 483
+Bank Question ID: 3813
+FilterData Entry:
+  bankId: 3813
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

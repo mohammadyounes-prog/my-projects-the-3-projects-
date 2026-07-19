@@ -1,0 +1,2 @@
+ALTER TABLE tenants ADD COLUMN parent_id INTEGER REFERENCES tenants(id);
+ALTER TABLE users ADD COLUMN is_super_admin INTEGER DEFAULT 0;

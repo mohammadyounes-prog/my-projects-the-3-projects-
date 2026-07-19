@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-company5-1-28-12-2025 (ID: 104)
+Category: CAT-company5-2-28-12-2025 (ID: 346)
+--------------------------------------------------
+
+Local Question ID: 698
+Bank Question ID: 4010
+FilterData Entry:
+  filters_added: 6
+  details: [(4010, 1, '5', 1), (4010, 2, '2', 1), (4010, 32, 'easy', 1), (4010, 53, 'company5', 1), (4010, 33, '1', 1), (4010, 552, 'Adaptability and Resilience', 3)]
+
+--------------------
+

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher46-9-24-12-2025 (ID: 72)
+Category: CAT-teacher46-9-24-12-2025 (ID: 290)
+--------------------------------------------------
+
+Local Question ID: 650
+Bank Question ID: 3963
+FilterData Entry:
+  filters_added: 6
+  details: [(3963, 1, '5', 1), (3963, 2, '2', 1), (3963, 32, 'easy', 1), (3963, 53, 'teacher46', 1), (3963, 33, '1', 1), (3963, 14, 'Adaptability and Resilience', 3)]
+
+--------------------
+

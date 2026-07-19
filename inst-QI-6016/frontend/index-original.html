@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestAI</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- MathJax for LaTeX rendering -->
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)']],
+          displayMath: [['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script src="config.js"></script>
+    <script>
+        // Define a dynamic getter for backendBaseUrl to ensure it always uses the latest value from window.BACKEND_BASE_URL
+        Object.defineProperty(window, 'backendBaseUrl', {
+            get: function() {
+                return window.BACKEND_BASE_URL || window.location.origin;
+            }
+        });
+    </script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <style>
+        .app-name-style {
+            color: #CC0000; /* Darker red */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        }
+    </style>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 0.75rem; /* Slightly more rounded corners */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08); /* Subtle shadow */
+        }
+        .page-header-orange {
+            background-color: #ffc107;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+        .hidden-answer { /* NEW STYLE */
+            cursor: pointer;
+            border-bottom: 1px dashed #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        if (!localStorage.getItem('access_token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html"><span class="app-name-style">QuestAI</span></a>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-i18n="nav.generateQuestions" id="generateQuestionsNavLink">Generate Questions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tasks.html" data-i18n="nav.taskHistory">Task History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html" data-i18n="nav.profile">Profile</a>
+                </li>
+                <li class="nav-item" id="resultReportNavItem">
+                    <a class="nav-link" href="result_report.html" data-i18n="nav.resultReport">Result Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="billing.html" data-i18n="nav.bundlesManagement">Bundles Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user_preferences.html" data-i18n="nav.userPreferences">User Preferences</a>
+                </li>
+                <li class="nav-item" id="settingsNavItem">
+                    <a class="nav-link" href="admin_dashboard.html" data-i18n="nav.settings">Settings</a>
+                </li>
+                <li class="nav-item" id="adminNavItem">
+                    <a class="nav-link" href="admin.html" data-i18n="nav.admin">Admin</a>
+                </li>
+                <li class="nav-item" id="takeATestNavItem">
+                    <a class="nav-link" href="tamsQB.html" data-i18n="nav.takeATest">Take a Test</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <select id="langSwitcher" class="form-select form-select-sm" style="width: 70px;">
+                    <option value="en">EN</option>
+                    <option value="ar">AR</option>
+                </select>
+                <span id="currentUserName" class="text-white"></span>
+                <button class="btn btn-outline-light btn-sm" id="logoutButton">Logout</button>
+            </div>
+
+        </div>
+    </nav>
+    <script>
+        (function(){
+            try {
+                var parts = location.pathname.split('/');
+                var page = (parts[parts.length-1] || 'home.html').toLowerCase(); // Default to home.html
+                document.querySelectorAll('.navbar a.nav-link').forEach(function(a){
+                    a.classList.remove('active'); // Remove active from all links first
+                    var href = (a.getAttribute('href')||'').toLowerCase();
+                    if (href && page === href) {
+                        a.classList.add('active');
+                    }
+                });
+            } catch(e) { /* noop */ }
+        })();
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header page-header-orange">
+                        <h2 data-i18n="generate.title"></h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="questionForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="countryInput" class="form-label" data-i18n="generate.country"></label>
+                                        <input type="text" id="countryInput" class="form-select" list="countryList" data-i18n-placeholder="generate.selectDefaultOption" autocomplete="off">
+                                        <datalist id="countryList"></datalist>
+                                        <input type="hidden" id="country" name="country">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="audienceType" class="form-label" data-i18n="generate.audienceType"></label>
+                                        <select id="audienceType" name="audience_type" class="form-select">
+                                            <option value="" data-i18n="generate.selectAudienceType"></option>
+                                            <option value="school" data-i18n="generate.audience.school"></option>
+                                            <option value="university" data-i18n="generate.audience.university"></option>
+                                            <option value="company" data-i18n="generate.audience.company"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="dynamicFields" class="row"></div>
+
+                            <div class="mb-3">
+                                <label for="topicContext" class="form-label" data-i18n="generate.topicContext"></label>
+                                <textarea id="topicContext" name="topic_context" class="form-control" rows="5" data-i18n-placeholder="generate.topicContextPlaceholder"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fileUpload" class="form-label" data-i18n="library.uploadDocument">Upload Document (PDF, DOCX)</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="fileUpload" accept=".pdf,.docx" style="display: none;">
+                                    <button class="btn btn-outline-secondary" type="button" id="uploadButton" data-i18n="library.chooseFile">Choose File</button>
+                                    <button class="btn btn-outline-primary" type="button" id="browseLibraryButton" data-i18n="library.browseButton">Browse Library</button>
+                                    <span id="uploadSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display: none;"></span>
+                                    <span id="fileNameDisplay" class="form-control-plaintext ms-2" data-i18n="library.noFileChosen">No file chosen</span>
+                                    <button class="btn btn-outline-danger" type="button" id="clearFileButton" style="display: none;" data-i18n="library.clear">Clear</button>
+                                </div>
+                                <div class="progress mt-2" style="height: 20px; display: none;" id="uploadProgressBarContainer">
+                                    <div class="progress-bar" role="progressbar" id="uploadProgressBar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small id="uploadStatusMessage" class="form-text text-muted mt-1" style="display: none;"></small>
+                                <input type="hidden" id="uploadedFileId" name="uploaded_file_id">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="questionType" class="form-label" data-i18n="generate.questionType"></label>
+                                        <select id="questionType" name="question_type" class="form-select" required>
+                                            <option value="" data-i18n="generate.selectQuestionType"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="difficultyLevel" class="form-label" data-i18n="generate.difficultyLevel"></label>
+                                        <select id="difficultyLevel" name="difficulty_level" class="form-select" required>
+                                            <option value="" data-i18n="generate.selectDifficulty"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="learningOutcome" class="form-label" data-i18n="generate.learningOutcome"></label>
+                                        <select id="learningOutcome" name="learning_outcome" class="form-select" required>
+                                            <option value="" data-i18n="generate.selectLearningOutcome"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="cognitiveLevel" class="form-label" data-i18n="generate.cognitiveLevel"></label>
+                                        <select id="cognitiveLevel" name="cognitive_level" class="form-select" required>
+                                            <option value="" data-i18n="generate.selectCognitiveLevel"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="dynamicQuestionProperties" class="row"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="numQuestions" class="form-label" data-i18n="generate.numQuestions"></label>
+                                        <input type="number" id="numQuestions" name="num_questions" class="form-control" min="1" value="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="model" class="form-label" data-i18n="generate.aiModel"></label>
+                                        <select id="model" name="model_api_name" class="form-select">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="hideAnswersCheckbox">
+                                <label class="form-check-label" for="hideAnswersCheckbox">Hide answers for exam</label>
+                            </div>
+                            
+                            <div class="mb-3" id="similarityThresholdGroup" style="display: none;">
+                                <label for="similarityThreshold" class="form-label" data-i18n="generate.similarityThreshold"></label>
+                                <input type="number" id="similarityThreshold" name="similarity_threshold" class="form-control" min="0" max="100" value="80">
+                            </div>
+
+                            <button type="submit" id="generateButton" class="btn btn-primary" data-i18n="generate.submitButton"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="card">
+            <div class="card-header page-header-orange">
+                <h2 data-i18n="search.title"></h2>
+            </div>
+            <div class="card-body">
+                <style>.filter-toolbar{background:#f6f7f9;border:1px solid #e5e7eb;border-radius:12px;padding:12px}.filter-chip{display:inline-flex;align-items:center;gap:6px;background:#eef2ff;color:#3730a3;border-radius:999px;padding:4px 10px;margin:4px 6px 0 0;font-size:12px}.filter-chip button{border:none;background:transparent;color:#3730a3;cursor:pointer;padding:0}</style>
+                <div class="filter-toolbar mb-2">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-12 col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11 6a5 5 0 1 1-1.001-2.997A5 5 0 0 1 11 6m-1.618 4.032a6 6 0 1 1 1.06-1.06l3.858 3.858a.75.75 0 1 1-1.06 1.06z"/></svg></span>
+                                <input type="text" class="form-control" data-i18n-placeholder="search.placeholder" id="searchQuery" list="suggestionsList">
+                                <datalist id="suggestionsList"></datalist>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label class="form-label" data-i18n="search.statusFilter"></label>
+                            <select id="statusFilter" class="form-select">
+                                <option value="" data-i18n="search.status.all"></option>
+                                <option value="pending" data-i18n="search.status.pending"></option>
+                                <option value="approved" data-i18n="search.status.approved"></option>
+                                <option value="rejected" data-i18n="search.status.rejected"></option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label class="form-label" data-i18n="search.dateFrom"></label>
+                            <input type="date" class="form-control" id="date_from">
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <label class="form-label" data-i18n="search.dateTo"></label>
+                            <input type="date" class="form-control" id="date_to">
+                        </div>
+                        <div class="col-12 col-md-2 d-flex gap-2">
+                            <button class="btn btn-primary flex-grow-1" type="button" id="searchButton" data-i18n="search.search"></button>
+                            <button class="btn btn-secondary" id="resetFiltersBtn" type="button" data-i18n="search.reset"></button>
+                        </div>
+                        <div class="col-12 col-md-4"> <!-- New input for Task ID -->
+                            <div class="input-group">
+                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16"><path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13A1.5 1.5 0 0 0 16 12.5v-9A1.5 1.5 0 0 0 14.5 2z"/><path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.96-.842.842a.25.25 0 0 0 0 .354l.842.842a.25.25 0 0 0 .354 0l.842-.842a.25.25 0 0 0 0-.354l-.842-.842a.25.25 0 0 0-.354 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.96-.842.842a.25.25 0 0 0 0 .354l.842.842a.25.25 0 0 0 .354 0l.842-.842a.25.25 0 0 0 0-.354l-.842-.842a.25.25 0 0 0-.354 0z"/></svg></span>
+                                <input type="text" class="form-control" data-i18n-placeholder="search.task_id_placeholder" id="taskSearchInput" placeholder="Search by Task ID">
+                            </div>
+                        </div>
+                        <!-- Admin-only action user filters -->
+                        <div class="col-6 col-md-3" id="approved_by_wrap" style="display:none;">
+                            <label class="form-label" data-i18n="search.approvedBy"></label>
+                            <select class="form-select" id="approved_by"></select>
+                        </div>
+                        <div class="col-6 col-md-3" id="rejected_by_wrap" style="display:none;">
+                            <label class="form-label" data-i18n="search.rejectedBy"></label>
+                            <select class="form-select" id="rejected_by"></select>
+                        </div>
+                        <div class="col-6 col-md-3" id="edited_by_wrap" style="display:none;">
+                            <label class="form-label" data-i18n="search.editedBy"></label>
+                            <select class="form-select" id="edited_by"></select>
+                        </div>
+                        <div class="col-6 col-md-3" id="deleted_by_wrap" style="display:none;">
+                            <label class="form-label" data-i18n="search.deletedBy"></label>
+                            <select class="form-select" id="deleted_by"></select>
+                        </div>
+                    </div>
+                    <div id="activeFilters" class="mt-2"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="userFilter" class="form-label" data-i18n="search.generatedBy"></label>
+                    <select id="userFilter" class="form-select">
+                        <option value="" data-i18n="search.allUsers"></option>
+                        <!-- User options will be loaded here -->
+                    </select>
+                </div>
+                <button class="btn btn-secondary" type="button" id="clearFiltersButton" data-i18n="search.clearFilters"></button>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2><span data-i18n="search.questionsList"></span> <span id="questionsCount" class="badge bg-secondary"></span></h2>
+                <button class="btn btn-success btn-sm me-2" id="exportCsvButton" data-i18n="search.exportCsv"></button>
+                <button class="btn btn-info btn-sm" id="printButton" data-i18n="search.print"></button>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center">
+                        <label for="questionsPerPage" class="form-label me-2 mb-0" data-i18n="admin.users.rowsPerPage"></label>
+                        <select id="questionsPerPage" class="form-select form-select-sm w-auto me-2">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary" id="selectAllQuestionsBtn" data-i18n="admin.users.selectAll"></button>
+                            <button type="button" class="btn btn-outline-secondary" id="deselectAllQuestionsBtn" data-i18n="admin.users.deselectAll"></button>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" id="deleteSelectedQuestionsBtn" disabled data-i18n="admin.users.deleteSelected"></button>
+                </div>
+                <nav aria-label="Page navigation" class="mt-3">
+                    <ul class="pagination justify-content-center" id="paginationControls">
+                        <!-- Pagination buttons will be inserted here by JavaScript -->
+                    </ul>
+                </nav>
+                <div id="questionsList">
+                    <p data-i18n="search.noResults"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Question Modal -->
+    <div class="modal fade" id="editQuestionModal" tabindex="-1" aria-labelledby="editQuestionModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestionModalLabel" data-i18n="modal.editTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editQuestionForm">
+                        <input type="hidden" id="editQuestionId" name="question_id">
+                        <div class="mb-3">
+                            <label for="editQuestionText" class="form-label" data-i18n="modal.questionText"></label>
+                            <textarea class="form-control" id="editQuestionText" name="question_text" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editChoice1" class="form-label" data-i18n="modal.choice1"></label>
+                                <input type="text" class="form-control" id="editChoice1" name="choice_1">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editChoice2" class="form-label" data-i18n="modal.choice2"></label>
+                                <input type="text" class="form-control" id="editChoice2" name="choice_2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editChoice3" class="form-label" data-i18n="modal.choice3"></label>
+                                <input type="text" class="form-control" id="editChoice3" name="choice_3">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editChoice4" class="form-label" data-i18n="modal.choice4"></label>
+                                <input type="text" class="form-control" id="editChoice4" name="choice_4">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCorrectOption" class="form-label" data-i18n="modal.correctOption"></label>
+                            <select class="form-select" id="editCorrectOption" name="correct_option"></select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="editDifficultyLevel" class="form-label" data-i18n="modal.difficultyLevel"></label>
+                                <select class="form-select" id="editDifficultyLevel" name="difficulty_level"></select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="editCognitiveLevel" class="form-label" data-i18n="modal.cognitiveLevel"></label>
+                                <select class="form-select" id="editCognitiveLevel" name="cognitive_level"></select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="editLearningOutcome" class="form-label" data-i18n="modal.learningOutcome"></label>
+                                <select class="form-select" id="editLearningOutcome" name="learning_outcome"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editQuestionType" class="form-label" data-i18n="generate.questionType"></label>
+                                <select class="form-select" id="editQuestionType" name="question_type"></select>
+                            </div>
+                        </div>
+                        <div id="editSchoolFields">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editSchoolType" class="form-label">School Type</label>
+                                    <select class="form-select" id="editSchoolType" name="school_type"></select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="editSubject" class="form-label">Subject</label>
+                                    <select class="form-select" id="editSubject" name="subject"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editYear" class="form-label">Year</label>
+                                    <select class="form-select" id="editYear" name="year"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="editUniversityFields">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editMajor" class="form-label">Major</label>
+                                    <select class="form-select" id="editMajor" name="major"></select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="editCourse" class="form-label">Course</label>
+                                    <select class="form-select" id="editCourse" name="course"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editMaterial" class="form-label">Material</label>
+                                    <select class="form-select" id="editMaterial" name="material"></select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="editSemester" class="form-label">Semester</label>
+                                    <select class="form-select" id="editSemester" name="semester"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="editCompanyFields">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="editCompany" class="form-label">Company</label>
+                                    <select class="form-select" id="editCompany" name="company"></select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="editDepartment" class="form-label">Department</label>
+                                    <select class="form-select" id="editDepartment" name="department"></select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="editJobRole" class="form-label">Job Role</label>
+                                    <select class="form-select" id="editJobRole" name="job_role"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n="modal.saveChanges"></button>
+                    </form>
+                    <div id="edit-error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Options Modal -->
+    <div class="modal fade" id="printOptionsModal" tabindex="-1" aria-labelledby="printOptionsModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="printOptionsModalLabel" data-i18n="print.optionsTitle">Print Options</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="printOptionsForm">
+                        <div class="mb-3">
+                            <label for="examName" class="form-label" data-i18n="print.examName">Exam Name</label>
+                            <input type="text" class="form-control" id="examName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="examId" class="form-label" data-i18n="print.examId">Exam ID (Optional)</label>
+                            <input type="text" class="form-control" id="examId">
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n="print.printButton">Print</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solution Modal -->
+    <div class="modal fade" id="solutionModal" tabindex="-1" aria-labelledby="solutionModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="solutionModalLabel">Solution</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="solutionModalBody">
+                    <!-- Solution will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="errorModalBody">
+                    <!-- Error message will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); display: flex; justify-content: center; align-items: center; z-index: 10000;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Library Browser Modal -->
+    <div class="modal fade" id="libraryModal" tabindex="-1" aria-labelledby="libraryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="libraryModalLabel" data-i18n="library.modalTitle">Server Library (conlib)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb" id="libraryBreadcrumb">
+                            <li class="breadcrumb-item"><a href="#" id="libraryHomeLink" data-i18n="library.home">Home</a></li>
+                        </ol>
+                    </nav>
+                    <div class="list-group" id="libraryContent" style="max-height: 400px; overflow-y: auto;">
+                        <!-- Content will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showToast(type, message) {
+            const toastContainer = document.getElementById('toastContainer') || (() => {
+                const div = document.createElement('div');
+                div.id = 'toastContainer';
+                Object.assign(div.style, {
+                    position: 'fixed',
+                    top: '20px',
+                    right: '20px',
+                    zIndex: '1061', // Above modals
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px'
+                });
+                document.body.appendChild(div);
+                return div;
+            })();
+
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type} alert-dismissible fade show`;
+            toast.role = 'alert';
+            toast.innerHTML = `
+                <div>${message}</div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            toastContainer.appendChild(toast);
+
+            // Automatically remove toast after 5 seconds
+            setTimeout(() => {
+                if (toast) {
+                    const bsAlert = bootstrap.Alert.getInstance(toast);
+                    if (bsAlert) {
+                        bsAlert.close();
+                    } else {
+                        toast.remove();
+                    }
+                }
+            }, 5000);
+        }
+
+        const fieldMetadata = {
+            school_type: { endpoint: '/lookup/school_types' },
+            subject: { endpoint: '/lookup/school_subjects' },
+            year: { endpoint: '/lookup/school_years' },
+            major: { endpoint: '/lookup/university_majors' },
+            course: { endpoint: '/lookup/university_courses' },
+            material: { endpoint: '/lookup/university_materials' },
+            semester: { endpoint: '/lookup/university_semesters' },
+            company: { endpoint: '/lookup/companies' },
+            department: { endpoint: '/lookup/departments' },
+            job_role: { endpoint: '/lookup/job_roles' },
+        };
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('DEBUG: DOMContentLoaded fired. SCRIPT_VERSION: 20');
+            const i18n = window.i18n; // Ensure i18n object is accessible
+            let selectedQuestionIds = new Set(); // Global array to store selected question IDs
+            
+            let currentUserProfile = null; // Declare here to be accessible throughout DOMContentLoaded scope
+            let isAdmin = false; // Initialize isAdmin
+            let editQuestionModalInstance; // Declare editQuestionModalInstance in a broader scope
+
+            const audienceTypeSelect = document.getElementById('audienceType');
+
+            // --- LOCKDOWN: Function to restrict audience dropdown ---
+            function restrictAudienceDropdown() {
+                console.log('DEBUG: restrictAudienceDropdown called');
+                if (!currentUserProfile || !audienceTypeSelect) {
+                    console.log('DEBUG: restrictAudienceDropdown skipped - profile or select missing');
+                    return;
+                }
+                
+                const profileAudience = currentUserProfile.audience_type ? currentUserProfile.audience_type.toLowerCase() : "";
+                if (!profileAudience) {
+                    console.log('DEBUG: restrictAudienceDropdown skipped - no audience in profile');
+                    return;
+                }
+
+                if (!isAdmin) {
+                    console.log('DEBUG: restrictAudienceDropdown - PERFORMING LOCKDOWN for:', profileAudience);
+                    audienceTypeSelect.value = profileAudience;
+                    audienceTypeSelect.disabled = true;
+
+                    // Permanently remove all other options from the DOM
+                    let removed = [];
+                    Array.from(audienceTypeSelect.options).forEach(option => {
+                        const val = option.value.toLowerCase();
+                        if (val !== profileAudience && val !== "") {
+                            removed.push(val);
+                            option.remove();
+                        }
+                    });
+                    console.log('DEBUG: restrictAudienceDropdown - Removed:', removed);
+                    // Force selection
+                    audienceTypeSelect.value = profileAudience;
+                } else {
+                    console.log('DEBUG: restrictAudienceDropdown - Admin user. Setting default.');
+                    if (!audienceTypeSelect.value) {
+                        audienceTypeSelect.value = profileAudience;
+                    }
+                }
+            }
+
+            // Listen for translation events to re-apply restriction if i18n re-rendered the options
+            document.addEventListener('i18n:applied', () => {
+                console.log('DEBUG: i18n:applied event caught');
+                restrictAudienceDropdown();
+            });
+
+            const modelSelect = document.getElementById('model');
+
+            const searchQueryInput = document.getElementById('searchQuery');
+            const statusFilterSelect = document.getElementById('statusFilter');
+            const userFilterSelect = document.getElementById('userFilter');
+            const questionsDisplay = document.getElementById('questionsList');
+
+            // NEW: Event listener for individual question checkbox changes
+            questionsDisplay.addEventListener('change', function(event) {
+                if (event.target.classList.contains('question-checkbox')) {
+                    updateSelectedQuestionState();
+                }
+            });
+            const questionsPerPageSelect = document.getElementById('questionsPerPage');
+            const taskSearchInput = document.getElementById('taskSearchInput');
+            const deleteSelectedBtn = document.getElementById('deleteSelectedQuestionsBtn');
+            const selectAllBtn = document.getElementById('selectAllQuestionsBtn');
+            const deselectAllBtn = document.getElementById('deselectAllQuestionsBtn');
+            const exportCsvButton = document.getElementById('exportCsvButton');
+            const questionForm = document.getElementById('questionForm');
+            const uploadedFileIdInput = document.getElementById('uploadedFileId');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            const clearFileButton = document.getElementById('clearFileButton');
+            const fileUploadInput = document.getElementById('fileUpload');
+            const uploadButton = document.getElementById('uploadButton');
+            const browseLibraryButton = document.getElementById('browseLibraryButton');
+            const libraryModalElement = document.getElementById('libraryModal');
+            const libraryModal = libraryModalElement ? new bootstrap.Modal(libraryModalElement) : null;
+            const libraryContent = document.getElementById('libraryContent');
+            const libraryBreadcrumb = document.getElementById('libraryBreadcrumb');
+
+            async function browseLibrary(relPath) {
+                const backendBaseUrl = (typeof window !== 'undefined' && window.BACKEND_BASE_URL) ? window.BACKEND_BASE_URL : 'http://127.0.0.1:8000';
+                if (!libraryContent) return;
+                libraryContent.innerHTML = `<div class="text-center p-3"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${i18n.t('library.loading')}</div>`;
+                
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/conlib/list?rel_path=${encodeURIComponent(relPath)}`);
+                    if (!response.ok) throw new Error(i18n.t('library.errorFetching'));
+                    const items = await response.json();
+                    
+                    libraryContent.innerHTML = '';
+                    
+                    // Update Breadcrumb
+                    if (libraryBreadcrumb) {
+                        libraryBreadcrumb.innerHTML = `<li class="breadcrumb-item"><a href="#" id="lib-home">${i18n.t('library.home')}</a></li>`;
+                        document.getElementById('lib-home').addEventListener('click', (e) => { e.preventDefault(); browseLibrary(''); });
+                        
+                        if (relPath) {
+                            const parts = relPath.split('/').filter(p => p);
+                            let currentAcc = '';
+                            parts.forEach((part, index) => {
+                                currentAcc += (currentAcc ? '/' : '') + part;
+                                const li = document.createElement('li');
+                                li.className = `breadcrumb-item ${index === parts.length - 1 ? 'active' : ''}`;
+                                if (index === parts.length - 1) {
+                                    li.textContent = part;
+                                } else {
+                                    const a = document.createElement('a');
+                                    a.href = '#';
+                                    a.textContent = part;
+                                    const targetPath = currentAcc;
+                                    a.addEventListener('click', (e) => { e.preventDefault(); browseLibrary(targetPath); });
+                                    li.appendChild(a);
+                                }
+                                libraryBreadcrumb.appendChild(li);
+                            });
+                        }
+                    }
+
+                    if (items.length === 0) {
+                        libraryContent.innerHTML = `<div class="list-group-item">${i18n.t('library.emptyDirectory')}</div>`;
+                    } else {
+                        items.forEach(item => {
+                            const a = document.createElement('a');
+                            a.href = '#';
+                            a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+                            const icon = item.is_dir ? '📁' : '📄';
+                            a.innerHTML = `
+                                <span>
+                                    <span class="me-2">${icon}</span>
+                                    ${item.name}
+                                </span>
+                            `;
+                            a.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                if (item.is_dir) {
+                                    browseLibrary(item.rel_path);
+                                } else {
+                                    selectLibraryFile(item.rel_path);
+                                }
+                            });
+                            libraryContent.appendChild(a);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error browsing library:', error);
+                    if (libraryContent) libraryContent.innerHTML = `<div class="list-group-item text-danger">${error.message}</div>`;
+                }
+            }
+
+            async function selectLibraryFile(relPath) {
+                const backendBaseUrl = (typeof window !== 'undefined' && window.BACKEND_BASE_URL) ? window.BACKEND_BASE_URL : 'http://127.0.0.1:8000';
+                const uploadSpinner = document.getElementById('uploadSpinner');
+                if (uploadSpinner) uploadSpinner.style.display = 'inline-block';
+                if (libraryModal) libraryModal.hide();
+                
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/conlib/select`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ rel_path: relPath })
+                    });
+                    
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.detail || i18n.t('common.error'));
+                    
+                    if (uploadedFileIdInput) uploadedFileIdInput.value = data.file_id;
+                    if (fileNameDisplay) fileNameDisplay.textContent = data.file_name;
+                    if (clearFileButton) clearFileButton.style.display = 'inline-block';
+                    showToast('success', i18n.t('library.selectSuccess'));
+                } catch (error) {
+                    console.error('Error selecting library file:', error);
+                    alert(`${i18n.t('common.error')}: ${error.message}`);
+                } finally {
+                    if (uploadSpinner) uploadSpinner.style.display = 'none';
+                }
+            }
+
+            if (browseLibraryButton) {
+                browseLibraryButton.addEventListener('click', () => {
+                    if (libraryModal) {
+                        libraryModal.show();
+                        browseLibrary('');
+                    }
+                });
+            }
+            const searchButton = document.getElementById('searchButton');
+            const clearFiltersButton = document.getElementById('clearFiltersButton');
+            const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+            const paginationControls = document.getElementById('paginationControls');
+
+            let currentPage = 1; // Initialize current page for pagination
+            let questions = []; // Initialize questions array
+            let totalQuestions = 0; // Initialize totalQuestions
+
+            // Initialize date input fields with current date
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            document.getElementById('date_from').value = formattedDate;
+            document.getElementById('date_to').value = formattedDate;
+
+            // Add change listeners for date filters
+            document.getElementById('date_from').addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            document.getElementById('date_to').addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            
+            // --- Automatically check for finished exams and reveal answers ---
+            async function checkAndRevealAnswers() {
+                if (!currentUserProfile) {
+                    console.warn("User profile not available, skipping exam reveal check.");
+                    return;
+                }
+                const backendBaseUrl = (typeof window !== 'undefined' && window.BACKEND_BASE_URL) ? window.BACKEND_BASE_URL : 'http://127.0.0.1:8000';
+                try {
+                    console.log('Checking for finished exams to reveal answers...');
+                    const response = await fetchWithAuth(`${backendBaseUrl}/tamsqb/reveal-answers-for-finished-exams`, {
+                        method: 'POST',
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        console.error('Failed to check for finished exams:', data.detail || data.message);
+                    } else {
+                        console.log('Finished exams check complete:', data.message);
+                        if (data.total_questions_updated > 0) {
+                            console.log(`Revealed answers for ${data.total_questions_updated} questions. Refreshing UI.`);
+                            fetchQuestions(); // Refresh displayed questions
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking for finished exams:', error);
+                }
+            }
+            
+            // --- Common Elements ---
+
+            // Function to update the selectedQuestionIds set and the delete button state
+            function updateSelectedQuestionState() {
+                const checkboxes = document.querySelectorAll('.question-checkbox');
+                selectedQuestionIds.clear(); // Clear existing selections
+                checkboxes.forEach(cb => {
+                    if (cb.checked) {
+                        selectedQuestionIds.add(parseInt(cb.dataset.id));
+                    }
+                });
+                deleteSelectedBtn.disabled = selectedQuestionIds.size === 0;
+                console.log("Selected Question IDs:", Array.from(selectedQuestionIds)); // Debugging
+            }
+
+            async function exportToCsvWithSolutions(questionsToExport) {
+                if (questionsToExport.length === 0) {
+                    alert(i18n.t('alert.noQuestionsToExport'));
+                    return;
+                }
+
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.display = 'flex';
+
+                try {
+                    const questionsWithSolutions = await Promise.all(questionsToExport.map(async (q) => {
+                        const newQ = { ...q };
+                        try {
+                            const response = await fetchWithAuth(`${backendBaseUrl}/questions/${q.question_id}/solution`, { method: 'POST' });
+                            if (response.ok) {
+                                const data = await response.json();
+                                newQ.solution = data.solution;
+                            } else {
+                                newQ.solution = 'Error fetching solution';
+                            }
+                        } catch (e) {
+                            console.error(`Error fetching solution for question ${q.question_id}`, e);
+                            newQ.solution = 'Error fetching solution';
+                        }
+                        return newQ;
+                    }));
+
+                    exportToCsv(questionsWithSolutions);
+                } catch (error) {
+                    console.error('An error occurred while preparing CSV with solutions:', error);
+                    alert('Failed to prepare CSV with solutions.');
+                } finally {
+                    loadingOverlay.style.display = 'none';
+                }
+            }
+
+            function exportToCsv(questions) {
+                if (questions.length === 0) {
+                    alert(i18n.t('alert.noQuestionsToExport'));
+                    return;
+                }
+                const headers = Object.keys(questions[0]);
+                const csvRows = [];
+                csvRows.push(headers.join(','));
+                for (const question of questions) {
+                    const values = headers.map(header => {
+                        const escaped = ('' + question[header]).replace(/"/g, '""');
+                        return `"${escaped}"`;
+                    });
+                    csvRows.push(values.join(','));
+                }
+                const csvString = csvRows.join('\n');
+                const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.setAttribute('download', 'questions.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            async function fetchAndPopulateDatalist(url, datalistElement, hiddenInputElement, textInputElement) {
+                if (!datalistElement) return;
+
+                try {
+                    const currentLang = localStorage.getItem('lang') || 'en';
+                    let finalUrl = url + (url.includes('?') ? '&' : '?') + `lang=${currentLang}`;
+
+                    const response = await fetchWithAuth(finalUrl);
+                    if (!response.ok) throw new Error(await response.text());
+                    
+                    const data = await response.json();
+                    datalistElement.innerHTML = '';
+
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        if (typeof item === 'string') {
+                            option.value = item;
+                        } else {
+                            option.value = (currentLang === 'ar' && item.name_ar) ? item.name_ar : (item.name || "");
+                            // Store the actual value (ID or API name) in a data attribute
+                            option.dataset.value = item.api_name || item.name || "";
+                        }
+                        datalistElement.appendChild(option);
+                    });
+
+                    // Update hidden input when text input matches an option
+                    textInputElement.addEventListener('input', function() {
+                        const val = this.value;
+                        const opts = datalistElement.childNodes;
+                        let found = false;
+                        for (let i = 0; i < opts.length; i++) {
+                            if (opts[i].value === val) {
+                                hiddenInputElement.value = opts[i].dataset.value || opts[i].value;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) hiddenInputElement.value = ''; // Or keep it if you want free text
+                    });
+
+                } catch (error) {
+                    console.error(`fetchAndPopulateDatalist Error:`, error);
+                }
+            }
+
+            async function fetchAndPopulateDropdown(url, selectElement) {
+                if (!selectElement) {
+                    console.error(`fetchAndPopulateDropdown: selectElement is null or undefined for URL: ${url}`);
+                    return;
+                }
+
+                try {
+                    const currentLang = localStorage.getItem('lang') || 'en';
+                    
+                    // Robust URL construction
+                    let finalUrl = url;
+                    if (finalUrl.includes('?')) {
+                        finalUrl += `&lang=${currentLang}`;
+                    } else {
+                        finalUrl += `?lang=${currentLang}`;
+                    }
+
+                    console.log(`DEBUG: fetchAndPopulateDropdown - Fetching from: ${finalUrl}`);
+
+                    const response = await fetchWithAuth(finalUrl);
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error(`ERROR: Dropdown (${selectElement.id}) fetch failed: ${response.status} - ${errorText}`);
+                        throw new Error(errorText || i18n.t('common.failedToFetchData'));
+                    }
+                    
+                    const data = await response.json();
+                    console.log(`DEBUG: Dropdown (${selectElement.id}) received data:`, data);
+
+                    const currentValue = selectElement.value;
+                    selectElement.innerHTML = `<option value="">${i18n.t('generate.selectDefaultOption')}</option>`;
+
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        if (typeof item === 'string') {
+                            option.value = item;
+                            option.textContent = item;
+                        } else {
+                            option.value = item.api_name || item.name || "";
+                            option.textContent = (currentLang === 'ar' && item.name_ar) ? item.name_ar : (item.name || "");
+                            if (item.name_ar) option.dataset.nameAr = item.name_ar;
+                        }
+                        selectElement.appendChild(option);
+                    });
+
+                    if (currentValue) selectElement.value = currentValue;
+                    console.log(`DEBUG: Dropdown (${selectElement.id}) populated.`);
+
+                } catch (error) {
+                    console.error(`fetchAndPopulateDropdown Error (${selectElement.id}):`, error);
+                    selectElement.innerHTML = `<option value="">${i18n.t('common.errorLoading')}</option>`;
+                }
+            }
+
+            // --- Generate Questions Functions ---
+
+            /* renderGeneratedQuestions function removed */
+
+            async function populateQuestionSpecificProperties() {
+                const dynamicQuestionProperties = document.getElementById('dynamicQuestionProperties');
+                dynamicQuestionProperties.innerHTML = ''; // Clear existing content
+                console.log('Starting to populate dynamic properties.');
+
+                try {
+                    // Fetch property types for the 'question' audience
+                    const response = await fetchWithAuth(`${backendBaseUrl}/lookup/property_types/question`);
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+                        throw new Error(errorText || i18n.t('common.failedToFetchData'));
+                    }
+                    const questionPropertyTypes = await response.json();
+                    console.log('Fetched question property types:', questionPropertyTypes);
+
+
+                    const questionTypeProp = questionPropertyTypes.find(prop => prop.api_name === 'question_types');
+                    const otherProps = questionPropertyTypes.filter(prop => prop.api_name !== 'question_types');
+
+                    // Render other properties first
+                    for (const prop of otherProps) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-6'; // Use col-md-6 for better layout
+
+                        const div = document.createElement('div');
+                        div.className = 'mb-3';
+
+                        const label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.htmlFor = prop.api_name;
+                        label.textContent = `${prop.name}:`; // Uses prop.name from backend
+                        console.log(`Creating label for ${prop.api_name} with text "${prop.name}"`);
+
+                        const select = document.createElement('select');
+                        select.id = prop.api_name;
+                        select.name = prop.api_name; // Use api_name as name for form submission
+                        select.className = 'form-select';
+
+                        div.appendChild(label);
+                        div.appendChild(select);
+                        col.appendChild(div);
+                        dynamicQuestionProperties.appendChild(col);
+
+                        // Populate the dropdown with values
+                        await fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/properties/${prop.api_name}`, select);
+                    }
+
+                    // Render Question Type last
+                    if (questionTypeProp) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-6'; // Use col-md-6 for better layout
+
+                        const div = document.createElement('div');
+                        div.className = 'mb-3';
+
+                        const label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.htmlFor = questionTypeProp.api_name;
+                        label.textContent = `${prop.name}:`; // Uses prop.name from backend
+                        console.log(`Creating label for ${questionTypeProp.api_name} with text "${questionTypeProp.name}"`);
+
+                        const select = document.createElement('select');
+                        select.id = questionTypeProp.api_name;
+                        select.name = questionTypeProp.api_name; // Use api_name as name for form submission
+                        select.className = 'form-select';
+
+                        div.appendChild(label);
+                        div.appendChild(select);
+                        col.appendChild(div);
+                        dynamicQuestionProperties.appendChild(col);
+
+                        // Populate the dropdown with values
+                        await fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/properties/${questionTypeProp.api_name}`, select);
+                    }
+                } catch (error) {
+                    console.error('Error populating question specific properties:', error);
+                    dynamicQuestionProperties.innerHTML = `<div class="alert alert-danger">${i18n.t('common.errorLoadingProperties')}</div>`; // Use i18n
+                }
+            }
+
+            async function updateAudienceFields() {
+                const audienceType = audienceTypeSelect.value;
+                dynamicFields.innerHTML = '';
+                const questionTypeSelect = document.getElementById('questionType');
+                questionTypeSelect.innerHTML = `<option value="">${i18n.t('generate.selectQuestionType')}</option>`; // Use i18n for default "Select Question Type" option
+                console.log(`Audience type changed to ${audienceType}`);
+
+
+                if (!audienceType) return;
+
+
+                try {
+                    // Fetch and populate audience-specific fields
+                    const propertiesUrl = `${backendBaseUrl}/lookup/property_types/${audienceType}?lang=${localStorage.getItem('lang') || 'en'}`;
+                    console.log(`Fetching properties from ${propertiesUrl}`);
+                    const propertiesResponse = await fetchWithAuth(propertiesUrl);
+                    if (!propertiesResponse.ok) {
+                        const errorText = await propertiesResponse.text();
+                        console.error(`HTTP error! Status: ${propertiesResponse.status}, Response: ${errorText}`);
+                        throw new Error(errorText || i18n.t('common.failedToFetchData'));
+                    }
+                    const properties = await propertiesResponse.json();
+                    console.log('Fetched audience properties:', properties);
+
+
+                    for (const prop of properties) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4 mb-3';
+                        const label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.htmlFor = prop.api_name;
+                        label.textContent = `${prop.name}:`;
+                        console.log(`Creating label for ${prop.api_name} with text "${prop.name}"`);
+
+                        if (prop.is_multilingual) {
+                            // Create two columns for English and Arabic inputs
+                            const col_en = document.createElement('div');
+                            col_en.className = 'col-md-6';
+                            const label_en = document.createElement('label');
+                            label_en.className = 'form-label';
+                            label_en.htmlFor = `${prop.api_name}_en`;
+                            label_en.textContent = `${prop.name} (English):`;
+                            const select_en = document.createElement('select');
+                            select_en.id = `${prop.api_name}_en`;
+                            select_en.name = `${prop.api_name}_en`;
+                            select_en.className = 'form-select';
+                            col_en.appendChild(label_en);
+                            col_en.appendChild(select_en);
+                            dynamicFields.appendChild(col_en);
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/properties/${prop.api_name}?lang=en`, select_en);
+
+                            const col_ar = document.createElement('div');
+                            col_ar.className = 'col-md-6';
+                            const label_ar = document.createElement('label');
+                            label_ar.className = 'form-label';
+                            label_ar.htmlFor = `${prop.api_name}_ar`;
+                            label_ar.textContent = `${prop.name} (Arabic):`;
+                            const select_ar = document.createElement('select');
+                            select_ar.id = `${prop.api_name}_ar`;
+                            select_ar.name = `${prop.api_name}_ar`;
+                            select_ar.className = 'form-select';
+                            col_ar.appendChild(label_ar);
+                            col_ar.appendChild(select_ar);
+                            dynamicFields.appendChild(col_ar);
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/properties/${prop.api_name}?lang=ar`, select_ar);
+
+                        } else {
+                            // Standard single select element
+                            const select = document.createElement('select');
+                            select.id = prop.api_name;
+                            let name = prop.api_name;
+                            if (name === 'school_subjects') name = 'subject';
+                            else if (name === 'school_years') name = 'year';
+                            else if (name === 'school_types') name = 'school_type';
+                            else if (name === 'university_majors') name = 'major';
+                            else if (name === 'university_courses') name = 'course';
+                            else if (name === 'university_materials') name = 'material';
+                            else if (name === 'university_semesters') name = 'semester';
+                            else if (name === 'companies') name = 'company';
+                            else if (name === 'departments') name = 'department';
+                            else if (name === 'job_roles') name = 'job_role';
+                            else if (name.endsWith('s')) name = name.slice(0, -1);
+                            select.name = name;
+                            select.className = 'form-select';
+                            col.appendChild(label);
+                            col.appendChild(select);
+                            dynamicFields.appendChild(col);
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/properties/${prop.api_name}`, select);
+                        }
+                    }
+
+            let modelPage = 0;
+            const modelLimit = 50; // Load 50 models at a time
+            let hasMoreModels = true;
+            let modelLoading = false; // Flag to prevent multiple concurrent loads
+
+            async function populateModels(append = false) {
+                if (modelLoading || !hasMoreModels) return;
+                modelLoading = true;
+
+                if (!append) {
+                    modelSelect.innerHTML = ''; // Clear previous options if not appending
+                    modelPage = 0; // Reset page for fresh load
+                    hasMoreModels = true; // Assume there are more for a fresh load
+                }
+
+                try {
+                    const skip = modelPage * modelLimit;
+                    const response = await fetchWithAuth(`${backendBaseUrl}/models?skip=${skip}&limit=${modelLimit}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const data = await response.json();
+                    const models = data.models;
+                    const total_count = data.total_count;
+
+                    models.forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model.model_api_name;
+                        option.textContent = model.model_name;
+                        modelSelect.appendChild(option);
+                    });
+
+                    modelPage++;
+                    if ((modelPage * modelLimit) >= total_count) {
+                        hasMoreModels = false;
+                    }
+
+                } catch (error) {
+                    console.error('Error populating models:', error);
+                } finally {
+                    modelLoading = false;
+                }
+            }
+
+
+
+            // Event listener for scrolling within the modelSelect dropdown
+            // This assumes modelSelect is a <select> element or similar that can scroll
+            // For a standard <select> element, direct scroll events are tricky.
+            // A common pattern is to wrap it in a custom dropdown or a library that supports this.
+            // For simplicity, this example assumes a custom dropdown or a scenario where the parent container scrolls.
+            // If it's a standard <select> with a large number of options, the browser handles its own scrolling and
+            // it's not possible to directly listen to scroll events on its internal options list.
+            // A better UI/UX would be a custom searchable dropdown component.
+            // For a basic <select>, lazy loading typically happens on initial open or search.
+            // For now, let's assume `modelSelect` has a scrollable parent or is itself a custom element.
+            modelSelect.addEventListener('scroll', () => {
+                // Check if scrolled to bottom
+                const { scrollTop, scrollHeight, clientHeight } = modelSelect;
+                if (scrollHeight - scrollTop <= clientHeight + 1 && !modelLoading && hasMoreModels) {
+                    populateModels(true); // Append more models
+                }
+            });
+            // If modelSelect is a standard <select>, the 'scroll' event won't fire on the options list.
+            // You might need to trigger populateModels(true) on other events like 'focus' or 'click'
+            // and implement a "Load More" button or search functionality.
+
+            // To trigger loading on opening a standard <select> (which often just shows a native menu)
+            // this might need a different approach, e.g., on focus or click of a wrapper element.
+            // For demonstration, let's ensure it's called when an event might suggest more data is needed.
+            modelSelect.addEventListener('focus', () => {
+                // When the select gains focus, ensure we have enough models loaded, or load more.
+                // This is a simplistic approach for a native select.
+                if (!modelLoading && hasMoreModels && modelSelect.options.length < modelLimit * modelPage) {
+                    // Only attempt to load more if we haven't loaded enough for the current "page"
+                    // and there are potentially more models to fetch.
+                    populateModels(true);
+                }
+            });
+
+
+            async function performInitialSetup() {
+                console.log("Running initial page setup.");
+                // Removed: await initializeGenerateQuestionDropdowns(); // This function is not defined.
+                try {
+                    console.log('Fetching countries...');
+                    await fetchAndPopulateDatalist(`${backendBaseUrl}/lookup/countries`, document.getElementById('countryList'), document.getElementById('country'), document.getElementById('countryInput'));
+                    console.log('Countries fetched.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate countries datalist:', error);
+                }
+                try {
+                    console.log('Fetching difficulty levels...');
+                    await fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/difficulty_levels`, document.getElementById('difficultyLevel'));
+                    console.log('Difficulty levels fetched.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate difficulty levels dropdown:', error);
+                }
+                try {
+                    console.log('Fetching cognitive levels...');
+                    await fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/cognitive_levels`, document.getElementById('cognitiveLevel'));
+                    console.log('Cognitive levels fetched.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate cognitive levels dropdown:', error);
+                }
+                try {
+                    console.log('Fetching question types...');
+                    await fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/question_types`, document.getElementById('questionType')); // General question types
+                    console.log('Question types fetched.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate question types dropdown:', error);
+                }
+                
+                try {
+                    console.log('Populating users dropdown...');
+                    populateUsersDropdown();
+                    console.log('Users dropdown populated.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate users dropdown:', error);
+                }
+
+                try {
+                    console.log('Populating models...');
+                    await populateModels(); // Ensure models are loaded
+                    console.log('Models populated.');
+                } catch (error) {
+                    console.error('Error in initial setup: Failed to populate models dropdown:', error);
+                }
+
+                // --- LOCKDOWN: Fetch profile and restrict audience ---
+                try {
+                    console.log('DEBUG: performInitialSetup - Fetching user profile for lockdown...');
+                    const profileRes = await fetchWithAuth(`${backendBaseUrl}/users/me`);
+                    if (profileRes.ok) {
+                        currentUserProfile = await profileRes.json();
+                        isAdmin = (currentUserProfile.is_admin === true || currentUserProfile.is_admin === 1 || currentUserProfile.is_admin === "1" || currentUserProfile.is_admin === "true");
+                        console.log('DEBUG: Profile fetched. isAdmin:', isAdmin, 'assigned audience:', currentUserProfile.audience_type);
+
+                        restrictAudienceDropdown();
+                        // Trigger change event to load properties (listeners are already attached)
+                        console.log('DEBUG: performInitialSetup - Triggering audienceType change event');
+                        audienceTypeSelect.dispatchEvent(new Event('change'));
+                        
+                        checkAndRevealAnswers();
+                        editQuestionModalInstance = new bootstrap.Modal(document.getElementById('editQuestionModal'));
+                    }
+                } catch (error) {
+                    console.error('CRITICAL: Failed to fetch profile during lockdown:', error);
+                }
+                // --- END LOCKDOWN ---
+
+                // Initialize date input fields with current date
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+                document.getElementById('date_from').value = '2020-01-01';
+                document.getElementById('date_to').value = formattedDate;
+                
+                // Fetch questions to populate the list initially
+                fetchQuestions();
+
+                // Explicitly hide the loading overlay after initial setup is complete
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'none';
+                }
+            }
+
+            // --- Retrieve Questions Functions ---
+
+            async function fetchQuestions() {
+                console.log("fetchQuestions: Starting to fetch questions.");
+                const query = searchQueryInput.value;
+                const status = statusFilterSelect.value;
+                const userId = userFilterSelect.value;
+                const limit = parseInt(questionsPerPageSelect.value);
+                const task_id = taskSearchInput.value;
+
+                console.log(`DEBUG fetchQuestions: Current page: ${currentPage}, Limit per page: ${limit}`); // NEW DEBUG LOG
+                
+                // NO loading spinner inserted here. Spinner insertion will be managed by the calling context (e.g., questionForm submit).
+                
+                try {
+                    console.log("fetchQuestions: Constructing URLSearchParams.");
+                    const params = new URLSearchParams({
+                        skip: (currentPage - 1) * limit,
+                        limit: limit,
+                        '_': String(Date.now())
+                    });
+                    if (query) params.append('query', query);
+                    if (status) params.append('status', status);
+                    if (isAdmin && userId) params.append('user_id', userId);
+                    if (document.getElementById('date_from')?.value) params.append('date_from', document.getElementById('date_from').value);
+                    if (document.getElementById('date_to')?.value) params.append('date_to', document.getElementById('date_to').value);
+                    if (document.getElementById('approved_by')?.value) params.append('approved_by', document.getElementById('approved_by').value);
+                    if (document.getElementById('rejected_by')?.value) params.append('rejected_by', document.getElementById('rejected_by').value);
+                    if (document.getElementById('edited_by')?.value) params.append('edited_by', document.getElementById('edited_by').value);
+                    if (document.getElementById('deleted_by')?.value) params.append('deleted_by', document.getElementById('deleted_by').value);
+                    if (task_id) params.append('task_id', task_id);
+                    if (currentUserProfile && currentUserProfile.audience_type) {
+                        params.append('audience_type', currentUserProfile.audience_type);
+                    }
+                    
+                    const fetchUrl = `${backendBaseUrl}/questions?${params.toString()}`; 
+                    console.log(`DEBUG fetchQuestions: Fetching from URL: ${fetchUrl}`); 
+                    const response = await fetchWithAuth(fetchUrl); 
+                    console.log("fetchQuestions: Received response from backend.");
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error("fetchQuestions: Backend response not OK.", response.status, errorText);
+                        throw new Error(errorText || i18n.t('common.failedToFetchData'));
+                    }
+                    
+                    const responseData = await response.json();
+                    console.log("fetchQuestions: Received response data:", responseData);
+                    questions = responseData.questions;
+                    totalQuestions = responseData.total_count;
+
+                    console.log(`DEBUG fetchQuestions: API returned ${questions.length} questions, Total count: ${totalQuestions}`); // NEW DEBUG LOG
+
+                    document.getElementById('questionsCount').textContent = `(${totalQuestions} ${i18n.t('search.questions')})`;
+                    saveFilters();
+                    renderActiveFilters();
+                    displayQuestions(); 
+                    renderPagination();
+                    console.log("fetchQuestions: Finished rendering questions and pagination.");
+
+                } catch (error) {
+                    console.error('fetchQuestions: Error fetching questions', error);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'alert alert-danger';
+                    errorDiv.textContent = `${i18n.t('common.error')}: ${error.message}`;
+                    questionsDisplay.prepend(errorDiv);
+                } finally {
+                    // Always ensure spinner is removed if it was manually inserted by a caller
+                    const spinner = document.getElementById('loadingSpinner');
+                    if (spinner) spinner.remove();
+                    console.log("fetchQuestions: Finally block executed.");
+                }
+            }
+
+            function displayQuestions() {
+                const limit = parseInt(questionsPerPageSelect.value);
+                const currentQuestionIds = new Set(questions.map(q => q.question_id));
+                const existingQuestionDivs = questionsDisplay.querySelectorAll('.card.mb-3');
+
+                console.log(`DEBUG displayQuestions: Rendering ${questions.length} questions.`); // NEW DEBUG LOG
+                
+                // Remove question cards that are no longer in the current `questions` array
+                existingQuestionDivs.forEach(div => {
+                    const id = parseInt(div.id.replace('question-', ''));
+                    if (!currentQuestionIds.has(id)) {
+                        div.remove();
+                    }
+                });
+
+                if (questions.length === 0) {
+                    questionsDisplay.innerHTML = `<p data-i18n="search.noResults"></p>`;
+                    return;
+                }
+
+                questions.forEach((q, index) => {
+                    let questionDiv = document.getElementById(`question-${q.question_id}`);
+
+                    if (!questionDiv) {
+                        // Create new questionDiv if it doesn't exist
+                        questionDiv = document.createElement('div');
+                        questionDiv.className = 'card mb-3';
+                        questionDiv.id = `question-${q.question_id}`;
+                        questionsDisplay.appendChild(questionDiv);
+                    }
+
+                    // Update the content of the questionDiv
+                    let choicesHtml = '';
+                    let isRtl = /[؀-ۿ]/.test(q.question_text);
+                    const qTypeApi = (q.question_type || "").toLowerCase();
+                    
+                    if (q.choice_1 || q.choice_2 || q.choice_3 || q.choice_4) {
+                        choicesHtml = `<ul class="list-group list-group-flush ${isRtl ? 'rtl-text' : ''}">
+                            ${q.choice_1 ? `<li class="list-group-item"><span dir="ltr">A.</span>  ${q.choice_1}</li>` : ''}
+                            ${q.choice_2 ? `<li class="list-group-item"><span dir="ltr">B.</span>  ${q.choice_2}</li>` : ''}
+                            ${q.choice_3 ? `<li class="list-group-item"><span dir="ltr">C.</span>  ${q.choice_3}</li>` : ''}
+                            ${q.choice_4 ? `<li class="list-group-item"><span dir="ltr">D.</span>  ${q.choice_4}</li>` : ''}
+                        </ul>`;
+                    } else if (qTypeApi === 'text' || qTypeApi === 'open-ended') {
+                        choicesHtml = `<div class="p-3 text-muted font-italic">${i18n.t('search.fillInTheBlankType')}</div>`;
+                    }
+
+                    let correctAnswerHtml = '';
+                    if (q.answers_hidden) {
+                        if (currentUserProfile && (currentUserProfile.is_admin || currentUserProfile.role === 'teacher')) {
+                            correctAnswerHtml = `<span class="hidden-answer" data-correct-answer="${q.correct_option}">${i18n.t('search.hiddenForExamHoverToReveal')}</span>`;
+                        } else {
+                            correctAnswerHtml = `<span>${i18n.t('search.hiddenForExam')}</span>`;
+                        }
+                    } else {
+                        correctAnswerHtml = `<span>${q.correct_option}</span>`;
+                    }
+
+                                    const isChecked = selectedQuestionIds.has(q.question_id) ? 'checked' : '';
+                    
+                                    questionDiv.innerHTML = `
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <input type="checkbox" class="question-checkbox me-2" data-id="${q.question_id}" ${isChecked}>
+                                                <b>${i18n.t('search.card.question')} ${index + 1 + (currentPage - 1) * limit} (ID: ${q.question_id}) ${q.question_type ? `<span style="color: #28a745;">[${q.question_type}]</span>` : ''}</b>
+                                                <span class="badge bg-secondary ms-2">${i18n.t('search.card.status')}: ${q.status}</span>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-success approve-question-btn" data-id="${q.question_id}" ${q.status === 'approved' ? 'disabled' : ''}>${i18n.t('search.approve')}</button>
+                                                <button class="btn btn-sm btn-warning reject-question-btn" data-id="${q.question_id}" ${q.status === 'rejected' ? 'disabled' : ''}>${i18n.t('search.reject')}</button>
+                                                <button class="btn btn-sm btn-info edit-question-btn" data-id="${q.question_id}">${i18n.t('search.edit')}</button>
+                                                <button class="btn btn-sm btn-danger delete-question-btn" data-id="${q.question_id}">${i18n.t('search.delete')}</button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text ${isRtl ? 'rtl-text' : ''}">${q.question_text}</p>
+                                            ${choicesHtml}
+                                            <hr>
+                                            <p class="correct-answer-block"><strong>${i18n.t('search.correctAnswer')}:</strong> ${correctAnswerHtml}</p>
+                                            <button class="btn btn-outline-secondary btn-sm" data-history-id="${q.question_id}">${i18n.t('search.history')}</button>
+                                            <button class="btn btn-outline-info btn-sm solution-question-btn" data-id="${q.question_id}">${i18n.t('search.solution')}</button>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            ${i18n.t('search.card.difficulty')}: ${q.difficulty_level} | ${i18n.t('search.card.cognitiveLevel')}: ${q.cognitive_level} | ${i18n.t('search.card.author')}: ${q.author_creator} | ${q.date_created ? `${i18n.t('search.card.date')}: ${q.date_created}` : ''}
+                                        </div>`;
+                });
+                updateSelectedQuestionState();
+
+                if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+                    MathJax.typesetPromise([questionsDisplay]).catch((err) => console.log('MathJax typeset failed: ' + err.message));
+                }
+                                }
+            async function populateUsersDropdown() {
+                if (!isAdmin) {
+                    userFilterSelect.parentElement.style.display = 'none';
+                    return;
+                }
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/lookup/users`);
+                    if (!response.ok) throw new Error(i18n.t('alert.failedToFetchUsers'));
+                    const users = await response.json();
+                    users.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user.id;
+                        option.textContent = user.full_name || user.username;
+                        userFilterSelect.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error populating users dropdown:', error);
+                }
+            }
+
+            async function fetchSuggestions(term) {
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/suggestions?term=${encodeURIComponent(term)}`);
+                    if (!response.ok) throw new Error(i18n.t('alert.failedToFetchSuggestions'));
+                    const suggestions = await response.json();
+                    const datalist = document.getElementById('suggestionsList');
+                    datalist.innerHTML = '';
+                    suggestions.forEach(suggestion => {
+                        datalist.innerHTML += `<option value="${suggestion}">`;
+                    });
+                } catch (error) {
+                    console.error('Error fetching suggestions', error);
+                }
+            }
+
+            function saveFilters() {
+                const data = {
+                    q: searchQueryInput.value || '',
+                    status: statusFilterSelect.value || '',
+                    t: taskSearchInput.value || '',
+                    df: document.getElementById('date_from').value || '',
+                    dt: document.getElementById('date_to').value || '',
+                    ap: document.getElementById('approved_by')?.value || '',
+                    rj: document.getElementById('rejected_by')?.value || '',
+                    ed: document.getElementById('edited_by')?.value || '',
+                    dl: document.getElementById('deleted_by')?.value || ''
+                };
+                localStorage.setItem('rq_filters', JSON.stringify(data));
+            }
+
+            function renderActiveFilters() {
+                const wrap = document.getElementById('activeFilters');
+                wrap.innerHTML = '';
+                const filters = [
+                    {key: 'q', value: searchQueryInput.value},
+                    {key: 'status', value: statusFilterSelect.value},
+                    {key: 'task_id', value: taskSearchInput.value},
+                    {key: 'date_from', value: document.getElementById('date_from').value},
+                    {key: 'date_to', value: document.getElementById('date_to').value},
+                    {key: 'approved_by', value: document.getElementById('approved_by')?.value},
+                    {key: 'rejected_by', value: document.getElementById('rejected_by')?.value},
+                    {key: 'edited_by', value: document.getElementById('edited_by')?.value},
+                    {key: 'deleted_by', value: document.getElementById('deleted_by')?.value}
+                ];
+
+                filters.forEach(({key, value}) => {
+                    if (value) {
+                        const chip = document.createElement('span');
+                        chip.className = 'filter-chip';
+                        chip.innerHTML = `${key.replace('_', ' ')}: ${value} <button type="button" data-filter-key="${key}">×</button>`;
+                        wrap.appendChild(chip);
+                    }
+                });
+            }
+
+
+            // --- Unified & Modal Functions ---
+
+            function renderPagination() {
+                paginationControls.innerHTML = '';
+                const itemsPerPage = parseInt(questionsPerPageSelect.value);
+                const totalPages = Math.ceil(totalQuestions / itemsPerPage);
+                if (totalPages <= 1) return;
+
+                const onPageClick = (page) => {
+                    currentPage = page;
+                    fetchQuestions();
+                };
+
+                const createPageItem = (page, text, isActive = false, isDisabled = false) => {
+                    const li = document.createElement('li');
+                    li.className = `page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`;
+                    const a = document.createElement('a');
+                    a.className = 'page-link';
+                    a.href = '#';
+                    a.textContent = text;
+                    if (!isDisabled) {
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            onPageClick(page);
+                        });
+                    }
+                    li.appendChild(a);
+                    return li;
+                };
+
+                paginationControls.appendChild(createPageItem(1, i18n.t('pagination.first'), false, currentPage === 1));
+                paginationControls.appendChild(createPageItem(currentPage - 1, i18n.t('pagination.previous'), false, currentPage === 1));
+
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (startPage > 1) paginationControls.innerHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                for (let i = startPage; i <= endPage; i++) {
+                    paginationControls.appendChild(createPageItem(i, i, i === currentPage));
+                }
+                if (endPage < totalPages) paginationControls.innerHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+
+                paginationControls.appendChild(createPageItem(currentPage + 1, i18n.t('pagination.next'), false, currentPage === totalPages));
+                paginationControls.appendChild(createPageItem(totalPages, i18n.t('pagination.last'), false, currentPage === totalPages));
+            }
+
+            async function updateEditModalDynamicFields(audienceType, questionData) {
+                document.getElementById('editSchoolFields').style.display = 'none';
+                document.getElementById('editUniversityFields').style.display = 'none';
+                document.getElementById('editCompanyFields').style.display = 'none';
+
+                if (!audienceType) return;
+
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/lookup/audience_fields/${audienceType}`);
+                    if (!response.ok) throw new Error(i18n.t('alert.failedToGetAudienceFields'));
+                    const enabledFields = await response.json();
+
+                    const containerId = `edit${audienceType.charAt(0).toUpperCase() + audienceType.slice(1)}Fields`;
+                    document.getElementById(containerId).style.display = 'block';
+
+                    for (const fieldName in enabledFields) {
+                        if (enabledFields[fieldName]) {
+                            const meta = fieldMetadata[fieldName];
+                            if (meta) {
+                                // Convert field_name to FieldName for ID matching (e.g., school_type -> SchoolType)
+                                const capitalizedFieldName = fieldName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+                                const selectId = `edit${capitalizedFieldName}`;
+                                const selectElement = document.getElementById(selectId);
+                                
+                                console.log(`DEBUG: updateEditModalDynamicFields - Field: ${fieldName}, looking for ID: ${selectId}, Found: ${!!selectElement}`);
+                                
+                                if (selectElement) {
+                                    await fetchAndPopulateDropdown(`${backendBaseUrl}${meta.endpoint}`, selectElement);
+                                    if (questionData && questionData[fieldName]) {
+                                        console.log(`DEBUG: updateEditModalDynamicFields - Setting ${selectId} value to: ${questionData[fieldName]}`);
+                                        selectElement.value = questionData[fieldName];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error updating edit modal dynamic fields:', error);
+                }
+            }
+            
+            function showHistoryModal(items) {
+                let overlay = document.getElementById('history-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.id = 'history-overlay';
+                    Object.assign(overlay.style, {
+                        position: 'fixed', inset: '0', background: 'rgba(0,0,0,0.4)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1060
+                    });
+                    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+                    document.body.appendChild(overlay);
+                }
+                overlay.innerHTML = ''; // Clear previous content
+                const modal = document.createElement('div');
+                Object.assign(modal.style, {
+                    background: '#fff', minWidth: '360px', maxWidth: '640px',
+                    maxHeight: '70vh', overflow: 'auto', borderRadius: '8px', padding: '16px'
+                });
+                modal.innerHTML = `<h5>${i18n.t('search.history')}</h5>`;
+                const list = document.createElement('div');
+                if (!items || !items.length) {
+                    list.textContent = i18n.t('search.noHistoryYet');
+                } else {
+                    items.forEach(it => {
+                        const row = document.createElement('div');
+                        row.style.padding = '8px 0';
+                        row.style.borderBottom = '1px solid #eee';
+                        const details = typeof it.details === 'object' ? JSON.stringify(it.details) : (it.details || '');
+                        row.textContent = `${it.created_at} • ${it.action} • actor ${it.actor_user_id}${details ? ' • ' + details : ''}`;
+                        list.appendChild(row);
+                    });
+                }
+                modal.appendChild(list);
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = i18n.t('button.close');
+                closeBtn.className = 'btn btn-secondary btn-sm mt-2';
+                closeBtn.onclick = () => overlay.remove();
+                modal.appendChild(closeBtn);
+                overlay.appendChild(modal);
+            }
+
+
+            // --- Event Listeners ---
+            audienceTypeSelect.addEventListener('change', updateAudienceFields);
+
+            // File Upload Logic
+            const generateButton = document.getElementById('generateButton');
+            const uploadSpinner = document.getElementById('uploadSpinner');
+
+            uploadButton.addEventListener('click', () => {
+                fileUploadInput.click(); // Trigger the hidden file input
+            });
+
+            fileUploadInput.addEventListener('change', async () => {
+                const uploadProgressBarContainer = document.getElementById('uploadProgressBarContainer');
+                const uploadProgressBar = document.getElementById('uploadProgressBar');
+                const uploadStatusMessage = document.getElementById('uploadStatusMessage');
+
+                if (fileUploadInput.files.length > 0) {
+                    const file = fileUploadInput.files[0];
+                    fileNameDisplay.textContent = file.name;
+                    clearFileButton.style.display = 'inline-block';
+                    
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    // --- UI changes start ---
+                    if (generateButton) generateButton.disabled = true;
+                    if (uploadSpinner) uploadSpinner.style.display = 'inline-block';
+                    
+                    uploadProgressBarContainer.style.display = 'block';
+                    uploadProgressBar.style.width = '0%';
+                    uploadProgressBar.setAttribute('aria-valuenow', '0');
+                    uploadStatusMessage.textContent = 'Uploading file...';
+                    uploadStatusMessage.style.display = 'block';
+                    // --- UI changes end ---
+
+                    try {
+                        // Using XMLHttpRequest for progress tracking
+                        await new Promise((resolve, reject) => {
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('POST', `${backendBaseUrl}/uploadfile`, true);
+                            xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+
+                            xhr.upload.onprogress = (event) => {
+                                if (event.lengthComputable) {
+                                    const percentComplete = (event.loaded / event.total) * 100;
+                                    uploadProgressBar.style.width = `${percentComplete}%`;
+                                    uploadProgressBar.setAttribute('aria-valuenow', `${percentComplete}`);
+                                    uploadStatusMessage.textContent = `Uploading file... ${Math.round(percentComplete)}%`;
+                                }
+                            };
+
+                            xhr.onload = () => {
+                                if (xhr.status >= 200 && xhr.status < 300) {
+                                    resolve(JSON.parse(xhr.responseText));
+                                } else {
+                                    reject(new Error(JSON.parse(xhr.responseText).detail || i18n.t('alert.fileUploadFailed')));
+                                }
+                            };
+
+                            xhr.onerror = () => reject(new Error(i18n.t('alert.fileUploadFailed')));
+                            xhr.send(formData);
+                        }).then(result => {
+                            // After network upload is complete, show processing message
+                            uploadStatusMessage.textContent = 'File uploaded. Processing content (OCR active, this may take a while for large documents).';
+                            uploadProgressBar.style.width = '100%';
+                            uploadedFileIdInput.value = result.file_id;
+                            alert(i18n.t('alert.fileUploadSuccess'));
+                        }).catch(error => {
+                            throw error; // Re-throw to be caught by the outer catch block
+                        });
+
+                    } catch (error) {
+                        console.error('Error uploading file:', error);
+                        alert(error.message || i18n.t('alert.fileNotUploaded'));
+                        // Reset UI on failure
+                        fileNameDisplay.textContent = i18n.t('library.noFileChosen');
+                        clearFileButton.style.display = 'none';
+                        fileUploadInput.value = '';
+                        uploadedFileIdInput.value = '';
+                    } finally {
+                        // --- UI changes start ---
+                        if (generateButton) generateButton.disabled = false;
+                        if (uploadSpinner) uploadSpinner.style.display = 'none';
+                        
+                        // Hide progress bar container and status message on completion/error
+                        uploadProgressBarContainer.style.display = 'none';
+                        uploadStatusMessage.style.display = 'none';
+                        // --- UI changes end ---
+                    }
+                } else {
+                    fileNameDisplay.textContent = i18n.t('library.noFileChosen');
+                    clearFileButton.style.display = 'none';
+                    uploadedFileIdInput.value = '';
+                }
+            });
+
+            clearFileButton.addEventListener('click', () => {
+                fileUploadInput.value = '';
+                fileNameDisplay.textContent = i18n.t('library.noFileChosen');
+                clearFileButton.style.display = 'none';
+                uploadedFileIdInput.value = '';
+                alert(i18n.t('alert.fileSelectionCleared'));
+                // Ensure generate button is enabled if a file selection is cleared
+                if (generateButton) {
+                    generateButton.disabled = false;
+                }
+            });
+
+            questionForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                let isValid = true;
+                questionForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+                
+                const mandatoryFields = ['countryInput', 'audienceType', 'questionType', 'difficultyLevel', 'learningOutcome', 'cognitiveLevel'];
+                let missingMandatoryFields = [];
+
+                mandatoryFields.forEach(id => {
+                    const field = document.getElementById(id);
+                    if (field && !field.value) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                        missingMandatoryFields.push(field.labels[0].textContent || field.id); // Get label text or ID
+                    }
+                });
+
+                // Custom validation for topicContext OR uploadedFileId
+                const topicContextField = document.getElementById('topicContext');
+                if (!topicContextField.value && !uploadedFileIdInput.value) {
+                    topicContextField.classList.add('is-invalid');
+                    isValid = false;
+                    alert(i18n.t('alert.topicContextOrFileUpload'));
+                }
+                
+                if (!isValid) {
+                    if (missingMandatoryFields.length > 0) {
+                        // Display inline feedback for each invalid field
+                        mandatoryFields.forEach(id => {
+                            const field = document.getElementById(id);
+                            if (field && !field.value) {
+                                field.classList.add('is-invalid');
+                                let fb = field.nextElementSibling;
+                                if (!fb || !fb.classList || !fb.classList.contains('invalid-feedback')) {
+                                    fb = document.createElement('div');
+                                    fb.className = 'invalid-feedback';
+                                    field.parentNode.appendChild(fb);
+                                }
+                                fb.textContent = (window.i18n && window.i18n.t && window.i18n.t('generate.validation.required')) || 'This field is required';
+                                fb.style.display = 'block';
+                            }
+                        });
+                        showToast('error', (window.i18n && window.i18n.t && window.i18n.t('generate.validation.fillAll')) || 'Please fill all required fields.');
+                    }
+                    return;
+                }
+
+                const hideAnswers = document.getElementById('hideAnswersCheckbox').checked;
+                isGeneratingQuestions = true; // Set flag
+                
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.display = 'flex';
+                questionsDisplay.innerHTML = ''; // Clear previous results
+                
+                const formData = new FormData(questionForm);
+                const requestBody = Object.fromEntries(formData.entries());
+                
+                // --- FIX: Include audience_type if dropdown is disabled ---
+                if (audienceTypeSelect && audienceTypeSelect.disabled) {
+                    requestBody.audience_type = audienceTypeSelect.value;
+                }
+                // --- END FIX ---
+
+                requestBody.num_questions = parseInt(requestBody.num_questions, 10);
+                
+                // --- FIX: Clean up data before sending ---
+                for (const key in requestBody) {
+                    if (requestBody[key] === 'null' || requestBody[key] === '') {
+                        requestBody[key] = null; // Set to JS null for backend processing
+                    }
+                    // If it's already JS null, keep it that way.
+                }
+                // --- END FIX ---
+                
+                requestBody.num_questions = parseInt(requestBody.num_questions, 10);
+                
+                // Add uploaded_file_id if present
+                if (uploadedFileIdInput.value) {
+                    requestBody.uploaded_file_id = parseInt(uploadedFileIdInput.value, 10);
+                } else {
+                    delete requestBody.uploaded_file_id; // Ensure it's not sent if empty
+                }
+
+                requestBody.hide_answers = hideAnswers;
+                requestBody.lang = localStorage.getItem('lang') || 'en'; // Add current language
+
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/generate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody),
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        if (response.status === 402) {
+                            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                            document.getElementById('errorModalBody').textContent = errorData.detail;
+                            errorModal.show();
+                            fetchQuestions(); // Repopulate questions list
+                        } else if (response.status === 422) {
+                            console.error('Backend validation error (422):', errorData);
+                            // Attempt to parse validation details if available
+                            const detailMessage = errorData.detail ? errorData.detail.map(d => `${d.loc.join('.')}: ${d.msg}`).join('; ') : i18n.t('alert.validationFailed');
+                            throw new Error(detailMessage);
+                        } else {
+                            throw new Error(errorData.detail || i18n.t('alert.failedToGenerate'));
+                        }
+                    } else { // Only execute success logic if response is OK
+                        const result = await response.json();
+                        if (result && result.length > 0) {
+                            alert(i18n.t('alert.questionsGeneratedSuccess') + ` (${result.length})`);
+                        } else {
+                            alert(i18n.t('alert.noQuestionsGeneratedWarning') || "Warning: The AI responded but no questions could be extracted. Please try a different topic or model.");
+                        }
+                        sessionStorage.setItem('lastGeneratedHideAnswers', hideAnswers.toString());
+                        sessionStorage.setItem('questionsGeneratedThisSession', 'true');
+                        window.dispatchEvent(new Event('questionsGenerated')); // Notify that questions were generated
+                        fetchQuestions(); // Refresh the list
+                    }
+                } catch (error) {
+                    console.error('Error generating questions', error);
+                    // Display error and ensure spinner is removed
+                    questionsDisplay.innerHTML = `<div class="alert alert-danger">${i18n.t('common.error')}: ${error.message}</div>`;
+                    fetchQuestions(); // Refresh the list to show existing questions
+                } finally {
+                    isGeneratingQuestions = false; // Reset flag
+                    loadingOverlay.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }
+            });
+
+
+
+            document.getElementById('editQuestionForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const editErrorMessageDiv = document.getElementById('edit-error-message');
+                editErrorMessageDiv.style.display = 'none';
+
+                console.log('Edit Form Submission Values:');
+                console.log('editDifficultyLevel.value:', document.getElementById('editDifficultyLevel').value);
+                console.log('editCognitiveLevel.value:', document.getElementById('editCognitiveLevel').value);
+                console.log('editLearningOutcome.value:', document.getElementById('editLearningOutcome').value);
+                console.log('editQuestionType.value:', document.getElementById('editQuestionType').value);
+
+                const questionId = document.getElementById('editQuestionId').value;
+                
+                // Manually construct updatedData to ensure correct values are captured
+                const updatedData = {
+                    question_id: questionId,
+                    question_text: document.getElementById('editQuestionText').value,
+                    choice_1: document.getElementById('editChoice1').value,
+                    choice_2: document.getElementById('editChoice2').value,
+                    choice_3: document.getElementById('editChoice3').value,
+                    choice_4: document.getElementById('editChoice4').value,
+                    correct_option: document.getElementById('editCorrectOption').value,
+                    // Explicitly get dropdown values, converting empty string to null if needed
+                    difficulty_level: document.getElementById('editDifficultyLevel').value || null,
+                    cognitive_level: document.getElementById('editCognitiveLevel').value || null,
+                    learning_outcome: document.getElementById('editLearningOutcome').value || null,
+                    question_type: document.getElementById('editQuestionType').value || null,
+                    // School fields
+                    school_type: document.getElementById('editSchoolType').value || null,
+                    subject: document.getElementById('editSubject').value || null,
+                    year: document.getElementById('editYear').value || null,
+                    // University fields
+                    major: document.getElementById('editMajor').value || null,
+                    course: document.getElementById('editCourse').value || null,
+                    material: document.getElementById('editMaterial').value || null,
+                    semester: document.getElementById('editSemester').value || null,
+                    // Company fields
+                    company: document.getElementById('editCompany').value || null,
+                    department: document.getElementById('editDepartment').value || null,
+                    job_role: document.getElementById('editJobRole').value || null,
+                };
+                
+                // --- Re-apply cleaning logic for 'null' strings, if any slip through ---
+                for (const key in updatedData) {
+                    if (updatedData[key] === 'null') { // Only check for the string "null" here
+                        updatedData[key] = null;
+                    }
+                }
+                // --- END FIX ---
+
+                console.log('Sending updatedData to backend:', updatedData); // Keep this log
+
+                try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/questions/${questionId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedData),
+                    });
+                    if (!response.ok) throw new Error((await response.json()).detail || i18n.t('alert.updateFailed'));
+                    
+                    showToast('success', i18n.t('alert.questionUpdatedSuccess'));
+                    editQuestionModalInstance.hide();
+                    // Diagnostic: Ensure it's hidden manually if hide() doesn't work
+                    document.getElementById('editQuestionModal').style.display = 'none';
+                    document.getElementById('editQuestionModal').classList.remove('show');
+                    document.body.classList.remove('modal-open'); // Remove backdrop effect
+                    document.body.style.overflow = 'auto';       // Re-enable scrolling
+                    document.body.style.paddingRight = '0px';    // Reset padding
+                    const modalBackdrop = document.querySelector('.modal-backdrop');
+                    if (modalBackdrop) {
+                        modalBackdrop.remove();
+                    }
+                    console.log("Attempted to hide edit modal.");
+                    fetchQuestions(); // Refresh the list
+                } catch (error) {
+                    console.error('Error updating question', error);
+                    editErrorMessageDiv.textContent = `${i18n.t('common.error')}: ${error.message}`;
+                    editErrorMessageDiv.style.display = 'block';
+                }
+            });
+
+            questionsDisplay.addEventListener('click', async function(event) {
+                const button = event.target.closest('button');
+                if (!button) return;
+
+                const questionId = button.dataset.id || button.dataset.questionId;
+                if (!questionId) return;
+
+                // --- Actions ---
+                if (button.classList.contains('approve-question-btn') || button.classList.contains('reject-question-btn')) {
+                    const status = button.classList.contains('approve-question-btn') ? 'approved' : 'rejected';
+                    if (!confirm(i18n.t('confirm.approveRejectQuestion', { status: status }))) {
+                        return;
+                    }
+                    try {
+                        const response = await fetchWithAuth(`${backendBaseUrl}/questions/${questionId}/status`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: status })
+                        });
+                        if (!response.ok) throw new Error((await response.json()).detail || i18n.t('alert.statusUpdateFailed'));
+                        
+                        showToast('success', i18n.t('alert.questionStatusUpdateSuccess', { status: status }));
+                        fetchQuestions(); // Refresh list
+                    } catch (error) {
+                        showToast('error', `${i18n.t('common.error')}: ${error.message}`);
+                    }
+                } else if (button.classList.contains('delete-question-btn')) {
+                    if (!confirm(i18n.t('confirm.deleteQuestion'))) {
+                        return;
+                    }
+                    try {
+                        const response = await fetchWithAuth(`${backendBaseUrl}/questions/${questionId}`, { method: 'DELETE' });
+                        if (!response.ok) throw new Error((await response.json()).detail || i18n.t('alert.deleteFailed'));
+                        
+                        showToast('success', i18n.t('alert.questionDeletedSuccess'));
+                        fetchQuestions();
+                    } catch (error) {
+                        showToast('error', `${i18n.t('common.error')}: ${error.message}`);
+                    }
+                } else if (button.classList.contains('edit-question-btn')) {
+                    const questionToEdit = questions.find(q => q.question_id == questionId);
+                    if (questionToEdit) {
+                        lastFocusedEditButton = button;
+                        document.getElementById('editQuestionForm').reset();
+                        document.getElementById('editQuestionId').value = questionToEdit.question_id;
+                        document.getElementById('editQuestionText').value = questionToEdit.question_text;
+                        document.getElementById('editChoice1').value = questionToEdit.choice_1 || '';
+                        document.getElementById('editChoice2').value = questionToEdit.choice_2 || '';
+                        document.getElementById('editChoice3').value = questionToEdit.choice_3 || '';
+                        document.getElementById('editChoice4').value = questionToEdit.choice_4 || '';
+                        
+                        // Populate choices and correct option
+                        const correctOptionDropdown = document.getElementById('editCorrectOption');
+                        correctOptionDropdown.innerHTML = '';
+                        const choices = [questionToEdit.choice_1, questionToEdit.choice_2, questionToEdit.choice_3, questionToEdit.choice_4];
+
+                        const qTypeApi = (questionToEdit.question_type || "").toLowerCase();
+
+                        // --- Dynamic Choices Visibility Logic ---
+                        const choice3Col = document.getElementById('editChoice3').closest('.col-md-6');
+                        const choice4Col = document.getElementById('editChoice4').closest('.col-md-6');
+                        
+                        if (qTypeApi === 'yes_no' || qTypeApi === 'yn' || qTypeApi === 'accept_reject' || qTypeApi === 'ar') {
+                            choice3Col.style.display = 'none';
+                            choice4Col.style.display = 'none';
+                        } else {
+                            choice3Col.style.display = 'block';
+                            choice4Col.style.display = 'block';
+                        }
+                        // --- End Visibility Logic ---
+
+                        if (qTypeApi === 'multiple_answer' || qTypeApi === 'chbox' || qTypeApi === 'text') {
+                           // Use text input for correct option instead of dropdown for multi-answer or fill-in-blank
+                           const parent = correctOptionDropdown.parentElement;
+                           const textInput = document.createElement('input');
+                           textInput.type = 'text';
+                           textInput.className = 'form-control';
+                           textInput.id = 'editCorrectOption';
+                           textInput.value = questionToEdit.correct_option || '';
+                           parent.replaceChild(textInput, correctOptionDropdown);
+                        } else {
+                           // Ensure it's a select (might have been replaced by input in previous edit)
+                           if (correctOptionDropdown.tagName !== 'SELECT') {
+                               const select = document.createElement('select');
+                               select.className = 'form-select';
+                               select.id = 'editCorrectOption';
+                               correctOptionDropdown.parentElement.replaceChild(select, correctOptionDropdown);
+                               // Re-get reference
+                               const newDropdown = document.getElementById('editCorrectOption');
+                               choices.forEach((choice, index) => {
+                                   if (choice) {
+                                       const letter = String.fromCharCode(65 + index);
+                                       const option = new Option(`${letter}: ${choice}`, letter);
+                                       newDropdown.add(option);
+                                   }
+                               });
+                               newDropdown.value = questionToEdit.correct_option || '';
+                           } else {
+                               choices.forEach((choice, index) => {
+                                   if (choice) {
+                                       const letter = String.fromCharCode(65 + index);
+                                       const option = new Option(`${letter}: ${choice}`, letter);
+                                       correctOptionDropdown.add(option);
+                                   }
+                               });
+                               correctOptionDropdown.value = questionToEdit.correct_option || '';
+                           }
+                        }
+                        // --- FIX: Populate dropdowns before showing modal ---
+                        await Promise.all([
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/difficulty_levels`, document.getElementById('editDifficultyLevel')),
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/cognitive_levels`, document.getElementById('editCognitiveLevel')),
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/learning_outcomes`, document.getElementById('editLearningOutcome')),
+                            fetchAndPopulateDropdown(`${backendBaseUrl}/lookup/question_types`, document.getElementById('editQuestionType'))
+                        ]);
+                        // --- END FIX ---
+
+                        // Populate other dropdowns
+                        document.getElementById('editDifficultyLevel').value = questionToEdit.difficulty_level || '';
+                        document.getElementById('editCognitiveLevel').value = questionToEdit.cognitive_level || '';
+                        document.getElementById('editLearningOutcome').value = questionToEdit.learning_outcome || '';
+                        document.getElementById('editQuestionType').value = questionToEdit.question_type || '';
+
+                        await updateEditModalDynamicFields(questionToEdit.audience_type, questionToEdit);
+                        // --- FIX: Correctly initialize Bootstrap Modal instance ---
+                        const editQuestionModalInstance = new bootstrap.Modal(document.getElementById('editQuestionModal'));
+                        editQuestionModalInstance.show();
+                    }
+                } else if (button.classList.contains('solution-question-btn')) {
+                    const question = questions.find(q => q.question_id == questionId);
+                    if (question) {
+                        try {
+                            const response = await fetchWithAuth(`${backendBaseUrl}/questions/${questionId}/solution`, { method: 'POST' });
+                            if (!response.ok) throw new Error((await response.json()).detail || i18n.t('alert.solutionFetchFailed'));
+                            const data = await response.json();
+                            const solutionModalBody = document.getElementById('solutionModalBody');
+                            solutionModalBody.innerHTML = data.solution;
+                            const solutionModal = new bootstrap.Modal(document.getElementById('solutionModal'));
+                            solutionModal.show();
+                        } catch (error) {
+                            alert(i18n.t('alert.solutionFetchFailed') + ': ' + error.message);
+                        }
+                    } else {
+                        alert(i18n.t('alert.questionNotFound'));
+                    }
+                } else if (button.dataset.historyId) {
+                     try {
+                        const res = await fetchWithAuth(`${backendBaseUrl}/questions/${button.dataset.historyId}/history`);
+                        if (!res.ok) throw new Error(i18n.t('alert.failedToLoadHistory'));
+                        showHistoryModal(await res.json());
+                    } catch (e) {
+                        alert(i18n.t('alert.historyLoadFailed') + e.message);
+                    }
+                }
+            });
+            
+            // --- Auto-Hide Popovers when clicking anywhere else ---
+            document.addEventListener('click', function (e) {
+                const popoverTrigger = e.target.closest('[data-bs-toggle="popover"]');
+                document.querySelectorAll('[data-bs-toggle="popover"]').forEach(popoverEle => {
+                    if (popoverEle !== popoverTrigger) {
+                        bootstrap.Popover.getInstance(popoverEle)?.hide();
+                    }
+                });
+            });
+
+            // --- Enable Popovers for dynamically added content (like hidden answers) ---
+            questionsDisplay.addEventListener('mouseover', function(event) {
+                const target = event.target.closest('.hidden-answer');
+                if (target && !bootstrap.Popover.getInstance(target)) {
+                    // Create popover dynamically if it doesn't exist
+                    new bootstrap.Popover(target, {
+                        content: target.dataset.correctAnswer, // Use the stored correct answer
+                        trigger: 'hover',
+                        placement: 'top',
+                        container: 'body' // Important for dynamic content
+                    });
+                    bootstrap.Popover.getInstance(target)?.show(); // Show it immediately
+                }
+            });
+
+
+            // Event listener for the "Take a Test" navigation link
+            document.getElementById('takeATestNavItem').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default navigation immediately
+                const idsToStore = Array.from(selectedQuestionIds);
+
+                if (idsToStore.length === 0) {
+                    alert(i18n.t('alert.pleaseSelectQuestionsForExamMessage'));
+                    return; // Prevent redirection
+                }
+
+                console.log("Storing selected IDs to sessionStorage:", idsToStore);
+                sessionStorage.setItem('selectedQuestionIdsForExam', JSON.stringify(idsToStore));
+                window.location.href = 'tamsQB.html'; // Manually navigate after saving
+            });
+
+            // --- Initialization ---
+            
+            // Check for task_id in URL and pre-fill search input
+            const urlParams = new URLSearchParams(window.location.search);
+            const taskIdFromUrl = urlParams.get('taskId');
+            if (taskIdFromUrl) {
+                taskSearchInput.value = taskIdFromUrl;
+                // Clear the URL parameter after using it to avoid persistent filtering on refresh
+                urlParams.delete('taskId');
+                window.history.replaceState({}, document.title, `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+                fetchQuestions(); // Automatically trigger search
+            }
+
+            // Listeners for search/filter controls
+            searchButton.addEventListener('click', () => { currentPage = 1; fetchQuestions(); });
+            searchQueryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { currentPage = 1; fetchQuestions(); }});
+            statusFilterSelect.addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            userFilterSelect.addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            taskSearchInput.addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            questionsPerPageSelect.addEventListener('change', () => { currentPage = 1; fetchQuestions(); });
+            clearFiltersButton.addEventListener('click', () => {
+                searchQueryInput.value = '';
+                statusFilterSelect.value = '';
+                userFilterSelect.value = '';
+                taskSearchInput.value = '';
+                currentPage = 1;
+                fetchQuestions();
+            });
+            resetFiltersBtn.addEventListener('click', () => {
+                searchQueryInput.value = '';
+                statusFilterSelect.value = '';
+                userFilterSelect.value = '';
+                taskSearchInput.value = '';
+                document.getElementById('date_from').value = '';
+                document.getElementById('date_to').value = '';
+                ['approved_by','rejected_by','edited_by','deleted_by'].forEach(id => {
+                    const el = document.getElementById(id); if (el) el.value='';
+                });
+                currentPage = 1;
+                fetchQuestions();
+            });
+            searchQueryInput.addEventListener('input', () => {
+                clearTimeout(autocompleteTimeout);
+                autocompleteTimeout = setTimeout(() => fetchSuggestions(searchQueryInput.value), 300);
+            });
+
+            
+            // Listeners for bulk actions
+            selectAllBtn.addEventListener('click', () => document.querySelectorAll('.question-checkbox').forEach(cb => cb.checked = true));
+            deselectAllBtn.addEventListener('click', () => document.querySelectorAll('.question-checkbox').forEach(cb => cb.checked = false));
+            deleteSelectedBtn.addEventListener('click', async () => {
+                const selectedIds = Array.from(document.querySelectorAll('.question-checkbox:checked')).map(cb => cb.dataset.id);
+                if (selectedIds.length === 0) {
+                    alert(i18n.t('alert.pleaseSelectQuestionsToDelete'));
+                    return;
+                }
+                if (!confirm(i18n.t('confirm.batchDeleteQuestions', { count: selectedIds.length }))) {
+ return;
+                } try {
+                    const response = await fetchWithAuth(`${backendBaseUrl}/questions/batch`, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question_ids: selectedIds })
+                    });
+                    if (!response.ok) throw new Error((await response.json()).detail || i18n.t('alert.batchDeleteFailed'));
+                    
+                    alert(i18n.t('alert.batchDeleteSuccess'));
+                    fetchQuestions();
+                } catch (error) {
+                    alert(`${i18n.t('common.error')}: ${error.message}`);
+                }
+            });
+            // Listeners for bulk actions
+            selectAllBtn.addEventListener('click', () => {
+                document.querySelectorAll('.question-checkbox').forEach(cb => cb.checked = true);
+                updateSelectedQuestionState();
+            });
+            deselectAllBtn.addEventListener('click', () => {
+                document.querySelectorAll('.question-checkbox').forEach(cb => cb.checked = false);
+                updateSelectedQuestionState();
+            });
+
+            // NEW: Add event listeners for Export CSV and Print buttons
+            exportCsvButton.addEventListener('click', () => {
+                // Filter for currently displayed questions, not necessarily all fetched questions.
+                // Assuming `questions` array holds the currently displayed questions after filtering/pagination.
+                exportToCsvWithSolutions(questions);
+            });
+
+
+
+            // NEW: Add event listener for Print button to show print options modal
+            const printButton = document.getElementById('printButton');
+            // Ensure the Bootstrap modal instance is created before attaching event listeners
+            const printOptionsModalElement = document.getElementById('printOptionsModal');
+            const printOptionsModal = new bootstrap.Modal(printOptionsModalElement); // Keep this line as is
+            
+            printOptionsModalElement.addEventListener('shown.bs.modal', function () {
+                this.setAttribute('aria-hidden', 'false');
+            });
+            printOptionsModalElement.addEventListener('hidden.bs.modal', function () {
+                this.setAttribute('aria-hidden', 'true');
+            });
+            document.getElementById('printOptionsModal').addEventListener('shown.bs.modal', function () {
+                this.setAttribute('aria-hidden', 'false');
+            });
+            document.getElementById('printOptionsModal').addEventListener('hidden.bs.modal', function () {
+                this.setAttribute('aria-hidden', 'true');
+            });
+            const printOptionsForm = document.getElementById('printOptionsForm');
+
+            printButton.addEventListener('click', () => {
+                if (selectedQuestionIds.size === 0) {
+                    alert(i18n.t('alert.pleaseSelectQuestionsToPrint'));
+                    return;
+                }
+
+                // Pre-fill exam name if available from questions (e.g., from a task name)
+                const examNameInput = document.getElementById('examName');
+                if (questions.length > 0 && questions[0] && questions[0].task_name) {
+                    examNameInput.value = questions[0].task_name;
+                } else {
+                    examNameInput.value = ''; // Clear if no task name
+                }
+                document.getElementById('examId').value = ''; // Always clear exam ID
+                printOptionsModal.show();
+            });
+
+            printOptionsForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const examName = document.getElementById('examName').value;
+                const examId = document.getElementById('examId').value;
+
+                if (!examName) {
+                    alert(i18n.t('alert.examNameRequired'));
+                    return;
+                }
+
+                if (selectedQuestionIds.size === 0) {
+                    alert(i18n.t('alert.pleaseSelectQuestionsToPrint'));
+                    return;
+                }
+
+                const questionsToPrint = questions.filter(q => selectedQuestionIds.has(q.question_id));
+                const questionIdsToPrint = questionsToPrint.map(q => q.question_id);
+
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.display = 'flex';
+                printOptionsModal.hide();
+
+                try {
+                    // Send data to backend to record the printed exam
+                    const response = await fetchWithAuth(`${backendBaseUrl}/print/save-pdf`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            exam_name: examName,
+                            exam_id: examId || null,
+                            question_ids: Array.from(questionIdsToPrint),
+                            filters: JSON.parse(localStorage.getItem('rq_filters')) // Assuming filters are stored in local storage
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.detail || i18n.t('alert.printRecordFailed'));
+                    }
+
+                    // Proceed with printing logic (similar to previous direct print)
+                    const printableContent = document.getElementById('questionsList').cloneNode(true);
+
+                    // Filter the cloned content to only include selected questions
+                    printableContent.querySelectorAll('.card.mb-3').forEach(card => {
+                        const qId = parseInt(card.id.replace('question-', ''));
+                        if (!selectedQuestionIds.has(qId)) {
+                            card.remove();
+                        }
+                    });
+
+                    // Remove interactive elements like checkboxes, buttons
+                    printableContent.querySelectorAll('input[type="checkbox"], button').forEach(el => el.remove());
+                    printableContent.querySelectorAll('.card-header > div:last-child').forEach(el => el.remove()); // Remove button group
+
+                    // Remove elements that are for display only or not relevant to print
+                    printableContent.querySelectorAll('.badge').forEach(el => el.remove());
+
+                    // Remove Correct Answer block and Question Properties (footer) as requested
+                    printableContent.querySelectorAll('.correct-answer-block, .card-footer, hr').forEach(el => el.remove());
+
+                    const printWindow = window.open('', '', 'height=600,width=800');
+                    printWindow.document.write('<html><head><title>Questions - ' + examName + '</title>');
+                    // Copy necessary styles
+                    printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">');
+                    printWindow.document.write('<style>');
+                    printWindow.document.write('body { font-family: sans-serif; margin: 20px; }');
+                    printWindow.document.write('h1 { text-align: center; margin-bottom: 20px; }');
+                    printWindow.document.write('.card { margin-bottom: 1rem; border: 1px solid #dee2e6; border-radius: 0.25rem; page-break-inside: avoid; }');
+                    printWindow.document.write('.card-header { padding: 0.75rem 1.25rem; margin-bottom: 0; background-color: rgba(0, 0, 0, 0.03); border-bottom: 1px solid rgba(0, 0, 0, 0.125); }');
+                    printWindow.document.write('.card-body { padding: 1.25rem; }');
+                    printWindow.document.write('.card-footer { padding: 0.75rem 1.25rem; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0, 0, 0, 0.125); }');
+                    printWindow.document.write('.rtl-text { direction: rtl; text-align: right; }');
+                    printWindow.document.write('ul.list-group { padding-left: 0; }');
+                    printWindow.document.write('ul.list-group-flush .list-group-item { border-width: 0 0 1px; }');
+                    printWindow.document.write('ul.list-group-flush:first-child .list-group-item:first-child { border-top-width: 0; }');
+                    printWindow.document.write('@media print { body { -webkit-print-color-adjust: exact; } .card { border: 1px solid #dee2e6 !important; } }');
+                    printWindow.document.write('</style>');
+                    printWindow.document.write('</head><body>');
+                    printWindow.document.write('<h1>' + examName + (examId ? ' (ID: ' + examId + ')' : '') + '</h1>');
+                    printWindow.document.write(printableContent.outerHTML);
+                    printWindow.document.write('<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"><\/script>');
+                    printWindow.document.write('<script>');
+                    printWindow.document.write('MathJax = { tex: { inlineMath: [["\\\\(", "\\\\)"]], displayMath: [["\\\\[", "\\\\]"]] }, svg: { fontCache: "global" } };');
+                    printWindow.document.write('document.addEventListener("DOMContentLoaded", function() { if (window.MathJax) { MathJax.typesetPromise([document.body]); } });');
+                    printWindow.document.write('window.onafterprint = function() { window.close(); };');
+                    printWindow.document.write('window.print();');
+                    printWindow.document.write('<\/script>');
+                    printWindow.document.write('</body></html>');
+                    printWindow.document.close();
+                } catch (error) {
+                    console.error("Print record error:", error);
+                    alert(i18n.t('alert.printRecordFailed') || "Failed to record print.");
+                } finally {
+                    loadingOverlay.style.display = 'none';
+                }
+            });
+            // --- Initial Setup Execution ---
+            let initialSetupDone = false;
+            document.addEventListener('i18n:applied', function() {
+                if (!initialSetupDone) {
+                    console.log("i18n:applied received. Starting initial setup.");
+                    performInitialSetup();
+                    initialSetupDone = true;
+                }
+            });
+
+            // Safety timeout: if i18n doesn't fire in 5s, run anyway (increased from 2s)
+            setTimeout(() => {
+                if (!initialSetupDone) {
+                    console.warn("i18n:applied timeout. Running initial setup fallback.");
+                    performInitialSetup();
+                    initialSetupDone = true;
+                }
+            }, 5000);
+        }); // Close the i18n applied listener
+    </script>
+</body>
+</html>

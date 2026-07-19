@@ -1,0 +1,1 @@
+UPDATE tenants SET created_by = 1 WHERE created_by IS NULL;

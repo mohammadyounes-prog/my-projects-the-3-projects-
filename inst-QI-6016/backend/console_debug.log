@@ -1,0 +1,28 @@
+2026-06-15 13:48:45,843 - INFO - main.py:17 - STARTUP: ONLINE_EXAM_API_BASE_URL = http://schooldemo12.skyline-inov.com/api
+2026-06-15 13:48:45,843 - INFO - main.py:18 - STARTUP: ONLINE_EXAM_FRONTEND_BASE_URL = http://schooldemo12.skyline-inov.com
+2026-06-15 13:48:46,526 - INFO - database.py:107 - user_id column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,527 - INFO - database.py:122 - task_id column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,530 - INFO - database.py:137 - audience_type column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,532 - INFO - database.py:152 - variables column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,534 - INFO - database.py:167 - tenant_id column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,540 - INFO - database.py:502 - report_image_path column already exists in exams table. Skipping migration.
+2026-06-15 13:48:46,544 - INFO - database.py:336 - bank_question_id column already exists in exam_questions table. Skipping migration.
+2026-06-15 13:48:46,547 - INFO - database.py:252 - role column already exists in users table. Skipping migration.
+2026-06-15 13:48:46,548 - INFO - database.py:268 - schooldemo12_user_id column already exists in users table. Skipping migration.
+2026-06-15 13:48:46,549 - INFO - database.py:189 - Audit fields already exist in questions table. Skipping migration.
+2026-06-15 13:48:46,551 - INFO - database.py:204 - tamsqb_bank_added column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,552 - INFO - database.py:219 - hide_answers column already exists in questions table. Skipping migration.
+2026-06-15 13:48:46,554 - INFO - database.py:412 - api_name column already exists in question_types table. Skipping migration.
+2026-06-15 13:48:46,571 - INFO - database.py:636 - task_id column already exists in uploaded_files table. Skipping migration.
+2026-06-15 13:48:46,572 - INFO - database.py:651 - uploaded_file_id column already exists in generation_tasks table. Skipping migration.
+2026-06-15 13:48:46,576 - INFO - main.py:159 - DEBUG: main.py loaded from: E:\questionretrieval\new-q-bank\instances\cust-1\inst-QI-6016\backend\main.py
+2026-06-15 13:48:46,576 - INFO - main.py:160 - DEBUG: database.py loaded from: E:\questionretrieval\new-q-bank\instances\cust-1\inst-QI-6016\backend\database.py
+E:\questionretrieval\new-q-bank\instances\cust-1\inst-QI-6016\backend\gemini_api.py:1: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai

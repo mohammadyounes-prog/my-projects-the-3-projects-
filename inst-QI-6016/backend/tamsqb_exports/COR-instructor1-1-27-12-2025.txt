@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-instructor1-1-27-12-2025 (ID: 95)
+Category: CAT-instructor1-1-27-12-2025 (ID: 320)
+--------------------------------------------------
+
+Local Question ID: 679
+Bank Question ID: 3993
+FilterData Entry:
+  filters_added: 6
+  details: [(3993, 1, '5', 1), (3993, 2, '2', 1), (3993, 32, 'hard', 1), (3993, 53, 'instructor1', 1), (3993, 33, '1', 1), (3993, 160, 'Collaboration and Teamwork', 3)]
+
+--------------------
+

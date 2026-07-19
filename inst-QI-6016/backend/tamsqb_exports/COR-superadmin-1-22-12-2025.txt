@@ -1,0 +1,28 @@
+TamsQB Export for Course: COR-superadmin-1-22-12-2025 (ID: 50)
+Category: CAT-superadmin-1-22-12-2025 (ID: 268)
+--------------------------------------------------
+
+Local Question ID: 568
+Bank Question ID: 3914
+FilterData Entry:
+  filters_added: 5
+  details: [(3914, 1, '5', 1), (3914, 2, '2', 1), (3914, 32, 'easy', 1), (3914, 53, 'superadmin', 1), (3914, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 596
+Bank Question ID: 3915
+FilterData Entry:
+  filters_added: 5
+  details: [(3915, 1, '5', 1), (3915, 2, '2', 1), (3915, 32, 'easy', 1), (3915, 53, 'superadmin', 1), (3915, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 597
+Bank Question ID: 3916
+FilterData Entry:
+  filters_added: 5
+  details: [(3916, 1, '5', 1), (3916, 2, '2', 1), (3916, 32, 'easy', 1), (3916, 53, 'superadmin', 1), (3916, 33, '1', 1)]
+
+--------------------
+

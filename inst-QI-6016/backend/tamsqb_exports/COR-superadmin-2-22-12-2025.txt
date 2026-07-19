@@ -1,0 +1,116 @@
+TamsQB Export for Course: COR-superadmin-2-22-12-2025 (ID: 51)
+Category: CAT-superadmin-1-22-12-2025 (ID: 269)
+--------------------------------------------------
+
+Local Question ID: 598
+Bank Question ID: 3917
+FilterData Entry:
+  filters_added: 5
+  details: [(3917, 1, '5', 1), (3917, 2, '2', 1), (3917, 32, 'easy', 1), (3917, 53, 'superadmin', 1), (3917, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 599
+Bank Question ID: 3918
+FilterData Entry:
+  filters_added: 5
+  details: [(3918, 1, '5', 1), (3918, 2, '2', 1), (3918, 32, 'easy', 1), (3918, 53, 'superadmin', 1), (3918, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 600
+Bank Question ID: 3919
+FilterData Entry:
+  filters_added: 5
+  details: [(3919, 1, '5', 1), (3919, 2, '2', 1), (3919, 32, 'easy', 1), (3919, 53, 'superadmin', 1), (3919, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 601
+Bank Question ID: 3920
+FilterData Entry:
+  filters_added: 5
+  details: [(3920, 1, '5', 1), (3920, 2, '2', 1), (3920, 32, 'easy', 1), (3920, 53, 'superadmin', 1), (3920, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 602
+Bank Question ID: 3921
+FilterData Entry:
+  filters_added: 5
+  details: [(3921, 1, '5', 1), (3921, 2, '2', 1), (3921, 32, 'easy', 1), (3921, 53, 'superadmin', 1), (3921, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 603
+Bank Question ID: 3922
+FilterData Entry:
+  filters_added: 5
+  details: [(3922, 1, '5', 1), (3922, 2, '2', 1), (3922, 32, 'easy', 1), (3922, 53, 'superadmin', 1), (3922, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 604
+Bank Question ID: 3923
+FilterData Entry:
+  filters_added: 5
+  details: [(3923, 1, '5', 1), (3923, 2, '2', 1), (3923, 32, 'easy', 1), (3923, 53, 'superadmin', 1), (3923, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 605
+Bank Question ID: 3924
+FilterData Entry:
+  filters_added: 5
+  details: [(3924, 1, '5', 1), (3924, 2, '2', 1), (3924, 32, 'easy', 1), (3924, 53, 'superadmin', 1), (3924, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 606
+Bank Question ID: 3925
+FilterData Entry:
+  filters_added: 5
+  details: [(3925, 1, '5', 1), (3925, 2, '2', 1), (3925, 32, 'easy', 1), (3925, 53, 'superadmin', 1), (3925, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 607
+Bank Question ID: 3926
+FilterData Entry:
+  filters_added: 5
+  details: [(3926, 1, '5', 1), (3926, 2, '2', 1), (3926, 32, 'easy', 1), (3926, 53, 'superadmin', 1), (3926, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 608
+Bank Question ID: 3927
+FilterData Entry:
+  filters_added: 5
+  details: [(3927, 1, '5', 1), (3927, 2, '2', 1), (3927, 32, 'easy', 1), (3927, 53, 'superadmin', 1), (3927, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 609
+Bank Question ID: 3928
+FilterData Entry:
+  filters_added: 5
+  details: [(3928, 1, '5', 1), (3928, 2, '2', 1), (3928, 32, 'easy', 1), (3928, 53, 'superadmin', 1), (3928, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 610
+Bank Question ID: 3929
+FilterData Entry:
+  filters_added: 5
+  details: [(3929, 1, '5', 1), (3929, 2, '2', 1), (3929, 32, 'easy', 1), (3929, 53, 'superadmin', 1), (3929, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 611
+Bank Question ID: 3930
+FilterData Entry:
+  filters_added: 5
+  details: [(3930, 1, '5', 1), (3930, 2, '2', 1), (3930, 32, 'easy', 1), (3930, 53, 'superadmin', 1), (3930, 33, '1', 1)]
+
+--------------------
+

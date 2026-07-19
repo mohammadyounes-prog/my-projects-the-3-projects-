@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher55-1-29-12-2025 (ID: 111)
+Category: CAT-teacher55-1-29-12-2025 (ID: 364)
+--------------------------------------------------
+
+Local Question ID: 664
+Bank Question ID: 4020
+FilterData Entry:
+  filters_added: 6
+  details: [(4020, 1, '5', 1), (4020, 2, '2', 1), (4020, 32, 'medium', 1), (4020, 53, 'teacher55', 1), (4020, 33, '1', 1), (4020, 13, 'Ethical Decision-Making', 3)]
+
+--------------------
+

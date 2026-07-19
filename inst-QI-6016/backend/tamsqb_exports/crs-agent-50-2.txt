@@ -1,0 +1,84 @@
+TamsQB Export for Course: crs-agent-50-2 (ID: 36)
+Category: cat-agent-50-11-12-2025-1 (ID: 258)
+--------------------------------------------------
+
+Local Question ID: 513
+Bank Question ID: 3913
+FilterData Entry:
+  bankId: 3913
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 514
+Bank Question ID: 3914
+FilterData Entry:
+  bankId: 3914
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 515
+Bank Question ID: 3915
+FilterData Entry:
+  bankId: 3915
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 516
+Bank Question ID: 3916
+FilterData Entry:
+  bankId: 3916
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 517
+Bank Question ID: 3917
+FilterData Entry:
+  bankId: 3917
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 546
+Bank Question ID: 3918
+FilterData Entry:
+  bankId: 3918
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 547
+Bank Question ID: 3919
+FilterData Entry:
+  bankId: 3919
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 548
+Bank Question ID: 3920
+FilterData Entry:
+  bankId: 3920
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

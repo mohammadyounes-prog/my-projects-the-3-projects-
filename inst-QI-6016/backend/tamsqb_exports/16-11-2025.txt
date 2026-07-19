@@ -1,0 +1,14 @@
+TamsQB Export for Course: 16-11-2025 (ID: 17)
+Category: puser-5-6 (ID: 150)
+--------------------------------------------------
+
+Local Question ID: 452
+Bank Question ID: 3777
+FilterData Entry:
+  bankId: 3777
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

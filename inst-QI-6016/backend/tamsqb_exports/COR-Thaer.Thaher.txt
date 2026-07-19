@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-Thaer.Thaher (ID: 152)
+Category: CAT-Thaer.Thaher-2-29-01-2026 (ID: 659)
+--------------------------------------------------
+
+Local Question ID: 1080
+Bank Question ID: 4492
+FilterData Entry:
+  filters_added: 5
+  details: [(4492, 1, '5', 1), (4492, 2, '0', 1), (4492, 32, 'medium', 1), (4492, 53, 'Thaer.Thaher', 1), (4492, 33, '1', 1)]
+
+--------------------
+

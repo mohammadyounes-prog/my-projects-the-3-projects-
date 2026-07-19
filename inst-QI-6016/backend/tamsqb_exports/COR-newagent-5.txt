@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-newagent-5 (ID: 140)
+Category: CAT-newagent-5-2-08-01-2026 (ID: 502)
+--------------------------------------------------
+
+Local Question ID: 866
+Bank Question ID: 4220
+FilterData Entry:
+  filters_added: 5
+  details: [(4220, 1, '5', 1), (4220, 2, '2', 1), (4220, 32, 'none', 1), (4220, 53, 'newagent-5', 1), (4220, 33, '1', 1)]
+
+--------------------
+

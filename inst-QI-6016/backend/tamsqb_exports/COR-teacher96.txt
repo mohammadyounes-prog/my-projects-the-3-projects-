@@ -1,0 +1,20 @@
+TamsQB Export for Course: COR-teacher96 (ID: 153)
+Category: CAT-teacher96-2-03-02-2026 (ID: 710)
+--------------------------------------------------
+
+Local Question ID: 1143
+Bank Question ID: 4591
+FilterData Entry:
+  filters_added: 5
+  details: [(4591, 1, '5', 1), (4591, 2, '2', 1), (4591, 32, 'medium', 1), (4591, 53, 'teacher96', 1), (4591, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1144
+Bank Question ID: 4592
+FilterData Entry:
+  filters_added: 5
+  details: [(4592, 1, '5', 1), (4592, 2, '0', 1), (4592, 32, 'medium', 1), (4592, 53, 'teacher96', 1), (4592, 33, '1', 1)]
+
+--------------------
+

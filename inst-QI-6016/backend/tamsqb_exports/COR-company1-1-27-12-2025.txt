@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-company1-1-27-12-2025 (ID: 98)
+Category: CAT-company1-1-28-12-2025 (ID: 344)
+--------------------------------------------------
+
+Local Question ID: 697
+Bank Question ID: 4009
+FilterData Entry:
+  filters_added: 6
+  details: [(4009, 1, '5', 1), (4009, 2, '2', 1), (4009, 32, 'medium', 1), (4009, 53, 'company1', 1), (4009, 33, '1', 1), (4009, 531, 'Technical Competence', 3)]
+
+--------------------
+

@@ -1,0 +1,36 @@
+TamsQB Export for Course: COR-teacher81 (ID: 132)
+Category: CAT-teacher81-6-30-12-2025 (ID: 395)
+--------------------------------------------------
+
+Local Question ID: 697
+Bank Question ID: 4042
+FilterData Entry:
+  filters_added: 6
+  details: [(4042, 1, '5', 1), (4042, 2, '2', 1), (4042, 32, 'easy', 1), (4042, 53, 'teacher81', 1), (4042, 33, '1', 1), (4042, 804, 'Adaptability and Resilience', 3)]
+
+--------------------
+
+Local Question ID: 698
+Bank Question ID: 4043
+FilterData Entry:
+  filters_added: 6
+  details: [(4043, 1, '5', 1), (4043, 2, '2', 1), (4043, 32, 'easy', 1), (4043, 53, 'teacher81', 1), (4043, 33, '1', 1), (4043, 805, 'Adaptability and Resilience', 3)]
+
+--------------------
+
+Local Question ID: 699
+Bank Question ID: 4044
+FilterData Entry:
+  filters_added: 6
+  details: [(4044, 1, '5', 1), (4044, 2, '2', 1), (4044, 32, 'easy', 1), (4044, 53, 'teacher81', 1), (4044, 33, '1', 1), (4044, 806, 'Collaboration and Teamwork', 3)]
+
+--------------------
+
+Local Question ID: 700
+Bank Question ID: 4045
+FilterData Entry:
+  filters_added: 6
+  details: [(4045, 1, '5', 1), (4045, 2, '2', 1), (4045, 32, 'easy', 1), (4045, 53, 'teacher81', 1), (4045, 33, '1', 1), (4045, 807, 'Collaboration and Teamwork', 3)]
+
+--------------------
+

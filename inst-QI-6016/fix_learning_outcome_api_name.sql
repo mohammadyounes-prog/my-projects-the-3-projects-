@@ -1,0 +1,1 @@
+UPDATE property_types SET api_name = 'learning_outcomes' WHERE id = 41;

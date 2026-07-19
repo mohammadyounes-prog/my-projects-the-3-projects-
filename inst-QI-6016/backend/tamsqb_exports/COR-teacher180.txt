@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher180 (ID: 184)
+Category: CAT-teacher180-1-04-03-2026 (ID: 864)
+--------------------------------------------------
+
+Local Question ID: 1339
+Bank Question ID: 4731
+FilterData Entry:
+  filters_added: 5
+  details: [(4731, 1, '5', 1), (4731, 2, '2', 1), (4731, 32, 'medium', 1), (4731, 53, 'teacher180', 1), (4731, 33, '1', 1)]
+
+--------------------
+

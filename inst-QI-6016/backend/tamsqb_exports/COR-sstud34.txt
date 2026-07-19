@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-sstud34 (ID: 143)
+Category: CAT-sstud34-2-13-01-2026 (ID: 521)
+--------------------------------------------------
+
+Local Question ID: 883
+Bank Question ID: 4240
+FilterData Entry:
+  filters_added: 5
+  details: [(4240, 1, '5', 1), (4240, 2, '2', 1), (4240, 32, 'none', 1), (4240, 53, 'sstud34', 1), (4240, 33, '1', 1)]
+
+--------------------
+

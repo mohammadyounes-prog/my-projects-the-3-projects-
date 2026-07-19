@@ -1,0 +1,36 @@
+TamsQB Export for Course: COR-testuser5 (ID: 155)
+Category: CAT-testuser5-2-05-02-2026 (ID: 732)
+--------------------------------------------------
+
+Local Question ID: 1151
+Bank Question ID: 4615
+FilterData Entry:
+  filters_added: 5
+  details: [(4615, 1, '5', 1), (4615, 2, '0', 1), (4615, 32, 'medium', 1), (4615, 53, 'testuser5', 1), (4615, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1154
+Bank Question ID: 4616
+FilterData Entry:
+  filters_added: 5
+  details: [(4616, 1, '5', 1), (4616, 2, '2', 1), (4616, 32, 'medium', 1), (4616, 53, 'testuser5', 1), (4616, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1155
+Bank Question ID: 4617
+FilterData Entry:
+  filters_added: 5
+  details: [(4617, 1, '5', 1), (4617, 2, '2', 1), (4617, 32, 'medium', 1), (4617, 53, 'testuser5', 1), (4617, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1156
+Bank Question ID: 4618
+FilterData Entry:
+  filters_added: 5
+  details: [(4618, 1, '5', 1), (4618, 2, '0', 1), (4618, 32, 'medium', 1), (4618, 53, 'testuser5', 1), (4618, 33, '1', 1)]
+
+--------------------
+

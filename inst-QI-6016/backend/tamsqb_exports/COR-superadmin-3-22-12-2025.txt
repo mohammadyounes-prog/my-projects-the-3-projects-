@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-superadmin-3-22-12-2025 (ID: 52)
+Category: CAT-superadmin-1-22-12-2025 (ID: 270)
+--------------------------------------------------
+
+Local Question ID: 612
+Bank Question ID: 3931
+FilterData Entry:
+  filters_added: 5
+  details: [(3931, 1, '5', 1), (3931, 2, '2', 1), (3931, 32, 'easy', 1), (3931, 53, 'superadmin', 1), (3931, 33, '1', 1)]
+
+--------------------
+

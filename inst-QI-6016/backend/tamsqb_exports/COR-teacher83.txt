@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher83 (ID: 134)
+Category: CAT-teacher83-7-30-12-2025 (ID: 434)
+--------------------------------------------------
+
+Local Question ID: 748
+Bank Question ID: 4093
+FilterData Entry:
+  filters_added: 6
+  details: [(4093, 1, '5', 1), (4093, 2, '2', 1), (4093, 32, 'easy', 1), (4093, 53, 'teacher83', 1), (4093, 33, '1', 1), (4093, 895, 'Self-Reflection and Growth', 3)]
+
+--------------------
+

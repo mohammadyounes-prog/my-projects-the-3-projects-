@@ -1,0 +1,44 @@
+TamsQB Export for Course: COR-SAMI.T-1-27-12-2025 (ID: 93)
+Category: CAT-SAMI.T-1-27-12-2025 (ID: 315)
+--------------------------------------------------
+
+Local Question ID: 671
+Bank Question ID: 3985
+FilterData Entry:
+  filters_added: 6
+  details: [(3985, 1, '5', 1), (3985, 2, '2', 1), (3985, 32, 'easy', 1), (3985, 53, 'SAMI.T', 1), (3985, 33, '1', 1), (3985, 5, 'Critical Thinking Skills', 3)]
+
+--------------------
+
+Local Question ID: 672
+Bank Question ID: 3986
+FilterData Entry:
+  filters_added: 6
+  details: [(3986, 1, '5', 1), (3986, 2, '2', 1), (3986, 32, 'easy', 1), (3986, 53, 'SAMI.T', 1), (3986, 33, '1', 1), (3986, 5, 'Critical Thinking Skills', 3)]
+
+--------------------
+
+Local Question ID: 673
+Bank Question ID: 3987
+FilterData Entry:
+  filters_added: 6
+  details: [(3987, 1, '5', 1), (3987, 2, '2', 1), (3987, 32, 'easy', 1), (3987, 53, 'SAMI.T', 1), (3987, 33, '1', 1), (3987, 5, 'Critical Thinking Skills', 3)]
+
+--------------------
+
+Local Question ID: 674
+Bank Question ID: 3988
+FilterData Entry:
+  filters_added: 6
+  details: [(3988, 1, '5', 1), (3988, 2, '2', 1), (3988, 32, 'easy', 1), (3988, 53, 'SAMI.T', 1), (3988, 33, '1', 1), (3988, 5, 'Critical Thinking Skills', 3)]
+
+--------------------
+
+Local Question ID: 675
+Bank Question ID: 3989
+FilterData Entry:
+  filters_added: 6
+  details: [(3989, 1, '5', 1), (3989, 2, '2', 1), (3989, 32, 'easy', 1), (3989, 53, 'SAMI.T', 1), (3989, 33, '1', 1), (3989, 5, 'Critical Thinking Skills', 3)]
+
+--------------------
+

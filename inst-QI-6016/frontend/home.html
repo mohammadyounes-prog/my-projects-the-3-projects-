@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="home.title">QuestAI Home</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force override for all form labels */
+        .form-label, 
+        label {
+            color: #2c5282 !important;
+        }
+
+        :root {
+            /* Palette - LMS Unified (Light Mode) */
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --accent-blue: #2c5282;
+            --label-blue: #1e3a8a; /* Darker blue for labels */
+            --accent-blue-glow: rgba(44, 82, 130, 0.2);
+            --accent-emerald: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-light: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(12px);
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', 'IBM Plex Sans Arabic', sans-serif;
+            --font-body: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-name-style {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #bfdbfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Refined Navbar */
+        .navbar {
+            background: var(--accent-blue) !important;
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+            font-size: 0.9rem;
+        }
+        .navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+        #currentUserName {
+            color: #ffffff !important;
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-panel) !important;
+            border: 1px solid var(--border-light) !important;
+            border-radius: 1.25rem !important;
+            color: var(--text-primary) !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .welcome-section h1 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .welcome-section p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .info-card .card-header {
+            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
+            color: white !important;
+            font-weight: 600;
+            border-top-left-radius: 1.25rem !important;
+            border-top-right-radius: 1.25rem !important;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: var(--font-display);
+        }
+        .info-card.instructions .card-header {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669) !important;
+        }
+        .info-card.features .card-header {
+            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+            color: white !important;
+        }
+        .info-card .card-body {
+            padding: 30px;
+        }
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-card ul li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .info-card ul li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: var(--text-primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+
+        /* Button Overhaul */
+        .btn {
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: none !important;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3) !important;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5) !important;
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* App Card Styles */
+        .app-card {
+            transition: all 0.3s ease !important;
+            border: 1px solid var(--border-light) !important;
+            cursor: pointer;
+        }
+        .app-icon {
+            font-size: 3rem;
+        }
+        .app-card.coming-soon {
+            filter: grayscale(0.8);
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .app-card.coming-soon:hover {
+            transform: none !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        async function processSSO() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let ssoToken = urlParams.get('sso_token');
+            
+            // Fallback: Check cookies if not in URL
+            if (!ssoToken) {
+                const cookieMatch = document.cookie.match(new RegExp('(^| )sso_token=([^;]+)'));
+                if (cookieMatch) {
+                    ssoToken = cookieMatch[2];
+                    console.log("processSSO: Found token in cookies");
+                }
+            }
+            
+            if (ssoToken) {
+                try {
+                    // Use BACKEND_BASE_URL if available, otherwise fallback to current origin
+                    const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+                    const response = await fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        localStorage.setItem('access_token', data.access_token);
+                        // Clean URL and Cookies
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                        document.cookie = "sso_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        
+                        // If updateUserInfo is already defined, call it to refresh the UI with new token
+                        if (typeof updateUserInfo === 'function') {
+                            updateUserInfo();
+                        }
+                    } else {
+                        console.error("SSO verification failed");
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.error("Error during SSO exchange:", error);
+                    window.location.href = 'login.html';
+                }
+            } else if (!localStorage.getItem('access_token')) {
+                window.location.href = 'login.html';
+            }
+        }
+        processSSO();
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html"><span class="app-name-style">QuestAI</span></a>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-i18n="nav.generateQuestions">Generate Questions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tasks.html" data-i18n="nav.taskHistory">Task History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html" data-i18n="nav.profile">Profile</a>
+                </li>
+                <li class="nav-item" id="resultReportNavItem">
+                    <a class="nav-link" href="result_report.html" data-i18n="nav.resultReport">Result Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="billing.html" data-i18n="nav.bundlesManagement">Bundles Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user_preferences.html" data-i18n="nav.userPreferences">User Preferences</a>
+                </li>
+                <li class="nav-item" id="settingsNavItem">
+                    <a class="nav-link" href="admin_dashboard.html" data-i18n="nav.settings">Settings</a>
+                </li>
+                <li class="nav-item" id="adminNavItem">
+                    <a class="nav-link" href="admin.html" data-i18n="nav.admin">Admin</a>
+                </li>
+                <li class="nav-item" id="takeATestNavItem">
+                    <a class="nav-link" href="tamsQB.html" data-i18n="nav.takeATest">Take a Test</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <select id="langSwitcher" class="form-select form-select-sm" style="width: 70px;">
+                    <option value="en">EN</option>
+                    <option value="ar">AR</option>
+                </select>
+                <span id="currentUserName" class="text-white"></span>
+                <button class="btn btn-outline-light btn-sm" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="welcome-section">
+        <h1 data-i18n="home.welcomeMessage">Welcome to <span class="app-name-style">QuestAI</span>!</h1>
+        <p data-i18n="home.tagline">Your ultimate platform for generating, managing, and retrieving high-quality questions for various educational and professional needs.</p>
+        <a href="index.html" class="btn btn-primary btn-lg me-2" data-i18n="home.startGenerating">Start Generating Questions</a>
+
+    </div>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card info-card features">
+                    <div class="card-header" data-i18n="home.aboutQuestAIHeader">
+                        About QuestAI
+                    </div>
+                    <div class="card-body">
+                        <p data-i18n="home.aboutQuestAIText1">QuestAI leverages advanced AI models to help educators, trainers, and content creators quickly generate diverse question types tailored to specific topics, difficulty levels, and audience types.</p>
+                        <p data-i18n="home.aboutQuestAIText2">Our platform supports multiple-choice and open-ended questions, with customizable parameters to ensure relevance and quality. Easily manage your generated questions, track their status, and export them for use in your assessments or learning materials.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card info-card instructions">
+                    <div class="card-header" data-i18n="home.howToUseHeader">
+                        How to Use
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li data-i18n="home.howToUse1"><strong>Generate Questions:</strong> Navigate to the "Generate Questions" page, fill in the required details like topic context, audience type, and desired number of questions, then click "Generate".</li>
+                            <li data-i18n="home.howToUse2"><strong>Review & Manage:</strong> After generation, review the questions. You can approve, reject, edit, or delete them. Approved questions are ready for use.</li>
+                            <li data-i18n="home.howToUse3"><strong>Retrieve Questions:</strong> Use the "Generate Questions" page to search, filter, and export your approved questions.</li>
+                            <li data-i18n="home.howToUse4"><strong>Task History:</strong> Keep track of all your generation tasks and their statuses.</li>
+                            <li data-i18n="home.howToUse5"><strong>Profile & Settings:</strong> Manage your account and access administrative settings if you have the necessary permissions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="home.copyright">&copy; 2025 QuestAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Highlight active nav link
+            (function(){
+                try {
+                    var parts = location.pathname.split('/');
+                    var page = (parts[parts.length-1] || 'home.html').toLowerCase(); // Default to home.html
+                    document.querySelectorAll('.navbar a.nav-link').forEach(function(a){
+                        a.classList.remove('active'); // Remove active from all links first
+                        var href = (a.getAttribute('href')||'').toLowerCase();
+                        if (href && page === href) {
+                            a.classList.add('active');
+                        }
+                    });
+                } catch(e) { /* noop */ }
+            })();
+        });
+    </script>
+</body>
+</html>
+e');
+                        }
+                    });
+                } catch(e) { /* noop */ }
+            })();
+        });
+    </script>
+</body>
+</html>

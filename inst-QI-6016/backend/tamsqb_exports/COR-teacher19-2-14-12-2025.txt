@@ -1,0 +1,20 @@
+TamsQB Export for Course: COR-teacher19-2-14-12-2025 (ID: 50)
+Category: CAT-teacher19-1-14-12-2025 (ID: 276)
+--------------------------------------------------
+
+Local Question ID: 551
+Bank Question ID: 3938
+FilterData Entry:
+  filters_added: 5
+  details: [(3938, 1, '5', 1), (3938, 2, '2', 1), (3938, 32, 'easy', 1), (3938, 53, 'teacher19', 1), (3938, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 552
+Bank Question ID: 3939
+FilterData Entry:
+  filters_added: 5
+  details: [(3939, 1, '5', 1), (3939, 2, '2', 1), (3939, 32, 'easy', 1), (3939, 53, 'teacher19', 1), (3939, 33, '1', 1)]
+
+--------------------
+

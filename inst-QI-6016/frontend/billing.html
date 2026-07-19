@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestAI - Billing</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force override for all form labels */
+        .form-label, 
+        label {
+            color: #2c5282 !important;
+        }
+
+        :root {
+            /* Palette - LMS Unified (Light Mode) */
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --accent-blue: #2c5282;
+            --label-blue: #1e3a8a; /* Darker blue for labels */
+            --accent-blue-glow: rgba(44, 82, 130, 0.2);
+            --accent-emerald: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-light: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(12px);
+            
+            /* Typography */
+            --font-display: 'Space Grotesk', 'IBM Plex Sans Arabic', sans-serif;
+            --font-body: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .app-name-style {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #bfdbfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Refined Navbar */
+        .navbar {
+            background: var(--accent-blue) !important;
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+            font-size: 0.9rem;
+        }
+        .navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+        #currentUserName {
+            color: #ffffff !important;
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-panel) !important;
+            border: 1px solid var(--border-light) !important;
+            border-radius: 1.25rem !important;
+            color: var(--text-primary) !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .page-header-orange {
+            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
+            color: white !important;
+            padding: 1.25rem !important;
+            border-radius: 1.25rem 1.25rem 0 0 !important;
+        }
+        .page-header-orange h2 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.75rem;
+            color: white !important;
+        }
+
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+
+        .form-control, .form-select {
+            background-color: #ffffff !important;
+            border: 1px solid var(--border-light) !important;
+            color: var(--text-primary) !important;
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1rem !important;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #ffffff !important;
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 0 0 4px var(--accent-blue-glow) !important;
+            outline: none;
+        }
+
+        /* Button Overhaul */
+        .btn {
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: none !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3) !important;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5) !important;
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+        }
+        .btn-success:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5) !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 0, 0, 0.05) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-light) !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html"><span class="app-name-style">QuestAI</span></a>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" data-i18n="nav.generateQuestions">Generate Questions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tasks.html" data-i18n="nav.taskHistory">Task History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html" data-i18n="nav.profile">Profile</a>
+                </li>
+                <li class="nav-item" id="resultReportNavItem">
+                    <a class="nav-link" href="result_report.html" data-i18n="nav.resultReport">Result Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="billing.html" data-i18n="nav.bundlesManagement">Bundles Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user_preferences.html" data-i18n="nav.userPreferences">User Preferences</a>
+                </li>
+                <li class="nav-item" id="settingsNavItem">
+                    <a class="nav-link" href="admin_dashboard.html" data-i18n="nav.settings">Settings</a>
+                </li>
+                <li class="nav-item" id="adminNavItem">
+                    <a class="nav-link" href="admin.html" data-i18n="nav.admin">Admin</a>
+                </li>
+                <li class="nav-item" id="takeATestNavItem">
+                    <a class="nav-link" href="tamsQB.html" data-i18n="nav.takeATest">Take a Test</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2 ms-auto">
+                <span id="currentUserName" class="text-white"></span>
+                <button class="btn btn-outline-light btn-sm" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4 text-primary" data-i18n="billing.title">Billing</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center h-100">
+                    <div class="card-header bg-info text-white" data-i18n="billing.totalQuestionsBought">Total Questions Bought</div>
+                    <div class="card-body">
+                        <h2 id="totalBoughtCount" class="card-title">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center h-100">
+                    <div class="card-header bg-warning text-dark" data-i18n="billing.totalQuestionsGenerated">Total Questions Generated</div>
+                    <div class="card-body">
+                        <h2 id="totalGeneratedCount" class="card-title">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center h-100">
+                    <div class="card-header bg-danger text-white" data-i18n="billing.totalQuestionsRemaining">Total Questions Remaining</div>
+                    <div class="card-body">
+                        <h2 id="totalRemainingCount" class="card-title">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white" data-i18n="billing.balances">Your Question Balances</div>
+            <div class="card-body">
+                <div id="balancesContainer"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <ul class="nav nav-tabs card-header-tabs" id="billing-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="school-deals-tab" data-bs-toggle="tab" data-bs-target="#school-deals" type="button" role="tab" aria-controls="school-deals" aria-selected="true">School Products</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="university-deals-tab" data-bs-toggle="tab" data-bs-target="#university-deals" type="button" role="tab" aria-controls="university-deals" aria-selected="false">University Products</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="corporate-deals-tab" data-bs-toggle="tab" data-bs-target="#corporate-deals" type="button" role="tab" aria-controls="corporate-deals" aria-selected="false">Corporate Products</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="billing-tabs-content">
+                    <div class="tab-pane fade show active" id="school-deals" role="tabpanel" aria-labelledby="school-deals-tab">
+                        <div id="schoolProductsContainer" class="row"></div>
+                    </div>
+                    <div class="tab-pane fade" id="university-deals" role="tabpanel" aria-labelledby="university-deals-tab">
+                        <div id="universityProductsContainer" class="row"></div>
+                    </div>
+                    <div class="tab-pane fade" id="corporate-deals" role="tabpanel" aria-labelledby="corporate-deals-tab">
+                        <div id="corporateProductsContainer" class="row"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dummy Payment Confirmation Modal -->
+    <div class="modal fade" id="paymentConfirmationModal" tabindex="-1" aria-labelledby="paymentConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentConfirmationModalLabel">Confirm Your Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to purchase the following:</p>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item">Product: <strong id="modalProductName"></strong></li>
+                        <li class="list-group-item">Amount: <strong id="modalProductAmount"></strong></li>
+                        <li class="list-group-item">Questions: <strong id="modalProductQuota"></strong></li>
+                        <li class="list-group-item">Audience: <strong id="modalProductAudience"></strong></li>
+                    </ul>
+                    <div class="alert alert-info small" role="alert">
+                        This is a dummy payment gateway. Clicking "Confirm Payment" will simulate a successful transaction.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmDummyPaymentBtn">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPaymentMetadata = {}; // Global to store metadata for dummy payment confirmation
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const API_BASE_URL = window.BACKEND_BASE_URL || 'http://127.0.0.1:8000'; // Added fallback for robustness
+            
+            // Check for payment success/failure from redirect
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentIntentId = urlParams.get('payment_intent_id');
+            const paymentStatus = urlParams.get('status');
+
+            if (paymentIntentId && paymentStatus === 'succeeded') {
+                alert('Payment successful! Your balance will be updated shortly.');
+                window.history.replaceState({}, document.title, "/billing.html");
+                loadBalances(); 
+            } else if (paymentIntentId && paymentStatus === 'failed') {
+                alert('Payment failed. Please try again.');
+                window.history.replaceState({}, document.title, "/billing.html");
+            }
+
+            async function fetchWithAuth(url, options = {}) {
+                const token = localStorage.getItem('access_token');
+                const headers = {
+                    ...options.headers,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                };
+                const response = await fetch(url, { ...options, headers });
+                if (response.status === 401) {
+                    window.location.href = 'login.html';
+                }
+                return response;
+            }
+
+            async function loadBalances() {
+                const balancesContainer = document.getElementById('balancesContainer');
+                const totalBoughtCountEl = document.getElementById('totalBoughtCount');
+                const totalGeneratedCountEl = document.getElementById('totalGeneratedCount');
+                const totalRemainingCountEl = document.getElementById('totalRemainingCount');
+
+                try {
+                    const response = await fetchWithAuth(`${API_BASE_URL}/billing/balances`);
+                    if (!response.ok) throw new Error('Failed to load balances');
+                    const balances = await response.json();
+                    balancesContainer.innerHTML = '';
+
+                    let totalBought = 0;
+                    let totalGenerated = 0;
+
+                    if (balances.length === 0) {
+                        balancesContainer.innerHTML = `<p data-i18n="billing.noBalances">You have no question balances.</p>`;
+                    } else {
+                        const list = document.createElement('ul');
+                        list.className = 'list-group';
+                        balances.forEach(balance => {
+                            const remaining = balance.total_bought - balance.generated_count;
+                            totalBought += balance.total_bought;
+                            totalGenerated += balance.generated_count;
+
+                            const item = document.createElement('li');
+                            item.className = 'list-group-item d-flex justify-content-between align-items-center';
+                            item.innerHTML = `
+                                <span class="fw-bold text-secondary">${balance.audience_type.charAt(0).toUpperCase() + balance.audience_type.slice(1)}</span>
+                                <div>
+                                    <span class="badge bg-info rounded-pill me-2">Bought: ${balance.total_bought}</span>
+                                    <span class="badge bg-warning text-dark rounded-pill me-2">Generated: ${balance.generated_count}</span>
+                                    <span class="badge bg-primary rounded-pill fs-6">Remaining: ${remaining}</span>
+                                </div>
+                            `;
+                            list.appendChild(item);
+                        });
+                        balancesContainer.appendChild(list);
+                    }
+
+                    totalBoughtCountEl.textContent = totalBought;
+                    totalGeneratedCountEl.textContent = totalGenerated;
+                    totalRemainingCountEl.textContent = totalBought - totalGenerated;
+
+                } catch (error) {
+                    balancesContainer.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+                }
+            }
+            
+            function renderProductCard(product) {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 mb-3';
+                const card = document.createElement('div');
+                card.className = 'card h-100';
+                card.innerHTML = `
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary fw-bold">${product.name}</h5>
+                        <h6 class="card-subtitle mb-2 text-success">${(product.price_cents / 100).toFixed(2)} ${product.currency_code}</h6>
+                        <p class="card-text flex-grow-1">${product.description || ''}</p>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li><span data-i18n="billing.quota">Questions Quota</span>: ${product.questions_quota}</li>
+                            <li><span data-i18n="billing.audience">Audience</span>: ${product.audience_type}</li>
+                            <li><span data-i18n="billing.type">Type</span>: ${product.product_type}</li>
+                            ${product.duration_days ? `<li><span data-i18n="billing.duration">Duration</span>: ${product.duration_days} days</li>` : ''}
+                        </ul>
+                        <button class="btn btn-success mt-auto buy-product-btn" data-id="${product.id}" data-i18n="billing.buyButton">Buy Now</button>
+                    </div>
+                `;
+                col.appendChild(card); // Append the card to the column div
+                return col;
+            }
+
+            async function loadProducts() {
+                const schoolProductsContainer = document.getElementById('schoolProductsContainer');
+                const universityProductsContainer = document.getElementById('universityProductsContainer');
+                const corporateProductsContainer = document.getElementById('corporateProductsContainer');
+
+                try {
+                    const response = await fetchWithAuth(`${API_BASE_URL}/billing/products`);
+                    if (!response.ok) throw new Error('Failed to load products');
+                    const products = await response.json();
+                    
+                    console.log("Fetched products:", products); // Debugging line
+
+                    schoolProductsContainer.innerHTML = '';
+                    universityProductsContainer.innerHTML = '';
+                    corporateProductsContainer.innerHTML = '';
+
+                    const schoolProducts = products.filter(p => p.audience_type === 'school');
+                    const universityProducts = products.filter(p => p.audience_type === 'university');
+                    const corporateProducts = products.filter(p => p.audience_type === 'company');
+
+                    console.log("DEBUG: School Products filtered:", schoolProducts.length);
+                    if (schoolProducts.length > 0) {
+                        schoolProducts.forEach(product => schoolProductsContainer.appendChild(renderProductCard(product)));
+                        console.log("DEBUG: Appended", schoolProducts.length, "school products.");
+                    } else {
+                        schoolProductsContainer.innerHTML = `<p>No school-specific products available.</p>`;
+                        console.log("DEBUG: No school products to append.");
+                    }
+
+                    console.log("DEBUG: University Products filtered:", universityProducts.length);
+                    if (universityProducts.length > 0) {
+                        universityProducts.forEach(product => universityProductsContainer.appendChild(renderProductCard(product)));
+                        console.log("DEBUG: Appended", universityProducts.length, "university products.");
+                    } else {
+                        universityProductsContainer.innerHTML = `<p>No university-specific products available.</p>`;
+                        console.log("DEBUG: No university products to append.");
+                    }
+
+                    console.log("DEBUG: Corporate Products filtered:", corporateProducts.length);
+                    if (corporateProducts.length > 0) {
+                        corporateProducts.forEach(product => corporateProductsContainer.appendChild(renderProductCard(product)));
+                        console.log("DEBUG: Appended", corporateProducts.length, "corporate products.");
+                    } else {
+                        corporateProductsContainer.innerHTML = `<p>No corporate-specific products available.</p>`;
+                        console.log("DEBUG: No corporate products to append.");
+                    }
+                    
+                } catch (error) {
+                    console.error("Error loading products:", error);
+                    const mainContainer = document.getElementById('billing-tabs-content');
+                    mainContainer.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+                }
+            }
+
+            document.body.addEventListener('click', async (event) => {
+                if (event.target.classList.contains('buy-product-btn')) {
+                    event.preventDefault();
+                    const productId = event.target.dataset.id;
+                    if (confirm('Are you sure you want to purchase this product?')) {
+                        try {
+                            const response = await fetchWithAuth(`${API_BASE_URL}/billing/purchase`, {
+                                method: 'POST',
+                                body: JSON.stringify({ product_id: parseInt(productId, 10) })
+                            });
+                            if (!response.ok) {
+                                const errorData = await response.json();
+                                throw new Error(errorData.detail || 'Purchase failed');
+                            }
+                            const responseData = await response.json();
+                            
+                            if (responseData.payment_intent && responseData.payment_intent.client_secret) {
+                                currentPaymentMetadata = responseData.payment_intent.metadata;
+                                document.getElementById('modalProductName').textContent = currentPaymentMetadata.product_name || `Product ID ${currentPaymentMetadata.product_id}`;
+                                document.getElementById('modalProductAmount').textContent = `${(currentPaymentMetadata.amount_cents / 100).toFixed(2)} ${currentPaymentMetadata.currency_code}`;
+                                document.getElementById('modalProductQuota').textContent = currentPaymentMetadata.questions_quota;
+                                document.getElementById('modalProductAudience').textContent = currentPaymentMetadata.audience_type;
+
+                                const paymentModal = new bootstrap.Modal(document.getElementById('paymentConfirmationModal'));
+                                paymentModal.show();
+                            } else if (responseData.payment_intent && responseData.payment_intent.redirect_url) {
+                                const webhookUrl = responseData.payment_intent.redirect_url;
+                                const webhookResponse = await fetch(webhookUrl);
+                                if (!webhookResponse.ok) {
+                                    console.error('Failed to trigger dummy webhook:', await webhookResponse.text());
+                                    alert('Payment initiated, but failed to update balance. Please contact support.');
+                                } else {
+                                    alert('Payment successful! Your balance has been updated.');
+                                }
+                            } else {
+                                alert('Purchase initiated, but no payment redirection or client secret provided.');
+                            }
+                        } catch (error) {
+                            alert(`Error: ${error.message}`);
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('confirmDummyPaymentBtn').addEventListener('click', async () => {
+                const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentConfirmationModal'));
+                paymentModal.hide();
+
+                if (!currentPaymentMetadata) {
+                    alert('Payment metadata not found. Cannot confirm dummy payment.');
+                    return;
+                }
+
+                const { product_id, tenant_id, user_id, questions_quota, audience_type, amount_cents, currency_code } = currentPaymentMetadata;
+                const dummyWebhookUrl = `${API_BASE_URL}/billing/dummy_webhook_trigger?payment_intent_id=dummy_pi_${amount_cents}&status=succeeded&product_id=${product_id}&tenant_id=${tenant_id}&user_id=${user_id}&questions_quota=${questions_quota}&audience_type=${audience_type}&amount_cents=${amount_cents}&currency_code=${currency_code}`;
+                
+                try {
+                    const webhookResponse = await fetch(dummyWebhookUrl);
+                    if (!webhookResponse.ok) {
+                        console.error('Failed to trigger dummy webhook:', await webhookResponse.text());
+                        alert('Payment confirmed, but failed to update balance. Please contact support.');
+                    } else {
+                        alert('Dummy payment successful! Your balance has been updated.');
+                    }
+                } catch (error) {
+                    console.error('Error triggering dummy webhook:', error);
+                    alert(`Error confirming dummy payment: ${error.message}`);
+                }
+                loadBalances();
+            });
+
+
+            loadBalances();
+            loadProducts();
+            // Listen for questionsGenerated event from other pages (e.g., index.html)
+            window.addEventListener('questionsGenerated', loadBalances);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
