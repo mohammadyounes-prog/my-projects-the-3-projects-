@@ -1,0 +1,15 @@
+# Ignore junk files and folders
+*.db
+*.db-shm
+*.db-wal
+*.log
+*.bak
+__pycache__/
+*.pyc
+.env
+node_modules/
+chromium/
+# Ignore these folders wherever they appear
+**/backend/uploads/
+**/backend/generated_reports/
+# If there are any other specific large folders you know of, add them here

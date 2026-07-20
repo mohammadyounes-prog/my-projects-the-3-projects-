@@ -1,0 +1,34 @@
+Microsoft Windows [Version 10.0.20348.587]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\myunus>e:
+
+E:\>cd questionretrieval\new-q-bank\instances\cust-1\inst-dashboard-6018\frontend
+
+E:\questionretrieval\new-q-bank\instances\cust-1\inst-dashboard-6018\frontend>npx serve -s build -l 6019
+
+   ┌──────────────────────────────────────────┐
+   │                                          │
+   │   Serving!                               │
+   │                                          │
+   │   - Local:    http://localhost:6019      │
+   │   - Network:  http://10.100.5.101:6019   │
+   │                                          │
+   │   Copied local address to clipboard!     │
+   │                                          │
+   └──────────────────────────────────────────┘
+
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /login
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 20 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /static/js/main.2a10850e.js
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /static/css/main.db6beb5a.css
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 5 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 13 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /.well-known/appspecific/com.chrome.devtools.json
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 1 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /static/css/main.db6beb5a.css.map
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 3 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /static/js/main.2a10850e.js.map
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 12 ms
+ HTTP  6/4/2026 9:25:13 PM ::1 GET /favicon.ico
+ HTTP  6/4/2026 9:25:13 PM ::1 Returned 200 in 3 ms
