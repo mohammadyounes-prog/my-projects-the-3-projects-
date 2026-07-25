@@ -14,7 +14,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### DG-1 — Token adoption notes
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#2](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/2) |
 | **Agent** | Design guardian |
 | **parallel** | no (run first) |
@@ -38,7 +38,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A1 — Load suite fonts
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#3](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/3) |
 | **Agent** | Website |
 | **parallel** | ok with A2 |
@@ -49,8 +49,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `src/app/layout.tsx`, `src/app/[lang]/layout.tsx`, `src/app/globals.css`, `tailwind.config.js`
 
 **Acceptance:**
-- [ ] Computed font on hero/headings is suite display family
-- [ ] Arabic pages load Arabic-capable family
+- [x] Computed font on hero/headings is suite display family
+- [x] Arabic pages load Arabic-capable family
 - [ ] QA refresh: `website-home-en-desktop.png`, `website-home-ar-desktop.png`
 
 ---
@@ -58,7 +58,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A2 — Mirror suite tokens into Tailwind / CSS
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#4](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/4) |
 | **Agent** | Website |
 | **parallel** | ok with A1 |
@@ -69,8 +69,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `globals.css`, `tailwind.config.js`
 
 **Acceptance:**
-- [ ] `--suite-primary` (or Tailwind color) equals `#2c5282`
-- [ ] Components can use theme tokens instead of ad-hoc sky/slate where touched later
+- [x] `--suite-primary` (or Tailwind color) equals `#2c5282`
+- [x] Components can use theme tokens instead of ad-hoc sky/slate where touched later
 
 ---
 

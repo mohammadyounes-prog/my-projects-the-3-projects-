@@ -1,0 +1,138 @@
+/* SYNCED FROM design-system/tokens.css — do not edit hex here; update the source and re-copy. */
+/**
+ * TDM / LMS Suite — reference design tokens
+ * Source of truth for cross-app adoption.
+ * Do not invent parallel hex values in product CSS; map frameworks to these names.
+ *
+ * Load fonts (all three apps):
+ *   Space Grotesk, Plus Jakarta Sans, IBM Plex Sans Arabic, Cairo
+ *   (Google Fonts or self-hosted)
+ */
+
+:root {
+  /* ——— Color ——— */
+  --suite-primary: #2c5282;
+  --suite-primary-dark: #1e3a8a;
+  --suite-primary-soft: #ebf8ff;
+  --suite-accent-sky: #0ea5e9;
+  --suite-success: #10b981;
+  --suite-success-dark: #059669;
+  --suite-warning: #f59e0b;
+  --suite-danger: #dc2626;
+  --suite-surface: #f8fafc;
+  --suite-surface-raised: #ffffff;
+  --suite-text: #1e293b;
+  --suite-text-muted: #64748b;
+  --suite-border: rgba(0, 0, 0, 0.08);
+  --suite-on-primary: #ffffff;
+
+  /* ——— Typography ——— */
+  --suite-font-display: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
+  --suite-font-body: "Plus Jakarta Sans", "Cairo", sans-serif;
+  --suite-font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --suite-text-hero: clamp(2.25rem, 4vw, 3.5rem);
+  --suite-text-h1: 2rem;
+  --suite-text-h2: 1.5rem;
+  --suite-text-h3: 1.25rem;
+  --suite-text-body: 1rem;
+  --suite-text-caption: 0.875rem;
+  --suite-leading-tight: 1.2;
+  --suite-leading-body: 1.55;
+  --suite-tracking-display: -0.02em;
+
+  /* ——— Space ——— */
+  --suite-space-1: 0.25rem; /* 4 */
+  --suite-space-2: 0.5rem;  /* 8 */
+  --suite-space-3: 1rem;    /* 16 */
+  --suite-space-4: 1.5rem;  /* 24 */
+  --suite-space-5: 2rem;    /* 32 */
+  --suite-space-6: 3rem;    /* 48 */
+
+  /* ——— Radius / elevation ——— */
+  --suite-radius-sm: 0.5rem;
+  --suite-radius-md: 0.75rem;
+  --suite-radius-lg: 1.25rem;
+  --suite-shadow-0: none;
+  --suite-shadow-1: 0 4px 15px rgba(0, 0, 0, 0.06);
+  --suite-shadow-2: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  /* ——— Chrome ——— */
+  --suite-header-height: 3.5rem;
+  --suite-header-bg: var(--suite-primary);
+  --suite-header-fg: var(--suite-on-primary);
+
+  /* ——— Motion ——— */
+  --suite-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --suite-duration-fast: 150ms;
+  --suite-duration-med: 300ms;
+}
+
+/* Optional aliases matching existing QI names during migration */
+:root {
+  --accent-blue: var(--suite-primary);
+  --label-blue: var(--suite-primary-dark);
+  --bg-main: var(--suite-surface);
+  --bg-panel: var(--suite-surface-raised);
+  --text-primary: var(--suite-text);
+  --text-secondary: var(--suite-text-muted);
+  --border-light: var(--suite-border);
+  --font-display: var(--suite-font-display);
+  --font-body: var(--suite-font-body);
+  --accent-emerald: var(--suite-success);
+}
+
+/* Base document defaults (apps may scope these) */
+.suite-root,
+html.suite {
+  background-color: var(--suite-surface);
+  color: var(--suite-text);
+  font-family: var(--suite-font-body);
+  font-size: var(--suite-text-body);
+  line-height: var(--suite-leading-body);
+}
+
+.suite-display {
+  font-family: var(--suite-font-display);
+  letter-spacing: var(--suite-tracking-display);
+  font-weight: 700;
+  line-height: var(--suite-leading-tight);
+}
+
+/* Suite motion primitives */
+@keyframes suite-header-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes suite-page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes suite-card-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.suite-motion-header {
+  animation: suite-header-in var(--suite-duration-med) var(--suite-ease) both;
+}
+
+.suite-motion-page {
+  animation: suite-page-fade var(--suite-duration-med) var(--suite-ease) both;
+}
+
+.suite-motion-card {
+  animation: suite-card-rise 0.6s var(--suite-ease) both;
+}
+
+.suite-card-hover {
+  transition: transform var(--suite-duration-med) var(--suite-ease),
+    box-shadow var(--suite-duration-med) var(--suite-ease);
+}
+
+.suite-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--suite-shadow-2);
+}
