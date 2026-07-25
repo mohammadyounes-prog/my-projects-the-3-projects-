@@ -126,8 +126,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `login/page.tsx`, `.env.example`
 
 **Acceptance:**
-- [ ] Login visually consistent with suite header treatment
-- [ ] `.env.example` present with the four public URLs
+- [x] Login visually consistent with suite header treatment
+- [x] `.env.example` present with the four public URLs
 - [ ] QA refresh: `website-login-en-desktop.png`
 
 ---
