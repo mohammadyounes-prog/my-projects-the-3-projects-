@@ -51,7 +51,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] Computed font on hero/headings is suite display family
 - [x] Arabic pages load Arabic-capable family
-- [ ] QA refresh: `website-home-en-desktop.png`, `website-home-ar-desktop.png`
+- [x] QA refresh: `website-home-en-desktop.png`, `website-home-ar-desktop.png`
 
 ---
 
@@ -89,7 +89,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 - [x] No Coming Soon full-bleed bar
 - [x] Hub EN and AR both translated
 - [x] Visual language matches home primary/fonts
-- [ ] QA refresh: `website-hub-en-desktop.png` (+ add `website-hub-ar-desktop.png`)
+- [x] QA refresh: `website-hub-en-desktop.png` (+ add `website-hub-ar-desktop.png`)
 
 ---
 
@@ -108,7 +108,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 
 **Acceptance:**
 - [x] No primary-path dead `#` CTAs on home/solutions/header/footer
-- [ ] QA refresh: `website-home-en-desktop.png`, `website-solutions-en-desktop.png`
+- [x] QA refresh: `website-home-en-desktop.png`, `website-solutions-en-desktop.png`
 
 ---
 
@@ -128,14 +128,14 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] Login visually consistent with suite header treatment
 - [x] `.env.example` present with the four public URLs
-- [ ] QA refresh: `website-login-en-desktop.png`
+- [x] QA refresh: `website-login-en-desktop.png`
 
 ---
 
 ### A6 — SSR lang/dir + missing i18n keys
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#8](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/8) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |
@@ -148,14 +148,14 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] View-source / first paint `dir=rtl` on `/ar`
 - [x] No English-only chrome on AR home/hub for keys covered in audit
-- [ ] QA refresh: `website-home-ar-desktop.png`, `website-home-ar-mobile.png`
+- [x] QA refresh: `website-home-ar-desktop.png`, `website-home-ar-mobile.png`
 
 ---
 
 ### QA-A — Phase A visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#9](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/9) |
 | **Agent** | Visual QA |
 | **Depends on** | A1–A6 |
@@ -164,6 +164,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 `website-home-en-desktop.png`, `website-home-ar-desktop.png`, `website-home-en-mobile.png`, `website-home-ar-mobile.png`, `website-hub-en-desktop.png`, `website-hub-ar-desktop.png` (new), `website-login-en-desktop.png`, `website-solutions-en-desktop.png`
 
 **Pass if:** Phase A exit criteria in roadmap + contract §8 for website surfaces.
+
+**Visual QA (2026-07-25):** PASS — production `:6015`; hub captured with dummy `localStorage.access_token` (no redirect on load). Suite fonts + `--suite-primary #2c5282`; no debug Coming Soon bar; no primary `#` CTAs. A1–A6 screenshot boxes checked above. Residual (non-blocking): home “Try Assessment/AI Tools” hrefs resolve to `undefined/…` without env; EN mobile sticky header clips hero H1.
 
 ---
 
