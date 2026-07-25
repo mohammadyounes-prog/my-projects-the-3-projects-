@@ -415,13 +415,13 @@ Document and verify `NEXT_PUBLIC_*` against running APIs; fix login token path o
 
 ### E2 — Dashboard SSO contract
 
-**GitHub:** [#24](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/24) · **Status:** in_progress
+**GitHub:** [#24](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/24) · **Status:** done
 
 Align `REACT_APP_API_URL` / `verify-sso` path and response (`access_token`) with backend. Separate from B4 hub URL.
 
 ### E3 — Dashboard API base URL consistency
 
-**GitHub:** [#25](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/25) · **Status:** deferred
+**GitHub:** [#25](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/25) · **Status:** in_progress
 
 Remove hardcoded `localhost:2000` chart endpoints; single `REACT_APP_API_BASE_URL`.
 
