@@ -115,7 +115,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A5 — Login chrome + env example
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#7](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/7) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |
@@ -135,7 +135,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A6 — SSR lang/dir + missing i18n keys
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#8](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/8) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |
@@ -146,8 +146,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `src/app/layout.tsx`, `src/app/[lang]/layout.tsx`, `public/locales/en/common.json`, `public/locales/ar/common.json`, `Header.tsx`, `TestimonialsSection.tsx`
 
 **Acceptance:**
-- [ ] View-source / first paint `dir=rtl` on `/ar`
-- [ ] No English-only chrome on AR home/hub for keys covered in audit
+- [x] View-source / first paint `dir=rtl` on `/ar`
+- [x] No English-only chrome on AR home/hub for keys covered in audit
 - [ ] QA refresh: `website-home-ar-desktop.png`, `website-home-ar-mobile.png`
 
 ---

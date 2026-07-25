@@ -88,7 +88,7 @@ export default function Header() {
     : (isScrolled ? 'text-sky-100' : 'text-sky-500');
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg} ${textColor} shadow-md border-t-2 border-blue-500`}>
+    <header className={`fixed top-0 inset-inline-0 z-50 transition-all duration-300 ${headerBg} ${textColor} shadow-md border-t-2 border-blue-500`}>
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <Link href="/" className="flex flex-col me-auto ms-8">
@@ -96,12 +96,12 @@ export default function Header() {
             {t('tdm_systems')}
           </span>
           <span className={`text-xl ${logoSubColor} mt-4 font-bold transition-colors duration-300`}>
-            Knowledge is Power
+            {t('knowledge_is_power')}
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className={`hidden md:flex items-center space-x-6 mx-auto ${i18n.language === 'ar' ? 'space-x-reverse' : ''}`}>
+        <nav className="hidden md:flex items-center gap-6 mx-auto">
           {navItems.map((item) => (
             <Link key={item.name} href={item.href} className="font-bold hover:text-sky-300 transition-colors">
               {item.name}
@@ -110,7 +110,7 @@ export default function Header() {
         </nav>
 
         {/* Language Switcher & Call to Action Buttons Container */}
-        <div className={`hidden md:flex items-center space-x-6 ms-auto ${i18n.language === 'ar' ? 'space-x-reverse' : ''}`}>
+        <div className="hidden md:flex items-center gap-6 ms-auto">
           {/* Explore Solutions Button */}
           <Link 
             href={`/${i18n.language}/solutions`} 
@@ -124,7 +124,7 @@ export default function Header() {
           </Link>
           
           {user ? (
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-4">
               {pathname !== '/' && (
                 <span className="font-bold">
                   {user}
@@ -147,16 +147,16 @@ export default function Header() {
           {showLogoutModal && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded-lg shadow-xl text-black">
-                <h3 className="text-lg font-bold mb-4">{t('logout_confirm', 'Select an action')}</h3>
-                <div className="flex flex-col space-y-2">
+                <h3 className="text-lg font-bold mb-4">{t('logout_confirm')}</h3>
+                <div className="flex flex-col gap-2">
                   <button onClick={performLogout} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                    {t('logout', 'Logout')}
+                    {t('logout')}
                   </button>
                   <button onClick={handleGoToHub} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    {t('back_to_hub', 'Back to Hub')}
+                    {t('back_to_hub')}
                   </button>
                   <button onClick={() => setShowLogoutModal(false)} className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400">
-                    {t('cancel', 'Cancel')}
+                    {t('cancel')}
                   </button>
                 </div>
               </div>
