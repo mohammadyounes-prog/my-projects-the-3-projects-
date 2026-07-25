@@ -64,6 +64,9 @@
   padding: var(--space-md);
   border-radius: 8px;
   border: 1px solid var(--color-border);
+  min-width: 0;
+  min-height: 280px;
+  overflow: hidden;
 }
 
 .action-grid {

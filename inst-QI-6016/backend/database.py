@@ -582,11 +582,23 @@ create_gender_lookup_table()
 def create_indexes():
     conn = get_db_connection()
     cursor = conn.cursor()
-    # Create helpful indexes if they don't already exist
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_questions_status ON questions(status)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_questions_user ON questions(user_id)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_questions_task ON questions(task_id)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_tasks_user ON generation_tasks(user_id)")
+    # Create helpful indexes if they don't already exist (skip when columns missing on older DBs)
+    desired = [
+        ("idx_questions_status", "questions", "status"),
+        ("idx_questions_user", "questions", "user_id"),
+        ("idx_questions_task", "questions", "task_id"),
+        ("idx_tasks_user", "generation_tasks", "user_id"),
+    ]
+    for index_name, table, column in desired:
+        try:
+            cols = {row[1] for row in cursor.execute(f"PRAGMA table_info({table})").fetchall()}
+            if column not in cols:
+                continue
+            cursor.execute(
+                f"CREATE INDEX IF NOT EXISTS {index_name} ON {table}({column})"
+            )
+        except sqlite3.Error as e:
+            print(f"WARNING: skip index {index_name}: {e}")
     conn.commit()
     conn.close()
 

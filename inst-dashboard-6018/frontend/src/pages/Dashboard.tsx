@@ -31,16 +31,32 @@ const DashboardPage = () => {
   const [aiAdvice, setAiAdvice] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/kpis`).then(r => setKpis(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/at-risk-students`).then(r => setAtRisk(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/lo-attainment`).then(r => setLoBreakdown(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/lo-attainment-trend`).then(r => setTrendData(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/exam-quality`).then(r => setExamQualityData(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/distractor-analysis`).then(r => setDistractorData(r.data));
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/heatmap-data`).then(r => {
-        setHeatmapData(r.data);
-        setLoading(false);
-    });
+    const base = process.env.REACT_APP_API_BASE_URL;
+    if (!base) {
+      setLoading(false);
+      return;
+    }
+
+    const get = (path: string) =>
+      axios.get(`${base}${path}`).then((r) => r.data).catch(() => null);
+
+    Promise.all([
+      get('/data/kpis'),
+      get('/data/at-risk-students'),
+      get('/data/lo-attainment'),
+      get('/data/lo-attainment-trend'),
+      get('/data/exam-quality'),
+      get('/data/distractor-analysis'),
+      get('/data/heatmap-data'),
+    ]).then(([kpiData, risk, lo, trend, examQ, distractor, heatmap]) => {
+      if (kpiData) setKpis(kpiData);
+      if (Array.isArray(risk)) setAtRisk(risk);
+      if (Array.isArray(lo)) setLoBreakdown(lo);
+      if (Array.isArray(trend)) setTrendData(trend);
+      if (Array.isArray(examQ)) setExamQualityData(examQ);
+      if (Array.isArray(distractor)) setDistractorData(distractor);
+      if (Array.isArray(heatmap)) setHeatmapData(heatmap);
+    }).finally(() => setLoading(false));
   }, []);
 
 
@@ -56,6 +72,16 @@ const DashboardPage = () => {
     } finally {
         setLoadingAi(false);
     }
+  };
+
+  const kpiMetric = (key: string) => kpis?.[key] ?? null;
+  const kpiValue = (key: string) => kpiMetric(key)?.value;
+  const kpiTrend = (key: string) => {
+    const m = kpiMetric(key);
+    if (!m) return undefined;
+    const arrow = m.trend === 'up' ? '↑' : m.trend === 'down' ? '↓' : '→';
+    const delta = m.delta ?? 0;
+    return `${arrow} ${delta}%`;
   };
 
   const topLOs = loBreakdown.slice(0, 5);
@@ -82,16 +108,16 @@ const DashboardPage = () => {
       <div className="dashboard-section">
         <h2>{t('dashboard.institutional_pulse', 'Institutional Pulse')}</h2>
         <div className="kpi-grid">
-          <AvgLOAttainment value={kpis?.avg_lo_attainment.value} loading={loading} trend={`${kpis?.avg_lo_attainment.trend === 'up' ? '↑' : '↓'} ${kpis?.avg_lo_attainment.delta}%`} />
-          <InstitutionalPassRate value={kpis?.pass_rate.value} loading={loading} trend={`${kpis?.pass_rate.trend === 'up' ? '↑' : '↓'} ${kpis?.pass_rate.delta}%`} />
-          <ExamQualityIndex value={kpis?.exam_quality_index.value} loading={loading} trend={`${kpis?.exam_quality_index.trend === 'up' ? '↑' : '↓'} ${kpis?.exam_quality_index.delta}%`} />
-          <QuestionBankHealth value={kpis?.question_bank_health.value} loading={loading} trend={`${kpis?.question_bank_health.trend === 'up' ? '↑' : '↓'} ${kpis?.question_bank_health.delta}%`} />
+          <AvgLOAttainment value={kpiValue('avg_lo_attainment')} loading={loading} trend={kpiTrend('avg_lo_attainment')} />
+          <InstitutionalPassRate value={kpiValue('pass_rate')} loading={loading} trend={kpiTrend('pass_rate')} />
+          <ExamQualityIndex value={kpiValue('exam_quality_index')} loading={loading} trend={kpiTrend('exam_quality_index')} />
+          <QuestionBankHealth value={kpiValue('question_bank_health')} loading={loading} trend={kpiTrend('question_bank_health')} />
           <OverallPerformanceIndex 
-            value={kpis?.overall_performance.value} 
+            value={kpiValue('overall_performance')} 
             loading={loading} 
-            trend={`${kpis?.overall_performance.trend === 'up' ? '↑' : '↓'} ${kpis?.overall_performance.delta}%`} 
-            insight={kpis?.overall_performance.insight}
-            breakdown={kpis?.overall_performance.breakdown}
+            trend={kpiTrend('overall_performance')} 
+            insight={kpiMetric('overall_performance')?.insight}
+            breakdown={kpiMetric('overall_performance')?.breakdown}
           />
         </div>
       </div>

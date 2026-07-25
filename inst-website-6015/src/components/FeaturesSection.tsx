@@ -5,7 +5,7 @@ import Link from "next/link";
 import { publicAppLinks } from "@/lib/publicEnv";
 
 export default function FeaturesSection() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
   const features = [
     {
@@ -13,38 +13,52 @@ export default function FeaturesSection() {
       title: t('feature_elearning_title'),
       description: t('feature_elearning_description'),
       buttonText: t('try_elearning'),
-      link: "/elearning-try-it", // Placeholder link
+      link: `/${i18n.language}/hub`,
     },
     {
       id: 'assessment',
       title: t('feature_assessment_title'),
       description: t('feature_assessment_description'),
       buttonText: t('try_assessment'),
-      link: publicAppLinks.onlineExamAdmin,
+      link: `/${i18n.language}/hub`,
     },
     {
       id: 'ai-education',
       title: t('feature_ai_education_title'),
       description: t('feature_ai_education_description'),
       buttonText: t('try_ai_tools'),
-      link: publicAppLinks.dashboardLogin,
+      link: `/${i18n.language}/hub`,
     },
   ];
 
   return (
-    <section id="features" className="bg-white py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-text-color mb-12">
-          {t('features_title')}
-        </h2>
+    <section id="features" className="bg-slate-50 py-24 border-t border-b border-slate-200/80">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#2c5282]/10 text-[#2c5282] text-xs font-bold uppercase tracking-wide mb-3">
+            Core Features
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            {t('features_title')}
+          </h2>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div key={feature.id} className="bg-white p-8 rounded-lg shadow-lg text-center border border-gray-200">
-              <h3 className="text-2xl font-semibold text-primary-blue mb-4">{feature.title}</h3>
-              <p className="text-text-color mb-6">{feature.description}</p>
-              <Link href={feature.link} className="inline-block bg-primary-blue text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
-                {feature.buttonText}
+          {features.map((feature, index) => (
+            <div
+              key={feature.id}
+              className="suite-motion-card suite-card-hover flex flex-col justify-between bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-[#2c5282]/40 transition-all duration-300"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div>
+                <h3 className="font-display text-xl font-bold text-[#2c5282] mb-3">{feature.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed mb-6">{feature.description}</p>
+              </div>
+              <Link
+                href={feature.link}
+                className="inline-flex items-center justify-center w-full bg-[#2c5282] text-white px-5 py-3 rounded-xl font-semibold text-sm hover:bg-[#1e3a8a] transition-colors shadow-sm"
+              >
+                {feature.buttonText} &rarr;
               </Link>
             </div>
           ))}
