@@ -12,9 +12,10 @@ const InstitutionalPassRate: React.FC<Props> = ({ value = 0, trend = "↑ 0%", l
   const { t } = useTranslation();
 
   const getHealthColor = (val: number) => {
-    if (val >= 80) return '#52c41a';
-    if (val >= 60) return '#faad14';
-    return '#f5222d';
+    if (val === 0) return '#cbd5e1';
+    if (val >= 80) return '#10b981';
+    if (val >= 60) return '#f59e0b';
+    return '#ef4444';
   };
 
   const healthColor = getHealthColor(value);
@@ -24,39 +25,43 @@ const InstitutionalPassRate: React.FC<Props> = ({ value = 0, trend = "↑ 0%", l
   return (
     <div style={{ 
       border: `1px solid ${healthColor}`, 
-      boxShadow: '0 4px 6px rgba(0,0,0,0.05)', 
-      borderRadius: '12px', 
+      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)', 
+      borderRadius: '1rem', 
       padding: '24px', 
-      margin: '15px', 
-      width: '280px',
+      width: '100%',
+      boxSizing: 'border-box',
       backgroundColor: '#ffffff', 
       textAlign: 'center',
-      color: '#333',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      cursor: 'pointer'
+      color: '#1e293b',
+      transition: 'all 0.2s ease',
+      cursor: 'pointer',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '12px'
     }}
     onMouseEnter={(e) => {
-      e.currentTarget.style.transform = 'translateY(-5px)';
-      e.currentTarget.style.boxShadow = `0 8px 16px ${healthColor}33`;
+      e.currentTarget.style.transform = 'translateY(-4px)';
+      e.currentTarget.style.boxShadow = `0 10px 25px rgba(0, 0, 0, 0.08)`;
     }}
     onMouseLeave={(e) => {
       e.currentTarget.style.transform = 'translateY(0)';
-      e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
+      e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
     }}>
-      <h3 style={{ fontSize: '1.2em', color: '#0050b3', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px' }}>
-        {t('dashboard.pass_rate')}
+      <h3 style={{ fontSize: '0.875rem', color: '#2c5282', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: '"Space Grotesk", sans-serif' }}>
+        <span>🎓</span> {t('dashboard.pass_rate')}
         <HelpTooltip 
           title={t('dashboard.pass_rate_title', 'Pass Rate')} 
           description={t('dashboard.pass_rate_desc', 'Percentage of students meeting the success threshold in assessments.')} 
           benefit={t('dashboard.pass_rate_benefit', 'Tracks institutional teaching effectiveness and student success trends.')}
         />
       </h3>
-      <p style={{ fontSize: '2.5em', fontWeight: '700', margin: '10px 0', color: healthColor }}>
+      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: '"Space Grotesk", sans-serif' }}>
         {loading ? t('common.loading') : `${value}%`}
       </p>
 
-      <div style={{ fontSize: '0.85em', color: '#666', marginBottom: '15px' }}>
-        Target: {target}% | <span style={{ color: gap >= 0 ? '#52c41a' : '#f5222d' }}>
+      <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: '500' }}>
+        Target: {target}% | <span style={{ color: gap >= 0 ? '#10b981' : '#ef4444', fontWeight: '700' }}>
           {gap >= 0 ? '+' : ''}{gap}%
         </span>
       </div>
@@ -65,10 +70,11 @@ const InstitutionalPassRate: React.FC<Props> = ({ value = 0, trend = "↑ 0%", l
         display: 'inline-block',
         padding: '4px 12px',
         borderRadius: '20px',
-        backgroundColor: trend.startsWith('↑') ? '#f6ffed' : '#fff1f0',
-        color: trend.startsWith('↑') ? '#52c41a' : '#f5222d',
-        fontWeight: '600',
-        fontSize: '0.9em'
+        backgroundColor: trend.startsWith('↑') ? '#ecfdf5' : '#fef2f2',
+        color: trend.startsWith('↑') ? '#10b981' : '#ef4444',
+        fontWeight: '700',
+        fontSize: '0.8rem',
+        alignSelf: 'center'
       }}>
         {trend}
       </div>

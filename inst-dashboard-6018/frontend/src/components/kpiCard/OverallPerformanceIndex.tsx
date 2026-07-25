@@ -20,9 +20,10 @@ const OverallPerformanceIndex: React.FC<Props> = ({
   const { t } = useTranslation();
   
   const getHealthColor = (val: number) => {
-    if (val >= 75) return '#52c41a';
-    if (val >= 50) return '#faad14';
-    return '#f5222d';
+    if (val === 0) return '#cbd5e1';
+    if (val >= 80) return '#10b981';
+    if (val >= 60) return '#f59e0b';
+    return '#ef4444';
   };
 
   const healthColor = getHealthColor(value);
@@ -44,54 +45,58 @@ const OverallPerformanceIndex: React.FC<Props> = ({
   return (
     <div style={{ 
       border: `1px solid ${healthColor}`, 
-      boxShadow: '0 4px 6px rgba(0,0,0,0.05)', 
-      borderRadius: '12px', 
+      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)', 
+      borderRadius: '1rem', 
       padding: '24px', 
-      margin: '15px', 
-      width: '280px',
+      width: '100%',
+      boxSizing: 'border-box',
       backgroundColor: '#ffffff', 
       textAlign: 'center',
-      color: '#333',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      cursor: 'pointer'
+      color: '#1e293b',
+      transition: 'all 0.2s ease',
+      cursor: 'pointer',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '12px'
     }}
     onMouseEnter={(e) => {
-      e.currentTarget.style.transform = 'translateY(-5px)';
-      e.currentTarget.style.boxShadow = `0 8px 16px ${healthColor}33`;
+      e.currentTarget.style.transform = 'translateY(-4px)';
+      e.currentTarget.style.boxShadow = `0 10px 25px rgba(0, 0, 0, 0.08)`;
     }}
     onMouseLeave={(e) => {
       e.currentTarget.style.transform = 'translateY(0)';
-      e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
+      e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
     }}>
-      <h3 style={{ fontSize: '1.2em', color: '#0050b3', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px' }}>
-        {t('dashboard.performance_index')}
+      <h3 style={{ fontSize: '0.875rem', color: '#2c5282', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: '"Space Grotesk", sans-serif' }}>
+        <span>🏆</span> {t('dashboard.performance_index')}
         <HelpTooltip 
           title={t('dashboard.performance_index_title', 'Overall Performance Index')} 
           description={t('dashboard.performance_index_desc', 'A weighted composite of Academic, Operational, and Quality metrics.')} 
           benefit={t('dashboard.performance_index_benefit', 'Quickly assess the institutional pulse and identify systemic performance gaps.')}
         />
       </h3>
-      <p style={{ fontSize: '2.5em', fontWeight: '700', margin: '10px 0', color: healthColor }}>
+      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: '"Space Grotesk", sans-serif' }}>
         {loading ? t('common.loading') : `${value}%`}
       </p>
       
       {/* Sub-Score Drill-Down */}
-      <div style={{ margin: '15px 0' }}>
+      <div style={{ margin: '8px 0' }}>
         {renderProgressBar(t('dashboard.academic', 'Academic'), breakdown.academic)}
         {renderProgressBar(t('dashboard.operational', 'Operational'), breakdown.operational)}
         {renderProgressBar(t('dashboard.quality', 'Quality'), breakdown.quality)}
       </div>
 
       {/* Gap to Target Indicator */}
-      <div style={{ fontSize: '0.85em', color: '#666', marginBottom: '10px' }}>
-        Target: {target}% | <span style={{ color: gap >= 0 ? '#52c41a' : '#f5222d' }}>
+      <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: '500' }}>
+        Target: {target}% | <span style={{ color: gap >= 0 ? '#10b981' : '#ef4444', fontWeight: '700' }}>
           {gap >= 0 ? '+' : ''}{gap}%
         </span>
       </div>
 
       {/* Actionable Insight */}
       {insight && (
-        <div style={{ fontSize: '0.85em', backgroundColor: '#f0f7ff', color: '#0050b3', padding: '8px', borderRadius: '6px', marginBottom: '15px' }}>
+        <div style={{ fontSize: '0.75rem', backgroundColor: '#f0f9ff', color: '#0369a1', padding: '8px 12px', borderRadius: '0.5rem', border: '1px solid #bae6fd', textAlign: 'left' }}>
           <strong>{t('dashboard.insight', 'Insight:')}</strong> {insight}
         </div>
       )}
@@ -100,10 +105,11 @@ const OverallPerformanceIndex: React.FC<Props> = ({
         display: 'inline-block',
         padding: '4px 12px',
         borderRadius: '20px',
-        backgroundColor: trend.startsWith('↑') ? '#f6ffed' : '#fff1f0',
-        color: trend.startsWith('↑') ? '#52c41a' : '#f5222d',
-        fontWeight: '600',
-        fontSize: '0.9em'
+        backgroundColor: trend.startsWith('↑') ? '#ecfdf5' : '#fef2f2',
+        color: trend.startsWith('↑') ? '#10b981' : '#ef4444',
+        fontWeight: '700',
+        fontSize: '0.8rem',
+        alignSelf: 'center'
       }}>
         {trend}
       </div>

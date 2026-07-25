@@ -8,19 +8,19 @@ const EducationalLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="dashboard-container suite-motion-page">
+    <div className="dashboard-container suite-motion-page" style={{ padding: '24px 20px 40px', maxWidth: '1400px', margin: '0 auto', boxSizing: 'border-box' }}>
       <div style={{ 
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between',
         gap: '12px', 
-        padding: '8px', 
-        backgroundColor: 'var(--suite-surface-raised)', 
-        border: '1px solid var(--suite-border)', 
-        borderRadius: 'var(--suite-radius-md)', 
+        padding: '6px', 
+        backgroundColor: '#ffffff', 
+        border: '1px solid rgba(0, 0, 0, 0.08)', 
+        borderRadius: '0.75rem', 
         marginBottom: '28px',
-        boxShadow: 'var(--suite-shadow-1)',
-        maxWidth: '360px'
+        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.04)',
+        maxWidth: '320px'
       }}>
         <NavLink 
           to="/educational/admins" 
