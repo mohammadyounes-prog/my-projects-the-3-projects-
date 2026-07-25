@@ -421,13 +421,13 @@ Align `REACT_APP_API_URL` / `verify-sso` path and response (`access_token`) with
 
 ### E3 — Dashboard API base URL consistency
 
-**GitHub:** [#25](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/25) · **Status:** in_progress
+**GitHub:** [#25](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/25) · **Status:** done
 
 Remove hardcoded `localhost:2000` chart endpoints; single `REACT_APP_API_BASE_URL`.
 
 ### E4 — QuestAI local stack
 
-**GitHub:** [#26](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/26) · **Status:** deferred
+**GitHub:** [#26](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/26) · **Status:** in_progress
 
 `.env`, `questions.db` seed, optional dummy model — for interactive generate demos.
 
