@@ -81,6 +81,7 @@ function App() {
           {/* Protected routes wrapped by a Layout component */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Layout />}>
+              {/* `/` and `/home` share one gateway layout (LandingPage / HomePage wrappers) */}
               <Route index element={<LandingPage />} />
               <Route path="home" element={<HomePage />} />
               <Route path="educational" element={<EducationalLayout />}>

@@ -73,12 +73,15 @@
       "questions_unit": "questions"
     },
     "home": {
+       "brand": "TDM Systems",
        "title": "Welcome to TAMS Platform",
-       "subtitle": "Your Ultimate Roadmap To Success",
+       "subtitle": "Please select a module to get started",
+       "open": "Open",
        "dashboard_desc": "Monitor student performance and learning outcomes.",
        "corporate_desc": "Analyze HR intelligence and organizational skill gaps.",
        "executive_desc": "High-level strategic insights and institutional reporting."
-     },    "educational": {
+     },
+    "educational": {
       "admins": "Admins",
       "instructors": "Instructors"
     },
