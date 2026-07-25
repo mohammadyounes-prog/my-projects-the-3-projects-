@@ -247,7 +247,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B5 — RTL layout + login language switcher
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#14](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/14) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B6 |
@@ -258,8 +258,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `Layout.css`, `Login.tsx`, `LanguageSwitcher.tsx`
 
 **Acceptance:**
-- [ ] Login can switch EN/AR
-- [ ] Header does not break badly in `dir=rtl`
+- [x] Login can switch EN/AR
+- [x] Header does not break badly in `dir=rtl`
 - [ ] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-mobile.png`
 
 ---
