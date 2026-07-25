@@ -77,7 +77,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A3 — Restyle hub to marketing brand
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#5](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/5) |
 | **Agent** | Website |
 | **parallel** | no |
@@ -96,7 +96,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A4 — Fix dead nav / footer / CTAs
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#6](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/6) |
 | **Agent** | Website |
 | **parallel** | ok with A5/A6 after A3 or independently |
@@ -107,7 +107,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `Header.tsx`, `Footer.tsx`, `CallToActionSection.tsx`, `HeroSection.tsx` as needed
 
 **Acceptance:**
-- [ ] No primary-path dead `#` CTAs on home/solutions/header/footer
+- [x] No primary-path dead `#` CTAs on home/solutions/header/footer
 - [ ] QA refresh: `website-home-en-desktop.png`, `website-solutions-en-desktop.png`
 
 ---
@@ -115,7 +115,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A5 — Login chrome + env example
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#7](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/7) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |

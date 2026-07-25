@@ -68,11 +68,8 @@ export default function Header() {
   };
 
   const navItems = [
-    { name: t('home'), href: "/" },
-    { name: t('about'), href: "#about" },
-    { name: t('solutions'), href: "#solutions" },
-    { name: t('downloads'), href: "#downloads" },
-    { name: t('contact'), href: "#contact" },
+    { name: t('home'), href: `/${i18n.language}` },
+    { name: t('solutions'), href: `/${i18n.language}/solutions` },
   ];
 
   // Specific check for login page to handle the unique color transition
