@@ -28,9 +28,10 @@ app = FastAPI(
 # Ensure the frontend URL (e.g., http://localhost:3000) is added here.
 origins = [
     "http://localhost:3000",  # Default React development server
-    "http://localhost:3700",  # Frontend website port
-    "http://localhost:6015",  # Frontend website port (inst-website-6015)
-    "http://localhost:6019",  # Frontend dashboard port (inst-dashboard-6018)
+    "http://localhost:6015",  # Website / suite hub (inst-website-6015) — SSO entry origin
+    "http://localhost:6019",  # Dashboard CRA (inst-dashboard-6018 frontend)
+    # Legacy alias if an older stack still serves the website here:
+    "http://localhost:3700",
     # Add other allowed origins, e.g., deployed frontend URL
     settings.ONLINE_EXAM_API_BASE_URL, # Potentially if frontend is served from here
 ]

@@ -184,6 +184,11 @@ async def generate_sso_token(
 
 @router.get("/verify-sso")
 async def verify_sso(sso_token: str, sqlite_db: sqlite3.Connection = Depends(get_questai_db)):
+    """Exchange a one-time SSO token for a JWT access_token.
+
+    Mounted at GET /api/v1/auth/verify-sso?sso_token=...
+    Response shape matches login: access_token (+ username/name/role).
+    """
     conn = get_online_exam_db_connection()
     try:
         with conn.cursor() as cursor:
@@ -196,18 +201,39 @@ async def verify_sso(sso_token: str, sqlite_db: sqlite3.Connection = Depends(get
                 
             user_id = result['user_id']
             
-            # Fetch username/name based on user_id
-            cursor.execute("SELECT name FROM employee WHERE id = %s", (user_id,))
+            # TAMS employee — use email as JWT sub (same as /login)
+            cursor.execute("SELECT name, email FROM employee WHERE id = %s", (user_id,))
             user = cursor.fetchone()
             if user:
-                return {"username": user['name']}
+                token = create_access_token(data={"sub": user['email'], "role": "instructor"})
+                cursor.execute("DELETE FROM sso_sessions WHERE token = %s", (sso_token,))
+                conn.commit()
+                return {
+                    "access_token": token,
+                    "token_type": "bearer",
+                    "username": user['name'],
+                    "name": user['name'],
+                    "role": "instructor",
+                }
             
             # Fallback to QuestAI users
             sqlite_cursor = sqlite_db.cursor()
-            sqlite_cursor.execute("SELECT username FROM users WHERE id = ?", (user_id,))
+            sqlite_cursor.execute(
+                "SELECT username, role, full_name FROM users WHERE id = ?",
+                (user_id,),
+            )
             user = sqlite_cursor.fetchone()
             if user:
-                return {"username": user['username']}
+                token = create_access_token(data={"sub": user['username'], "role": user['role']})
+                cursor.execute("DELETE FROM sso_sessions WHERE token = %s", (sso_token,))
+                conn.commit()
+                return {
+                    "access_token": token,
+                    "token_type": "bearer",
+                    "username": user['username'],
+                    "name": user['full_name'],
+                    "role": user['role'],
+                }
                 
             raise HTTPException(status_code=404, detail="User not found")
     finally:

@@ -26,15 +26,8 @@ import ExamResultsPage from './pages/ExamResultsPage.tsx';
 // Import i18n setup
 import './i18n/index.ts'; 
 
-// Add this temporary interceptor for debugging
-axios.interceptors.request.use(config => {
-    console.log("DEBUG: Axios interceptor URL:", config.url);
-    return config;
-}, error => {
-    return Promise.reject(error);
-});
-
-// Internal component to handle SSO redirect
+// Internal component to handle SSO redirect from website hub (?sso_token=)
+// Contract: GET {API_BASE}/auth/verify-sso?sso_token=… → { access_token, … }
 const SsoHandler = () => {
     const navigate = useNavigate();
     const isVerifying = React.useRef(false);
@@ -42,25 +35,31 @@ const SsoHandler = () => {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const ssoToken = urlParams.get('sso_token');
-        console.log("SsoHandler: Checking for SSO token:", ssoToken);
         
         if (ssoToken && !isVerifying.current) {
             isVerifying.current = true;
-            console.log("SsoHandler: Starting verification for token:", ssoToken);
+
+            // Same base as Login (`REACT_APP_API_BASE_URL` + `/auth/...`); API_URL is an alias.
+            const apiBase =
+                process.env.REACT_APP_API_BASE_URL ||
+                process.env.REACT_APP_API_URL ||
+                'http://localhost:6018/api/v1';
             
-            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:6018';
-            
-            axios.get(`${apiUrl}/verify-sso?sso_token=${ssoToken}`)
+            axios.get(`${apiBase}/auth/verify-sso`, { params: { sso_token: ssoToken } })
                 .then(res => {
-                    console.log("SsoHandler: Token verified successfully", res.data);
-                    localStorage.setItem('token', res.data.access_token);
+                    const { access_token, role, name } = res.data;
+                    if (!access_token) {
+                        throw new Error('verify-sso response missing access_token');
+                    }
+                    localStorage.setItem('token', access_token);
+                    if (role) localStorage.setItem('role', role);
+                    if (name) localStorage.setItem('user_name', name);
                     // Remove sso_token from URL to prevent re-processing
                     window.history.replaceState({}, document.title, window.location.pathname);
                     navigate('/home');
                 })
                 .catch(err => {
                     console.error("SSO verification failed", err);
-                    // Optionally handle the error (e.g., show a message or redirect to login)
                 })
                 .finally(() => {
                     isVerifying.current = false;
