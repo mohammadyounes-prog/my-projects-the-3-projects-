@@ -17,8 +17,9 @@ const DistractorChart: React.FC<Props> = ({ data }) => {
 
   // Ensure we always have A, B, C, D even if count is 0
   const allOptions = ['1', '2', '3', '4'];
+  const source = Array.isArray(data) ? data : [];
   const formattedData = allOptions.map(opt => {
-    const item = data.find(d => d.option === opt);
+    const item = source.find(d => d.option === opt);
     return {
       option: opt,
       count: item ? item.count : 0,
@@ -37,31 +38,33 @@ const DistractorChart: React.FC<Props> = ({ data }) => {
           benefit={t('translation:dashboard.distractor_analysis_benefit', 'Helps identify poor quality distractors or common student misconceptions.')}
         />
       </h3>
-      <ResponsiveContainer>
-        <BarChart data={formattedData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="label" />
-          <YAxis allowDecimals={false} />
-          {/* Tooltip uses the cleaned text */}
-          <Tooltip content={({ active, payload }) => {
-            if (active && payload && payload.length) {
-              const data = payload[0].payload;
-              return (
-                <div style={{ background: '#fff', padding: '10px', border: '1px solid #ccc', fontSize: '12px' }}>
-                  <p>{`Option ${data.label}: ${data.text}`}</p>
-                  <p>{`Count: ${data.count}`}</p>
-                </div>
-              );
-            }
-            return null;
-          }} />
-          <Bar dataKey="count" fill="#ff4d4f">
-            {formattedData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#ff7875' : '#ff4d4f'} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <div style={{ width: '100%', height: 220, minWidth: 0, minHeight: 160 }}>
+        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+          <BarChart data={formattedData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="label" />
+            <YAxis allowDecimals={false} />
+            {/* Tooltip uses the cleaned text */}
+            <Tooltip content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const data = payload[0].payload;
+                return (
+                  <div style={{ background: '#fff', padding: '10px', border: '1px solid #ccc', fontSize: '12px' }}>
+                    <p>{`Option ${data.label}: ${data.text}`}</p>
+                    <p>{`Count: ${data.count}`}</p>
+                  </div>
+                );
+              }
+              return null;
+            }} />
+            <Bar dataKey="count" fill="#ff4d4f">
+              {formattedData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#ff7875' : '#ff4d4f'} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

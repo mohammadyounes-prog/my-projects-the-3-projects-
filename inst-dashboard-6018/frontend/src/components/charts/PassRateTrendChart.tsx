@@ -20,15 +20,17 @@ const PassRateTrendChart: React.FC<Props> = ({ data }) => {
           benefit={t('dashboard.pass_rate_trend_benefit', 'Enables long-term monitoring of assessment difficulty and student success.')}
         />
       </h3>
-      <ResponsiveContainer>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis domain={[0, 100]} />
-          <Tooltip />
-          <Line type="monotone" dataKey="attainment" stroke="#faad14" strokeWidth={3} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div style={{ width: '100%', height: 300, minWidth: 0, minHeight: 200 }}>
+        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis domain={[0, 100]} />
+            <Tooltip />
+            <Line type="monotone" dataKey="attainment" stroke="#faad14" strokeWidth={3} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

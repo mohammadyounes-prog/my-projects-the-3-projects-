@@ -56,20 +56,20 @@ const GatewayPage = () => {
 
   return (
     <div className="gateway-page suite-motion-page">
-      {kpis && (
+      {kpis?.overall_performance?.value != null && (
         <div className="gateway-kpi-strip" aria-label={t('nav.dashboard')}>
           <div className="gateway-kpi-grid">
             <LandingKpi
               label={t('dashboard.performance_index_title')}
-              value={`${kpis.overall_performance.value}%`}
+              value={`${kpis.overall_performance?.value ?? 0}%`}
             />
             <LandingKpi
               label={t('dashboard.lo_attainment_title')}
-              value={`${kpis.avg_lo_attainment.value}%`}
+              value={`${kpis.avg_lo_attainment?.value ?? 0}%`}
             />
             <LandingKpi
               label={t('dashboard.pass_rate_title')}
-              value={`${kpis.pass_rate.value}%`}
+              value={`${kpis.pass_rate?.value ?? 0}%`}
             />
           </div>
         </div>

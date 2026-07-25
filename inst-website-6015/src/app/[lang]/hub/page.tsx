@@ -115,86 +115,110 @@ export default function HubPage() {
   };
 
   return (
-    <div className="suite-motion-page min-h-screen bg-surface font-sans">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <header className="mb-12 text-center">
-          <p className="mb-2 text-sm font-medium text-primary">
+    <div className="suite-motion-page min-h-screen bg-slate-50 font-sans pt-28 pb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Hub Header */}
+        <header className="mb-14 text-center max-w-2xl mx-auto">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#2c5282]/10 text-[#2c5282] text-xs font-bold tracking-wide uppercase mb-3">
             {t("tdm_systems")}
-          </p>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-suite-text sm:text-4xl">
+          </span>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
             {t("hub_title")}
           </h1>
-          <p className="mt-3 text-lg text-suite-muted">{t("hub_subtitle")}</p>
+          <p className="text-lg text-slate-600 leading-relaxed">{t("hub_subtitle")}</p>
         </header>
 
-        <section aria-labelledby="hub-available-heading" className="mb-16">
-          <h2 id="hub-available-heading" className="sr-only">
-            {t("hub_available_section")}
-          </h2>
-          <div className="flex flex-wrap justify-center gap-6">
+        {/* Available Apps Grid */}
+        <section aria-labelledby="hub-available-heading" className="mb-20">
+          <div className="flex items-center justify-between mb-8 border-b border-slate-200/80 pb-4">
+            <h2 id="hub-available-heading" className="font-display text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              {t("hub_available_section")}
+            </h2>
+            <span className="text-xs font-semibold text-slate-500 bg-slate-200/60 px-2.5 py-1 rounded-md">
+              3 Active Apps
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {availableApps.map((app, index) => (
               <div
                 key={app.id}
-                className="suite-motion-card suite-card-hover group flex w-full flex-col items-center rounded-lg border border-suite-border bg-surface-raised p-8 text-center shadow-suite1 sm:w-64 md:w-72"
-                style={{ animationDelay: `${index * 80}ms` }}
+                className="suite-motion-card suite-card-hover group relative flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#2c5282]/40 hover:shadow-xl"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <button
-                  type="button"
-                  onClick={() => handleRedirect(app.id)}
-                  className="flex w-full cursor-pointer flex-col items-center"
-                >
-                  <div className="mb-6 rounded-md bg-primary-soft p-4 text-primary transition-transform duration-300 group-hover:scale-105">
-                    <app.icon className="h-8 w-8" aria-hidden />
+                <div>
+                  <div className="mb-6 flex items-center justify-between">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#2c5282]/10 text-[#2c5282] transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#2c5282] group-hover:text-white">
+                      <app.icon className="h-7 w-7" aria-hidden />
+                    </div>
+                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200/60">
+                      Available
+                    </span>
                   </div>
-                  <h3 className="mb-2 font-display text-xl font-bold text-suite-text">
+
+                  <h3 className="mb-3 font-display text-2xl font-bold text-slate-900 group-hover:text-[#2c5282] transition-colors">
                     {t(app.nameKey)}
                   </h3>
-                  <p className="mb-6 text-sm text-suite-muted">
+                  <p className="text-sm text-slate-600 leading-relaxed mb-8">
                     {t(app.descKey)}
                   </p>
-                </button>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => handleRedirect(app.id)}
-                  className="w-full rounded-md bg-primary px-4 py-2.5 font-semibold text-white transition-colors hover:bg-primary-dark"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#2c5282] px-5 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#1e3a8a] shadow-md shadow-[#2c5282]/20 hover:shadow-lg"
                 >
-                  {t("hub_open")}
+                  <span>{t("hub_open")}</span>
+                  <svg className="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </button>
               </div>
             ))}
           </div>
         </section>
 
+        {/* Upcoming Modules Grid */}
         <section aria-labelledby="hub-upcoming-heading">
-          <div className="mb-8 flex items-center gap-4">
-            <div className="h-px flex-1 bg-suite-border" />
-            <h2
-              id="hub-upcoming-heading"
-              className="shrink-0 font-display text-sm font-semibold uppercase tracking-wide text-suite-muted"
-            >
+          <div className="flex items-center justify-between mb-8 border-b border-slate-200/80 pb-4">
+            <h2 id="hub-upcoming-heading" className="font-display text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
               {t("hub_upcoming_section")}
             </h2>
-            <div className="h-px flex-1 bg-suite-border" />
+            <span className="text-xs font-semibold text-slate-500 bg-slate-200/60 px-2.5 py-1 rounded-md">
+              In Development
+            </span>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6 opacity-70">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {upcomingApps.map((app) => (
               <div
                 key={app.id}
-                className="flex w-full cursor-not-allowed flex-col items-center rounded-lg border border-suite-border bg-surface-raised p-8 text-center shadow-suite0 sm:w-64 md:w-72"
+                className="relative flex flex-col justify-between rounded-2xl border border-slate-200/60 bg-white/60 p-8 shadow-sm opacity-80 backdrop-blur-sm"
               >
-                <div className="mb-6 rounded-md bg-surface p-4 text-suite-muted">
-                  <app.icon className="h-8 w-8" aria-hidden />
+                <div>
+                  <div className="mb-6 flex items-center justify-between">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                      <app.icon className="h-7 w-7" aria-hidden />
+                    </div>
+                    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500 border border-slate-200">
+                      {t("hub_upcoming")}
+                    </span>
+                  </div>
+
+                  <h3 className="mb-3 font-display text-xl font-bold text-slate-800">
+                    {t(app.nameKey)}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-8">
+                    {t(app.descKey)}
+                  </p>
                 </div>
-                <h3 className="mb-2 font-display text-xl font-bold text-suite-text">
-                  {t(app.nameKey)}
-                </h3>
-                <p className="mb-6 text-sm text-suite-muted">
-                  {t(app.descKey)}
-                </p>
-                <span className="w-full rounded-md bg-surface px-4 py-2.5 text-center text-sm font-semibold text-suite-muted">
+
+                <div className="w-full rounded-xl bg-slate-100/80 px-4 py-3 text-center text-xs font-semibold text-slate-500 cursor-not-allowed">
                   {t("hub_upcoming")}
-                </span>
+                </div>
               </div>
             ))}
           </div>

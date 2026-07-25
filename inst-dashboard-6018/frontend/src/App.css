@@ -38,71 +38,72 @@ body {
 
 /* Dashboard Container */
 .dashboard-container {
-  max-width: 1400px; /* Max width for the dashboard */
-  margin: 0 auto; /* Center the dashboard */
-  padding: 20px;
-  background-color: #f8f9fa; /* Lighter background for the entire dashboard area */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--suite-space-4);
+  background-color: var(--suite-surface);
 }
 
 /* Section Styling */
 .dashboard-section {
-  margin-bottom: 40px; /* Spacing between sections */
-  padding: 30px 15px;
-  background-color: #ffffff; /* Default white background for sections */
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for sections */
+  margin-bottom: var(--suite-space-5);
+  padding: var(--suite-space-5) var(--suite-space-4);
+  background-color: var(--suite-surface-raised);
+  border-radius: var(--suite-radius-lg);
+  border: 1px solid var(--suite-border);
+  box-shadow: var(--suite-shadow-1);
 }
 
 .kpi-section {
-  background-color: #f4f7f6; /* Light background for KPI section */
+  background-color: var(--suite-primary-soft);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 15px; /* Consistent spacing between KPIs */
-  padding: 20px 15px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inset shadow for KPI section */
-  border-radius: 8px;
+  gap: var(--suite-space-4);
+  padding: var(--suite-space-4);
+  border: 1px solid var(--suite-border);
+  border-radius: var(--suite-radius-lg);
 }
 
 .trends-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 20px;
-  padding: 30px 15px;
-  background-color: #ffffff; /* White background for these sections */
+  gap: var(--suite-space-4);
+  padding: var(--suite-space-5) var(--suite-space-4);
+  background-color: var(--suite-surface-raised);
 }
 
 .actions-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 20px;
-  padding: 30px 15px;
-  background-color: #ffffff; /* White background for these sections */
+  gap: var(--suite-space-4);
+  padding: var(--suite-space-5) var(--suite-space-4);
+  background-color: var(--suite-surface-raised);
 }
 
 /* Widget Card Styling */
 .widget-card {
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 10px;
-  min-width: 250px;
-  text-align: center;
+  border: 1px solid var(--suite-border);
+  box-shadow: var(--suite-shadow-1);
+  border-radius: var(--suite-radius-md);
+  background-color: var(--suite-surface-raised);
+  padding: var(--suite-space-4);
+  margin: var(--suite-space-2);
+  min-width: 260px;
+  text-align: start;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content to top */
-  align-items: flex-start; /* Align content to left */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* For hover effect */
-  cursor: pointer; /* Indicate clickable */
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: transform var(--suite-duration-med) var(--suite-ease), box-shadow var(--suite-duration-med) var(--suite-ease);
+  cursor: pointer;
 }
 
 .widget-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--suite-shadow-2);
 }
 
 /* Specific Widget Styles */

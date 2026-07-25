@@ -1,0 +1,27 @@
+# Local MySQL for suite SSO / TAMS employee lookup (schooldemo12).
+# QuestAI + Dashboard auth write/read sso_sessions here.
+#
+# Start:  docker compose -f docker-compose.local.yml up -d
+# Stop:   docker compose -f docker-compose.local.yml down
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: suite-mysql-local
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: schooldemo12
+    volumes:
+      - suite_mysql_data:/var/lib/mysql
+      - ./scripts/mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  suite_mysql_data:

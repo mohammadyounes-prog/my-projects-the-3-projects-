@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 import sqlite3
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from ....database.session import get_questai_db, get_online_exam_db_connection
 from ....database.utils import get_date_filter_sql
 from ....core.config import settings
@@ -30,6 +30,31 @@ async def get_ai_advice_history(lang: str = "en", sqlite_db: sqlite3.Connection 
         import traceback; traceback.print_exc()
         raise HTTPException(status_code=500, detail="Could not fetch AI advice.")
 
+def _empty_kpi_payload(lang: str = "en", insight: Optional[str] = None) -> Dict[str, Any]:
+    """Stable KPI shape for UI when exam MySQL tables are unavailable locally."""
+    if insight is None:
+        insight = (
+            "لا تتوفر بيانات الامتحانات محلياً بعد. تُعرض قيم صفرية."
+            if lang == "ar"
+            else "No exam result tables available locally yet. Showing zeroed KPIs."
+        )
+    zero = {"value": 0.0, "target": 90.0, "trend": "stable", "delta": 0.0}
+    return {
+        "overall_performance": {
+            "value": 0.0,
+            "target": 100.0,
+            "trend": "stable",
+            "delta": 0.0,
+            "insight": insight,
+            "breakdown": {"academic": 0.0, "operational": 0.0, "quality": 0.0},
+        },
+        "avg_lo_attainment": {**zero},
+        "pass_rate": {**zero},
+        "exam_quality_index": {**zero, "target": 90.0},
+        "question_bank_health": {**zero, "target": 100.0, "value": 0.0},
+    }
+
+
 @router.get("/kpis", summary="Fetch all core dashboard KPIs with historical trends")
 async def get_dashboard_kpis(
     start_date: str = None, 
@@ -46,7 +71,12 @@ async def get_dashboard_kpis(
         # 2. Get Date Filter for MySQL
         filter_sql, filter_params = get_date_filter_sql(start_date, end_date, "e.date")
 
-        mysql_conn = get_online_exam_db_connection()
+        try:
+            mysql_conn = get_online_exam_db_connection()
+        except Exception as conn_err:
+            print(f"WARNING: KPI MySQL unavailable, returning empty KPIs: {conn_err}")
+            return _empty_kpi_payload(lang)
+
         try:
             with mysql_conn.cursor() as cursor:
                 query = f"""
@@ -60,6 +90,9 @@ async def get_dashboard_kpis(
                 
                 cursor.execute("SELECT id, bankId FROM examdata")
                 examdata_map = {row['id']: row['bankId'] for row in cursor.fetchall()}
+        except Exception as query_err:
+            print(f"WARNING: KPI MySQL query failed, returning empty KPIs: {query_err}")
+            return _empty_kpi_payload(lang)
         finally:
             mysql_conn.close()
 

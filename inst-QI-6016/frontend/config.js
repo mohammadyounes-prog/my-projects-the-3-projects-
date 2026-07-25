@@ -4,9 +4,12 @@
     
     // Check if we are running locally
     const isLocal = currentHost.includes('localhost') || currentHost.includes('127.0.0.1');
+    // Static UI is often on :6016 while the FastAPI auth/API listens elsewhere.
+    // Prefer explicit override; else local API default (8001 avoids common :8000 conflicts).
+    const localApiDefault = 'http://127.0.0.1:8001';
 
     if (!window.BACKEND_BASE_URL) {
-        window.BACKEND_BASE_URL = currentHost;
+        window.BACKEND_BASE_URL = isLocal ? localApiDefault : currentHost;
     }
 
     try {
@@ -16,8 +19,8 @@
             if (config.BACKEND_BASE_URL) {
                 // If we are on localhost, don't let the external domain override it
                 if (isLocal && (config.BACKEND_BASE_URL.includes('questai.examforall.com'))) {
-                    console.log("Local testing detected, staying on localhost instead of switching to", config.BACKEND_BASE_URL);
-                    window.BACKEND_BASE_URL = currentHost;
+                    console.log("Local testing detected, staying on local API instead of switching to", config.BACKEND_BASE_URL);
+                    window.BACKEND_BASE_URL = localApiDefault;
                 } else {
                     window.BACKEND_BASE_URL = config.BACKEND_BASE_URL;
                 }

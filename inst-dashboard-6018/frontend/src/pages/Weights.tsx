@@ -56,91 +56,117 @@ const WeightsPage = () => {
   if (loading) return <div>Loading settings...</div>;
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
-      <h1>{t('common.weights_config', 'Indexes Weights Configuration')}</h1>
-      <p>{t('weights.description', 'Adjust how much each index contributes to the Overall Performance Score. The sum must be exactly 1.0.')}</p>
-      
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px' }}>{t('weights.lo_weight', 'LO Attainment Weight')}</label>
-        <input 
-          type="number" 
-          step="0.05" 
-          max="1"
-          min="0"
-          value={weights.lo_attainment} 
-          onChange={(e) => setWeights({...weights, lo_attainment: e.target.value})}
-          style={{ width: '100%', padding: '8px' }}
-        />
-      </div>
+    <div className="dashboard-container suite-motion-page">
+      <div className="dashboard-section" style={{ maxWidth: '680px', marginInline: 'auto' }}>
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--suite-primary)', display: 'block', marginBottom: '0.5rem' }}>
+          Analytics Configuration
+        </span>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '700', color: 'var(--suite-text)', margin: '0 0 0.5rem' }}>
+          {t('common.weights_config', 'Indexes Weights Configuration')}
+        </h1>
+        <p style={{ color: 'var(--suite-text-muted)', fontSize: '0.9rem', marginBottom: '1.75rem', lineHeight: '1.5' }}>
+          {t('weights.description', 'Adjust how much each index contributes to the Overall Performance Score. The sum must be exactly 1.0.')}
+        </p>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+              {t('weights.lo_weight', 'LO Attainment Weight')}
+            </label>
+            <input 
+              type="number" 
+              step="0.05" 
+              max="1"
+              min="0"
+              value={weights.lo_attainment} 
+              onChange={(e) => setWeights({...weights, lo_attainment: parseFloat(e.target.value) || 0})}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+            />
+          </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px' }}>{t('weights.pass_rate_weight', 'Pass Rate Weight')}</label>
-        <input 
-          type="number" 
-          step="0.05" 
-          max="1"
-          min="0"
-          value={weights.pass_rate} 
-          onChange={(e) => setWeights({...weights, pass_rate: e.target.value})}
-          style={{ width: '100%', padding: '8px' }}
-        />
-      </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+              {t('weights.pass_rate_weight', 'Pass Rate Weight')}
+            </label>
+            <input 
+              type="number" 
+              step="0.05" 
+              max="1"
+              min="0"
+              value={weights.pass_rate} 
+              onChange={(e) => setWeights({...weights, pass_rate: parseFloat(e.target.value) || 0})}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+            />
+          </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px' }}>{t('weights.exam_quality_weight', 'Exam Quality Weight')}</label>
-        <input 
-          type="number" 
-          step="0.05" 
-          max="1"
-          min="0"
-          value={weights.exam_quality} 
-          onChange={(e) => setWeights({...weights, exam_quality: e.target.value})}
-          style={{ width: '100%', padding: '8px' }}
-        />
-      </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+              {t('weights.exam_quality_weight', 'Exam Quality Weight')}
+            </label>
+            <input 
+              type="number" 
+              step="0.05" 
+              max="1"
+              min="0"
+              value={weights.exam_quality} 
+              onChange={(e) => setWeights({...weights, exam_quality: parseFloat(e.target.value) || 0})}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+            />
+          </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px' }}>{t('weights.bank_health_weight', 'Question Bank Health Weight')}</label>
-        <input 
-          type="number" 
-          step="0.05" 
-          max="1"
-          min="0"
-          value={weights.question_bank} 
-          onChange={(e) => setWeights({...weights, question_bank: e.target.value})}
-          style={{ width: '100%', padding: '8px' }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
-        <button 
-          onClick={handleSave} 
-          disabled={saving || !isValid}
-          style={{ 
-            padding: '10px 20px', 
-            backgroundColor: !isValid ? '#ccc' : '#007bff', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '4px',
-            cursor: !isValid ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {saving ? 'Saving...' : 'Save Weights'}
-        </button>
-
-        <div style={{ 
-          padding: '10px 15px', 
-          border: '1px solid #ddd', 
-          borderRadius: '4px', 
-          backgroundColor: !isValid ? '#fff0f0' : '#f0fff0',
-          fontWeight: 'bold',
-          color: !isValid ? 'red' : 'green'
-        }}>
-          Total Sum: {total.toFixed(2)}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+              {t('weights.bank_health_weight', 'Question Bank Health Weight')}
+            </label>
+            <input 
+              type="number" 
+              step="0.05" 
+              max="1"
+              min="0"
+              value={weights.question_bank} 
+              onChange={(e) => setWeights({...weights, question_bank: parseFloat(e.target.value) || 0})}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+            />
+          </div>
         </div>
-      </div>
 
-      {message && <p style={{ marginTop: '20px', color: message.includes('Error') ? 'red' : 'green', fontWeight: 'bold' }}>{message}</p>}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', padding: '1.25rem', backgroundColor: 'var(--suite-primary-soft)', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)' }}>
+          <button 
+            onClick={handleSave} 
+            disabled={saving || !isValid}
+            style={{ 
+              padding: '0.75rem 1.5rem', 
+              backgroundColor: !isValid ? 'var(--suite-text-muted)' : 'var(--suite-primary)', 
+              color: 'var(--suite-on-primary)', 
+              border: 'none', 
+              borderRadius: 'var(--suite-radius-sm)',
+              fontWeight: '600',
+              cursor: !isValid ? 'not-allowed' : 'pointer',
+              transition: 'background-color 0.2s'
+            }}
+          >
+            {saving ? 'Saving...' : 'Save Weights'}
+          </button>
+
+          <div style={{ 
+            padding: '0.5rem 1rem', 
+            borderRadius: 'var(--suite-radius-sm)', 
+            backgroundColor: !isValid ? '#fef2f2' : '#ecfdf5',
+            border: `1px solid ${!isValid ? '#fca5a5' : '#a7f3d0'}`,
+            fontWeight: '700',
+            fontSize: '0.9rem',
+            color: !isValid ? 'var(--suite-danger)' : 'var(--suite-success)'
+          }}>
+            Total Sum: {total.toFixed(2)}
+          </div>
+        </div>
+
+        {message && (
+          <p style={{ marginTop: '1rem', color: message.includes('Error') ? 'var(--suite-danger)' : 'var(--suite-success)', fontWeight: '600', fontSize: '0.9rem' }}>
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

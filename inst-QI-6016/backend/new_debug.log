@@ -4647,3 +4647,19 @@ NameError: name 'CONFIG' is not defined
 2026-07-19 21:49:53,013 - INFO - database.py:1718 - --- [RELOAD_CHECK_V3] get_lookup_data_list called with table_name: countries, audience_type: None, category: None, tenant_id: None, user_id: None, skip: 0, limit: 1000 ---
 2026-07-19 21:49:53,017 - INFO - main.py:197 - FRONTEND DEBUG: {"level": "log", "message": "Config loaded dynamic backend URL: http://localhost:6016", "url": "http://localhost:6016/admin.html#models", "timestamp": "2026-07-19T18:49:53.007Z"}
 2026-07-19 21:49:53,024 - INFO - main.py:197 - FRONTEND DEBUG: {"level": "log", "message": "DEBUG: populateUserFilterCountryDropdown populated.", "url": "http://localhost:6016/admin.html#models", "timestamp": "2026-07-19T18:49:53.023Z"}
+2026-07-25 19:32:34,794 - INFO - database.py:649 - Added task_id column to uploaded_files table.
+2026-07-25 19:32:34,795 - INFO - database.py:667 - uploaded_file_id column already exists in generation_tasks table. Skipping migration.
+2026-07-25 19:32:34,797 - INFO - main.py:160 - DEBUG: main.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/main.py
+2026-07-25 19:32:34,797 - INFO - main.py:161 - DEBUG: database.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/database.py
+2026-07-25 19:32:37,039 - INFO - database.py:652 - task_id column already exists in uploaded_files table. Skipping migration.
+2026-07-25 19:32:37,039 - INFO - database.py:667 - uploaded_file_id column already exists in generation_tasks table. Skipping migration.
+2026-07-25 19:32:37,040 - INFO - main.py:160 - DEBUG: main.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/main.py
+2026-07-25 19:32:37,040 - INFO - main.py:161 - DEBUG: database.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/database.py
+2026-07-25 19:33:18,799 - INFO - database.py:652 - task_id column already exists in uploaded_files table. Skipping migration.
+2026-07-25 19:33:18,800 - INFO - database.py:667 - uploaded_file_id column already exists in generation_tasks table. Skipping migration.
+2026-07-25 19:33:18,803 - INFO - main.py:160 - DEBUG: main.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/main.py
+2026-07-25 19:33:18,803 - INFO - main.py:161 - DEBUG: database.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/database.py
+2026-07-25 19:33:50,132 - INFO - database.py:652 - task_id column already exists in uploaded_files table. Skipping migration.
+2026-07-25 19:33:50,133 - INFO - database.py:667 - uploaded_file_id column already exists in generation_tasks table. Skipping migration.
+2026-07-25 19:33:50,134 - INFO - main.py:160 - DEBUG: main.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/main.py
+2026-07-25 19:33:50,134 - INFO - main.py:161 - DEBUG: database.py loaded from: /Users/osama/RiderProjects/my-projects-the-3-projects-/inst-QI-6016/backend/database.py
