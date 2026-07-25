@@ -189,99 +189,269 @@ const InstructorsDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container suite-motion-page">
-      {/* 1. NAVIGATION TABS - ALWAYS VISIBLE */}
-      <div style={{ display: 'flex', marginBottom: '24px', gap: '12px' }}>
+    <div className="dashboard-container suite-motion-page" style={{ maxWidth: '1400px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+      {/* 1. NAVIGATION STEP TABS */}
+      <div style={{ display: 'flex', marginBottom: '28px', gap: '14px', flexWrap: 'wrap' }}>
         {['exam_selection', 'choose_exam', 'exam_results'].map((s, i) => {
           const stepIndex = i + 1;
           const isActive = step === stepIndex;
           const isVisited = stepIndex <= maxStep;
           return (
-            <div key={s} 
+            <div 
+              key={s} 
               onClick={() => handleStepClick(stepIndex)}
               style={{ 
-                padding: '10px 20px', 
-                background: isActive ? 'var(--suite-primary)' : (isVisited ? 'var(--suite-primary-dark)' : 'var(--suite-surface)'), 
-                color: isVisited || isActive ? 'var(--suite-on-primary)' : 'var(--suite-text-muted)',
-                border: isVisited || isActive ? 'none' : '1px solid var(--suite-border)',
-                borderRadius: 'var(--suite-radius-md)',
-                flex: 1,
+                padding: '12px 24px', 
+                background: isActive ? '#2c5282' : (isVisited ? '#1e3a8a' : '#ffffff'), 
+                color: isVisited || isActive ? '#ffffff' : '#64748b',
+                border: isVisited || isActive ? '1px solid #2c5282' : '1px solid rgba(0, 0, 0, 0.08)',
+                borderRadius: '0.75rem',
+                flex: '1 1 200px',
                 textAlign: 'center',
                 cursor: isVisited ? 'pointer' : 'default',
                 fontSize: '14px',
-                fontWeight: '600',
-                fontFamily: 'var(--font-display)',
-                boxShadow: isActive ? 'var(--suite-shadow-1)' : 'none',
-                transition: 'all 0.2s ease'
+                fontWeight: '700',
+                fontFamily: '"Space Grotesk", sans-serif',
+                boxShadow: isActive ? '0 4px 15px rgba(0, 0, 0, 0.06)' : 'none',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}
+            >
+              <span style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                width: '22px', 
+                height: '22px', 
+                borderRadius: '50%', 
+                backgroundColor: isActive || isVisited ? 'rgba(255,255,255,0.2)' : '#f1f5f9',
+                fontSize: '12px',
+                fontWeight: '700'
               }}>
-              {t(`instructor.step_${stepIndex}`, `Step ${stepIndex}`)}: {t(`instructor.${s}`, s.replace('_', ' '))}
+                {stepIndex}
+              </span>
+              {t(`instructor.${s}`, s.replace('_', ' '))}
             </div>
           );
         })}
       </div>
 
       {step === 1 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', width: '100%' }}>
+          {/* Top Row: Metric Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', width: '100%' }}>
             {[
-                { label: t('instructor.risk.stable', 'Stable'), count: riskSummary.stable, color: 'var(--suite-success)' },
-                { label: t('instructor.risk.at_risk', 'At Risk'), count: riskSummary.at_risk, color: 'var(--suite-warning)' },
-                { label: t('instructor.risk.critical', 'Critical'), count: riskSummary.danger || 'var(--suite-danger)' }
+              { label: t('instructor.risk.stable', 'Stable Students'), count: riskSummary.stable ?? 0, color: '#10b981', bg: '#ecfdf5', borderColor: '#a7f3d0' },
+              { label: t('instructor.risk.at_risk', 'At Risk Students'), count: riskSummary.at_risk ?? 0, color: '#f59e0b', bg: '#fffbeb', borderColor: '#fde68a' },
+              { label: t('instructor.risk.critical', 'Critical Risk Students'), count: riskSummary.critical ?? 0, color: '#dc2626', bg: '#fef2f2', borderColor: '#fca5a5' }
             ].map((item, i) => (
-                <div key={i} style={{ background: 'var(--suite-surface-raised)', padding: '20px', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)', borderTop: `4px solid ${item.color}`, flex: 1, textAlign: 'center', boxShadow: 'var(--suite-shadow-1)' }}>
-                    <div style={{ color: 'var(--suite-text-muted)', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.label}</div>
-                    <div style={{ fontSize: '32px', fontWeight: '700', color: 'var(--suite-primary)', fontFamily: 'var(--font-display)', marginTop: '4px' }}>{item.count}</div>
+              <div 
+                key={i} 
+                style={{ 
+                  background: '#ffffff', 
+                  padding: '24px', 
+                  borderRadius: '1.25rem', 
+                  border: `1px solid ${item.borderColor}`, 
+                  borderTop: `5px solid ${item.color}`, 
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '8px'
+                }}
+              >
+                <div style={{ color: '#64748b', fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {item.label}
                 </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', fontFamily: '"Space Grotesk", sans-serif' }}>
+                    {item.count}
+                  </div>
+                  <span style={{ fontSize: '12px', fontWeight: '600', color: item.color, backgroundColor: item.bg, padding: '4px 10px', borderRadius: '20px' }}>
+                    {item.label.split(' ')[0]}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
 
-          {/* Risk Distribution Pie Chart */}
-          <div style={{ background: 'var(--suite-surface-raised)', padding: '24px', borderRadius: 'var(--suite-radius-lg)', border: '1px solid var(--suite-border)', height: '320px', boxShadow: 'var(--suite-shadow-1)' }}>
-            <h4 style={{ textAlign: 'center', fontFamily: 'var(--font-display)', color: 'var(--suite-text)', fontSize: '1.1rem', margin: '0 0 16px', fontWeight: '700' }}>{t('instructor.risk.distribution_title', 'Student Risk Distribution')}</h4>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={[
-                    { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable, color: '#10b981' },
-                    { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk, color: '#f59e0b' },
-                    { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical, color: '#dc2626' }
-                  ]}
-                  cx="50%"
-                  cy="45%"
-                  outerRadius={90}
-                  fill="#8884d8"
-                  dataKey="value"
-                  label
-                >
-                  {[
-                    { color: '#10b981' },
-                    { color: '#f59e0b' },
-                    { color: '#dc2626' }
-                  ].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <RechartsTooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+          {/* Bottom Row: 2-Column Grid for Filter Form (Left) & Risk Chart (Right) */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px', width: '100%' }}>
+            {/* Filter Form Card */}
+            <div style={{ 
+              backgroundColor: '#ffffff', 
+              padding: '28px', 
+              borderRadius: '1.25rem', 
+              border: '1px solid rgba(0, 0, 0, 0.08)', 
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}>
+              <div>
+                <h3 style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '1.25rem', fontWeight: '700', color: '#1e293b', margin: '0 0 4px' }}>
+                  {t('instructor.exam_filtration', 'Exam Filter & Parameters')}
+                </h3>
+                <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 24px' }}>
+                  Select parameters to narrow down exam results and analytics.
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '20px' }}>
+                  <div style={getFilterStyle('faculty')}>
+                    <SearchableSelect
+                      options={options.faculties}
+                      value={filters.faculty}
+                      onChange={(val: string) => { setFilters({...filters, faculty: val}); setErrors({...errors, faculty: false})}}
+                      placeholder={t('instructor.select_grade', 'Select Grade')}
+                    />
+                  </div>
+                  <div style={getFilterStyle('major')}>
+                    <SearchableSelect
+                      options={options.majors}
+                      value={filters.major}
+                      onChange={(val: string) => { setFilters({...filters, major: val}); setErrors({...errors, major: false})}}
+                      placeholder={t('instructor.select_section', 'Select Section')}
+                    />
+                  </div>
+                  <div style={getFilterStyle('course')}>
+                    <SearchableSelect 
+                      options={options.courses}
+                      value={filters.course}
+                      onChange={(val: string) => { setFilters({...filters, course: val}); setErrors({...errors, course: false})}}
+                      placeholder={t('instructor.select_material', 'Select Material')}
+                    />
+                  </div>
+                  <div style={getFilterStyle('class')}>
+                    <SearchableSelect
+                      options={options.classes}
+                      value={filters.class}
+                      onChange={(val: string) => { setFilters({...filters, class: val}); setErrors({...errors, class: false})}}
+                      placeholder={t('instructor.select_division', 'Select Division')}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#2c5282', marginBottom: '6px' }}>
+                      {t('instructor.from_date', 'From Date')}
+                    </label>
+                    <DatePicker
+                      selected={parseDate(filters.fromDate)}
+                      onChange={(date: Date | null) => setFilters({...filters, fromDate: formatDate(date)})}
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText=""
+                      className="custom-datepicker"
+                      wrapperClassName="datePickerWrapper"
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#2c5282', marginBottom: '6px' }}>
+                      {t('instructor.to_date', 'To Date')}
+                    </label>
+                    <DatePicker
+                      selected={parseDate(filters.toDate)}
+                      onChange={(date: Date | null) => setFilters({...filters, toDate: formatDate(date)})}
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText=""
+                      className="custom-datepicker"
+                      wrapperClassName="datePickerWrapper"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button 
+                onClick={handleExecute}
+                style={{ 
+                  width: '100%', 
+                  padding: '14px 28px', 
+                  backgroundColor: '#2c5282', 
+                  color: '#ffffff', 
+                  border: 'none', 
+                  borderRadius: '0.75rem', 
+                  fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  fontWeight: '700', 
+                  fontSize: '1rem',
+                  cursor: 'pointer', 
+                  boxShadow: '0 4px 15px rgba(44, 82, 130, 0.25)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {t('instructor.exam_filtration', 'Execute Exam Filtration')} &rarr;
+              </button>
+            </div>
+
+            {/* Risk Distribution Pie Chart Card */}
+            <div style={{ 
+              backgroundColor: '#ffffff', 
+              padding: '28px', 
+              borderRadius: '1.25rem', 
+              border: '1px solid rgba(0, 0, 0, 0.08)', 
+              minHeight: '380px', 
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <h3 style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '1.25rem', fontWeight: '700', color: '#1e293b', margin: '0 0 4px', textAlign: 'start' }}>
+                {t('instructor.risk.distribution_title', 'Student Risk Distribution')}
+              </h3>
+              <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 20px', textAlign: 'start' }}>
+                Visual breakdown of student performance indicators.
+              </p>
+
+              <div style={{ flex: 1, minHeight: '260px', width: '100%' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={[
+                        { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable ?? 0, color: '#10b981' },
+                        { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk ?? 0, color: '#f59e0b' },
+                        { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical ?? 0, color: '#dc2626' }
+                      ]}
+                      cx="50%"
+                      cy="45%"
+                      outerRadius={95}
+                      innerRadius={45}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label
+                    >
+                      {[
+                        { color: '#10b981' },
+                        { color: '#f59e0b' },
+                        { color: '#dc2626' }
+                      ].map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <RechartsTooltip />
+                    <Legend verticalAlign="bottom" height={36} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: '20px', borderBottom: '2px solid var(--suite-border)', marginBottom: '24px' }}>
-        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--suite-primary)' : 'var(--suite-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '500', borderBottom: isActive ? '3px solid var(--suite-primary)' : 'none', marginBottom: '-2px', fontFamily: 'var(--font-display)' })}>
+      {/* Sub-nav tabs for Exams & Marks vs Learning Outcomes */}
+      <div style={{ display: 'flex', gap: '24px', borderBottom: '2px solid rgba(0, 0, 0, 0.08)', marginTop: '32px', marginBottom: '24px' }}>
+        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#2c5282' : '#64748b', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid #2c5282' : 'none', marginBottom: '-2px', fontFamily: '"Space Grotesk", sans-serif', fontSize: '1rem' })}>
           {t('instructor.exams_marks', 'Exams and Marks')}
         </NavLink>
-        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--suite-primary)' : 'var(--suite-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '500', borderBottom: isActive ? '3px solid var(--suite-primary)' : 'none', marginBottom: '-2px', fontFamily: 'var(--font-display)' })}>
+        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#2c5282' : '#64748b', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid #2c5282' : 'none', marginBottom: '-2px', fontFamily: '"Space Grotesk", sans-serif', fontSize: '1rem' })}>
           {t('instructor.learning_outcomes', 'Learning Outcomes')}
         </NavLink>
       </div>
 
       {/* 2. OPTIONAL CONTEXT */}
       {step === 3 && selectedExam && (
-        <div style={{ marginBottom: '24px', padding: '20px', background: 'var(--suite-primary-soft)', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)' }}>
-          <div style={{ marginBottom: '16px', fontSize: '14px', lineHeight: '1.6', color: 'var(--suite-text)' }}>
+        <div style={{ marginBottom: '24px', padding: '24px', backgroundColor: '#ebf8ff', borderRadius: '0.75rem', border: '1px solid rgba(0, 0, 0, 0.08)' }}>
+          <div style={{ marginBottom: '16px', fontSize: '14px', lineHeight: '1.6', color: '#1e293b' }}>
             <strong>{t('instructor.exam_name', 'Exam Name')}:</strong> {selectedExam.name} | 
             <strong> {t('instructor.date', 'Date')}:</strong> {selectedExam.date ? selectedExam.date.split('T')[0] : ''} | 
             <strong> {t('instructor.status', 'Status')}:</strong> {selectedExam.status} | 
@@ -305,8 +475,8 @@ const InstructorsDashboard = () => {
               ))}
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <span style={{ fontSize: '13px', color: 'var(--suite-text-muted)' }}>Display 10 records per page</span>
-              <input type="text" placeholder="Search..." style={{ padding: '6px 12px', border: '1px solid var(--suite-border)', borderRadius: 'var(--suite-radius-sm)', fontSize: '14px' }} />
+              <span style={{ fontSize: '13px', color: '#64748b' }}>Display 10 records per page</span>
+              <input type="text" placeholder="Search..." style={{ padding: '6px 12px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem', fontSize: '14px' }} />
             </div>
           </div>
         </div>
@@ -314,73 +484,6 @@ const InstructorsDashboard = () => {
 
       {/* 3. CONTENT AREA */}
       <div style={{ marginTop: '20px' }}>
-        {step === 1 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', backgroundColor: 'var(--suite-surface-raised)', padding: '24px', borderRadius: 'var(--suite-radius-lg)', border: '1px solid var(--suite-border)', boxShadow: 'var(--suite-shadow-1)' }}>
-            <div style={getFilterStyle('faculty')}>
-              <SearchableSelect
-                options={options.faculties}
-                value={filters.faculty}
-                onChange={(val: string) => { setFilters({...filters, faculty: val}); setErrors({...errors, faculty: false})}}
-                placeholder={t('instructor.select_grade', 'Select Grade')}
-              />
-            </div>
-            <div style={getFilterStyle('major')}>
-              <SearchableSelect
-                options={options.majors}
-                value={filters.major}
-                onChange={(val: string) => { setFilters({...filters, major: val}); setErrors({...errors, major: false})}}
-                placeholder={t('instructor.select_section', 'Select Section')}
-              />
-            </div>
-            <div style={getFilterStyle('course')}>
-              <SearchableSelect 
-                options={options.courses}
-                value={filters.course}
-                onChange={(val: string) => { setFilters({...filters, course: val}); setErrors({...errors, course: false})}}
-                placeholder={t('instructor.select_material', 'Select Material')}
-              />
-            </div>
-            <div style={getFilterStyle('class')}>
-              <SearchableSelect
-                options={options.classes}
-                value={filters.class}
-                onChange={(val: string) => { setFilters({...filters, class: val}); setErrors({...errors, class: false})}}
-                placeholder={t('instructor.select_division', 'Select Division')}
-              />
-            </div>
-
-            <div style={{ display: 'flex', gap: '16px', width: '100%', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, minWidth: '160px', display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--suite-primary)', marginBottom: '4px' }}>{t('instructor.from_date', 'From')}</label>
-                <DatePicker
-                  selected={parseDate(filters.fromDate)}
-                  onChange={(date: Date | null) => setFilters({...filters, fromDate: formatDate(date)})}
-                  dateFormat="yyyy-MM-dd"
-                  placeholderText=""
-                  className="custom-datepicker"
-                  wrapperClassName="datePickerWrapper"
-                />
-              </div>
-              <div style={{ flex: 1, minWidth: '160px', display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--suite-primary)', marginBottom: '4px' }}>{t('instructor.to_date', 'To')}</label>
-                <DatePicker
-                  selected={parseDate(filters.toDate)}
-                  onChange={(date: Date | null) => setFilters({...filters, toDate: formatDate(date)})}
-                  dateFormat="yyyy-MM-dd"
-                  placeholderText=""
-                  className="custom-datepicker"
-                  wrapperClassName="datePickerWrapper"
-                />
-              </div>
-              <button 
-                onClick={handleExecute}
-                style={{ padding: '10px 24px', backgroundColor: 'var(--suite-primary)', color: 'var(--suite-on-primary)', border: 'none', borderRadius: 'var(--suite-radius-md)', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', marginLeft: 'auto', boxShadow: 'var(--suite-shadow-1)' }}
-              >
-                {t('instructor.exam_filtration', 'Exam Filtration')}
-              </button>
-            </div>
-          </div>
-        )}
         <Outlet context={{ filters, triggerFetch, promoteStep, step, onDataLoaded: handleDataLoaded, selectedExam, setSelectedExam, attendanceStatus, setAttendanceStatus }} />
       </div>
     </div>
