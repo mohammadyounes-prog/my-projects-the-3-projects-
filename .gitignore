@@ -9,6 +9,10 @@ __pycache__/
 .env
 node_modules/
 chromium/
+.idea/
+.playwright-mcp/
+.next/
+**/.next/
 # Ignore these folders wherever they appear
 **/backend/uploads/
 **/backend/generated_reports/
