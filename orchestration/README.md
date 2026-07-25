@@ -4,8 +4,10 @@ Hand these prompts and tickets to coding agents. **Do not invent design tokens**
 
 | File | Purpose |
 |------|---------|
+| [`ISSUE_SYNC.md`](ISSUE_SYNC.md) | **Orchestrator ↔ GitHub sync protocol** (labels, gates, `Fixes #N`) |
+| [`ISSUE_MAP.md`](ISSUE_MAP.md) | Ticket ID → GitHub issue number |
 | [`AGENT_PROMPTS.md`](AGENT_PROMPTS.md) | System/user prompts per agent role |
-| [`TICKETS.md`](TICKETS.md) | Implementable tickets (A1–C4, E-track, QA) |
+| [`TICKETS.md`](TICKETS.md) | Spec (work + acceptance); status mirrored to GH |
 | [`DISPATCH_ORDER.md`](DISPATCH_ORDER.md) | Who runs when; merge gates |
 
 **Source of truth (read before any ticket):**
@@ -16,5 +18,9 @@ Hand these prompts and tickets to coding agents. **Do not invent design tokens**
 4. [`../ux-adoption-roadmap.md`](../ux-adoption-roadmap.md)
 5. [`../ux-screenshots/`](../ux-screenshots/) (baseline)
 
-**Sequence:** Design guardian (once) → Phase A tickets → Visual QA → Phase B → Visual QA → Phase C → Visual QA.  
-**Park:** SSO/API/DB/React rewrite tickets in Engineering Track E — different owner.
+**Tracking split:** `TICKETS.md` = spec · GitHub Issues = tracker · `ISSUE_MAP.md` = join table.
+
+**Sequence:** Design guardian (DG-1 `#2`) → Phase A (`#3`–`#9`) → Visual QA → unlock Phase B → …  
+**Park:** B/C/E issues carry `deferred` until gates pass / explicit dispatch.
+
+**Issues board:** https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues?q=label%3Aorchestrator

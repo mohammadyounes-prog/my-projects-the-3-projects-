@@ -2,7 +2,10 @@
 
 Status legend: `todo` | `in_progress` | `done` | `blocked` | `deferred`
 
-Update status in this file (or your tracker) when dispatching.
+**GitHub is the tracker; this file is the spec.**  
+Map: [`ISSUE_MAP.md`](ISSUE_MAP.md) · Sync rules: [`ISSUE_SYNC.md`](ISSUE_SYNC.md)
+
+Update **Status** here when dispatching, and mirror via `gh issue` (comment / close / remove `deferred`) per `ISSUE_SYNC.md`.
 
 ---
 
@@ -12,6 +15,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#2](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/2) |
 | **Agent** | Design guardian |
 | **parallel** | no (run first) |
 | **Depends on** | — |
@@ -35,6 +39,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#3](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/3) |
 | **Agent** | Website |
 | **parallel** | ok with A2 |
 | **Depends on** | DG-1 recommended |
@@ -54,6 +59,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#4](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/4) |
 | **Agent** | Website |
 | **parallel** | ok with A1 |
 | **Depends on** | DG-1 |
@@ -72,6 +78,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#5](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/5) |
 | **Agent** | Website |
 | **parallel** | no |
 | **Depends on** | A1, A2 |
@@ -90,6 +97,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#6](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/6) |
 | **Agent** | Website |
 | **parallel** | ok with A5/A6 after A3 or independently |
 | **Depends on** | — |
@@ -108,6 +116,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#7](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/7) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |
 | **Depends on** | A1, A2 recommended |
@@ -127,6 +136,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#8](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/8) |
 | **Agent** | Website |
 | **parallel** | ok with A4 |
 | **Depends on** | A3 for hub keys |
@@ -146,6 +156,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | todo |
+| **GitHub** | [#9](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/9) |
 | **Agent** | Visual QA |
 | **Depends on** | A1–A6 |
 
@@ -161,7 +172,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B1 — Retoken App.css + load fonts
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#10](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/10) |
 | **Agent** | Dashboard |
 | **parallel** | no |
 | **Depends on** | QA-A pass, DG-1 |
@@ -178,7 +190,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B2 — Unify Landing and Home
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#11](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/11) |
 | **Agent** | Dashboard |
 | **parallel** | no |
 | **Depends on** | B1 |
@@ -196,7 +209,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B3 — Header brand + nav + footer context
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#12](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/12) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B4 |
 | **Depends on** | B1 |
@@ -214,7 +228,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B4 — Fix Back to Hub URL
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#13](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/13) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B3 |
 | **Depends on** | — |
@@ -230,7 +245,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B5 — RTL layout + login language switcher
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#14](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/14) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B6 |
 | **Depends on** | B1 |
@@ -249,7 +265,8 @@ Update status in this file (or your tracker) when dispatching.
 ### B6 — Contact + Settings stubs
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#15](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/15) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B5 |
 | **Depends on** | B3 recommended |
@@ -265,7 +282,8 @@ Update status in this file (or your tracker) when dispatching.
 ### QA-B — Phase B visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#16](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/16) |
 | **Agent** | Visual QA |
 | **Depends on** | B1–B6 |
 
@@ -281,7 +299,8 @@ Update status in this file (or your tracker) when dispatching.
 ### C1 — Ship shared suite-tokens.css
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#17](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/17) |
 | **Agent** | QuestAI |
 | **parallel** | no |
 | **Depends on** | QA-B pass, DG-1 |
@@ -297,7 +316,8 @@ Update status in this file (or your tracker) when dispatching.
 ### C2 — Restyle login to match home
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#18](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/18) |
 | **Agent** | QuestAI |
 | **parallel** | no |
 | **Depends on** | C1 |
@@ -313,7 +333,8 @@ Update status in this file (or your tracker) when dispatching.
 ### C3 — Home CTA verbs / suite chrome check
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#19](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/19) |
 | **Agent** | QuestAI |
 | **parallel** | ok with C2 after C1 |
 | **Depends on** | C1 |
@@ -329,7 +350,8 @@ Update status in this file (or your tracker) when dispatching.
 ### C4 — Generate form progressive disclosure
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#20](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/20) |
 | **Agent** | QuestAI |
 | **parallel** | no |
 | **Depends on** | C1–C3 |
@@ -347,6 +369,7 @@ Update status in this file (or your tracker) when dispatching.
 | Field | Value |
 |-------|--------|
 | **Status** | deferred |
+| **GitHub** | [#21](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/21) |
 | **Agent** | QuestAI |
 | **Depends on** | explicit Orchestrator dispatch after C4 |
 
@@ -357,7 +380,8 @@ Update status in this file (or your tracker) when dispatching.
 ### QA-C — Phase C visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | deferred |
+| **GitHub** | [#22](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/22) |
 | **Agent** | Visual QA |
 | **Depends on** | C1–C4 |
 
@@ -371,33 +395,52 @@ Update status in this file (or your tracker) when dispatching.
 ## Engineering Track E (parked — do not mix into A/B/C PRs)
 
 ### E1 — Website env + SSO smoke
+
+**GitHub:** [#23](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/23) · **Status:** deferred
+
 Document and verify `NEXT_PUBLIC_*` against running APIs; fix login token path only as needed for smoke — not visual redesign.
 
 ### E2 — Dashboard SSO contract
+
+**GitHub:** [#24](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/24) · **Status:** deferred
+
 Align `REACT_APP_API_URL` / `verify-sso` path and response (`access_token`) with backend. Separate from B4 hub URL.
 
 ### E3 — Dashboard API base URL consistency
+
+**GitHub:** [#25](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/25) · **Status:** deferred
+
 Remove hardcoded `localhost:2000` chart endpoints; single `REACT_APP_API_BASE_URL`.
 
 ### E4 — QuestAI local stack
+
+**GitHub:** [#26](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/26) · **Status:** deferred
+
 `.env`, `questions.db` seed, optional dummy model — for interactive generate demos.
 
 ### E5 — Role-based nav (Dashboard)
+
+**GitHub:** [#27](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/27) · **Status:** deferred
+
 Gate executive/corporate vs instructor after auth — product/IAM, not design tokens.
 
 ---
 
 ## Ready-to-paste first dispatch
 
+See also kickoff block in [`ISSUE_SYNC.md`](ISSUE_SYNC.md).
+
 **Orchestrator → Design guardian:**
 
 ```
-Execute ticket DG-1 from orchestration/TICKETS.md.
+Execute ticket DG-1 (GitHub #2) from orchestration/TICKETS.md.
+Follow orchestration/ISSUE_SYNC.md: comment on #2 when starting; PR must include Fixes #2.
 ```
 
 **Then Orchestrator → Website (can batch A1+A2):**
 
 ```
-Implement tickets A1 and A2 from orchestration/TICKETS.md.
+Implement tickets A1 (#3) and A2 (#4) from orchestration/TICKETS.md.
 Use the Website agent constraints in orchestration/AGENT_PROMPTS.md.
+PR title e.g. [A1][A2] … with Fixes #3 and Fixes #4.
 ```
