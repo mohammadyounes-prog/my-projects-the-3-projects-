@@ -1,30 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import './GatewayPage.css';
 import LandingKpi from '../components/kpiCard/LandingKpi.tsx';
+import { getRole, MODULE_LINKS, visibleModules, type ModuleId } from '../auth/roles.ts';
 
-const MODULES = [
-  {
-    to: '/educational/admins',
-    icon: '🎓',
-    titleKey: 'nav.dashboard',
-    descKey: 'home.dashboard_desc',
-  },
-  {
-    to: '/corporate-dashboard',
-    icon: '🏢',
-    titleKey: 'nav.corporate',
-    descKey: 'home.corporate_desc',
-  },
-  {
-    to: '/executive-dashboard',
-    icon: '📈',
-    titleKey: 'nav.executive',
-    descKey: 'home.executive_desc',
-  },
-] as const;
+const GATEWAY_MODULE_META: Partial<
+  Record<ModuleId, { icon: string; descKey: string }>
+> = {
+  educational: { icon: '🎓', descKey: 'home.dashboard_desc' },
+  corporate: { icon: '🏢', descKey: 'home.corporate_desc' },
+  executive: { icon: '📈', descKey: 'home.executive_desc' },
+};
+
+/** Gateway cards show the three product modules only (not Weights/Settings). */
+const GATEWAY_CARD_ORDER: ModuleId[] = [
+  'educational',
+  'corporate',
+  'executive',
+];
 
 /**
  * Shared gateway for `/` and `/home` — module cards + suite chrome.
@@ -33,6 +28,20 @@ const MODULES = [
 const GatewayPage = () => {
   const { t } = useTranslation();
   const [kpis, setKpis] = useState<any | null>(null);
+
+  const modules = useMemo(() => {
+    const allowed = new Set(visibleModules(getRole()));
+    return GATEWAY_CARD_ORDER.filter((id) => allowed.has(id)).map((id) => {
+      const link = MODULE_LINKS[id];
+      const meta = GATEWAY_MODULE_META[id]!;
+      return {
+        to: link.to,
+        icon: meta.icon,
+        titleKey: link.labelKey,
+        descKey: meta.descKey,
+      };
+    });
+  }, []);
 
   useEffect(() => {
     const base = process.env.REACT_APP_API_BASE_URL;
@@ -75,7 +84,7 @@ const GatewayPage = () => {
       </header>
 
       <div className="gateway-module-grid">
-        {MODULES.map((mod, index) => (
+        {modules.map((mod, index) => (
           <Link
             key={mod.to}
             to={mod.to}

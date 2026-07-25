@@ -1,8 +1,10 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { canAccess } from '../auth/roles.ts';
 
 const ProtectedRoute = () => {
   const [isChecking, setIsChecking] = useState(true);
+  const location = useLocation();
   const token = localStorage.getItem('token');
   const urlParams = new URLSearchParams(window.location.search);
   const ssoToken = urlParams.get('sso_token');
@@ -21,6 +23,10 @@ const ProtectedRoute = () => {
 
   // Allow through if token exists OR if we are currently processing an SSO token
   if (token || ssoToken) {
+    // Soft role guard: forbidden module paths redirect to gateway (skip while SSO pending)
+    if (token && !ssoToken && !canAccess(location.pathname)) {
+      return <Navigate to="/home" replace />;
+    }
     return <Outlet />;
   }
 

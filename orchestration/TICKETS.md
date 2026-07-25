@@ -427,13 +427,13 @@ Remove hardcoded `localhost:2000` chart endpoints; single `REACT_APP_API_BASE_UR
 
 ### E4 — QuestAI local stack
 
-**GitHub:** [#26](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/26) · **Status:** in_progress
+**GitHub:** [#26](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/26) · **Status:** done
 
 `.env`, `questions.db` seed, optional dummy model — for interactive generate demos.
 
 ### E5 — Role-based nav (Dashboard)
 
-**GitHub:** [#27](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/27) · **Status:** deferred
+**GitHub:** [#27](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/27) · **Status:** in_progress
 
 Gate executive/corporate vs instructor after auth — product/IAM, not design tokens.
 
