@@ -20,7 +20,7 @@ const ExamQualityChart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:2000/api/v1/data/exam-quality')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/exam-quality`)
       .then(res => {
         setData(res.data);
         setLoading(false);

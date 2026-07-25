@@ -17,7 +17,7 @@ const BankCoverageChart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:2000/api/v1/data/bank-coverage')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/data/bank-coverage`)
       .then(res => {
         setData(res.data);
         setLoading(false);
