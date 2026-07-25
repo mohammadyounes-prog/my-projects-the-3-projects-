@@ -230,7 +230,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B4 — Fix Back to Hub URL
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#13](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/13) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B3 |
@@ -239,8 +239,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Replace `http://localhost:3700` with env-driven website URL (e.g. `REACT_APP_HUB_URL=http://localhost:6015`). Document in `.env.example` under frontend or parent.
 
 **Acceptance:**
-- [ ] No `:3700` hardcode in Layout
-- [ ] `.env.example` documents hub URL
+- [x] No `:3700` hardcode in Layout
+- [x] `.env.example` documents hub URL
 
 ---
 

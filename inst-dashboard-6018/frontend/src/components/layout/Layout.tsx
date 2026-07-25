@@ -24,7 +24,8 @@ const Layout = () => {
 
   const handleGoToHub = () => {
     setShowLogoutModal(false);
-    window.location.href = 'http://localhost:3700'; // Assuming this is the Hub URL
+    const hubUrl = process.env.REACT_APP_HUB_URL || 'http://localhost:6015';
+    window.location.href = hubUrl;
   };
 
   const isRtl = i18n.dir() === 'rtl';
