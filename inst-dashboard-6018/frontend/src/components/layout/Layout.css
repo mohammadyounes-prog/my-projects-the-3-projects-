@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: #1e3a8a; /* Darker blue */
+  background-color: var(--suite-header-bg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -21,6 +21,8 @@
   flex-direction: column;
   line-height: 1.2;
   white-space: nowrap;
+  font-family: var(--font-display);
+  letter-spacing: var(--suite-tracking-display);
 }
 
 .brand-line-1 {

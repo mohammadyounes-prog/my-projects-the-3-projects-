@@ -174,7 +174,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B1 — Retoken App.css + load fonts
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#10](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/10) |
 | **Agent** | Dashboard |
 | **parallel** | no |
@@ -183,8 +183,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Map `--color-primary` / accent to suite tokens; load suite fonts in `public/index.html` (or CSS `@import`). Stop presenting Inter as brand face.
 
 **Acceptance:**
-- [ ] Primary surfaces/header use `#2c5282` family
-- [ ] Fonts match contract on login/home
+- [x] Primary surfaces/header use `#2c5282` family
+- [x] Fonts match contract on login/home
 - [ ] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-desktop.png`
 
 ---
