@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 
 export default function CallToActionSection() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const lang = i18n.language;
 
   return (
     <section className="bg-primary-blue text-white py-20">
@@ -16,14 +17,20 @@ export default function CallToActionSection() {
           {t('call_to_action_subtitle')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <button className="bg-white text-primary-blue px-8 py-3 rounded-md hover:bg-light-blue transition-colors text-lg font-semibold shadow-md">
+          <Link
+            href={`/${lang}/login`}
+            className="bg-white text-primary-blue px-8 py-3 rounded-md hover:bg-light-blue transition-colors text-lg font-semibold shadow-md"
+          >
             {t('get_in_touch')}
-          </button>
-          <button className="border border-white px-8 py-3 rounded-md hover:bg-white hover:text-primary-blue transition-colors text-lg font-semibold shadow-md">
+          </Link>
+          <Link
+            href={`/${lang}/solutions`}
+            className="border border-white px-8 py-3 rounded-md hover:bg-white hover:text-primary-blue transition-colors text-lg font-semibold shadow-md"
+          >
             {t('learn_more')}
-          </button>
+          </Link>
         </div>
-        <Link href="#" className="text-lg font-semibold hover:text-light-blue">
+        <Link href={`/${lang}`} className="text-lg font-semibold hover:text-light-blue">
           {t('tdm_systems')}
         </Link>
       </div>
