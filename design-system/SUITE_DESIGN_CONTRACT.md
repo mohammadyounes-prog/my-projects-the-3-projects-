@@ -1,7 +1,7 @@
 # TDM / LMS Suite design contract
 
 **Status:** Source of truth for visual unity across Website (`6015`), QuestAI (`6016`), Dashboard (`6018`/`6019`).  
-**Companion files:** [`tokens.css`](tokens.css), audit [`../ux-suite-audit.md`](../ux-suite-audit.md), roadmap [`../ux-adoption-roadmap.md`](../ux-adoption-roadmap.md).
+**Companion files:** [`tokens.css`](tokens.css) (token definitions), [`ADOPTION_NOTES.md`](ADOPTION_NOTES.md) (per-app import/mirror steps), audit [`../ux-suite-audit.md`](../ux-suite-audit.md), roadmap [`../ux-adoption-roadmap.md`](../ux-adoption-roadmap.md).
 
 ## 1. Brand
 
@@ -23,13 +23,15 @@ Load both Latin and Arabic families in every app shell.
 
 ## 2. Tokens
 
-All products map UI to [`tokens.css`](tokens.css) names (`--suite-*`). Framework mapping:
+All products map UI to [`tokens.css`](tokens.css) names (`--suite-*`). **`tokens.css` is the single source of truth for hex and font stacks** — apps must not fork brand values.
 
-| App | How to adopt |
+Exact import/mirror steps, file paths, alias tables, and forbidden patterns: **[`ADOPTION_NOTES.md`](ADOPTION_NOTES.md)**.
+
+| App | How to adopt (summary) |
 |-----|----------------|
-| Website | Extend `tailwind.config.js` theme colors/fonts from suite tokens; import or mirror in `globals.css` |
-| Dashboard | Replace `--color-primary` / `--color-accent` in `App.css` with suite aliases; purge one-off hex where practical |
-| QuestAI | Extract page-local `:root` into a shared include of `tokens.css` (or copy into `frontend/css/suite-tokens.css`) |
+| Website | Import or sync-mirror into `globals.css`; extend `tailwind.config.js` theme from `--suite-*` (tickets A1/A2) |
+| Dashboard | Alias `--color-primary` / fonts in `App.css` to `--suite-*`; load suite fonts (ticket B1) |
+| QuestAI | Add `frontend/css/suite-tokens.css` synced from `tokens.css`; link from `home.html` / `login.html` / `index.html` (ticket C1) |
 
 **Elevation budget:** only `--suite-shadow-0` … `--suite-shadow-2`. No multi-layer glow stacks.
 
