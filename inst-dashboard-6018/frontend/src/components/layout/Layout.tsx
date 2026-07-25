@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../LanguageSwitcher.tsx';
+import { getRole, MODULE_LINKS, visibleModules } from '../../auth/roles.ts';
 import './Layout.css';
 
 type NavItem = { to: string; labelKey: string; fallback: string };
@@ -19,6 +20,7 @@ const Layout = () => {
   const performLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user_name');
+    localStorage.removeItem('role');
     setShowLogoutModal(false);
     window.location.href = '/login';
   };
@@ -52,20 +54,18 @@ const Layout = () => {
     return 'Dashboard Gateway';
   }, [path]);
 
-  /** Gateway: Home only. Module pages: primary module links (no Contact — B6). */
+  /** Gateway: Home only. Module pages: role-filtered module links (no Contact — B6). */
   const navItems: NavItem[] = useMemo(() => {
     const home: NavItem = { to: '/', labelKey: 'nav.home', fallback: 'Home' };
     if (isGateway) {
       return [home];
     }
-    return [
-      home,
-      { to: '/educational/admins', labelKey: 'nav.dashboard', fallback: 'Educational' },
-      { to: '/executive-dashboard', labelKey: 'nav.executive', fallback: 'Executive' },
-      { to: '/corporate-dashboard', labelKey: 'nav.corporate', fallback: 'Corporate' },
-      { to: '/weights', labelKey: 'nav.indexes_weight', fallback: 'Indexes Weight' },
-      { to: '/settings', labelKey: 'nav.settings', fallback: 'Settings' },
-    ];
+    const role = getRole();
+    const moduleNav: NavItem[] = visibleModules(role).map((mod) => {
+      const link = MODULE_LINKS[mod];
+      return { to: link.to, labelKey: link.labelKey, fallback: link.fallback };
+    });
+    return [home, ...moduleNav];
   }, [isGateway]);
 
   return (
