@@ -18,9 +18,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         /* Force override for all form labels */
-        .form-label, 
+        .form-label,
         label {
-            color: #2c5282 !important;
+            color: var(--suite-primary) !important;
         }
 
         /* Palette/fonts from css/suite-tokens.css (synced from design-system/tokens.css).
@@ -46,33 +46,51 @@
             font-family: var(--font-display);
             font-weight: 700;
             font-size: 1.5rem;
-            letter-spacing: -0.02em;
+            letter-spacing: var(--suite-tracking-display);
             background: linear-gradient(to right, #ffffff, #bfdbfe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Refined Navbar */
+        /* Refined Navbar — suite header chrome */
         .navbar {
-            background: var(--accent-blue) !important;
+            background: var(--suite-header-bg) !important;
             backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 0.5rem 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            min-height: var(--suite-header-height);
+            box-shadow: var(--suite-shadow-1);
         }
         .navbar .nav-link {
             color: rgba(255, 255, 255, 0.8) !important;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all var(--suite-duration-fast) var(--suite-ease);
             padding-left: 0.75rem !important;
             padding-right: 0.75rem !important;
             font-size: 0.9rem;
         }
         .navbar .nav-link:hover {
-            color: #ffffff !important;
+            color: var(--suite-on-primary) !important;
         }
         #currentUserName {
-            color: #ffffff !important;
+            color: var(--suite-on-primary) !important;
+        }
+
+        #langSwitcher {
+            width: 4.5rem;
+            background: transparent;
+            color: var(--suite-on-primary);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: var(--suite-radius-sm);
+            font-family: var(--font-body);
+            font-size: var(--suite-text-caption);
+            font-weight: 600;
+            padding: 0.25rem 0.4rem;
+        }
+        #langSwitcher option {
+            color: var(--suite-text);
+            background: var(--suite-surface-raised);
         }
 
         .container {
@@ -83,56 +101,162 @@
         .card {
             background: var(--bg-panel) !important;
             border: 1px solid var(--border-light) !important;
-            border-radius: 1.25rem !important;
+            border-radius: var(--suite-radius-lg) !important;
             color: var(--text-primary) !important;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--suite-shadow-2) !important;
+            transition: transform var(--suite-duration-med) var(--suite-ease), box-shadow var(--suite-duration-med) var(--suite-ease);
             animation: slideUp 0.6s ease-out forwards;
             opacity: 0;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+            box-shadow: var(--suite-shadow-2) !important;
         }
 
         .welcome-section {
-            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a);
-            padding: 80px 0;
+            background: linear-gradient(135deg, var(--suite-primary), var(--suite-primary-dark));
+            padding: 80px 0 64px;
             text-align: center;
             color: white;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .welcome-brand {
+            font-family: var(--font-body);
+            font-size: var(--suite-text-caption);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: var(--suite-space-2);
+        }
         .welcome-section h1 {
             font-family: var(--font-display);
-            font-size: 3.5rem;
+            font-size: var(--suite-text-hero);
             font-weight: 700;
             color: white;
             margin-bottom: 20px;
+            letter-spacing: var(--suite-tracking-display);
+        }
+        .welcome-section h1 .app-name-style {
+            font-size: inherit;
         }
         .welcome-section p {
             font-size: 1.25rem;
             color: rgba(255, 255, 255, 0.9);
             max-width: 800px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto;
+        }
+
+        /* Gateway module cards — suite verb Open */
+        .gateway-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--suite-space-5) var(--suite-space-3) var(--suite-space-4);
+        }
+        .gateway-heading {
+            font-family: var(--font-display);
+            font-size: var(--suite-text-h2);
+            font-weight: 700;
+            text-align: center;
+            color: var(--suite-text);
+            margin-bottom: var(--suite-space-2);
+            letter-spacing: var(--suite-tracking-display);
+        }
+        .gateway-subtitle {
+            text-align: center;
+            color: var(--suite-text-muted);
+            margin-bottom: var(--suite-space-5);
+            font-size: var(--suite-text-body);
+        }
+        .gateway-module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--suite-space-4);
+        }
+        .gateway-module-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            background: var(--suite-surface-raised);
+            border: 1px solid var(--suite-border);
+            border-radius: var(--suite-radius-lg);
+            box-shadow: var(--suite-shadow-1);
+            padding: var(--suite-space-5) var(--suite-space-4);
+            gap: var(--suite-space-3);
+            opacity: 1;
+            animation: none;
+        }
+        .gateway-module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--suite-shadow-2);
+            color: inherit;
+        }
+        .gateway-module-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: var(--suite-radius-md);
+            background: var(--suite-primary-soft);
+            color: var(--suite-primary);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .gateway-module-title {
+            font-family: var(--font-display);
+            font-size: var(--suite-text-h3);
+            font-weight: 700;
+            margin: 0;
+            color: var(--suite-text);
+        }
+        .gateway-module-desc {
+            font-size: var(--suite-text-caption);
+            line-height: var(--suite-leading-body);
+            color: var(--suite-text-muted);
+            margin: 0;
+            flex: 1;
+        }
+        .gateway-module-cta {
+            display: block;
+            width: 100%;
+            margin-top: var(--suite-space-2);
+            padding: 0.625rem var(--suite-space-3);
+            border-radius: var(--suite-radius-md);
+            background: var(--suite-primary);
+            color: var(--suite-on-primary);
+            font-family: var(--font-body);
+            font-size: var(--suite-text-body);
+            font-weight: 600;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .gateway-module-card:hover .gateway-module-cta,
+        .gateway-module-card:focus-visible .gateway-module-cta {
+            background: var(--suite-primary-dark);
         }
 
         .info-card .card-header {
-            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
+            background: linear-gradient(135deg, var(--suite-primary), var(--suite-primary-dark)) !important;
             color: white !important;
             font-weight: 600;
-            border-top-left-radius: 1.25rem !important;
-            border-top-right-radius: 1.25rem !important;
+            border-top-left-radius: var(--suite-radius-lg) !important;
+            border-top-right-radius: var(--suite-radius-lg) !important;
             padding: 15px 20px;
             font-size: 1.1rem;
             font-family: var(--font-display);
         }
         .info-card.instructions .card-header {
-            background: linear-gradient(135deg, var(--accent-emerald), #059669) !important;
+            background: linear-gradient(135deg, var(--suite-success), var(--suite-success-dark)) !important;
         }
         .info-card.features .card-header {
-            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+            background: linear-gradient(135deg, var(--suite-warning), #d97706) !important;
             color: white !important;
         }
         .info-card .card-body {
@@ -152,7 +276,7 @@
         }
         .info-card ul li::before {
             content: "•";
-            color: var(--accent-blue);
+            color: var(--suite-primary);
             font-weight: bold;
         }
 
@@ -164,7 +288,6 @@
             margin-top: auto;
         }
 
-        /* Animations */
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -173,51 +296,29 @@
         .card:nth-child(1) { animation-delay: 0.1s; }
         .card:nth-child(2) { animation-delay: 0.2s; }
 
-        /* Button Overhaul */
         .btn {
-            border-radius: 0.75rem !important;
+            border-radius: var(--suite-radius-md) !important;
             padding: 0.6rem 1.2rem !important;
             font-weight: 600 !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all var(--suite-duration-med) var(--suite-ease) !important;
             border: none !important;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), #1e3a8a) !important;
-            color: white !important;
-            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3) !important;
+        .btn-outline-light {
+            border: 1px solid rgba(255, 255, 255, 0.65) !important;
+            color: var(--suite-on-primary) !important;
+            background: transparent !important;
         }
-        .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5) !important;
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        /* App Card Styles */
-        .app-card {
-            transition: all 0.3s ease !important;
-            border: 1px solid var(--border-light) !important;
-            cursor: pointer;
-        }
-        .app-icon {
-            font-size: 3rem;
-        }
-        .app-card.coming-soon {
-            filter: grayscale(0.8);
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-        .app-card.coming-soon:hover {
-            transform: none !important;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.12) !important;
         }
     </style>
 </head>
-<body>
+<body class="suite-motion-page">
     <script>
         async function processSSO() {
             const urlParams = new URLSearchParams(window.location.search);
             let ssoToken = urlParams.get('sso_token');
-            
+
             // Fallback: Check cookies if not in URL
             if (!ssoToken) {
                 const cookieMatch = document.cookie.match(new RegExp('(^| )sso_token=([^;]+)'));
@@ -226,20 +327,20 @@
                     console.log("processSSO: Found token in cookies");
                 }
             }
-            
+
             if (ssoToken) {
                 try {
                     // Use BACKEND_BASE_URL if available, otherwise fallback to current origin
                     const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
                     const response = await fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
-                    
+
                     if (response.ok) {
                         const data = await response.json();
                         localStorage.setItem('access_token', data.access_token);
                         // Clean URL and Cookies
                         window.history.replaceState({}, document.title, window.location.pathname);
                         document.cookie = "sso_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        
+
                         // If updateUserInfo is already defined, call it to refresh the UI with new token
                         if (typeof updateUserInfo === 'function') {
                             updateUserInfo();
@@ -258,9 +359,11 @@
         }
         processSSO();
     </script>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top suite-motion-header">
         <div class="container-fluid">
-            <a class="navbar-brand" href="home.html"><span class="app-name-style">QuestAI</span></a>
+            <a class="navbar-brand" href="home.html" aria-label="QuestAI">
+                <span class="app-name-style" data-i18n="home.brandName">QuestAI</span>
+            </a>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="home.html" data-i18n="nav.home">Home</a>
@@ -294,22 +397,50 @@
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-2 ms-auto">
-                <select id="langSwitcher" class="form-select form-select-sm" style="width: 70px;">
+                <label for="langSwitcher" class="visually-hidden">Language</label>
+                <select id="langSwitcher" class="form-select form-select-sm" aria-label="Language">
                     <option value="en">EN</option>
                     <option value="ar">AR</option>
                 </select>
                 <span id="currentUserName" class="text-white"></span>
-                <button class="btn btn-outline-light btn-sm" id="logoutButton">Logout</button>
+                <button class="btn btn-outline-light btn-sm" id="logoutButton" data-i18n="nav.logout">Logout</button>
             </div>
         </div>
     </nav>
 
     <div class="welcome-section">
-        <h1 data-i18n="home.welcomeMessage">Welcome to <span class="app-name-style">QuestAI</span>!</h1>
+        <p class="welcome-brand" data-i18n="home.suiteBrand">TDM Systems</p>
+        <h1>
+            <span data-i18n="home.welcomePrefix">Welcome to</span>
+            <span class="app-name-style" data-i18n="home.brandName">QuestAI</span>!
+        </h1>
         <p data-i18n="home.tagline">Your ultimate platform for generating, managing, and retrieving high-quality questions for various educational and professional needs.</p>
-        <a href="index.html" class="btn btn-primary btn-lg me-2" data-i18n="home.startGenerating">Start Generating Questions</a>
-
     </div>
+
+    <section class="gateway-section" aria-labelledby="gateway-heading">
+        <h2 id="gateway-heading" class="gateway-heading" data-i18n="home.modulesHeading">Select a module</h2>
+        <p class="gateway-subtitle" data-i18n="home.modulesSubtitle">Choose a QuestAI tool to get started</p>
+        <div class="gateway-module-grid">
+            <a href="index.html" class="gateway-module-card suite-motion-card suite-card-hover" style="animation-delay: 0ms">
+                <div class="gateway-module-icon" aria-hidden="true">Q</div>
+                <h3 class="gateway-module-title" data-i18n="home.moduleGenerateTitle">Generate Questions</h3>
+                <p class="gateway-module-desc" data-i18n="home.moduleGenerateDesc">Create AI-powered questions tailored to topic, difficulty, and audience.</p>
+                <span class="gateway-module-cta" data-i18n="home.open">Open</span>
+            </a>
+            <a href="tasks.html" class="gateway-module-card suite-motion-card suite-card-hover" style="animation-delay: 80ms">
+                <div class="gateway-module-icon" aria-hidden="true">H</div>
+                <h3 class="gateway-module-title" data-i18n="home.moduleTasksTitle">Task History</h3>
+                <p class="gateway-module-desc" data-i18n="home.moduleTasksDesc">Track generation jobs and review task status over time.</p>
+                <span class="gateway-module-cta" data-i18n="home.open">Open</span>
+            </a>
+            <a href="tamsQB.html" class="gateway-module-card suite-motion-card suite-card-hover" style="animation-delay: 160ms">
+                <div class="gateway-module-icon" aria-hidden="true">T</div>
+                <h3 class="gateway-module-title" data-i18n="home.moduleTestTitle">Take a Test</h3>
+                <p class="gateway-module-desc" data-i18n="home.moduleTestDesc">Run practice assessments from your approved question sets.</p>
+                <span class="gateway-module-cta" data-i18n="home.open">Open</span>
+            </a>
+        </div>
+    </section>
 
     <div class="container my-5">
         <div class="row g-4">
@@ -331,11 +462,11 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li data-i18n="home.howToUse1"><strong>Generate Questions:</strong> Navigate to the "Generate Questions" page, fill in the required details like topic context, audience type, and desired number of questions, then click "Generate".</li>
-                            <li data-i18n="home.howToUse2"><strong>Review & Manage:</strong> After generation, review the questions. You can approve, reject, edit, or delete them. Approved questions are ready for use.</li>
-                            <li data-i18n="home.howToUse3"><strong>Retrieve Questions:</strong> Use the "Generate Questions" page to search, filter, and export your approved questions.</li>
-                            <li data-i18n="home.howToUse4"><strong>Task History:</strong> Keep track of all your generation tasks and their statuses.</li>
-                            <li data-i18n="home.howToUse5"><strong>Profile & Settings:</strong> Manage your account and access administrative settings if you have the necessary permissions.</li>
+                            <li data-i18n="home.howToUse1">Generate Questions: Navigate to the "Generate Questions" page, fill in the required details like topic context, audience type, and desired number of questions, then click "Generate".</li>
+                            <li data-i18n="home.howToUse2">Review & Manage: After generation, review the questions. You can approve, reject, edit, or delete them. Approved questions are ready for use.</li>
+                            <li data-i18n="home.howToUse3">Retrieve Questions: Use the "Generate Questions" page to search, filter, and export your approved questions.</li>
+                            <li data-i18n="home.howToUse4">Task History: Keep track of all your generation tasks and their statuses.</li>
+                            <li data-i18n="home.howToUse5">Profile & Settings: Manage your account and access administrative settings if you have the necessary permissions.</li>
                         </ul>
                     </div>
                 </div>
@@ -356,21 +487,12 @@
             (function(){
                 try {
                     var parts = location.pathname.split('/');
-                    var page = (parts[parts.length-1] || 'home.html').toLowerCase(); // Default to home.html
+                    var page = (parts[parts.length-1] || 'home.html').toLowerCase();
                     document.querySelectorAll('.navbar a.nav-link').forEach(function(a){
-                        a.classList.remove('active'); // Remove active from all links first
+                        a.classList.remove('active');
                         var href = (a.getAttribute('href')||'').toLowerCase();
                         if (href && page === href) {
                             a.classList.add('active');
-                        }
-                    });
-                } catch(e) { /* noop */ }
-            })();
-        });
-    </script>
-</body>
-</html>
-e');
                         }
                     });
                 } catch(e) { /* noop */ }

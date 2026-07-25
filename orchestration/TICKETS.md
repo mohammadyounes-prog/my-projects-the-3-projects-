@@ -337,7 +337,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C3 — Home CTA verbs / suite chrome check
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#19](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/19) |
 | **Agent** | QuestAI |
 | **parallel** | ok with C2 after C1 |
@@ -346,7 +346,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Align home card CTAs with suite verb “Open” / translated equivalents; ensure lang switcher + brand match contract.
 
 **Acceptance:**
-- [ ] Gateway CTAs consistent with website hub language
+- [x] Gateway CTAs consistent with website hub language
 - [ ] QA refresh: `qi-home-desktop.png`, `qi-home-mobile.png`
 
 ---
