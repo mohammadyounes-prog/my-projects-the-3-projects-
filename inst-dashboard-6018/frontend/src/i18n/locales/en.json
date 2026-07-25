@@ -77,14 +77,14 @@
       "product": "Dashboard"
     },
     "home": {
-       "brand": "TDM Systems",
-       "title": "Welcome to TAMS Platform",
-       "subtitle": "Please select a module to get started",
-       "open": "Open",
-       "dashboard_desc": "Monitor student performance and learning outcomes.",
-       "corporate_desc": "Analyze HR intelligence and organizational skill gaps.",
-       "executive_desc": "High-level strategic insights and institutional reporting."
-     },
+      "brand": "TDM Systems",
+      "title": "Welcome to TAMS Platform",
+      "subtitle": "Please select a module to get started",
+      "open": "Open",
+      "dashboard_desc": "Monitor student performance and learning outcomes.",
+      "corporate_desc": "Analyze HR intelligence and organizational skill gaps.",
+      "executive_desc": "High-level strategic insights and institutional reporting."
+    },
     "educational": {
       "admins": "Admins",
       "instructors": "Instructors"
@@ -173,8 +173,7 @@
       "settings": "Settings",
       "logout": "Logout",
       "logout_confirm": "Select an action",
-      "back_to_hub": "Back to Hub",
-      "contact": "Contact Us"
+      "back_to_hub": "Back to Hub"
     },
     "corporate": {
       "title": "Corporate HR Dashboard",
@@ -230,6 +229,7 @@
     },
     "settings": {
       "title": "Settings",
+      "not_configured": "Settings are not configured yet. This page will be available when configuration is enabled.",
       "connection_strings": "Connection Strings",
       "questai_db_path": "QuestAI DB Path",
       "online_exam_db_host": "Online Exam DB Host",

@@ -267,7 +267,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B6 — Contact + Settings stubs
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | done |
 | **GitHub** | [#15](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/15) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B5 |
@@ -276,8 +276,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Remove Contact nav link or add a minimal page. Settings: clear stub message (i18n) instead of blank title-only page.
 
 **Acceptance:**
-- [ ] No dead `/contact` navigation
-- [ ] Settings communicates “not configured” or similar
+- [x] No dead `/contact` navigation
+- [x] Settings communicates “not configured” or similar
 
 ---
 
