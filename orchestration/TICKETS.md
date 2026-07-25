@@ -14,7 +14,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### DG-1 — Token adoption notes
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#2](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/2) |
 | **Agent** | Design guardian |
 | **parallel** | no (run first) |
@@ -28,8 +28,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 3. List forbidden patterns (Inter as display, purple themes, shadows beyond suite budget).
 
 **Acceptance:**
-- [ ] Adoption notes exist and name concrete files per app
-- [ ] No product UI code required for this ticket
+- [x] Adoption notes exist and name concrete files per app (`design-system/ADOPTION_NOTES.md`)
+- [x] No product UI code required for this ticket
 
 ---
 
