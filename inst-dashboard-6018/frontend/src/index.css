@@ -1,6 +1,5 @@
-/* Basic global styles */
+/* Basic global styles — fonts/colors come from App.css suite aliases */
 body {
-  font-family: sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

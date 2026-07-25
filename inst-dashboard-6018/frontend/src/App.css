@@ -1,37 +1,39 @@
-/* src/App.css - Design System Tokens */
+/* src/App.css - Design System Tokens (aliased to suite) */
+@import "./styles/suite-tokens.css";
+
 :root {
-  /* Colors */
-  --color-primary: #1e293b; /* Deep Navy */
-  --color-accent: #3b82f6;  /* Crisp Blue */
-  --color-bg-app: #f8fafc;
-  --color-bg-card: #ffffff;
-  --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
+  /* Colors — aliases to design-system/tokens.css (--suite-*) */
+  --color-primary: var(--suite-primary);
+  --color-accent: var(--suite-accent-sky);
+  --color-bg-app: var(--suite-surface);
+  --color-bg-card: var(--suite-surface-raised);
+  --color-text-main: var(--suite-text);
+  --color-text-muted: var(--suite-text-muted);
+  --color-border: var(--suite-border);
 
   /* Spacing */
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
+  --space-sm: var(--suite-space-2);
+  --space-md: var(--suite-space-3);
+  --space-lg: var(--suite-space-5);
 
   /* Typography */
-  --font-display: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: var(--suite-font-display);
+  --font-body: var(--suite-font-body);
+  --font-mono: var(--suite-font-mono);
 }
 
 body {
   background-color: var(--color-bg-app);
   color: var(--color-text-main);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   margin: 0;
 }
 
 /* Basic styles for the App component */
 .App {
-
   text-align: center;
-  font-family: sans-serif; /* Basic font */
-  color: #333;
+  font-family: var(--font-body);
+  color: var(--color-text-main);
 }
 
 /* Dashboard Container */
