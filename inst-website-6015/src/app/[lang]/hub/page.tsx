@@ -10,6 +10,7 @@ import {
   FaChalkboardTeacher,
   FaBookOpen,
 } from "react-icons/fa";
+import { publicAppLinks, publicEnv } from "@/lib/publicEnv";
 
 type HubApp = {
   id: string;
@@ -73,10 +74,15 @@ export default function HubPage() {
       return;
     }
 
+    if (!publicEnv.apiUrl) {
+      alert(t("hub_auth_failed"));
+      return;
+    }
+
     let token = "";
     try {
       const ssoRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/generate-sso-token`,
+        `${publicEnv.apiUrl}/api/v1/auth/generate-sso-token`,
         {
           method: "POST",
           headers: {
@@ -99,12 +105,10 @@ export default function HubPage() {
 
     document.cookie = `sso_token=${token}; path=/; domain=localhost; max-age=3600; SameSite=Lax`;
 
-    const questionRetrievalUrl = `${process.env.NEXT_PUBLIC_QUESTION_RETRIEVAL_URL}/home.html?sso_token=${token}`;
-
     const urls: { [key: string]: string } = {
-      "online-exam": `${process.env.NEXT_PUBLIC_ONLINE_EXAM_URL}/admin/?sso_token=${token}`,
-      dashboard: `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/?sso_token=${token}`,
-      "question-retrieval": questionRetrievalUrl,
+      "online-exam": publicAppLinks.onlineExamAdminSso(token),
+      dashboard: publicAppLinks.dashboardHome(token),
+      "question-retrieval": publicAppLinks.questionRetrievalHomeSso(token),
     };
 
     window.open(urls[app], "_blank");

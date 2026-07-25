@@ -402,9 +402,16 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 
 ### E1 — Website env + SSO smoke
 
-**GitHub:** [#23](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/23) · **Status:** deferred
+**GitHub:** [#23](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/23) · **Status:** in_progress
 
 Document and verify `NEXT_PUBLIC_*` against running APIs; fix login token path only as needed for smoke — not visual redesign.
+
+**Acceptance (implementation branch):**
+- [x] Centralized defaults in `inst-website-6015/src/lib/publicEnv.ts` (ports match `.env.example`)
+- [x] Features “Try Assessment/AI Tools” never resolve to `undefined/…` when env unset
+- [x] Dashboard feature link uses CRA `/login` (not `/login.html`)
+- [x] Login guards missing API URL; no `DEBUG:` console.log of auth payloads
+- [ ] Live SSO against API `:8000` (depends on local API up — verify on merge/smoke)
 
 ### E2 — Dashboard SSO contract
 

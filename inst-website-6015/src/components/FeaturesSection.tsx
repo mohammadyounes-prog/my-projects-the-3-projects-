@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import { publicAppLinks } from "@/lib/publicEnv";
 
 export default function FeaturesSection() {
   const { t } = useTranslation('common');
@@ -19,14 +20,14 @@ export default function FeaturesSection() {
       title: t('feature_assessment_title'),
       description: t('feature_assessment_description'),
       buttonText: t('try_assessment'),
-      link: `${process.env.NEXT_PUBLIC_ONLINE_EXAM_URL}/admin`,
+      link: publicAppLinks.onlineExamAdmin,
     },
     {
       id: 'ai-education',
       title: t('feature_ai_education_title'),
       description: t('feature_ai_education_description'),
       buttonText: t('try_ai_tools'),
-      link: `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/login.html`,
+      link: publicAppLinks.dashboardLogin,
     },
   ];
 

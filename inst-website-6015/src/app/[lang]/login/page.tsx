@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { publicEnv } from "@/lib/publicEnv";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -12,12 +13,25 @@ export default function LoginPage() {
   const params = useParams();
   const { t, i18n } = useTranslation("common");
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = publicEnv.apiUrl;
   const GOOGLE_CLIENT_ID =
     "828352184347-2bblb1ansh4q7cs8g3fgqj37gr9e9b1o.apps.googleusercontent.com";
 
+  const requireApiUrl = (): boolean => {
+    if (API_URL) return true;
+    setError(
+      t("login_api_unavailable", {
+        defaultValue:
+          "Auth API URL is not configured. Set NEXT_PUBLIC_API_URL (see .env.example).",
+      })
+    );
+    return false;
+  };
+
   const handleGoogleLogin = () => {
     setError(null);
+    if (!requireApiUrl()) return;
+
     const redirectUri = "http://localhost:6015/api/auth/callback/google";
     const scope = "email profile";
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}`;
@@ -52,7 +66,10 @@ export default function LoginPage() {
   };
 
   const finishLogin = async (authData: any) => {
-    console.log("DEBUG: authData received in finishLogin:", authData);
+    if (process.env.NODE_ENV === "development") {
+      console.debug("finishLogin authData keys:", Object.keys(authData ?? {}));
+    }
+
     const ssoRes = await fetch(`${API_URL}/api/v1/auth/generate-sso-token`, {
       method: "POST",
       headers: {
@@ -87,6 +104,8 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (!requireApiUrl()) return;
+
     const authParams = new URLSearchParams();
     authParams.append("username", username);
     authParams.append("password", password);
