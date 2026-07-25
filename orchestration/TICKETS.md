@@ -185,7 +185,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] Primary surfaces/header use `#2c5282` family
 - [x] Fonts match contract on login/home
-- [ ] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-desktop.png`
+- [x] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-desktop.png`
 
 ---
 
@@ -204,7 +204,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 
 **Acceptance:**
 - [x] One recognizable gateway layout
-- [ ] QA refresh: `dashboard-landing-desktop.png`, `dashboard-home-desktop.png`
+- [x] QA refresh: `dashboard-landing-desktop.png`, `dashboard-home-desktop.png`
 
 ---
 
@@ -247,7 +247,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B5 — RTL layout + login language switcher
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#14](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/14) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B6 |
@@ -260,7 +260,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] Login can switch EN/AR
 - [x] Header does not break badly in `dir=rtl`
-- [ ] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-mobile.png`
+- [x] QA refresh: `dashboard-login-desktop.png`, `dashboard-home-mobile.png`
 
 ---
 
@@ -284,7 +284,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### QA-B — Phase B visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | done |
 | **GitHub** | [#16](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/16) |
 | **Agent** | Visual QA |
 | **Depends on** | B1–B6 |
@@ -293,6 +293,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 `dashboard-login-desktop.png`, `dashboard-landing-desktop.png`, `dashboard-home-desktop.png`, `dashboard-home-mobile.png`
 
 **Pass if:** Phase B exit criteria + suite fonts/primary recognizable vs website/QI.
+
+**Visual QA (2026-07-25):** PASS — production build served `:6019`; home/landing captured with dummy `localStorage.token` + `user_name`. Suite fonts (Space Grotesk / Plus Jakarta Sans) + `--suite-primary #2c5282`; header/buttons `rgb(44,82,130)`; no `:3700` in build (`REACT_APP_HUB_URL` → `localhost:6015`); login EN/AR switcher sets `dir=rtl` + Arabic copy. Landing/`/home` share one gateway. Residual (non-blocking): mobile header truncates Logout chrome at ~390px.
 
 ---
 
