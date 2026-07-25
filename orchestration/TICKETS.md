@@ -38,7 +38,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A1 — Load suite fonts
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#3](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/3) |
 | **Agent** | Website |
 | **parallel** | ok with A2 |
@@ -58,7 +58,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A2 — Mirror suite tokens into Tailwind / CSS
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#4](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/4) |
 | **Agent** | Website |
 | **parallel** | ok with A1 |
@@ -77,7 +77,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### A3 — Restyle hub to marketing brand
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#5](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/5) |
 | **Agent** | Website |
 | **parallel** | no |
@@ -86,9 +86,9 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Restyle [`hub/page.tsx`](../inst-website-6015/src/app/[lang]/hub/page.tsx) to suite gateway density: marketing-aligned surfaces, suite cards, CTA verb “Open” (i18n). Remove blue “Coming Soon!” / Gemini `data-test-id` debug strip. Translate all hub strings EN+AR.
 
 **Acceptance:**
-- [ ] No Coming Soon full-bleed bar
-- [ ] Hub EN and AR both translated
-- [ ] Visual language matches home primary/fonts
+- [x] No Coming Soon full-bleed bar
+- [x] Hub EN and AR both translated
+- [x] Visual language matches home primary/fonts
 - [ ] QA refresh: `website-hub-en-desktop.png` (+ add `website-hub-ar-desktop.png`)
 
 ---
