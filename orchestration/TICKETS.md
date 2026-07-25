@@ -330,7 +330,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 
 **Acceptance:**
 - [x] Login no longer reads as default Bootstrap-only card
-- [ ] QA refresh: `qi-login-desktop.png`, `qi-home-desktop.png`
+- [x] QA refresh: `qi-login-desktop.png`, `qi-home-desktop.png`
 
 ---
 
@@ -347,14 +347,14 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 
 **Acceptance:**
 - [x] Gateway CTAs consistent with website hub language
-- [ ] QA refresh: `qi-home-desktop.png`, `qi-home-mobile.png`
+- [x] QA refresh: `qi-home-desktop.png`, `qi-home-mobile.png`
 
 ---
 
 ### C4 — Generate form progressive disclosure
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#20](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/20) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -365,7 +365,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Acceptance:**
 - [x] First viewport shows a clear step, not every control
 - [x] Existing generate flow still callable after steps
-- [ ] QA refresh: `qi-index-desktop.png`
+- [x] QA refresh: `qi-index-desktop.png`
 
 ---
 
@@ -384,7 +384,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### QA-C — Phase C visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | done |
 | **GitHub** | [#22](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/22) |
 | **Agent** | Visual QA |
 | **Depends on** | C1–C4 |
@@ -393,6 +393,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 `qi-login-desktop.png`, `qi-home-desktop.png`, `qi-home-mobile.png`, `qi-index-desktop.png`
 
 **Pass if:** Phase C exit criteria; suite walk Website → QI home → Dashboard login still coherent.
+
+**Visual QA (2026-07-25):** PASS — static frontend `:6016`; home/index captured with dummy `localStorage` `access_token=qa-c-dummy-token`, `username=VisualQA`, `role=teacher`, `isAdmin=0`, `isSuperAdmin=0`, `lang=en`. Shared `css/suite-tokens.css` linked (synced from design-system); `--suite-primary #2c5282` / header `rgb(44,82,130)`; Space Grotesk + Plus Jakarta Sans; login navbar matches home primary chrome; generate wizard step 1 only (~3 fields, form ~444px vs 900 viewport). Residual (non-blocking): login has no EN/AR switcher (home/index do); mobile home expands full nav stack at ~390px.
 
 ---
 
