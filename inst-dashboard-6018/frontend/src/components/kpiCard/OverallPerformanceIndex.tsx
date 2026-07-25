@@ -21,9 +21,9 @@ const OverallPerformanceIndex: React.FC<Props> = ({
   
   const getHealthColor = (val: number) => {
     if (val === 0) return '#cbd5e1';
-    if (val >= 80) return '#10b981';
-    if (val >= 60) return '#f59e0b';
-    return '#ef4444';
+    if (val >= 80) return 'var(--nebula-success)';
+    if (val >= 60) return 'var(--nebula-warning)';
+    return 'var(--nebula-danger)';
   };
 
   const healthColor = getHealthColor(value);
@@ -31,8 +31,8 @@ const OverallPerformanceIndex: React.FC<Props> = ({
   const gap = value - target;
 
   const renderProgressBar = (label: string, val: number) => (
-    <div style={{ marginBottom: '8px', textAlign: 'left' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75em', color: '#666' }}>
+    <div className="kpi-card nebula-glass-card nebula-glow-border" style={{ marginBottom: '8px', textAlign: 'left' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75em', color: 'var(--nebula-text-muted)' }}>
         <span>{label}</span>
         <span>{val}%</span>
       </div>
@@ -50,9 +50,9 @@ const OverallPerformanceIndex: React.FC<Props> = ({
       padding: '24px', 
       width: '100%',
       boxSizing: 'border-box',
-      backgroundColor: '#ffffff', 
+       
       textAlign: 'center',
-      color: '#1e293b',
+      color: 'var(--nebula-text)',
       transition: 'all 0.2s ease',
       cursor: 'pointer',
       display: 'flex',
@@ -68,7 +68,7 @@ const OverallPerformanceIndex: React.FC<Props> = ({
       e.currentTarget.style.transform = 'translateY(0)';
       e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
     }}>
-      <h3 style={{ fontSize: '0.875rem', color: '#2c5282', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: '"Space Grotesk", sans-serif' }}>
+      <h3 style={{ fontSize: '0.875rem', color: 'var(--nebula-accent-cyan)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: 'var(--nebula-font-display), sans-serif' }}>
         <span>🏆</span> {t('dashboard.performance_index')}
         <HelpTooltip 
           title={t('dashboard.performance_index_title', 'Overall Performance Index')} 
@@ -76,7 +76,7 @@ const OverallPerformanceIndex: React.FC<Props> = ({
           benefit={t('dashboard.performance_index_benefit', 'Quickly assess the institutional pulse and identify systemic performance gaps.')}
         />
       </h3>
-      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: '"Space Grotesk", sans-serif' }}>
+      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: 'var(--nebula-font-display), sans-serif' }}>
         {loading ? t('common.loading') : `${value}%`}
       </p>
       
@@ -88,8 +88,8 @@ const OverallPerformanceIndex: React.FC<Props> = ({
       </div>
 
       {/* Gap to Target Indicator */}
-      <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: '500' }}>
-        Target: {target}% | <span style={{ color: gap >= 0 ? '#10b981' : '#ef4444', fontWeight: '700' }}>
+      <div style={{ fontSize: '0.8rem', color: 'var(--nebula-text-muted)', fontWeight: '500' }}>
+        Target: {target}% | <span style={{ color: gap >= 0 ? 'var(--nebula-success)' : 'var(--nebula-danger)', fontWeight: '700' }}>
           {gap >= 0 ? '+' : ''}{gap}%
         </span>
       </div>
@@ -105,8 +105,8 @@ const OverallPerformanceIndex: React.FC<Props> = ({
         display: 'inline-block',
         padding: '4px 12px',
         borderRadius: '20px',
-        backgroundColor: trend.startsWith('↑') ? '#ecfdf5' : '#fef2f2',
-        color: trend.startsWith('↑') ? '#10b981' : '#ef4444',
+        backgroundColor: trend.startsWith('↑') ? 'var(--nebula-success-dim)' : 'var(--nebula-danger-dim)',
+        color: trend.startsWith('↑') ? 'var(--nebula-success)' : 'var(--nebula-danger)',
         fontWeight: '700',
         fontSize: '0.8rem',
         alignSelf: 'center'

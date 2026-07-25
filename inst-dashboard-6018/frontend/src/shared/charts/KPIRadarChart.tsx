@@ -20,7 +20,7 @@ const KPIRadarChart = ({ data }: Props) => {
   ];
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px', background: '#fff' }}>
+    <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px', background: 'transparent' }}>
       <h3 style={{ display: 'flex', alignItems: 'center' }}>
         {t('radar.title')}
         <InfoIcon 
@@ -34,8 +34,8 @@ const KPIRadarChart = ({ data }: Props) => {
             <PolarGrid />
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={30} domain={[0, 100]} />
-            <Radar name={t('radar.actual')} dataKey="actual" stroke="#1677ff" fill="#1677ff" fillOpacity={0.6} />
-            <Radar name={t('radar.target')} dataKey="target" stroke="#52c41a" fill="#52c41a" fillOpacity={0.1} strokeDasharray="5 5" />
+            <Radar name={t('radar.actual')} dataKey="actual" stroke="var(--nebula-accent-cyan)" fill="var(--nebula-accent-cyan)" fillOpacity={0.6} />
+            <Radar name={t('radar.target')} dataKey="target" stroke="var(--nebula-success)" fill="var(--nebula-success)" fillOpacity={0.1} strokeDasharray="5 5" />
             <Legend />
             <Tooltip />
           </RadarChart>

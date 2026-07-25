@@ -8,29 +8,30 @@ export default function CallToActionSection() {
   const lang = i18n.language;
 
   return (
-    <section className="bg-primary-blue text-white py-20">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-4">
+    <section className="relative overflow-hidden py-24 text-white bg-nebula-bg-deep">
+      <div className="absolute inset-0 bg-gradient-to-br from-nebula-accent-cyan/10 via-nebula-bg-surface to-nebula-accent-purple/10 backdrop-blur-xl" />
+      <div className="container relative z-10 mx-auto px-4 text-center">
+        <h2 className="font-display text-4xl sm:text-5xl font-extrabold mb-6 nebula-gradient-text nebula-text-glow">
           {t('call_to_action_title')}
         </h2>
-        <p className="text-xl mb-8 max-w-3xl mx-auto">
+        <p className="text-xl mb-10 max-w-3xl mx-auto text-nebula-text-muted">
           {t('call_to_action_subtitle')}
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-10">
           <Link
             href={`/${lang}/login`}
-            className="bg-white text-primary-blue px-8 py-3 rounded-md hover:bg-light-blue transition-colors text-lg font-semibold shadow-md"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-nebula-accent-cyan to-nebula-accent-purple text-white px-8 py-3.5 rounded-xl hover:brightness-110 transition-all text-lg font-bold shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] hover:-translate-y-0.5"
           >
             {t('get_in_touch')}
           </Link>
           <Link
             href={`/${lang}/solutions`}
-            className="border border-white px-8 py-3 rounded-md hover:bg-white hover:text-primary-blue transition-colors text-lg font-semibold shadow-md"
+            className="inline-flex items-center justify-center nebula-glass border border-nebula-border-glow text-nebula-accent-cyan px-8 py-3.5 rounded-xl hover:bg-nebula-accent-cyan-dim transition-all text-lg font-bold shadow-[0_0_15px_rgba(0,229,255,0.1)] hover:-translate-y-0.5"
           >
             {t('learn_more')}
           </Link>
         </div>
-        <Link href={`/${lang}`} className="text-lg font-semibold hover:text-light-blue">
+        <Link href={`/${lang}`} className="text-sm font-semibold text-nebula-text-dim hover:text-nebula-accent-cyan transition-colors">
           {t('tdm_systems')}
         </Link>
       </div>

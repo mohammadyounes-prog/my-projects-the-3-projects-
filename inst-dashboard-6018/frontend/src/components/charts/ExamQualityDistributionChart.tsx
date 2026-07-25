@@ -18,7 +18,7 @@ const ExamQualityDistributionChart: React.FC<Props> = ({ data }) => {
   }));
 
   return (
-    <div style={{ width: '100%', height: '400px', backgroundColor: '#fff', padding: '20px', borderRadius: '12px', border: '1px solid #e0e0e0' }}>
+    <div style={{ width: '100%', height: '400px', backgroundColor: 'var(--nebula-bg-glass)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(148,163,184,0.1)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '10px' }}>
         {t('dashboard.exam_quality_dist', 'Exam Quality Matrix')}
         <HelpTooltip 
@@ -34,9 +34,9 @@ const ExamQualityDistributionChart: React.FC<Props> = ({ data }) => {
             <XAxis type="number" dataKey="difficulty" name="Difficulty" unit="%" label={{ value: 'Difficulty', position: 'bottom' }} />
             <YAxis type="number" dataKey="discrimination" name="Discrimination" unit="%" label={{ value: 'Discrimination', angle: -90, position: 'insideLeft' }} />
             <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Scatter name="Exams" data={chartData} fill="#8884d8">
+            <Scatter name="Exams" data={chartData} fill="var(--nebula-accent-purple)">
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.discrimination > 20 ? '#52c41a' : '#f5222d'} />
+                <Cell key={`cell-${index}`} fill={entry.discrimination > 20 ? 'var(--nebula-success)' : 'var(--nebula-danger)'} />
               ))}
             </Scatter>
           </ScatterChart>

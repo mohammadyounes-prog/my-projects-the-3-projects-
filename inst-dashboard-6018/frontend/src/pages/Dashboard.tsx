@@ -88,7 +88,7 @@ const DashboardPage = () => {
   const bottomLOs = [...loBreakdown].reverse().slice(0, 5);
 
   return (
-    <div className="dashboard-page suite-motion-page">
+    <div className="dashboard-page nebula-motion-page">
       <div className="dashboard-header">
         <div className="dashboard-title-group">
           <h1>{t('dashboard.title', 'Educational Institutional Analytics')}</h1>
@@ -143,8 +143,7 @@ const DashboardPage = () => {
             <h3>{t('dashboard.kpi_radar', 'Institutional Competency Radar')}</h3>
             <KPIRadarChart data={kpis} />
           </div>
-          <div className="chart-wrapper">
-            <h3>{t('dashboard.performance_trend', 'Performance Index Trend')}</h3>
+          <div className="chart-wrapper chart-wrapper--bare">
             <LineChart data={trendData} loading={loading} />
           </div>
         </div>
@@ -163,6 +162,15 @@ const DashboardPage = () => {
             <DistractorChart data={distractorData} />
           </div>
         </div>
+
+        <div className="charts-grid">
+          <div className="chart-wrapper chart-wrapper--bare">
+            <Heatmap data={heatmapData} loading={loading} />
+          </div>
+          <div className="chart-wrapper chart-wrapper--bare">
+            <BankCoverageChart />
+          </div>
+        </div>
       </div>
       
       {/* 3. Areas for Action */}
@@ -179,7 +187,7 @@ const DashboardPage = () => {
               <div className="action-list">
                 {atRisk.slice(0, 5).map(s => (
                   <div key={s.id} className="action-item">
-                    <span style={{ fontWeight: '600', color: 'var(--suite-text)' }}>{s.name}</span>
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{s.name}</span>
                     <span className="action-value">{s.avg_score}%</span>
                     <span className="action-meta">{t('dashboard.critical_los', 'Critical')}: {s.critical_los.length} LOs</span>
                   </div>
@@ -195,12 +203,27 @@ const DashboardPage = () => {
               <div className="action-list">
                 {bottomLOs.map(lo => (
                   <div key={lo.name} className="action-item">
-                    <span style={{ fontWeight: '600', color: 'var(--suite-text)' }}>{lo.name}</span>
-                    <span className="action-value" style={{ color: 'var(--suite-success)' }}>{lo.attainment}%</span>
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{lo.name}</span>
+                    <span className="action-value" style={{ color: 'var(--nebula-success)' }}>{lo.attainment}%</span>
                   </div>
                 ))}
               </div>
             ) : <p>{t('dashboard.all_lo_performing', 'All LOs performing well.')}</p>}
+          </div>
+
+          {/* Top Performing LOs Card */}
+          <div className="action-card top-lo">
+            <h3>🏆 {t('dashboard.top_performing_lo', 'Top Performing LOs')}</h3>
+            {topLOs.length > 0 ? (
+              <div className="action-list">
+                {topLOs.map(lo => (
+                  <div key={lo.name} className="action-item">
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{lo.name}</span>
+                    <span className="action-value" style={{ color: 'var(--nebula-success)' }}>{lo.attainment}%</span>
+                  </div>
+                ))}
+              </div>
+            ) : <p>{t('common.loading', 'Loading...')}</p>}
           </div>
         </div>
       </div>

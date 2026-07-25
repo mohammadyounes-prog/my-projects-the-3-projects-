@@ -13,9 +13,9 @@ const ExamQualityIndex: React.FC<Props> = ({ value = 0, trend = "↑ 0%", loadin
 
   const getHealthColor = (val: number) => {
     if (val === 0) return '#cbd5e1';
-    if (val >= 85) return '#10b981';
-    if (val >= 65) return '#f59e0b';
-    return '#ef4444';
+    if (val >= 85) return 'var(--nebula-success)';
+    if (val >= 65) return 'var(--nebula-warning)';
+    return 'var(--nebula-danger)';
   };
 
   const healthColor = getHealthColor(value);
@@ -23,16 +23,16 @@ const ExamQualityIndex: React.FC<Props> = ({ value = 0, trend = "↑ 0%", loadin
   const gap = value - target;
 
   return (
-    <div style={{ 
+    <div className="kpi-card nebula-glass-card nebula-glow-border" style={{ 
       border: `1px solid ${healthColor}`, 
       boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)', 
       borderRadius: '1rem', 
       padding: '24px', 
       width: '100%',
       boxSizing: 'border-box',
-      backgroundColor: '#ffffff', 
+       
       textAlign: 'center',
-      color: '#1e293b',
+      color: 'var(--nebula-text)',
       transition: 'all 0.2s ease',
       cursor: 'pointer',
       display: 'flex',
@@ -48,7 +48,7 @@ const ExamQualityIndex: React.FC<Props> = ({ value = 0, trend = "↑ 0%", loadin
       e.currentTarget.style.transform = 'translateY(0)';
       e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
     }}>
-      <h3 style={{ fontSize: '0.875rem', color: '#2c5282', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: '"Space Grotesk", sans-serif' }}>
+      <h3 style={{ fontSize: '0.875rem', color: 'var(--nebula-accent-cyan)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: 'var(--nebula-font-display), sans-serif' }}>
         <span>⚡</span> {t('dashboard.exam_quality')}
         <HelpTooltip 
           title={t('dashboard.exam_quality_title', 'Exam Quality Index')} 
@@ -56,12 +56,12 @@ const ExamQualityIndex: React.FC<Props> = ({ value = 0, trend = "↑ 0%", loadin
           benefit={t('dashboard.exam_quality_benefit', 'Ensures assessments are reliable and effectively distinguish student proficiency levels.')}
         />
       </h3>
-      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: '"Space Grotesk", sans-serif' }}>
+      <p style={{ fontSize: '2.5rem', fontWeight: '800', margin: '4px 0', color: healthColor, fontFamily: 'var(--nebula-font-display), sans-serif' }}>
         {loading ? t('common.loading') : `${value}%`}
       </p>
 
-      <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: '500' }}>
-        Target: {target}% | <span style={{ color: gap >= 0 ? '#10b981' : '#ef4444', fontWeight: '700' }}>
+      <div style={{ fontSize: '0.8rem', color: 'var(--nebula-text-muted)', fontWeight: '500' }}>
+        Target: {target}% | <span style={{ color: gap >= 0 ? 'var(--nebula-success)' : 'var(--nebula-danger)', fontWeight: '700' }}>
           {gap >= 0 ? '+' : ''}{gap}%
         </span>
       </div>
@@ -70,8 +70,8 @@ const ExamQualityIndex: React.FC<Props> = ({ value = 0, trend = "↑ 0%", loadin
         display: 'inline-block',
         padding: '4px 12px',
         borderRadius: '20px',
-        backgroundColor: trend.startsWith('↑') ? '#ecfdf5' : '#fef2f2',
-        color: trend.startsWith('↑') ? '#10b981' : '#ef4444',
+        backgroundColor: trend.startsWith('↑') ? 'var(--nebula-success-dim)' : 'var(--nebula-danger-dim)',
+        color: trend.startsWith('↑') ? 'var(--nebula-success)' : 'var(--nebula-danger)',
         fontWeight: '700',
         fontSize: '0.8rem',
         alignSelf: 'center'

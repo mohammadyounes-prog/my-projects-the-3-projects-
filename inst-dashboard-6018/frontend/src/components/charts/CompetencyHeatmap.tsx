@@ -11,7 +11,7 @@ const CompetencyHeatmap = ({ data }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px', background: '#fff' }}>
+    <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px', background: 'transparent' }}>
       <h3 style={{ display: 'flex', alignItems: 'center' }}>
         {t('corporate.competency_heatmap')}
         <InfoIcon 
@@ -26,9 +26,9 @@ const CompetencyHeatmap = ({ data }: Props) => {
             <YAxis dataKey="role" type="category" name={t('corporate.role')} />
             <ZAxis dataKey="score" range={[100, 500]} />
             <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Scatter name="Competency Score" data={data} fill="#8884d8">
+            <Scatter name="Competency Score" data={data} fill="var(--nebula-accent-purple)">
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.score > 80 ? '#52c41a' : entry.score > 50 ? '#faad14' : '#ff4d4f'} />
+                <Cell key={`cell-${index}`} fill={entry.score > 80 ? 'var(--nebula-success)' : entry.score > 50 ? 'var(--nebula-warning)' : 'var(--nebula-danger)'} />
               ))}
             </Scatter>
           </ScatterChart>

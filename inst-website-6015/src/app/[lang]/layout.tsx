@@ -59,13 +59,16 @@ export default async function LangLayout({
     <html
       lang={validLang}
       dir={dir}
-      className={`${spaceGrotesk.variable} ${plusJakartaSans.variable} ${ibmPlexSansArabic.variable} ${cairo.variable}`}
+      className={`${spaceGrotesk.variable} ${plusJakartaSans.variable} ${ibmPlexSansArabic.variable} ${cairo.variable} nebula-root bg-nebula-bg-deep`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-nebula-bg-deep text-slate-100 min-h-screen">
+        <div className="nebula-neural-grid"></div>
         <I18nProviderClient resources={resources} locale={validLang}>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <div className="relative z-10 flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </I18nProviderClient>
       </body>
     </html>

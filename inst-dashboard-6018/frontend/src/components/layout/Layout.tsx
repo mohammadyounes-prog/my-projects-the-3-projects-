@@ -69,8 +69,9 @@ const Layout = () => {
   }, [isGateway]);
 
   return (
-    <div dir={i18n.dir()} className={isRtl ? 'rtl-layout' : 'ltr-layout'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <header className="app-header">
+    <div dir={i18n.dir()} className={isRtl ? 'rtl-layout nebula-root' : 'ltr-layout nebula-root'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div className="nebula-neural-grid"></div>
+      <header className="app-header nebula-motion-header">
         <nav className="app-nav">
           <Link to="/" className="app-brand" aria-label={`${t('brand.suite', 'TDM Systems')} — ${t('brand.product', 'Dashboard')}`}>
             <span className="brand-suite">{t('brand.suite', 'TDM Systems')}</span>
@@ -115,17 +116,17 @@ const Layout = () => {
       </header>
 
       {showLogoutModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', color: 'black' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.6)' }}>
+          <div style={{ backgroundColor: 'var(--nebula-bg-raised)', padding: '20px', borderRadius: '12px', border: '1px solid var(--nebula-border)', boxShadow: 'var(--nebula-shadow-2)', color: 'var(--nebula-text)', minWidth: '280px' }}>
             <h3 style={{ marginBottom: '15px' }}>{t('nav.logout_confirm', 'Select an action')}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <button onClick={performLogout} style={{ padding: '8px 16px', backgroundColor: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+              <button onClick={performLogout} style={{ padding: '8px 16px', backgroundColor: 'var(--nebula-danger)', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
                 {t('nav.logout', 'Logout')}
               </button>
-              <button onClick={handleGoToHub} style={{ padding: '8px 16px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+              <button onClick={handleGoToHub} style={{ padding: '8px 16px', backgroundColor: 'var(--nebula-accent-cyan)', color: 'var(--nebula-bg-deep)', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
                 {t('nav.back_to_hub', 'Back to Hub')}
               </button>
-              <button onClick={() => setShowLogoutModal(false)} style={{ padding: '8px 16px', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+              <button onClick={() => setShowLogoutModal(false)} style={{ padding: '8px 16px', backgroundColor: 'transparent', color: 'var(--nebula-text)', border: '1px solid var(--nebula-border)', borderRadius: '6px', cursor: 'pointer' }}>
                 {t('common.cancel', 'Cancel')}
               </button>
             </div>

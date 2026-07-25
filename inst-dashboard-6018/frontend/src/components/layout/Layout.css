@@ -2,18 +2,21 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: var(--suite-header-bg);
-  box-shadow: var(--suite-shadow-1, 0 2px 8px rgba(0, 0, 0, 0.1));
-  min-height: var(--suite-header-height, 3.5rem);
+  background-color: var(--nebula-header-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nebula-border);
+  box-shadow: var(--nebula-shadow-glass);
+  min-height: var(--nebula-header-height);
 }
 
 .app-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--space-md);
-  padding-block: var(--space-md);
-  padding-inline: var(--space-lg);
+  gap: var(--nebula-space-3);
+  padding-block: var(--nebula-space-3);
+  padding-inline: var(--nebula-space-5);
   max-width: 1400px;
   margin-inline: auto;
   width: 100%;
@@ -22,33 +25,33 @@
 .app-brand {
   display: flex;
   flex-direction: column;
-  line-height: var(--suite-leading-tight, 1.2);
+  line-height: var(--nebula-leading-tight);
   white-space: nowrap;
-  font-family: var(--font-display);
-  letter-spacing: var(--suite-tracking-display);
+  font-family: var(--nebula-font-display);
+  letter-spacing: var(--nebula-tracking-display);
   text-decoration: none;
-  color: var(--suite-on-primary, #fff);
+  color: var(--nebula-text);
   flex-shrink: 0;
   text-align: start;
+  text-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .brand-suite {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--suite-on-primary, #fff);
+  color: var(--nebula-accent-cyan);
 }
 
 .brand-product {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--suite-on-primary, #fff);
-  opacity: 0.85;
+  color: var(--nebula-text-muted);
 }
 
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md);
+  gap: var(--nebula-space-3);
   align-items: center;
   justify-content: center;
   flex: 1;
@@ -56,34 +59,34 @@
 }
 
 .nav-links--gateway {
-  gap: var(--space-lg);
+  gap: var(--nebula-space-5);
 }
 
 .nav-links a {
   text-decoration: none;
-  color: var(--suite-on-primary, #fff);
+  color: var(--nebula-text-muted);
   font-size: 1rem;
   font-weight: 600;
-  opacity: 0.9;
+  transition: all var(--nebula-duration-fast) var(--nebula-ease);
 }
 
 .nav-links a:hover,
 .nav-links a.nav-link-active {
-  opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
+  color: var(--nebula-accent-cyan);
+  text-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .nav-actions {
   display: flex;
-  gap: var(--space-md);
+  gap: var(--nebula-space-3);
   align-items: center;
-  color: var(--suite-on-primary, #fff);
+  color: var(--nebula-text);
   flex-shrink: 0;
 }
 
 .user-name {
   font-weight: 700;
+  color: var(--nebula-text);
 }
 
 .logout-btn {
@@ -91,11 +94,18 @@
   padding-inline: 16px;
   cursor: pointer;
   background-color: transparent;
-  color: var(--suite-on-primary, #fff);
-  border: 1px solid var(--suite-on-primary, #fff);
-  border-radius: var(--suite-radius-md, 6px);
+  color: var(--nebula-text);
+  border: 1px solid var(--nebula-border);
+  border-radius: var(--nebula-radius-md);
   font-weight: 600;
-  font-family: var(--font-body);
+  font-family: var(--nebula-font-body);
+  transition: all var(--nebula-duration-fast) var(--nebula-ease);
+}
+
+.logout-btn:hover {
+  border-color: var(--nebula-accent-cyan);
+  color: var(--nebula-accent-cyan);
+  box-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .app-main {
@@ -104,16 +114,16 @@
   padding-inline: 30px;
 }
 
-
 .settings-page h1 {
-  font-family: var(--font-display);
-  color: var(--color-primary);
-  margin: 0 0 var(--space-md);
+  font-family: var(--nebula-font-display);
+  color: var(--nebula-accent-cyan);
+  margin: 0 0 var(--nebula-space-3);
+  text-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .settings-stub {
-  color: var(--color-text-muted);
-  font-family: var(--font-body);
+  color: var(--nebula-text-muted);
+  font-family: var(--nebula-font-body);
   max-width: 36rem;
   line-height: 1.5;
   margin: 0;
@@ -122,19 +132,22 @@
 .app-footer {
   padding-block: 20px;
   padding-inline: 30px;
-  background-color: var(--suite-surface, #f8f9fa);
-  border-top: 1px solid var(--suite-border, #eee);
-  color: var(--suite-text-muted, #666);
+  background-color: transparent;
+  border-top: 1px solid var(--nebula-border);
+  color: var(--nebula-text-dim);
   text-align: center;
   font-size: 0.9rem;
-  font-family: var(--font-body);
+  font-family: var(--nebula-font-body);
 }
 
-/* Compact header stacking on narrow viewports (LTR + RTL) */
-@media (max-width: 768px) {
+/* Admin-role nav can have 5+ module links (Home + up to 4 modules) plus
+   language/user/logout actions — on narrower desktop/tablet widths that's
+   too much for one row before nav-actions gets shoved off-screen, so wrap
+   to a second row well before the 768px mobile breakpoint kicks in. */
+@media (max-width: 1200px) {
   .app-nav {
     flex-wrap: wrap;
-    row-gap: var(--space-sm, 0.5rem);
+    row-gap: var(--nebula-space-2);
   }
 
   .nav-links {

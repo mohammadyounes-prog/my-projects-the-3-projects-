@@ -128,26 +128,26 @@ export default function LoginPage() {
   const isRtl = i18n.dir() === "rtl";
 
   return (
-    <div className="suite-motion-page flex min-h-screen flex-col items-center justify-center bg-surface px-6 pb-12 pt-28 font-sans">
+    <div className="nebula-motion-page flex min-h-screen flex-col items-center justify-center bg-nebula-bg-deep px-6 pb-12 pt-28 font-sans relative z-10">
       <div className="mb-10 text-center">
-        <p className="mb-2 text-sm font-medium text-primary">
+        <p className="mb-2 text-sm font-medium text-nebula-accent-cyan drop-shadow-[0_0_8px_rgba(0,229,255,0.5)]">
           {t("tdm_systems")}
         </p>
-        <h1 className="font-display text-3xl font-bold tracking-tight text-suite-text sm:text-4xl">
+        <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl nebula-text-glow">
           {t("login_title")}
         </h1>
       </div>
 
       <div className="flex w-full max-w-4xl flex-col items-start gap-8 md:flex-row">
         <aside
-          className={`w-full rounded-lg border border-suite-border bg-primary-soft p-8 text-suite-text shadow-suite1 md:w-96 ${
+          className={`w-full rounded-xl border border-nebula-border-glow nebula-glass-card p-8 text-slate-300 shadow-[0_0_30px_rgba(0,229,255,0.1)] md:w-96 ${
             isRtl ? "order-2" : "order-1"
           }`}
         >
-          <p className="mb-4 font-display text-base font-bold text-primary">
+          <p className="mb-4 font-display text-base font-bold text-nebula-accent-cyan">
             {t("after_login_choose_app")}
           </p>
-          <ul className="list-inside list-disc space-y-2 text-sm text-suite-text">
+          <ul className="list-inside list-disc space-y-2 text-sm text-nebula-text-muted">
             <li>{t("app_1")}</li>
             <li>{t("app_2")}</li>
             <li>{t("app_3")}</li>
@@ -157,14 +157,14 @@ export default function LoginPage() {
 
         <form
           onSubmit={handleLogin}
-          className={`w-full rounded-lg border border-suite-border bg-surface-raised p-8 shadow-suite1 md:w-96 ${
+          className={`w-full rounded-xl border border-nebula-border-glow bg-nebula-bg-glass-heavy p-8 shadow-[0_0_30px_rgba(168,85,247,0.1)] backdrop-blur-xl md:w-96 ${
             isRtl ? "order-1" : "order-2"
           }`}
         >
           {error && (
             <div
               role="alert"
-              className="mb-4 rounded-md border border-suite-danger bg-surface px-3 py-2 text-sm font-medium text-suite-danger"
+              className="mb-4 rounded-md border border-pink-500/50 bg-pink-500/10 px-3 py-2 text-sm font-medium text-pink-400"
             >
               {error}
             </div>
@@ -172,27 +172,27 @@ export default function LoginPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium text-suite-text">
+              <label className="mb-1 block text-sm font-medium text-nebula-text-muted">
                 {t("username")}
               </label>
               <input
-                className="w-full rounded-md border border-suite-border bg-surface p-3 text-suite-text outline-none transition-all focus:border-primary focus:bg-surface-raised focus:ring-2 focus:ring-primary"
+                className="w-full rounded-lg border border-nebula-border bg-nebula-input p-3 text-white outline-none transition-all focus:border-nebula-accent-cyan focus:bg-nebula-bg-surface focus:ring-1 focus:ring-nebula-accent-cyan shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-suite-text">
+              <label className="mb-1 block text-sm font-medium text-nebula-text-muted">
                 {t("password")}
               </label>
               <input
-                className="w-full rounded-md border border-suite-border bg-surface p-3 text-suite-text outline-none transition-all focus:border-primary focus:bg-surface-raised focus:ring-2 focus:ring-primary"
+                className="w-full rounded-lg border border-nebula-border bg-nebula-input p-3 text-white outline-none transition-all focus:border-nebula-accent-cyan focus:bg-nebula-bg-surface focus:ring-1 focus:ring-nebula-accent-cyan shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <button
-              className="w-full rounded-md bg-primary p-3 font-semibold text-white transition-colors hover:bg-primary-dark"
+              className="w-full rounded-lg bg-gradient-to-r from-nebula-accent-cyan to-nebula-accent-purple p-3 font-bold text-white transition-all hover:brightness-110 shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:-translate-y-0.5"
               type="submit"
             >
               {t("login_button")}
@@ -201,10 +201,10 @@ export default function LoginPage() {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-suite-border"></span>
+              <span className="w-full border-t border-nebula-border"></span>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-surface-raised px-2 text-suite-muted">
+              <span className="bg-nebula-bg-glass-heavy px-2 text-nebula-text-muted backdrop-blur-sm">
                 {t("or_continue_with")}
               </span>
             </div>
@@ -213,7 +213,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="flex w-full items-center justify-center gap-2 rounded-md border border-suite-border p-3 font-semibold text-suite-text transition-colors hover:bg-surface"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-nebula-border-glow p-3 font-semibold text-white transition-all hover:bg-nebula-bg-surface shadow-[0_0_10px_rgba(0,229,255,0.1)] hover:-translate-y-0.5"
           >
             {t("continue_with_google")}
           </button>

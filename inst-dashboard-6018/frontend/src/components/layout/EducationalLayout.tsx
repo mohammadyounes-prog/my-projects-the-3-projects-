@@ -8,34 +8,37 @@ const EducationalLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="dashboard-container suite-motion-page" style={{ padding: '24px 20px 40px', maxWidth: '1400px', margin: '0 auto', boxSizing: 'border-box' }}>
+    <div className="dashboard-container nebula-motion-page" style={{ padding: '24px 20px 40px', maxWidth: '1400px', margin: '0 auto', boxSizing: 'border-box' }}>
       <div style={{ 
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between',
         gap: '12px', 
         padding: '6px', 
-        backgroundColor: '#ffffff', 
-        border: '1px solid rgba(0, 0, 0, 0.08)', 
+        backgroundColor: 'var(--nebula-bg-glass)',
+        backdropFilter: 'blur(12px)',
+        border: '1px solid var(--nebula-border)', 
         borderRadius: '0.75rem', 
         marginBottom: '28px',
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.04)',
+        boxShadow: 'var(--nebula-shadow-glass)',
         maxWidth: '320px'
       }}>
         <NavLink 
           to="/educational/admins" 
           style={({ isActive }) => ({ 
             textDecoration: 'none', 
-            color: isActive ? 'var(--suite-on-primary)' : 'var(--suite-text-muted)', 
-            backgroundColor: isActive ? 'var(--suite-primary)' : 'transparent',
+            color: isActive ? 'var(--nebula-accent-cyan)' : 'var(--nebula-text-muted)', 
+            backgroundColor: isActive ? 'var(--nebula-accent-cyan-dim)' : 'transparent',
             fontWeight: '600', 
             fontSize: '0.9rem',
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--nebula-font-display)',
             padding: '8px 18px',
-            borderRadius: 'var(--suite-radius-sm)',
+            borderRadius: 'var(--nebula-radius-sm)',
             transition: 'all 0.2s ease',
             textAlign: 'center',
-            flex: 1
+            flex: 1,
+            border: isActive ? '1px solid var(--nebula-accent-cyan)' : '1px solid transparent',
+            boxShadow: isActive ? 'inset 0 -2px 0 var(--nebula-accent-cyan)' : 'none'
           })}
         >
           {t('educational.admins', 'Admins')}
@@ -44,16 +47,18 @@ const EducationalLayout = () => {
           to="/educational/instructors" 
           style={({ isActive }) => ({ 
             textDecoration: 'none', 
-            color: isActive ? 'var(--suite-on-primary)' : 'var(--suite-text-muted)', 
-            backgroundColor: isActive ? 'var(--suite-primary)' : 'transparent',
+            color: isActive ? 'var(--nebula-accent-cyan)' : 'var(--nebula-text-muted)', 
+            backgroundColor: isActive ? 'var(--nebula-accent-cyan-dim)' : 'transparent',
             fontWeight: '600', 
             fontSize: '0.9rem',
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--nebula-font-display)',
             padding: '8px 18px',
-            borderRadius: 'var(--suite-radius-sm)',
+            borderRadius: 'var(--nebula-radius-sm)',
             transition: 'all 0.2s ease',
             textAlign: 'center',
-            flex: 1
+            flex: 1,
+            border: isActive ? '1px solid var(--nebula-accent-cyan)' : '1px solid transparent',
+            boxShadow: isActive ? 'inset 0 -2px 0 var(--nebula-accent-cyan)' : 'none'
           })}
         >
           {t('educational.instructors', 'Instructors')}

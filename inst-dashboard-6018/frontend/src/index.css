@@ -1,10 +1,37 @@
 /* Basic global styles — fonts/colors come from App.css suite aliases */
-body {
-  margin: 0;
-  padding: 0;
+
+/* Without this, any element combining width:100% with padding (e.g. the
+   app header nav) overflows its container by exactly its padding amount —
+   the root cause of horizontal overflow at tablet/laptop widths. */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--nebula-bg-deep);
+  color: var(--nebula-text);
+}
+
 #root {
-  height: 100vh; /* Make root take full viewport height */
+  min-height: 100vh; /* Make root take full viewport height */
+}
+
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--nebula-bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--nebula-border-strong);
+  border-radius: var(--nebula-radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nebula-text-muted);
 }

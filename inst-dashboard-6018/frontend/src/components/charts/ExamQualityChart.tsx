@@ -34,7 +34,7 @@ const ExamQualityChart = () => {
   if (loading) return <div>{t('common.loading', 'Loading...')}</div>;
 
   return (
-    <div style={{ width: '100%', height: '450px', padding: '20px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#fff' }}>
+    <div style={{ width: '100%', height: '450px', padding: '20px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: 'var(--nebula-bg-glass)' }}>
       <h3>{t('charts.exam_quality_title', 'Exam Difficulty vs. Discrimination')}</h3>
       <ResponsiveContainer width="100%" height="80%">
         <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 20 }}>
@@ -57,7 +57,7 @@ const ExamQualityChart = () => {
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
           <Legend />
           <ReferenceLine y={0.2} stroke="red" strokeDasharray="3 3" label="Threshold" />
-          <Scatter name="Exams" data={data} fill="#8884d8" />
+          <Scatter name="Exams" data={data} fill="var(--nebula-accent-purple)" />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

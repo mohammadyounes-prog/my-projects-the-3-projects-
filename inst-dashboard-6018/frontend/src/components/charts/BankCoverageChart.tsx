@@ -31,11 +31,11 @@ const BankCoverageChart = () => {
   if (loading) return <div>{t('common.loading', 'Loading...')}</div>;
 
   return (
-    <div style={{ width: '100%', height: '400px', padding: '20px', border: '1px solid #eee', borderRadius: '8px', backgroundColor: '#fff' }}>
+    <div style={{ width: '100%', height: '400px', boxSizing: 'border-box', padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '8px', backgroundColor: 'var(--nebula-bg-glass)' }}>
       <h3>{t('charts.bank_coverage_title', 'Question Bank Coverage per LO')}</h3>
       <ResponsiveContainer width="100%" height="80%">
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--nebula-border)" />
           <XAxis 
             dataKey="lo" 
             angle={-45} 
@@ -45,7 +45,7 @@ const BankCoverageChart = () => {
           />
           <YAxis allowDecimals={false} />
           <Tooltip />
-          <Bar dataKey="count" fill="#2ecc71" name={t('charts.question_count', 'Questions')} radius={[4, 4, 0, 0]} />
+          <Bar dataKey="count" fill="var(--nebula-success)" name={t('charts.question_count', 'Questions')} radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -156,7 +156,7 @@ const InstructorsDashboard = () => {
   const getFilterStyle = (key: string): React.CSSProperties => ({
     padding: '10px',
     borderRadius: '4px',
-    border: errors[key] ? '2px solid red' : '1px solid #ccc',
+    border: errors[key] ? '2px solid red' : '1px solid var(--nebula-border)',
     width: '100%',
     boxSizing: 'border-box'
   });
@@ -183,13 +183,13 @@ const InstructorsDashboard = () => {
   const filterStyle: React.CSSProperties = {
     padding: '10px',
     borderRadius: '4px',
-    border: '1px solid #ccc',
+    border: '1px solid var(--nebula-border)',
     width: '100%',
     boxSizing: 'border-box'
   };
 
   return (
-    <div className="dashboard-container suite-motion-page" style={{ maxWidth: '1400px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+    <div className="dashboard-container nebula-motion-page" style={{ maxWidth: '1400px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
       {/* 1. NAVIGATION STEP TABS */}
       <div style={{ display: 'flex', marginBottom: '28px', gap: '14px', flexWrap: 'wrap' }}>
         {['exam_selection', 'choose_exam', 'exam_results'].map((s, i) => {
@@ -202,17 +202,17 @@ const InstructorsDashboard = () => {
               onClick={() => handleStepClick(stepIndex)}
               style={{ 
                 padding: '12px 24px', 
-                background: isActive ? '#2c5282' : (isVisited ? '#1e3a8a' : '#ffffff'), 
-                color: isVisited || isActive ? '#ffffff' : '#64748b',
-                border: isVisited || isActive ? '1px solid #2c5282' : '1px solid rgba(0, 0, 0, 0.08)',
+                background: isActive ? 'var(--nebula-accent-cyan)' : (isVisited ? 'var(--nebula-accent-cyan-dim)' : 'var(--nebula-bg-glass)'), 
+                color: isVisited || isActive ? 'var(--nebula-bg-glass)' : 'var(--nebula-text-muted)',
+                border: isVisited || isActive ? '1px solid var(--nebula-accent-cyan)' : '1px solid var(--nebula-border)',
                 borderRadius: '0.75rem',
                 flex: '1 1 200px',
                 textAlign: 'center',
                 cursor: isVisited ? 'pointer' : 'default',
                 fontSize: '14px',
                 fontWeight: '700',
-                fontFamily: '"Space Grotesk", sans-serif',
-                boxShadow: isActive ? '0 4px 15px rgba(0, 0, 0, 0.06)' : 'none',
+                fontFamily: 'var(--nebula-font-display), sans-serif',
+                boxShadow: isActive ? '0 4px 15px var(--nebula-shadow-glass)' : 'none',
                 transition: 'all 0.2s ease',
                 display: 'flex',
                 alignItems: 'center',
@@ -227,7 +227,7 @@ const InstructorsDashboard = () => {
                 width: '22px', 
                 height: '22px', 
                 borderRadius: '50%', 
-                backgroundColor: isActive || isVisited ? 'rgba(255,255,255,0.2)' : '#f1f5f9',
+                backgroundColor: isActive || isVisited ? 'rgba(255,255,255,0.2)' : 'var(--nebula-bg-input)',
                 fontSize: '12px',
                 fontWeight: '700'
               }}>
@@ -244,30 +244,30 @@ const InstructorsDashboard = () => {
           {/* Top Row: Metric Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', width: '100%' }}>
             {[
-              { label: t('instructor.risk.stable', 'Stable Students'), count: riskSummary.stable ?? 0, color: '#10b981', bg: '#ecfdf5', borderColor: '#a7f3d0' },
-              { label: t('instructor.risk.at_risk', 'At Risk Students'), count: riskSummary.at_risk ?? 0, color: '#f59e0b', bg: '#fffbeb', borderColor: '#fde68a' },
-              { label: t('instructor.risk.critical', 'Critical Risk Students'), count: riskSummary.critical ?? 0, color: '#dc2626', bg: '#fef2f2', borderColor: '#fca5a5' }
+              { label: t('instructor.risk.stable', 'Stable Students'), count: riskSummary.stable ?? 0, color: 'var(--nebula-success)', bg: 'var(--nebula-success-dim)', borderColor: 'var(--nebula-success)' },
+              { label: t('instructor.risk.at_risk', 'At Risk Students'), count: riskSummary.at_risk ?? 0, color: 'var(--nebula-warning)', bg: 'var(--nebula-warning-dim)', borderColor: 'var(--nebula-warning)' },
+              { label: t('instructor.risk.critical', 'Critical Risk Students'), count: riskSummary.critical ?? 0, color: 'var(--nebula-danger)', bg: 'var(--nebula-danger-dim)', borderColor: 'var(--nebula-danger)' }
             ].map((item, i) => (
               <div 
                 key={i} 
                 style={{ 
-                  background: '#ffffff', 
+                  background: 'transparent', 
                   padding: '24px', 
                   borderRadius: '1.25rem', 
                   border: `1px solid ${item.borderColor}`, 
                   borderTop: `5px solid ${item.color}`, 
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.04)',
+                  boxShadow: '0 4px 15px var(--nebula-border)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   gap: '8px'
                 }}
               >
-                <div style={{ color: '#64748b', fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <div style={{ color: 'var(--nebula-text-muted)', fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {item.label}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-                  <div style={{ fontSize: '36px', fontWeight: '800', color: '#1e293b', fontFamily: '"Space Grotesk", sans-serif' }}>
+                  <div style={{ fontSize: '36px', fontWeight: '800', color: 'var(--nebula-text)', fontFamily: 'var(--nebula-font-display), sans-serif' }}>
                     {item.count}
                   </div>
                   <span style={{ fontSize: '12px', fontWeight: '600', color: item.color, backgroundColor: item.bg, padding: '4px 10px', borderRadius: '20px' }}>
@@ -282,20 +282,20 @@ const InstructorsDashboard = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px', width: '100%' }}>
             {/* Filter Form Card */}
             <div style={{ 
-              backgroundColor: '#ffffff', 
+              backgroundColor: 'var(--nebula-bg-glass)', 
               padding: '28px', 
               borderRadius: '1.25rem', 
-              border: '1px solid rgba(0, 0, 0, 0.08)', 
-              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
+              border: '1px solid var(--nebula-border)', 
+              boxShadow: '0 4px 15px var(--nebula-shadow-glass)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
             }}>
               <div>
-                <h3 style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '1.25rem', fontWeight: '700', color: '#1e293b', margin: '0 0 4px' }}>
+                <h3 style={{ fontFamily: 'var(--nebula-font-display), sans-serif', fontSize: '1.25rem', fontWeight: '700', color: 'var(--nebula-text)', margin: '0 0 4px' }}>
                   {t('instructor.exam_filtration', 'Exam Filter & Parameters')}
                 </h3>
-                <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 24px' }}>
+                <p style={{ color: 'var(--nebula-text-muted)', fontSize: '0.875rem', margin: '0 0 24px' }}>
                   Select parameters to narrow down exam results and analytics.
                 </p>
 
@@ -336,7 +336,7 @@ const InstructorsDashboard = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '24px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#2c5282', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--nebula-accent-cyan)', marginBottom: '6px' }}>
                       {t('instructor.from_date', 'From Date')}
                     </label>
                     <DatePicker
@@ -349,7 +349,7 @@ const InstructorsDashboard = () => {
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <label style={{ fontSize: '13px', fontWeight: '600', color: '#2c5282', marginBottom: '6px' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--nebula-accent-cyan)', marginBottom: '6px' }}>
                       {t('instructor.to_date', 'To Date')}
                     </label>
                     <DatePicker
@@ -369,11 +369,11 @@ const InstructorsDashboard = () => {
                 style={{ 
                   width: '100%', 
                   padding: '14px 28px', 
-                  backgroundColor: '#2c5282', 
-                  color: '#ffffff', 
+                  backgroundColor: 'var(--nebula-accent-cyan)', 
+                  color: 'var(--nebula-bg-glass)', 
                   border: 'none', 
                   borderRadius: '0.75rem', 
-                  fontFamily: '"Plus Jakarta Sans", sans-serif',
+                  fontFamily: 'var(--nebula-font-body), sans-serif',
                   fontWeight: '700', 
                   fontSize: '1rem',
                   cursor: 'pointer', 
@@ -387,19 +387,19 @@ const InstructorsDashboard = () => {
 
             {/* Risk Distribution Pie Chart Card */}
             <div style={{ 
-              backgroundColor: '#ffffff', 
+              backgroundColor: 'var(--nebula-bg-glass)', 
               padding: '28px', 
               borderRadius: '1.25rem', 
-              border: '1px solid rgba(0, 0, 0, 0.08)', 
+              border: '1px solid var(--nebula-border)', 
               minHeight: '380px', 
-              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
+              boxShadow: '0 4px 15px var(--nebula-shadow-glass)',
               display: 'flex',
               flexDirection: 'column'
             }}>
-              <h3 style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '1.25rem', fontWeight: '700', color: '#1e293b', margin: '0 0 4px', textAlign: 'start' }}>
+              <h3 style={{ fontFamily: 'var(--nebula-font-display), sans-serif', fontSize: '1.25rem', fontWeight: '700', color: 'var(--nebula-text)', margin: '0 0 4px', textAlign: 'start' }}>
                 {t('instructor.risk.distribution_title', 'Student Risk Distribution')}
               </h3>
-              <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 20px', textAlign: 'start' }}>
+              <p style={{ color: 'var(--nebula-text-muted)', fontSize: '0.875rem', margin: '0 0 20px', textAlign: 'start' }}>
                 Visual breakdown of student performance indicators.
               </p>
 
@@ -408,22 +408,22 @@ const InstructorsDashboard = () => {
                   <PieChart>
                     <Pie
                       data={[
-                        { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable ?? 0, color: '#10b981' },
-                        { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk ?? 0, color: '#f59e0b' },
-                        { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical ?? 0, color: '#dc2626' }
+                        { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable ?? 0, color: 'var(--nebula-success)' },
+                        { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk ?? 0, color: 'var(--nebula-warning)' },
+                        { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical ?? 0, color: 'var(--nebula-danger)' }
                       ]}
                       cx="50%"
                       cy="45%"
                       outerRadius={95}
                       innerRadius={45}
-                      fill="#8884d8"
+                      fill="var(--nebula-accent-purple)"
                       dataKey="value"
                       label
                     >
                       {[
-                        { color: '#10b981' },
-                        { color: '#f59e0b' },
-                        { color: '#dc2626' }
+                        { color: 'var(--nebula-success)' },
+                        { color: 'var(--nebula-warning)' },
+                        { color: 'var(--nebula-danger)' }
                       ].map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -439,19 +439,19 @@ const InstructorsDashboard = () => {
       )}
 
       {/* Sub-nav tabs for Exams & Marks vs Learning Outcomes */}
-      <div style={{ display: 'flex', gap: '24px', borderBottom: '2px solid rgba(0, 0, 0, 0.08)', marginTop: '32px', marginBottom: '24px' }}>
-        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#2c5282' : '#64748b', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid #2c5282' : 'none', marginBottom: '-2px', fontFamily: '"Space Grotesk", sans-serif', fontSize: '1rem' })}>
+      <div style={{ display: 'flex', gap: '24px', borderBottom: '2px solid var(--nebula-border)', marginTop: '32px', marginBottom: '24px' }}>
+        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--nebula-accent-cyan)' : 'var(--nebula-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid var(--nebula-accent-cyan)' : 'none', marginBottom: '-2px', fontFamily: 'var(--nebula-font-display), sans-serif', fontSize: '1rem' })}>
           {t('instructor.exams_marks', 'Exams and Marks')}
         </NavLink>
-        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#2c5282' : '#64748b', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid #2c5282' : 'none', marginBottom: '-2px', fontFamily: '"Space Grotesk", sans-serif', fontSize: '1rem' })}>
+        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--nebula-accent-cyan)' : 'var(--nebula-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '600', borderBottom: isActive ? '3px solid var(--nebula-accent-cyan)' : 'none', marginBottom: '-2px', fontFamily: 'var(--nebula-font-display), sans-serif', fontSize: '1rem' })}>
           {t('instructor.learning_outcomes', 'Learning Outcomes')}
         </NavLink>
       </div>
 
       {/* 2. OPTIONAL CONTEXT */}
       {step === 3 && selectedExam && (
-        <div style={{ marginBottom: '24px', padding: '24px', backgroundColor: '#ebf8ff', borderRadius: '0.75rem', border: '1px solid rgba(0, 0, 0, 0.08)' }}>
-          <div style={{ marginBottom: '16px', fontSize: '14px', lineHeight: '1.6', color: '#1e293b' }}>
+        <div style={{ marginBottom: '24px', padding: '24px', backgroundColor: 'var(--nebula-bg-glass)', borderRadius: '0.75rem', border: '1px solid var(--nebula-border)' }}>
+          <div style={{ marginBottom: '16px', fontSize: '14px', lineHeight: '1.6', color: 'var(--nebula-text)' }}>
             <strong>{t('instructor.exam_name', 'Exam Name')}:</strong> {selectedExam.name} | 
             <strong> {t('instructor.date', 'Date')}:</strong> {selectedExam.date ? selectedExam.date.split('T')[0] : ''} | 
             <strong> {t('instructor.status', 'Status')}:</strong> {selectedExam.status} | 
@@ -475,8 +475,8 @@ const InstructorsDashboard = () => {
               ))}
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <span style={{ fontSize: '13px', color: '#64748b' }}>Display 10 records per page</span>
-              <input type="text" placeholder="Search..." style={{ padding: '6px 12px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem', fontSize: '14px' }} />
+              <span style={{ fontSize: '13px', color: 'var(--nebula-text-muted)' }}>Display 10 records per page</span>
+              <input type="text" placeholder="Search..." style={{ padding: '6px 12px', border: '1px solid var(--nebula-border-strong)', borderRadius: '0.5rem', fontSize: '14px' }} />
             </div>
           </div>
         </div>

@@ -27,22 +27,21 @@ const LineChart: React.FC<Props> = ({ data = [], loading = false }) => {
 
   if (loading) {
     return (
-      <div style={{ width: '45%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #eee' }}>
+      <div style={{ width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--nebula-border)' }}>
         <p>Loading trend data...</p>
       </div>
     );
   }
 
   return (
-    <div style={{ 
-      border: '1px solid #e0e0e0', 
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)', 
-      borderRadius: '8px', 
-      padding: '20px', 
-      margin: '10px', 
-      width: '45%', 
-      minWidth: '350px', 
-      backgroundColor: '#ffffff'
+    <div style={{
+      border: '1px solid rgba(148,163,184,0.1)',
+      boxShadow: '0 2px 4px var(--nebula-border-strong)',
+      borderRadius: '8px',
+      padding: '20px',
+      width: '100%',
+      boxSizing: 'border-box',
+      backgroundColor: 'var(--nebula-bg-glass)'
     }}>
       <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>
         {t('dashboard.lo_attainment_trend', 'LO Attainment Trend')}
@@ -52,34 +51,34 @@ const LineChart: React.FC<Props> = ({ data = [], loading = false }) => {
           benefit={t('dashboard.trend_benefit', 'Helps managers identify if institutional initiatives are yielding long-term improvements.')}
         />
       </h3>
-      <div style={{ width: '100%', height: '250px', minWidth: '300px', minHeight: '200px' }}>
+      <div style={{ width: '100%', height: '250px', minWidth: '200px', minHeight: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <RechartsLineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--nebula-border)" />
             <XAxis 
               dataKey="date" 
               fontSize={12} 
-              tick={{ fill: '#666' }}
-              tickLine={{ stroke: '#eee' }}
+              tick={{ fill: 'var(--nebula-text-muted)' }}
+              tickLine={{ stroke: 'var(--nebula-border)' }}
             />
             <YAxis 
               domain={[0, 100]} 
               fontSize={12} 
-              tick={{ fill: '#666' }}
-              tickLine={{ stroke: '#eee' }}
+              tick={{ fill: 'var(--nebula-text-muted)' }}
+              tickLine={{ stroke: 'var(--nebula-border)' }}
               unit="%"
             />
             <Tooltip 
-              contentStyle={{ backgroundColor: '#fff', border: '1px solid #ddd', borderRadius: '4px' }}
+              contentStyle={{ backgroundColor: 'var(--nebula-bg-glass)', border: '1px solid var(--nebula-border)', borderRadius: '4px' }}
             />
             <Legend />
             <Line 
               type="monotone" 
               dataKey="attainment" 
               name="Avg Attainment %" 
-              stroke="#007bff" 
+              stroke="var(--nebula-accent-cyan)" 
               strokeWidth={3}
-              dot={{ r: 4, fill: '#007bff', strokeWidth: 2, stroke: '#fff' }}
+              dot={{ r: 4, fill: 'var(--nebula-accent-cyan)', strokeWidth: 2, stroke: 'var(--nebula-bg-glass)' }}
               activeDot={{ r: 6 }}
             />
           </RechartsLineChart>

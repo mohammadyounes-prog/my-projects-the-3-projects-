@@ -26,15 +26,15 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-primary-blue text-white py-12">
+    <footer className="bg-[#111827] border-t border-[rgba(0,229,255,0.2)] shadow-[0_-5px_15px_rgba(0,229,255,0.05)] text-nebula-text-muted py-12 relative z-10">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start border-b border-light-blue pb-8 mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start border-b border-nebula-border pb-8 mb-8">
           {/* Headline */}
           <div className="md:w-1/3 text-center md:text-start mb-8 md:mb-0">
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="text-2xl font-bold mb-4 text-white">
               {t('footer_headline')}
             </h3>
-            <Link href={`/${lang}`} className="font-semibold hover:text-light-blue">
+            <Link href={`/${lang}`} className="font-semibold text-nebula-accent-cyan hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.5)] transition-all">
               {t('tdm_systems')}
             </Link>
           </div>
@@ -43,11 +43,11 @@ export default function Footer() {
           <div className="md:w-2/3 grid grid-cols-2 sm:grid-cols-2 gap-8 text-center md:text-start">
             {footerNavGroups.map((group, index) => (
               <div key={index}>
-                <h4 className="font-semibold text-lg mb-3">{group.title}</h4>
+                <h4 className="font-semibold text-lg mb-3 text-white">{group.title}</h4>
                 <ul>
                   {group.items.map((item) => (
                     <li key={item.name} className="mb-2">
-                      <Link href={item.href} className="hover:text-light-blue text-sm">
+                      <Link href={item.href} className="hover:text-nebula-accent-cyan hover:drop-shadow-[0_0_5px_rgba(0,229,255,0.5)] transition-all text-sm">
                         {item.name}
                       </Link>
                     </li>
