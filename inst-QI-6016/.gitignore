@@ -1,4 +1,9 @@
-node_modules/ 
-.venv/ 
-__pycache__/ 
-.env 
+node_modules/
+.venv/
+__pycache__/
+.env
+# Reproducible via scripts/seed_local_demo.py — do not commit local DBs
+questions.db
+*.db
+*.db-shm
+*.db-wal
