@@ -12,7 +12,8 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
+  padding-block: var(--space-md);
+  padding-inline: var(--space-lg);
   max-width: 1400px;
   margin-inline: auto;
   width: 100%;
@@ -28,6 +29,7 @@
   text-decoration: none;
   color: var(--suite-on-primary, #fff);
   flex-shrink: 0;
+  text-align: start;
 }
 
 .brand-suite {
@@ -85,7 +87,8 @@
 }
 
 .logout-btn {
-  padding: 8px 16px;
+  padding-block: 8px;
+  padding-inline: 16px;
   cursor: pointer;
   background-color: transparent;
   color: var(--suite-on-primary, #fff);
@@ -97,15 +100,35 @@
 
 .app-main {
   flex: 1;
-  padding: 40px 30px;
+  padding-block: 40px;
+  padding-inline: 30px;
 }
 
 .app-footer {
-  padding: 20px 30px;
+  padding-block: 20px;
+  padding-inline: 30px;
   background-color: var(--suite-surface, #f8f9fa);
   border-top: 1px solid var(--suite-border, #eee);
   color: var(--suite-text-muted, #666);
   text-align: center;
   font-size: 0.9rem;
   font-family: var(--font-body);
+}
+
+/* Compact header stacking on narrow viewports (LTR + RTL) */
+@media (max-width: 768px) {
+  .app-nav {
+    flex-wrap: wrap;
+    row-gap: var(--space-sm, 0.5rem);
+  }
+
+  .nav-links {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: start;
+  }
+
+  .nav-actions {
+    margin-inline-start: auto;
+  }
 }
