@@ -189,10 +189,9 @@ const InstructorsDashboard = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      
-        {/* 1. NAVIGATION TABS - ALWAYS VISIBLE */}
-      <div style={{ display: 'flex', marginBottom: '20px', gap: '10px' }}>
+    <div className="dashboard-container suite-motion-page">
+      {/* 1. NAVIGATION TABS - ALWAYS VISIBLE */}
+      <div style={{ display: 'flex', marginBottom: '24px', gap: '12px' }}>
         {['exam_selection', 'choose_exam', 'exam_results'].map((s, i) => {
           const stepIndex = i + 1;
           const isActive = step === stepIndex;
@@ -201,14 +200,19 @@ const InstructorsDashboard = () => {
             <div key={s} 
               onClick={() => handleStepClick(stepIndex)}
               style={{ 
-                padding: '5px 15px', 
-                background: isActive ? '#003366' : (isVisited ? '#1677ff' : '#ddd'), 
-                color: 'white',
-                borderRadius: '15px',
+                padding: '10px 20px', 
+                background: isActive ? 'var(--suite-primary)' : (isVisited ? 'var(--suite-primary-dark)' : 'var(--suite-surface)'), 
+                color: isVisited || isActive ? 'var(--suite-on-primary)' : 'var(--suite-text-muted)',
+                border: isVisited || isActive ? 'none' : '1px solid var(--suite-border)',
+                borderRadius: 'var(--suite-radius-md)',
                 flex: 1,
                 textAlign: 'center',
                 cursor: isVisited ? 'pointer' : 'default',
-                fontSize: '14px'
+                fontSize: '14px',
+                fontWeight: '600',
+                fontFamily: 'var(--font-display)',
+                boxShadow: isActive ? 'var(--suite-shadow-1)' : 'none',
+                transition: 'all 0.2s ease'
               }}>
               {t(`instructor.step_${stepIndex}`, `Step ${stepIndex}`)}: {t(`instructor.${s}`, s.replace('_', ' '))}
             </div>
@@ -217,42 +221,42 @@ const InstructorsDashboard = () => {
       </div>
 
       {step === 1 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
           <div style={{ display: 'flex', gap: '20px' }}>
             {[
-                { label: t('instructor.risk.stable', 'Stable'), count: riskSummary.stable, color: '#52c41a' },
-                { label: t('instructor.risk.at_risk', 'At Risk'), count: riskSummary.at_risk, color: '#faad14' },
-                { label: t('instructor.risk.critical', 'Critical'), count: riskSummary.critical, color: '#f5222d' }
+                { label: t('instructor.risk.stable', 'Stable'), count: riskSummary.stable, color: 'var(--suite-success)' },
+                { label: t('instructor.risk.at_risk', 'At Risk'), count: riskSummary.at_risk, color: 'var(--suite-warning)' },
+                { label: t('instructor.risk.critical', 'Critical'), count: riskSummary.danger || 'var(--suite-danger)' }
             ].map((item, i) => (
-                <div key={i} style={{ background: '#fff', padding: '15px', borderRadius: '8px', border: `1px solid ${item.color}`, flex: 1, textAlign: 'center' }}>
-                    <div style={{ color: item.color, fontSize: '14px', fontWeight: 'bold' }}>{item.label}</div>
-                    <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#003366' }}>{item.count}</div>
+                <div key={i} style={{ background: 'var(--suite-surface-raised)', padding: '20px', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)', borderTop: `4px solid ${item.color}`, flex: 1, textAlign: 'center', boxShadow: 'var(--suite-shadow-1)' }}>
+                    <div style={{ color: 'var(--suite-text-muted)', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{item.label}</div>
+                    <div style={{ fontSize: '32px', fontWeight: '700', color: 'var(--suite-primary)', fontFamily: 'var(--font-display)', marginTop: '4px' }}>{item.count}</div>
                 </div>
             ))}
           </div>
 
           {/* Risk Distribution Pie Chart */}
-          <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid #ddd', height: '300px' }}>
-            <h4 style={{ textAlign: 'center' }}>{t('instructor.risk.distribution_title', 'Student Risk Distribution')}</h4>
+          <div style={{ background: 'var(--suite-surface-raised)', padding: '24px', borderRadius: 'var(--suite-radius-lg)', border: '1px solid var(--suite-border)', height: '320px', boxShadow: 'var(--suite-shadow-1)' }}>
+            <h4 style={{ textAlign: 'center', fontFamily: 'var(--font-display)', color: 'var(--suite-text)', fontSize: '1.1rem', margin: '0 0 16px', fontWeight: '700' }}>{t('instructor.risk.distribution_title', 'Student Risk Distribution')}</h4>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={[
-                    { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable, color: '#52c41a' },
-                    { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk, color: '#faad14' },
-                    { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical, color: '#f5222d' }
+                    { name: t('instructor.risk.stable', 'Stable'), value: riskSummary.stable, color: '#10b981' },
+                    { name: t('instructor.risk.at_risk', 'At Risk'), value: riskSummary.at_risk, color: '#f59e0b' },
+                    { name: t('instructor.risk.critical', 'Critical'), value: riskSummary.critical, color: '#dc2626' }
                   ]}
                   cx="50%"
-                  cy="50%"
-                  outerRadius={80}
+                  cy="45%"
+                  outerRadius={90}
                   fill="#8884d8"
                   dataKey="value"
                   label
                 >
                   {[
-                    { color: '#52c41a' },
-                    { color: '#faad14' },
-                    { color: '#f5222d' }
+                    { color: '#10b981' },
+                    { color: '#f59e0b' },
+                    { color: '#dc2626' }
                   ].map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
@@ -265,44 +269,44 @@ const InstructorsDashboard = () => {
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #ddd', marginBottom: '20px' }}>
-        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#1677ff' : '#666', paddingBottom: '10px', fontWeight: isActive ? 'bold' : 'normal' })}>
+      <div style={{ display: 'flex', gap: '20px', borderBottom: '2px solid var(--suite-border)', marginBottom: '24px' }}>
+        <NavLink to="exams-marks" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--suite-primary)' : 'var(--suite-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '500', borderBottom: isActive ? '3px solid var(--suite-primary)' : 'none', marginBottom: '-2px', fontFamily: 'var(--font-display)' })}>
           {t('instructor.exams_marks', 'Exams and Marks')}
         </NavLink>
-        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#1677ff' : '#666', paddingBottom: '10px', fontWeight: isActive ? 'bold' : 'normal' })}>
+        <NavLink to="learning-outcomes" style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? 'var(--suite-primary)' : 'var(--suite-text-muted)', paddingBottom: '12px', fontWeight: isActive ? '700' : '500', borderBottom: isActive ? '3px solid var(--suite-primary)' : 'none', marginBottom: '-2px', fontFamily: 'var(--font-display)' })}>
           {t('instructor.learning_outcomes', 'Learning Outcomes')}
         </NavLink>
       </div>
 
-      {/* 2. OPTIONAL CONTEXT - Conditionally rendered, but does not wrap navigation */}
+      {/* 2. OPTIONAL CONTEXT */}
       {step === 3 && selectedExam && (
-        <div style={{ marginBottom: '20px', padding: '15px', background: '#f9f9f9', borderRadius: '8px', border: '1px solid #eee' }}>
-          <div style={{ marginBottom: '15px', fontSize: '14px', lineHeight: '1.6' }}>
+        <div style={{ marginBottom: '24px', padding: '20px', background: 'var(--suite-primary-soft)', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)' }}>
+          <div style={{ marginBottom: '16px', fontSize: '14px', lineHeight: '1.6', color: 'var(--suite-text)' }}>
             <strong>{t('instructor.exam_name', 'Exam Name')}:</strong> {selectedExam.name} | 
-            <strong>{t('instructor.date', 'Date')}:</strong> {selectedExam.date ? selectedExam.date.split('T')[0] : ''} | 
-            <strong>{t('instructor.status', 'Status')}:</strong> {selectedExam.status} | 
-            <strong>{t('instructor.applicants', 'Applicants')}:</strong> {selectedExam.applicants || 0} | 
-            <strong>{t('instructor.examinees', 'Examinees')}:</strong> {selectedExam.examinees || 0}
+            <strong> {t('instructor.date', 'Date')}:</strong> {selectedExam.date ? selectedExam.date.split('T')[0] : ''} | 
+            <strong> {t('instructor.status', 'Status')}:</strong> {selectedExam.status} | 
+            <strong> {t('instructor.applicants', 'Applicants')}:</strong> {selectedExam.applicants || 0} | 
+            <strong> {t('instructor.examinees', 'Examinees')}:</strong> {selectedExam.examinees || 0}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <div style={{ display: 'flex', gap: '15px' }}>
               {['All', 'Attended', 'Not Attended', 'In Exam'].map(status => (
-                <label key={status} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '14px' }}>
+                <label key={status} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '14px', fontWeight: '500' }}>
                   <input 
                     type="radio" 
                     name="attendanceStatus" 
                     value={status} 
                     checked={attendanceStatus === status}
                     onChange={(e) => setAttendanceStatus(e.target.value)}
-                    style={{ marginRight: '5px' }} 
+                    style={{ marginRight: '6px' }} 
                   />
                   {t(`instructor.${status.toLowerCase().replace(/\s+/g, '_')}`, status)}
                 </label>
               ))}
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <span>Display 10 records per page</span>
-              <input type="text" placeholder="Search..." style={{ padding: '5px' }} />
+              <span style={{ fontSize: '13px', color: 'var(--suite-text-muted)' }}>Display 10 records per page</span>
+              <input type="text" placeholder="Search..." style={{ padding: '6px 12px', border: '1px solid var(--suite-border)', borderRadius: 'var(--suite-radius-sm)', fontSize: '14px' }} />
             </div>
           </div>
         </div>
@@ -311,7 +315,7 @@ const InstructorsDashboard = () => {
       {/* 3. CONTENT AREA */}
       <div style={{ marginTop: '20px' }}>
         {step === 1 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', backgroundColor: 'var(--suite-surface-raised)', padding: '24px', borderRadius: 'var(--suite-radius-lg)', border: '1px solid var(--suite-border)', boxShadow: 'var(--suite-shadow-1)' }}>
             <div style={getFilterStyle('faculty')}>
               <SearchableSelect
                 options={options.faculties}
@@ -345,9 +349,9 @@ const InstructorsDashboard = () => {
               />
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontSize: '12px', marginBottom: '4px' }}>{t('instructor.from_date', 'From')}</label>
+            <div style={{ display: 'flex', gap: '16px', width: '100%', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+              <div style={{ flex: 1, minWidth: '160px', display: 'flex', flexDirection: 'column' }}>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--suite-primary)', marginBottom: '4px' }}>{t('instructor.from_date', 'From')}</label>
                 <DatePicker
                   selected={parseDate(filters.fromDate)}
                   onChange={(date: Date | null) => setFilters({...filters, fromDate: formatDate(date)})}
@@ -357,8 +361,8 @@ const InstructorsDashboard = () => {
                   wrapperClassName="datePickerWrapper"
                 />
               </div>
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <label style={{ fontSize: '12px', marginBottom: '4px' }}>{t('instructor.to_date', 'To')}</label>
+              <div style={{ flex: 1, minWidth: '160px', display: 'flex', flexDirection: 'column' }}>
+                <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--suite-primary)', marginBottom: '4px' }}>{t('instructor.to_date', 'To')}</label>
                 <DatePicker
                   selected={parseDate(filters.toDate)}
                   onChange={(date: Date | null) => setFilters({...filters, toDate: formatDate(date)})}
@@ -367,9 +371,10 @@ const InstructorsDashboard = () => {
                   className="custom-datepicker"
                   wrapperClassName="datePickerWrapper"
                 />
-              </div>              <button 
+              </div>
+              <button 
                 onClick={handleExecute}
-                style={{ padding: '0 20px', backgroundColor: '#1677ff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', whiteSpace: 'nowrap', marginLeft: 'auto' }}
+                style={{ padding: '10px 24px', backgroundColor: 'var(--suite-primary)', color: 'var(--suite-on-primary)', border: 'none', borderRadius: 'var(--suite-radius-md)', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap', marginLeft: 'auto', boxShadow: 'var(--suite-shadow-1)' }}
               >
                 {t('instructor.exam_filtration', 'Exam Filtration')}
               </button>
