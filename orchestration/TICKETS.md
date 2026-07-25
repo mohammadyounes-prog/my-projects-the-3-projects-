@@ -303,7 +303,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C1 — Ship shared suite-tokens.css
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | in_progress |
 | **GitHub** | [#17](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/17) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -312,15 +312,15 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Add `frontend/css/suite-tokens.css` synced from `design-system/tokens.css`. Include on `home.html`, `login.html`, and preferably `index.html`. Reduce duplicate `:root` blocks.
 
 **Acceptance:**
-- [ ] Shared file exists and is linked
-- [ ] Comment or README note: sync from design-system
+- [x] Shared file exists and is linked
+- [x] Comment or README note: sync from design-system
 
 ---
 
 ### C2 — Restyle login to match home
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#18](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/18) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -337,7 +337,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C3 — Home CTA verbs / suite chrome check
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#19](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/19) |
 | **Agent** | QuestAI |
 | **parallel** | ok with C2 after C1 |
@@ -354,7 +354,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C4 — Generate form progressive disclosure
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#20](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/20) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -384,7 +384,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### QA-C — Phase C visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#22](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/22) |
 | **Agent** | Visual QA |
 | **Depends on** | C1–C4 |
