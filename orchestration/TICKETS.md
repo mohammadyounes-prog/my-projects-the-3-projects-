@@ -433,7 +433,7 @@ Remove hardcoded `localhost:2000` chart endpoints; single `REACT_APP_API_BASE_UR
 
 ### E5 — Role-based nav (Dashboard)
 
-**GitHub:** [#27](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/27) · **Status:** in_progress
+**GitHub:** [#27](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/27) · **Status:** done
 
 Gate executive/corporate vs instructor after auth — product/IAM, not design tokens.
 
