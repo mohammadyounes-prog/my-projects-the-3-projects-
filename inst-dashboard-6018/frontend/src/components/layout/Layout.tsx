@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '../LanguageSwitcher.tsx'; 
-import { Link } from 'react-router-dom';
-import './Layout.css'; 
+import LanguageSwitcher from '../LanguageSwitcher.tsx';
+import './Layout.css';
+
+type NavItem = { to: string; labelKey: string; fallback: string };
 
 const Layout = () => {
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
+  const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   useEffect(() => {
@@ -16,10 +17,10 @@ const Layout = () => {
   }, [i18n.language]);
 
   const performLogout = () => {
-    localStorage.removeItem('token'); 
-    localStorage.removeItem('user_name'); 
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_name');
     setShowLogoutModal(false);
-    window.location.href = '/login'; 
+    window.location.href = '/login';
   };
 
   const handleGoToHub = () => {
@@ -29,32 +30,81 @@ const Layout = () => {
   };
 
   const isRtl = i18n.dir() === 'rtl';
+  const path = location.pathname;
+  const isGateway = path === '/' || path === '/home';
+
+  const footerModuleKey = useMemo(() => {
+    if (path.startsWith('/educational')) return 'footer.module_educational';
+    if (path.startsWith('/executive-dashboard')) return 'footer.module_executive';
+    if (path.startsWith('/corporate-dashboard')) return 'footer.module_corporate';
+    if (path.startsWith('/weights')) return 'footer.module_weights';
+    if (path.startsWith('/settings')) return 'footer.module_settings';
+    if (isGateway) return 'footer.module_gateway';
+    return 'footer.module_gateway';
+  }, [path, isGateway]);
+
+  const footerModuleFallback = useMemo(() => {
+    if (path.startsWith('/educational')) return 'Educational Analytics Module';
+    if (path.startsWith('/executive-dashboard')) return 'Executive Strategic Module';
+    if (path.startsWith('/corporate-dashboard')) return 'Corporate HR Intelligence Module';
+    if (path.startsWith('/weights')) return 'Indexes Weight Module';
+    if (path.startsWith('/settings')) return 'Settings';
+    return 'Dashboard Gateway';
+  }, [path]);
+
+  /** Gateway: Home only. Module pages: primary module links (no Contact — B6). */
+  const navItems: NavItem[] = useMemo(() => {
+    const home: NavItem = { to: '/', labelKey: 'nav.home', fallback: 'Home' };
+    if (isGateway) {
+      return [home];
+    }
+    return [
+      home,
+      { to: '/educational/admins', labelKey: 'nav.dashboard', fallback: 'Educational' },
+      { to: '/executive-dashboard', labelKey: 'nav.executive', fallback: 'Executive' },
+      { to: '/corporate-dashboard', labelKey: 'nav.corporate', fallback: 'Corporate' },
+      { to: '/weights', labelKey: 'nav.indexes_weight', fallback: 'Indexes Weight' },
+      { to: '/settings', labelKey: 'nav.settings', fallback: 'Settings' },
+    ];
+  }, [isGateway]);
 
   return (
-    <div dir={i18n.dir()} className={isRtl ? 'rtl-layout' : 'ltr-layout'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}> 
+    <div dir={i18n.dir()} className={isRtl ? 'rtl-layout' : 'ltr-layout'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className="app-header">
         <nav className="app-nav">
-          <div className="app-brand">
-            <span className="brand-line-1">Testing and Assessment</span>
-            <span className="brand-line-2">&nbsp;&nbsp;&nbsp;&nbsp;Management Solution</span>
+          <Link to="/" className="app-brand" aria-label={`${t('brand.suite', 'TDM Systems')} — ${t('brand.product', 'Dashboard')}`}>
+            <span className="brand-suite">{t('brand.suite', 'TDM Systems')}</span>
+            <span className="brand-product">{t('brand.product', 'Dashboard')}</span>
+          </Link>
+
+          <div className={`nav-links${isGateway ? ' nav-links--gateway' : ''}`}>
+            {navItems.map((item) => {
+              let isActive = false;
+              if (item.to === '/') {
+                isActive = isGateway;
+              } else if (item.to.startsWith('/educational')) {
+                isActive = path.startsWith('/educational');
+              } else {
+                isActive = path === item.to || path.startsWith(`${item.to}/`);
+              }
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={isActive ? 'nav-link-active' : undefined}
+                >
+                  {t(item.labelKey, item.fallback)}
+                </Link>
+              );
+            })}
           </div>
 
-          <div className="nav-links">
-            <Link to="/">{t('nav.home', 'Home')}</Link>
-            <Link to="/educational/admins">{t('nav.dashboard')}</Link>
-            <Link to="/executive-dashboard">{t('nav.executive')}</Link>
-            <Link to="/corporate-dashboard">{t('nav.corporate')}</Link>
-            <Link to="/weights">{t('nav.indexes_weight')}</Link>
-            <Link to="/settings">{t('nav.settings')}</Link>
-            <Link to="/contact">{t('nav.contact', 'Contact Us')}</Link>
-          </div>
-          
           <div className="nav-actions">
             <LanguageSwitcher />
             <div className="user-name">
-                {localStorage.getItem('user_name') || 'User'}
+              {localStorage.getItem('user_name') || 'User'}
             </div>
-            <button 
+            <button
               className="logout-btn"
               onClick={() => setShowLogoutModal(true)}
             >
@@ -63,7 +113,7 @@ const Layout = () => {
           </div>
         </nav>
       </header>
-      
+
       {showLogoutModal && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', color: 'black' }}>
@@ -88,7 +138,7 @@ const Layout = () => {
       </main>
 
       <footer className="app-footer">
-        {t('footer.copyright', '© 2026 Q-Bank Platform. All rights reserved.')} | {t('footer.module', 'Corporate HR Intelligence Module')}
+        {t('footer.copyright', '© 2026 Q-Bank Platform. All rights reserved.')} | {t(footerModuleKey, footerModuleFallback)}
       </footer>
     </div>
   );

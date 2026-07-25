@@ -211,7 +211,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B3 — Header brand + nav + footer context
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | done |
 | **GitHub** | [#12](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/12) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B4 |
@@ -222,8 +222,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `Layout.tsx`, `Layout.css`
 
 **Acceptance:**
-- [ ] Brand string not English-only two-line hardcode without i18n
-- [ ] Footer not wrong-module on educational home
+- [x] Brand string not English-only two-line hardcode without i18n
+- [x] Footer not wrong-module on educational home
 
 ---
 
