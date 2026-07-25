@@ -174,7 +174,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B1 — Retoken App.css + load fonts
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#10](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/10) |
 | **Agent** | Dashboard |
 | **parallel** | no |
@@ -192,7 +192,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B2 — Unify Landing and Home
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#11](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/11) |
 | **Agent** | Dashboard |
 | **parallel** | no |
@@ -203,7 +203,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Files:** `LandingPage.tsx`, `HomePage.tsx`, `App.tsx`
 
 **Acceptance:**
-- [ ] One recognizable gateway layout
+- [x] One recognizable gateway layout
 - [ ] QA refresh: `dashboard-landing-desktop.png`, `dashboard-home-desktop.png`
 
 ---
