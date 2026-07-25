@@ -155,7 +155,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### QA-A — Phase A visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#9](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/9) |
 | **Agent** | Visual QA |
 | **Depends on** | A1–A6 |
@@ -174,7 +174,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B1 — Retoken App.css + load fonts
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#10](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/10) |
 | **Agent** | Dashboard |
 | **parallel** | no |
@@ -192,7 +192,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B2 — Unify Landing and Home
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#11](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/11) |
 | **Agent** | Dashboard |
 | **parallel** | no |
@@ -211,7 +211,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B3 — Header brand + nav + footer context
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#12](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/12) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B4 |
@@ -230,7 +230,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B4 — Fix Back to Hub URL
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#13](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/13) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B3 |
@@ -247,7 +247,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B5 — RTL layout + login language switcher
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#14](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/14) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B6 |
@@ -267,7 +267,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### B6 — Contact + Settings stubs
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#15](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/15) |
 | **Agent** | Dashboard |
 | **parallel** | ok with B5 |
@@ -284,7 +284,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### QA-B — Phase B visual gate
 | Field | Value |
 |-------|--------|
-| **Status** | deferred |
+| **Status** | todo |
 | **GitHub** | [#16](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/16) |
 | **Agent** | Visual QA |
 | **Depends on** | B1–B6 |
