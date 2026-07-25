@@ -123,5 +123,26 @@
   "stats_grade_distribution": "توزيع الدرجات",
   "stats_tooltip_title": "توزيع الدرجات",
   "stats_tooltip_desc": "يساعد المتوسط والوسيط والانحراف المعياري في تصور مدى انتشار أداء الفصل.",
-  "stats_tooltip_benefit": "تشير الخطوط المتقطعة الحمراء إلى نطاق انحراف معياري واحد عن المتوسط."
+  "stats_tooltip_benefit": "تشير الخطوط المتقطعة الحمراء إلى نطاق انحراف معياري واحد عن المتوسط.",
+
+  "hub_title": "اختر التطبيق",
+  "hub_subtitle": "اختر نظاماً لإدارة مؤسستك",
+  "hub_available_section": "التطبيقات المتاحة",
+  "hub_upcoming_section": "قريباً",
+  "hub_open": "فتح",
+  "hub_upcoming": "قريباً",
+  "hub_session_expired": "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى.",
+  "hub_auth_failed": "فشلت المصادقة. يرجى تسجيل الدخول مرة أخرى.",
+  "hub_app_online_exam": "الاختبارات عبر الإنترنت",
+  "hub_app_online_exam_desc": "إنشاء وتقديم وإدارة الاختبارات والتقييمات.",
+  "hub_app_dashboard": "لوحة التحكم",
+  "hub_app_dashboard_desc": "تحليلات تنفيذية ورؤى مؤسسية.",
+  "hub_app_question_retrieval": "QuestAI",
+  "hub_app_question_retrieval_desc": "إنشاء واسترجاع الأسئلة بالذكاء الاصطناعي.",
+  "hub_app_e_scan": "E-Scan",
+  "hub_app_e_scan_desc": "رقمنة ومعالجة الامتحانات الورقية.",
+  "hub_app_virtual_class": "الفصل الافتراضي",
+  "hub_app_virtual_class_desc": "جلسات صفية مباشرة ومسجلة.",
+  "hub_app_lms": "نظام إدارة التعلم",
+  "hub_app_lms_desc": "الدورات والتسجيل وتقدم التعلم."
 }

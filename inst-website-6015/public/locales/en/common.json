@@ -123,5 +123,26 @@
   "stats_grade_distribution": "Grade Distribution",
   "stats_tooltip_title": "Grade Distribution",
   "stats_tooltip_desc": "Average, Median, and Standard Deviation help visualize the class performance spread.",
-  "stats_tooltip_benefit": "Red dashed lines indicate the 1-SD range from the mean."
+  "stats_tooltip_benefit": "Red dashed lines indicate the 1-SD range from the mean.",
+
+  "hub_title": "Select Application",
+  "hub_subtitle": "Choose a system to manage your institution",
+  "hub_available_section": "Available applications",
+  "hub_upcoming_section": "Coming soon",
+  "hub_open": "Open",
+  "hub_upcoming": "Coming soon",
+  "hub_session_expired": "Session expired, please log in again.",
+  "hub_auth_failed": "Authentication failed. Please log in again.",
+  "hub_app_online_exam": "Online Exam",
+  "hub_app_online_exam_desc": "Create, deliver, and manage tests and assessments.",
+  "hub_app_dashboard": "Dashboard",
+  "hub_app_dashboard_desc": "Executive analytics and institutional insights.",
+  "hub_app_question_retrieval": "QuestAI",
+  "hub_app_question_retrieval_desc": "AI-powered question generation and retrieval.",
+  "hub_app_e_scan": "E-Scan",
+  "hub_app_e_scan_desc": "Digitize and process paper exams.",
+  "hub_app_virtual_class": "Virtual Class",
+  "hub_app_virtual_class_desc": "Live and recorded classroom sessions.",
+  "hub_app_lms": "LMS",
+  "hub_app_lms_desc": "Courses, enrollment, and learning progress."
 }
