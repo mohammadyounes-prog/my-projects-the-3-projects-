@@ -337,7 +337,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C3 — Home CTA verbs / suite chrome check
 | Field | Value |
 |-------|--------|
-| **Status** | in_progress |
+| **Status** | done |
 | **GitHub** | [#19](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/19) |
 | **Agent** | QuestAI |
 | **parallel** | ok with C2 after C1 |
@@ -354,7 +354,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C4 — Generate form progressive disclosure
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#20](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/20) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -363,8 +363,8 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Multi-step / accordion / wizard shell for Define Request on `index.html` so first viewport is not a full wall of fields. Preserve existing JS submit behavior; do not rewrite to React.
 
 **Acceptance:**
-- [ ] First viewport shows a clear step, not every control
-- [ ] Existing generate flow still callable after steps
+- [x] First viewport shows a clear step, not every control
+- [x] Existing generate flow still callable after steps
 - [ ] QA refresh: `qi-index-desktop.png`
 
 ---

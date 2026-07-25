@@ -206,11 +206,29 @@
     "aiModel": "AI Model",
     "similarityThreshold": "Similarity Threshold",
     "submitButton": "Generate Questions",
+    "hideAnswers": "Hide answers for exam",
     "generatedQuestions": "Generated Questions",
     "approveAll": "Approve All",
     "deleteAll": "Delete All",
     "noQuestions": "No questions generated yet.",
-    "selectDefaultOption": "Select"
+    "selectDefaultOption": "Select",
+    "validation": {
+      "required": "This field is required",
+      "fillAll": "Please fill all required fields."
+    },
+    "wizard": {
+      "stepAudience": "Audience",
+      "stepContent": "Content",
+      "stepProperties": "Properties",
+      "stepGenerate": "Generate",
+      "hintAudience": "Choose where and who these questions are for.",
+      "hintContent": "Describe the topic or attach a source document.",
+      "hintProperties": "Set question type, difficulty, and learning targets.",
+      "hintGenerate": "Choose count, model, and run generation.",
+      "next": "Next",
+      "back": "Back",
+      "stepOf": "Step {current} of {total}"
+    }
   },
   "library": {
     "modalTitle": "Server Library (conlib)",

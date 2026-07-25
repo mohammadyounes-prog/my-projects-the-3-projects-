@@ -201,11 +201,29 @@
     "aiModel": "نموذج الذكاء الاصطناعي",
     "similarityThreshold": "عتبة التشابه",
     "submitButton": "توليد الأسئلة",
+    "hideAnswers": "إخفاء الإجابات للامتحان",
     "generatedQuestions": "الأسئلة التي تم إنشاؤها",
     "approveAll": "الموافقة على الكل",
     "deleteAll": "حذف الكل",
     "noQuestions": "لم يتم إنشاء أسئلة بعد.",
-    "selectDefaultOption": "اختر"
+    "selectDefaultOption": "اختر",
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "fillAll": "يرجى تعبئة جميع الحقول المطلوبة."
+    },
+    "wizard": {
+      "stepAudience": "الجمهور",
+      "stepContent": "المحتوى",
+      "stepProperties": "الخصائص",
+      "stepGenerate": "التوليد",
+      "hintAudience": "حدد الدولة ونوع الجمهور لهذه الأسئلة.",
+      "hintContent": "صف الموضوع أو أرفق مستند المصدر.",
+      "hintProperties": "حدد نوع السؤال والصعوبة وأهداف التعلم.",
+      "hintGenerate": "اختر العدد والنموذج ثم ابدأ التوليد.",
+      "next": "التالي",
+      "back": "السابق",
+      "stepOf": "الخطوة {current} من {total}"
+    }
   },
   "library": {
     "modalTitle": "مكتبة الخادم (conlib)",

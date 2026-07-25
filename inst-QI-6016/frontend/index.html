@@ -228,6 +228,154 @@
             color: #94a3b8;
         }
 
+        /* C4 — Define Request wizard (progressive disclosure) */
+        .qi-wizard {
+            display: flex;
+            flex-direction: column;
+            gap: var(--suite-space-4);
+        }
+
+        .qi-wizard-progress {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: var(--suite-space-2);
+            counter-reset: qi-step;
+        }
+
+        .qi-wizard-progress li {
+            counter-increment: qi-step;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--suite-space-1);
+            min-width: 0;
+            padding-block-end: var(--suite-space-2);
+            border-block-end: 3px solid var(--suite-border);
+            color: var(--suite-text-muted);
+            font-family: var(--suite-font-body);
+            font-size: var(--suite-text-caption);
+            transition: color var(--suite-duration-fast) var(--suite-ease),
+                border-color var(--suite-duration-fast) var(--suite-ease);
+        }
+
+        .qi-wizard-progress li::before {
+            content: counter(qi-step);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: var(--suite-radius-sm);
+            background: var(--suite-surface);
+            border: 1px solid var(--suite-border);
+            color: var(--suite-text-muted);
+            font-family: var(--suite-font-display);
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: background var(--suite-duration-fast) var(--suite-ease),
+                color var(--suite-duration-fast) var(--suite-ease),
+                border-color var(--suite-duration-fast) var(--suite-ease);
+        }
+
+        .qi-wizard-progress li.is-complete {
+            border-block-end-color: var(--suite-primary);
+            color: var(--suite-primary);
+        }
+
+        .qi-wizard-progress li.is-complete::before {
+            background: var(--suite-primary-soft);
+            border-color: var(--suite-primary);
+            color: var(--suite-primary);
+            content: "✓";
+        }
+
+        .qi-wizard-progress li.is-active {
+            border-block-end-color: var(--suite-primary);
+            color: var(--suite-text);
+        }
+
+        .qi-wizard-progress li.is-active::before {
+            background: var(--suite-primary);
+            border-color: var(--suite-primary);
+            color: var(--suite-on-primary);
+        }
+
+        .qi-wizard-progress .qi-wizard-step-label {
+            font-family: var(--suite-font-display);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: var(--suite-tracking-display);
+            line-height: var(--suite-leading-tight);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .qi-wizard-panel {
+            display: none;
+            animation: suite-page-fade var(--suite-duration-med) var(--suite-ease) both;
+        }
+
+        .qi-wizard-panel.is-active {
+            display: block;
+        }
+
+        .qi-wizard-panel-title {
+            font-family: var(--suite-font-display);
+            font-size: var(--suite-text-h3);
+            font-weight: 700;
+            letter-spacing: var(--suite-tracking-display);
+            color: var(--suite-text);
+            margin: 0 0 var(--suite-space-1);
+        }
+
+        .qi-wizard-panel-hint {
+            color: var(--suite-text-muted);
+            font-size: var(--suite-text-caption);
+            margin: 0 0 var(--suite-space-4);
+        }
+
+        .qi-wizard-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: var(--suite-space-2);
+            padding-block-start: var(--suite-space-3);
+            border-block-start: 1px solid var(--suite-border);
+        }
+
+        .qi-wizard-nav .qi-wizard-spacer {
+            flex: 1 1 auto;
+        }
+
+        .qi-wizard-status {
+            font-size: var(--suite-text-caption);
+            color: var(--suite-text-muted);
+            margin-inline-end: var(--suite-space-2);
+        }
+
+        #generateButton.qi-wizard-submit-hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 575.98px) {
+            .qi-wizard-progress {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: var(--suite-space-1);
+            }
+            .qi-wizard-progress .qi-wizard-step-label {
+                display: none;
+            }
+            .qi-wizard-progress li {
+                align-items: center;
+            }
+        }
+
         /* Button Overhaul */
         .btn {
             border-radius: 0.75rem !important;
@@ -516,119 +664,154 @@
                     </div>
                     <div class="card-body">
                         <form id="questionForm" novalidate>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="countryInput" class="form-label" data-i18n="generate.country"></label>
-                                        <input type="text" id="countryInput" class="form-select" list="countryList" data-i18n-placeholder="generate.selectDefaultOption" autocomplete="off">
-                                        <datalist id="countryList"></datalist>
-                                        <input type="hidden" id="country" name="country">
-                                    </div>
+                            <div class="qi-wizard" id="generateWizard" data-current-step="1">
+                                <ol class="qi-wizard-progress" aria-label="Define Request steps">
+                                    <li class="is-active" data-step-indicator="1">
+                                        <span class="qi-wizard-step-label" data-i18n="generate.wizard.stepAudience">Audience</span>
+                                    </li>
+                                    <li data-step-indicator="2">
+                                        <span class="qi-wizard-step-label" data-i18n="generate.wizard.stepContent">Content</span>
+                                    </li>
+                                    <li data-step-indicator="3">
+                                        <span class="qi-wizard-step-label" data-i18n="generate.wizard.stepProperties">Properties</span>
+                                    </li>
+                                    <li data-step-indicator="4">
+                                        <span class="qi-wizard-step-label" data-i18n="generate.wizard.stepGenerate">Generate</span>
+                                    </li>
+                                </ol>
+
+                                <div class="qi-wizard-panels">
+                                    <section class="qi-wizard-panel is-active" data-wizard-step="1" aria-labelledby="wizardStep1Title">
+                                        <h3 id="wizardStep1Title" class="qi-wizard-panel-title" data-i18n="generate.wizard.stepAudience">Audience</h3>
+                                        <p class="qi-wizard-panel-hint" data-i18n="generate.wizard.hintAudience">Choose where and who these questions are for.</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="countryInput" class="form-label" data-i18n="generate.country"></label>
+                                                    <input type="text" id="countryInput" class="form-select" list="countryList" data-i18n-placeholder="generate.selectDefaultOption" autocomplete="off">
+                                                    <datalist id="countryList"></datalist>
+                                                    <input type="hidden" id="country" name="country">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="audienceType" class="form-label" data-i18n="generate.audienceType"></label>
+                                                    <select id="audienceType" name="audience_type" class="form-select">
+                                                        <option value="" data-i18n="generate.selectAudienceType"></option>
+                                                        <option value="school" data-i18n="generate.audience.school"></option>
+                                                        <option value="university" data-i18n="generate.audience.university"></option>
+                                                        <option value="company" data-i18n="generate.audience.company"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dynamicFields" class="row"></div>
+                                    </section>
+
+                                    <section class="qi-wizard-panel" data-wizard-step="2" aria-labelledby="wizardStep2Title">
+                                        <h3 id="wizardStep2Title" class="qi-wizard-panel-title" data-i18n="generate.wizard.stepContent">Content</h3>
+                                        <p class="qi-wizard-panel-hint" data-i18n="generate.wizard.hintContent">Describe the topic or attach a source document.</p>
+                                        <div class="mb-3">
+                                            <label for="topicContext" class="form-label" data-i18n="generate.topicContext"></label>
+                                            <textarea id="topicContext" name="topic_context" class="form-control" rows="4" data-i18n-placeholder="generate.topicContextPlaceholder"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="fileUpload" class="form-label" data-i18n="library.uploadDocument">Upload Document (PDF, DOCX)</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" id="fileUpload" accept=".pdf,.docx" style="display: none;">
+                                                <button class="btn btn-outline-secondary" type="button" id="uploadButton" data-i18n="library.chooseFile">Choose File</button>
+                                                <button class="btn btn-outline-primary" type="button" id="browseLibraryButton" data-i18n="library.browseButton">Browse Library</button>
+                                                <span id="uploadSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display: none;"></span>
+                                                <span id="fileNameDisplay" class="form-control-plaintext ms-2" data-i18n="library.noFileChosen">No file chosen</span>
+                                                <button class="btn btn-outline-danger" type="button" id="clearFileButton" style="display: none;" data-i18n="library.clear">Clear</button>
+                                            </div>
+                                            <div class="progress mt-2" style="height: 20px; display: none;" id="uploadProgressBarContainer">
+                                                <div class="progress-bar" role="progressbar" id="uploadProgressBar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <small id="uploadStatusMessage" class="form-text text-muted mt-1" style="display: none;"></small>
+                                            <input type="hidden" id="uploadedFileId" name="uploaded_file_id">
+                                        </div>
+                                    </section>
+
+                                    <section class="qi-wizard-panel" data-wizard-step="3" aria-labelledby="wizardStep3Title">
+                                        <h3 id="wizardStep3Title" class="qi-wizard-panel-title" data-i18n="generate.wizard.stepProperties">Properties</h3>
+                                        <p class="qi-wizard-panel-hint" data-i18n="generate.wizard.hintProperties">Set question type, difficulty, and learning targets.</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="questionType" class="form-label" data-i18n="generate.questionType"></label>
+                                                    <select id="questionType" name="question_type" class="form-select" required>
+                                                        <option value="" data-i18n="generate.selectQuestionType"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="difficultyLevel" class="form-label" data-i18n="generate.difficultyLevel"></label>
+                                                    <select id="difficultyLevel" name="difficulty_level" class="form-select" required>
+                                                        <option value="" data-i18n="generate.selectDifficulty"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="learningOutcome" class="form-label" data-i18n="generate.learningOutcome"></label>
+                                                    <select id="learningOutcome" name="learning_outcome" class="form-select" required>
+                                                        <option value="" data-i18n="generate.selectLearningOutcome"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="cognitiveLevel" class="form-label" data-i18n="generate.cognitiveLevel"></label>
+                                                    <select id="cognitiveLevel" name="cognitive_level" class="form-select" required>
+                                                        <option value="" data-i18n="generate.selectCognitiveLevel"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dynamicQuestionProperties" class="row"></div>
+                                    </section>
+
+                                    <section class="qi-wizard-panel" data-wizard-step="4" aria-labelledby="wizardStep4Title">
+                                        <h3 id="wizardStep4Title" class="qi-wizard-panel-title" data-i18n="generate.wizard.stepGenerate">Generate</h3>
+                                        <p class="qi-wizard-panel-hint" data-i18n="generate.wizard.hintGenerate">Choose count, model, and run generation.</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="numQuestions" class="form-label" data-i18n="generate.numQuestions"></label>
+                                                    <input type="number" id="numQuestions" name="num_questions" class="form-control" min="1" value="1">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="model" class="form-label" data-i18n="generate.aiModel"></label>
+                                                    <select id="model" name="model_api_name" class="form-select">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="hideAnswersCheckbox">
+                                            <label class="form-check-label" for="hideAnswersCheckbox" data-i18n="generate.hideAnswers">Hide answers for exam</label>
+                                        </div>
+                                        <div class="mb-3" id="similarityThresholdGroup" style="display: none;">
+                                            <label for="similarityThreshold" class="form-label" data-i18n="generate.similarityThreshold"></label>
+                                            <input type="number" id="similarityThreshold" name="similarity_threshold" class="form-control" min="0" max="100" value="80">
+                                        </div>
+                                    </section>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="audienceType" class="form-label" data-i18n="generate.audienceType"></label>
-                                        <select id="audienceType" name="audience_type" class="form-select">
-                                            <option value="" data-i18n="generate.selectAudienceType"></option>
-                                            <option value="school" data-i18n="generate.audience.school"></option>
-                                            <option value="university" data-i18n="generate.audience.university"></option>
-                                            <option value="company" data-i18n="generate.audience.company"></option>
-                                        </select>
-                                    </div>
+
+                                <div class="qi-wizard-nav">
+                                    <button type="button" class="btn btn-secondary" id="wizardBackBtn" data-i18n="generate.wizard.back">Back</button>
+                                    <span class="qi-wizard-spacer"></span>
+                                    <span class="qi-wizard-status" id="wizardStepStatus" aria-live="polite"></span>
+                                    <button type="button" class="btn btn-primary" id="wizardNextBtn" data-i18n="generate.wizard.next">Next</button>
+                                    <button type="submit" id="generateButton" class="btn btn-primary qi-wizard-submit-hidden" data-i18n="generate.submitButton"></button>
                                 </div>
                             </div>
-
-                            <div id="dynamicFields" class="row"></div>
-
-                            <div class="mb-3">
-                                <label for="topicContext" class="form-label" data-i18n="generate.topicContext"></label>
-                                <textarea id="topicContext" name="topic_context" class="form-control" rows="5" data-i18n-placeholder="generate.topicContextPlaceholder"></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="fileUpload" class="form-label" data-i18n="library.uploadDocument">Upload Document (PDF, DOCX)</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" id="fileUpload" accept=".pdf,.docx" style="display: none;">
-                                    <button class="btn btn-outline-secondary" type="button" id="uploadButton" data-i18n="library.chooseFile">Choose File</button>
-                                    <button class="btn btn-outline-primary" type="button" id="browseLibraryButton" data-i18n="library.browseButton">Browse Library</button>
-                                    <span id="uploadSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display: none;"></span>
-                                    <span id="fileNameDisplay" class="form-control-plaintext ms-2" data-i18n="library.noFileChosen">No file chosen</span>
-                                    <button class="btn btn-outline-danger" type="button" id="clearFileButton" style="display: none;" data-i18n="library.clear">Clear</button>
-                                </div>
-                                <div class="progress mt-2" style="height: 20px; display: none;" id="uploadProgressBarContainer">
-                                    <div class="progress-bar" role="progressbar" id="uploadProgressBar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small id="uploadStatusMessage" class="form-text text-muted mt-1" style="display: none;"></small>
-                                <input type="hidden" id="uploadedFileId" name="uploaded_file_id">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="questionType" class="form-label" data-i18n="generate.questionType"></label>
-                                        <select id="questionType" name="question_type" class="form-select" required>
-                                            <option value="" data-i18n="generate.selectQuestionType"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="difficultyLevel" class="form-label" data-i18n="generate.difficultyLevel"></label>
-                                        <select id="difficultyLevel" name="difficulty_level" class="form-select" required>
-                                            <option value="" data-i18n="generate.selectDifficulty"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="learningOutcome" class="form-label" data-i18n="generate.learningOutcome"></label>
-                                        <select id="learningOutcome" name="learning_outcome" class="form-select" required>
-                                            <option value="" data-i18n="generate.selectLearningOutcome"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="cognitiveLevel" class="form-label" data-i18n="generate.cognitiveLevel"></label>
-                                        <select id="cognitiveLevel" name="cognitive_level" class="form-select" required>
-                                            <option value="" data-i18n="generate.selectCognitiveLevel"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="dynamicQuestionProperties" class="row"></div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="numQuestions" class="form-label" data-i18n="generate.numQuestions"></label>
-                                        <input type="number" id="numQuestions" name="num_questions" class="form-control" min="1" value="1">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="model" class="form-label" data-i18n="generate.aiModel"></label>
-                                        <select id="model" name="model_api_name" class="form-select">
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="hideAnswersCheckbox">
-                                <label class="form-check-label" for="hideAnswersCheckbox">Hide answers for exam</label>
-                            </div>
-                            
-                            <div class="mb-3" id="similarityThresholdGroup" style="display: none;">
-                                <label for="similarityThreshold" class="form-label" data-i18n="generate.similarityThreshold"></label>
-                                <input type="number" id="similarityThreshold" name="similarity_threshold" class="form-control" min="0" max="100" value="80">
-                            </div>
-
-                            <button type="submit" id="generateButton" class="btn btn-primary" data-i18n="generate.submitButton"></button>
                         </form>
                     </div>
                 </div>
@@ -1089,6 +1272,118 @@
             const deselectAllBtn = document.getElementById('deselectAllQuestionsBtn');
             const exportCsvButton = document.getElementById('exportCsvButton');
             const questionForm = document.getElementById('questionForm');
+
+            // C4 — progressive disclosure wizard for Define Request (preserves #questionForm submit)
+            const generateWizard = document.getElementById('generateWizard');
+            const wizardBackBtn = document.getElementById('wizardBackBtn');
+            const wizardNextBtn = document.getElementById('wizardNextBtn');
+            const wizardStepStatus = document.getElementById('wizardStepStatus');
+            const WIZARD_TOTAL_STEPS = 4;
+            let wizardCurrentStep = 1;
+
+            function wizardT(key, fallback) {
+                try {
+                    if (window.i18n && typeof window.i18n.t === 'function') {
+                        const v = window.i18n.t(key);
+                        if (v && v !== key) return v;
+                    }
+                } catch (e) { /* noop */ }
+                return fallback;
+            }
+
+            function goToWizardStep(step) {
+                if (!generateWizard) return;
+                const next = Math.max(1, Math.min(WIZARD_TOTAL_STEPS, Number(step) || 1));
+                wizardCurrentStep = next;
+                generateWizard.setAttribute('data-current-step', String(next));
+
+                generateWizard.querySelectorAll('[data-wizard-step]').forEach(panel => {
+                    const n = Number(panel.getAttribute('data-wizard-step'));
+                    const active = n === next;
+                    panel.classList.toggle('is-active', active);
+                    panel.setAttribute('aria-hidden', active ? 'false' : 'true');
+                });
+
+                generateWizard.querySelectorAll('[data-step-indicator]').forEach(ind => {
+                    const n = Number(ind.getAttribute('data-step-indicator'));
+                    ind.classList.toggle('is-active', n === next);
+                    ind.classList.toggle('is-complete', n < next);
+                });
+
+                if (wizardBackBtn) wizardBackBtn.style.visibility = next === 1 ? 'hidden' : 'visible';
+                if (wizardNextBtn) wizardNextBtn.style.display = next === WIZARD_TOTAL_STEPS ? 'none' : '';
+                const genBtn = document.getElementById('generateButton');
+                if (genBtn) genBtn.classList.toggle('qi-wizard-submit-hidden', next !== WIZARD_TOTAL_STEPS);
+
+                if (wizardStepStatus) {
+                    const tpl = wizardT('generate.wizard.stepOf', 'Step {current} of {total}');
+                    wizardStepStatus.textContent = tpl
+                        .replace('{current}', String(next))
+                        .replace('{total}', String(WIZARD_TOTAL_STEPS));
+                }
+
+                const activePanel = generateWizard.querySelector(`[data-wizard-step="${next}"]`);
+                const focusable = activePanel && activePanel.querySelector('input:not([type="hidden"]), select, textarea, button');
+                if (focusable && typeof focusable.focus === 'function') {
+                    try { focusable.focus({ preventScroll: true }); } catch (e) { focusable.focus(); }
+                }
+            }
+
+            function validateWizardStep(step) {
+                const panel = generateWizard && generateWizard.querySelector(`[data-wizard-step="${step}"]`);
+                if (!panel) return true;
+                let ok = true;
+                const markInvalid = (el) => {
+                    if (!el) return;
+                    el.classList.add('is-invalid');
+                    ok = false;
+                };
+                panel.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+                if (step === 1) {
+                    ['countryInput', 'audienceType'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && !el.value) markInvalid(el);
+                    });
+                } else if (step === 2) {
+                    const topic = document.getElementById('topicContext');
+                    const fileId = document.getElementById('uploadedFileId');
+                    if (topic && !(topic.value || (fileId && fileId.value))) markInvalid(topic);
+                } else if (step === 3) {
+                    ['questionType', 'difficultyLevel', 'learningOutcome', 'cognitiveLevel'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && !el.value) markInvalid(el);
+                    });
+                }
+                if (!ok) {
+                    showToast('error', wizardT('generate.validation.fillAll', 'Please fill all required fields.'));
+                }
+                return ok;
+            }
+
+            function revealWizardStepForInvalid() {
+                const invalid = questionForm && questionForm.querySelector('.is-invalid');
+                if (!invalid || !generateWizard) return;
+                const panel = invalid.closest('[data-wizard-step]');
+                if (panel) goToWizardStep(Number(panel.getAttribute('data-wizard-step')));
+            }
+
+            if (generateWizard) {
+                goToWizardStep(1);
+                if (wizardBackBtn) {
+                    wizardBackBtn.addEventListener('click', () => goToWizardStep(wizardCurrentStep - 1));
+                }
+                if (wizardNextBtn) {
+                    wizardNextBtn.addEventListener('click', () => {
+                        if (!validateWizardStep(wizardCurrentStep)) return;
+                        goToWizardStep(wizardCurrentStep + 1);
+                    });
+                }
+                document.addEventListener('i18n:applied', () => goToWizardStep(wizardCurrentStep));
+            }
+
+            window.goToWizardStep = goToWizardStep;
+
             const uploadedFileIdInput = document.getElementById('uploadedFileId');
             const fileNameDisplay = document.getElementById('fileNameDisplay');
             const clearFileButton = document.getElementById('clearFileButton');
@@ -2317,6 +2612,7 @@
                         });
                         showToast('error', (window.i18n && window.i18n.t && window.i18n.t('generate.validation.fillAll')) || 'Please fill all required fields.');
                     }
+                    if (typeof revealWizardStepForInvalid === 'function') revealWizardStepForInvalid();
                     return;
                 }
 
