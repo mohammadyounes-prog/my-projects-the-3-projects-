@@ -72,6 +72,10 @@
       "questions_count": "questions",
       "questions_unit": "questions"
     },
+    "brand": {
+      "suite": "TDM Systems",
+      "product": "Dashboard"
+    },
     "home": {
        "brand": "TDM Systems",
        "title": "Welcome to TAMS Platform",
@@ -161,12 +165,16 @@
       "choose": "Choose"
     },
     "nav": {
+      "home": "Home",
       "dashboard": "Educational",
       "executive": "Executive",
       "corporate": "Corporate",
       "indexes_weight": "Indexes Weight",
       "settings": "Settings",
-      "logout": "Logout"
+      "logout": "Logout",
+      "logout_confirm": "Select an action",
+      "back_to_hub": "Back to Hub",
+      "contact": "Contact Us"
     },
     "corporate": {
       "title": "Corporate HR Dashboard",
@@ -239,7 +247,16 @@
     },
     "footer": {
       "copyright": "© 2026 Q-Bank Platform. All rights reserved.",
-      "module": "Corporate HR Intelligence Module"
+      "module": "Corporate HR Intelligence Module",
+      "module_gateway": "Dashboard Gateway",
+      "module_educational": "Educational Analytics Module",
+      "module_executive": "Executive Strategic Module",
+      "module_corporate": "Corporate HR Intelligence Module",
+      "module_weights": "Indexes Weight Module",
+      "module_settings": "Settings"
+    },
+    "common": {
+      "cancel": "Cancel"
     }
   }
 }

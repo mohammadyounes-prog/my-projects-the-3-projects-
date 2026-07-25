@@ -3,72 +3,96 @@
   top: 0;
   z-index: 1000;
   background-color: var(--suite-header-bg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--suite-shadow-1, 0 2px 8px rgba(0, 0, 0, 0.1));
+  min-height: var(--suite-header-height, 3.5rem);
 }
 
 .app-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   max-width: 1400px;
-  margin: 0 auto;
+  margin-inline: auto;
   width: 100%;
 }
 
 .app-brand {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  line-height: var(--suite-leading-tight, 1.2);
   white-space: nowrap;
   font-family: var(--font-display);
   letter-spacing: var(--suite-tracking-display);
+  text-decoration: none;
+  color: var(--suite-on-primary, #fff);
+  flex-shrink: 0;
 }
 
-.brand-line-1 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
+.brand-suite {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--suite-on-primary, #fff);
 }
 
-.brand-line-2 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
+.brand-product {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--suite-on-primary, #fff);
+  opacity: 0.85;
 }
 
 .nav-links {
   display: flex;
-  gap: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
   align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-links--gateway {
+  gap: var(--space-lg);
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 700;
+  color: var(--suite-on-primary, #fff);
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.nav-links a:hover,
+.nav-links a.nav-link-active {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 .nav-actions {
   display: flex;
   gap: var(--space-md);
   align-items: center;
-  color: #fff;
+  color: var(--suite-on-primary, #fff);
+  flex-shrink: 0;
 }
 
 .user-name {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .logout-btn {
   padding: 8px 16px;
   cursor: pointer;
   background-color: transparent;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 6px;
+  color: var(--suite-on-primary, #fff);
+  border: 1px solid var(--suite-on-primary, #fff);
+  border-radius: var(--suite-radius-md, 6px);
   font-weight: 600;
+  font-family: var(--font-body);
 }
 
 .app-main {
@@ -78,9 +102,10 @@
 
 .app-footer {
   padding: 20px 30px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #eee;
-  color: #666;
+  background-color: var(--suite-surface, #f8f9fa);
+  border-top: 1px solid var(--suite-border, #eee);
+  color: var(--suite-text-muted, #666);
   text-align: center;
   font-size: 0.9rem;
+  font-family: var(--font-body);
 }

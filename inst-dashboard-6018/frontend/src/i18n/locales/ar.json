@@ -72,6 +72,10 @@
       "questions_count": "أسئلة",
       "questions_unit": "أسئلة"
     },
+    "brand": {
+      "suite": "أنظمة TDM",
+      "product": "لوحة التحكم"
+    },
     "home": {
       "brand": "أنظمة TDM",
       "title": "مرحباً بك في منصة TAMS",
@@ -162,12 +166,16 @@
       "choose": "اختيار"
     },
     "nav": {
+      "home": "الرئيسية",
       "dashboard": "تعليمي",
       "executive": "تنفيذية",
       "corporate": "شركات",
       "indexes_weight": "أوزان المؤشرات",
       "settings": "الإعدادات",
-      "logout": "تسجيل خروج"
+      "logout": "تسجيل خروج",
+      "logout_confirm": "اختر إجراءً",
+      "back_to_hub": "العودة إلى المركز",
+      "contact": "اتصل بنا"
     },
     "corporate": {
       "title": "لوحة تحكم الموارد البشرية",
@@ -240,7 +248,16 @@
     },
     "footer": {
       "copyright": "© 2026 منصة Q-Bank. جميع الحقوق محفوظة.",
-      "module": "وحدة ذكاء الموارد البشرية للشركات"
+      "module": "وحدة ذكاء الموارد البشرية للشركات",
+      "module_gateway": "بوابة لوحة التحكم",
+      "module_educational": "وحدة التحليلات التعليمية",
+      "module_executive": "الوحدة الاستراتيجية التنفيذية",
+      "module_corporate": "وحدة ذكاء الموارد البشرية للشركات",
+      "module_weights": "وحدة أوزان المؤشرات",
+      "module_settings": "الإعدادات"
+    },
+    "common": {
+      "cancel": "إلغاء"
     }
   }
 }
