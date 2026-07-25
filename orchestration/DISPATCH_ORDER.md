@@ -31,6 +31,8 @@ flowchart TD
 ## PR rules for implementers
 
 1. One ticket ID per PR title prefix: `[A3] Restyle website hub…`
-2. PR description links contract section + audit row.
-3. Do not expand scope into SSO, IAM, or other apps.
-4. Prefer visual-only local verify (`npm run dev` / `serve` / `http.server`) unless ticket says otherwise.
+2. PR body **must** include `Fixes #<issue>` from [`ISSUE_MAP.md`](ISSUE_MAP.md) (see [`ISSUE_SYNC.md`](ISSUE_SYNC.md)).
+3. PR description links contract section + audit row.
+4. Do not expand scope into SSO, IAM, or other apps.
+5. Prefer visual-only local verify (`npm run dev` / `serve` / `http.server`) unless ticket says otherwise.
+6. Phase B/C issues stay labeled `deferred` until the prior QA gate PASSes — Orchestrator removes the label before dispatch.
