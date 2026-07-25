@@ -104,6 +104,21 @@
   padding-inline: 30px;
 }
 
+
+.settings-page h1 {
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  margin: 0 0 var(--space-md);
+}
+
+.settings-stub {
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  max-width: 36rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .app-footer {
   padding-block: 20px;
   padding-inline: 30px;
