@@ -1,16 +1,31 @@
+/* Suite tokens: local mirror — see src/styles/suite-tokens.css header */
+@import "../styles/suite-tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary-blue: #2c5282;
-  --light-blue: #ebf8ff;
-  --text-color: #333333;
-  --white: #ffffff;
+  /* next/font CSS vars (set on <html>) override string stacks from tokens */
+  --suite-font-display: var(--font-space-grotesk), var(--font-ibm-plex-arabic),
+    sans-serif;
+  --suite-font-body: var(--font-plus-jakarta), var(--font-cairo), sans-serif;
+
+  /* Legacy aliases → suite (do not fork hex) */
+  --primary-blue: var(--suite-primary);
+  --light-blue: var(--suite-primary-soft);
+  --text-color: var(--suite-text);
+  --white: var(--suite-on-primary);
 }
 
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
   }
 }

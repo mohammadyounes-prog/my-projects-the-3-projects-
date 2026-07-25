@@ -3,7 +3,9 @@ import I18nProviderClient from "../../components/I18nProviderClient";
 import { loadTranslation } from "../../lib/i18n-server";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-// import '../globals.css'; // Removed from here
+
+// Suite fonts (Space Grotesk, Plus Jakarta Sans, IBM Plex Sans Arabic, Cairo)
+// are loaded via next/font in src/app/layout.tsx and wired through --suite-font-*.
 
 export const metadata: Metadata = {
   title: "LMS Platform",
