@@ -320,7 +320,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 ### C2 — Restyle login to match home
 | Field | Value |
 |-------|--------|
-| **Status** | todo |
+| **Status** | in_progress |
 | **GitHub** | [#18](https://github.com/mohammadyounes-prog/my-projects-the-3-projects-/issues/18) |
 | **Agent** | QuestAI |
 | **parallel** | no |
@@ -329,7 +329,7 @@ Update **Status** here when dispatching, and mirror via `gh issue` (comment / cl
 **Work:** Bring `login.html` chrome/fonts/primary in line with `home.html` navbar treatment (suite header pattern).
 
 **Acceptance:**
-- [ ] Login no longer reads as default Bootstrap-only card
+- [x] Login no longer reads as default Bootstrap-only card
 - [ ] QA refresh: `qi-login-desktop.png`, `qi-home-desktop.png`
 
 ---
