@@ -7,25 +7,25 @@
 
 :root {
   /* next/font CSS vars (set on <html>) override string stacks from tokens */
-  --suite-font-display: var(--font-space-grotesk), var(--font-ibm-plex-arabic),
+  --nebula-font-display: var(--font-space-grotesk), var(--font-ibm-plex-arabic),
     sans-serif;
-  --suite-font-body: var(--font-plus-jakarta), var(--font-cairo), sans-serif;
+  --nebula-font-body: var(--font-plus-jakarta), var(--font-cairo), sans-serif;
 
   /* Legacy aliases → suite (do not fork hex) */
-  --primary-blue: var(--suite-primary);
-  --light-blue: var(--suite-primary-soft);
-  --text-color: var(--suite-text);
-  --white: var(--suite-on-primary);
+  --primary-blue: var(--nebula-accent-cyan);
+  --light-blue: var(--nebula-accent-cyan-dim);
+  --text-color: var(--nebula-text);
+  --white: var(--nebula-on-accent);
 }
 
 @layer base {
-  body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  html, body {
+    @apply bg-[#0a0e1a] text-[#f1f5f9] font-sans antialiased;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-display;
+    @apply font-display text-white;
   }
 }

@@ -11,7 +11,11 @@ export default function Home() {
   const { t } = useTranslation('common');
 
   return (
-    <div className="flex flex-col w-full max-w-screen-xl mx-auto">
+    // No page-level max-width here: each section below manages its own
+    // `container mx-auto max-w-7xl` for content, while its outer <section>
+    // stays full-bleed (background gradients/glows need to reach the
+    // viewport edge — an outer `max-w-screen-xl` was clipping that).
+    <div className="flex flex-col w-full">
       <HeroSection />
       <main>
         <FeaturesSection />

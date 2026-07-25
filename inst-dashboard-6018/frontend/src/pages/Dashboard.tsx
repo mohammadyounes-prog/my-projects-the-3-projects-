@@ -88,25 +88,35 @@ const DashboardPage = () => {
   const bottomLOs = [...loBreakdown].reverse().slice(0, 5);
 
   return (
-    <div className="dashboard-page">
+    <div className="dashboard-page nebula-motion-page">
       <div className="dashboard-header">
-        <h1>{t('dashboard.title')}</h1>
+        <div className="dashboard-title-group">
+          <h1>{t('dashboard.title', 'Educational Institutional Analytics')}</h1>
+          <p>Real-time academic performance, exam quality metrics, and learning outcome tracking</p>
+        </div>
         <button className="ai-advice-btn" onClick={fetchAiAdvice} disabled={loadingAi}>
-            {loadingAi ? t('common.loading') : t('dashboard.ai_advice_btn', 'TDM-AI-Advice')}
+          <span>✨</span>
+          <span>{loadingAi ? t('common.loading', 'Loading...') : t('dashboard.ai_advice_btn', 'TDM-AI Advice')}</span>
         </button>
       </div>
 
       {aiAdvice && (
         <div className="ai-insight-box">
-            <button className="close-ai-btn" onClick={() => setAiAdvice(null)}>&times;</button>
-            <h3>{t('dashboard.ai_insight_title', 'AI-Powered Insight')}</h3>
-            <pre className="ai-advice-text">{aiAdvice}</pre>
+          <div className="ai-insight-header">
+            <h3 className="ai-insight-title">
+              <span>💡</span> {t('dashboard.ai_insight_title', 'AI-Powered Institutional Insight')}
+            </h3>
+            <button className="close-ai-btn" onClick={() => setAiAdvice(null)} aria-label="Close insight">&times;</button>
+          </div>
+          <pre className="ai-advice-text">{aiAdvice}</pre>
         </div>
       )}
       
       {/* 1. Top Section: 4 Main KPI Indexes (Institutional Pulse) */}
       <div className="dashboard-section">
-        <h2>{t('dashboard.institutional_pulse', 'Institutional Pulse')}</h2>
+        <h2 className="dashboard-section-title">
+          <span>📊</span> {t('dashboard.institutional_pulse', 'Institutional Pulse')}
+        </h2>
         <div className="kpi-grid">
           <AvgLOAttainment value={kpiValue('avg_lo_attainment')} loading={loading} trend={kpiTrend('avg_lo_attainment')} />
           <InstitutionalPassRate value={kpiValue('pass_rate')} loading={loading} trend={kpiTrend('pass_rate')} />
@@ -124,41 +134,60 @@ const DashboardPage = () => {
       
       {/* 2. Analytical Charts Section (Diagnostic Details) */}
       <div className="dashboard-section">
-        <h2>{t('dashboard.analytical_insights', 'Analytical Insights')}</h2>
+        <h2 className="dashboard-section-title">
+          <span>📈</span> {t('dashboard.analytical_insights', 'Analytical Insights')}
+        </h2>
         
         <div className="charts-grid">
-            <div className="chart-wrapper"><KPIRadarChart data={kpis} /></div>
-            <div className="chart-wrapper"><LineChart data={trendData} loading={loading} /></div>
+          <div className="chart-wrapper">
+            <h3>{t('dashboard.kpi_radar', 'Institutional Competency Radar')}</h3>
+            <KPIRadarChart data={kpis} />
+          </div>
+          <div className="chart-wrapper chart-wrapper--bare">
+            <LineChart data={trendData} loading={loading} />
+          </div>
         </div>
         
         <div className="charts-grid">
-            <div className="chart-wrapper">
-                <h3>{t('dashboard.lo_trend', 'LO Attainment Trend')}</h3>
-                <PassRateTrendChart data={trendData} />
-            </div>
-            <div className="chart-wrapper">
-                <h3>{t('dashboard.exam_quality', 'Exam Quality Index')}</h3>
-                <ExamQualityDistributionChart data={examQualityData} />
-            </div>
-            <div className="chart-wrapper">
-                <DistractorChart data={distractorData} />
-            </div>
+          <div className="chart-wrapper">
+            <h3>{t('dashboard.lo_trend', 'LO Attainment Trend')}</h3>
+            <PassRateTrendChart data={trendData} />
+          </div>
+          <div className="chart-wrapper">
+            <h3>{t('dashboard.exam_quality', 'Exam Quality Index Distribution')}</h3>
+            <ExamQualityDistributionChart data={examQualityData} />
+          </div>
+          <div className="chart-wrapper">
+            <h3>{t('dashboard.distractor_analysis', 'Distractor Discrimination')}</h3>
+            <DistractorChart data={distractorData} />
+          </div>
+        </div>
+
+        <div className="charts-grid">
+          <div className="chart-wrapper chart-wrapper--bare">
+            <Heatmap data={heatmapData} loading={loading} />
+          </div>
+          <div className="chart-wrapper chart-wrapper--bare">
+            <BankCoverageChart />
+          </div>
         </div>
       </div>
       
       {/* 3. Areas for Action */}
       <div className="dashboard-section">
-        <h2>{t('dashboard_ext.areas_for_action', 'Areas for Action')}</h2>
+        <h2 className="dashboard-section-title">
+          <span>🎯</span> {t('dashboard_ext.areas_for_action', 'Areas for Action & Intervention')}
+        </h2>
         <div className="action-grid">
           
           {/* At-Risk Students Card */}
           <div className="action-card at-risk">
-            <h3>{t('dashboard.at_risk_students')}</h3>
-            {loading ? <p>{t('common.loading')}</p> : (
+            <h3>⚠️ {t('dashboard.at_risk_students', 'Students Requiring Support')}</h3>
+            {loading ? <p>{t('common.loading', 'Loading...')}</p> : (
               <div className="action-list">
                 {atRisk.slice(0, 5).map(s => (
                   <div key={s.id} className="action-item">
-                    <span>{s.name}</span>
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{s.name}</span>
                     <span className="action-value">{s.avg_score}%</span>
                     <span className="action-meta">{t('dashboard.critical_los', 'Critical')}: {s.critical_los.length} LOs</span>
                   </div>
@@ -169,17 +198,32 @@ const DashboardPage = () => {
 
           {/* LO Priority Card */}
           <div className="action-card priority-lo">
-            <h3>{t('dashboard.priority_lo', 'Priority LO Improvement')}</h3>
+            <h3>🚀 {t('dashboard.priority_lo', 'Priority LO Improvement Targets')}</h3>
             {loBreakdown.length > 0 ? (
               <div className="action-list">
                 {bottomLOs.map(lo => (
                   <div key={lo.name} className="action-item">
-                    <span>{lo.name}</span>
-                    <span className="action-value">{lo.attainment}%</span>
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{lo.name}</span>
+                    <span className="action-value" style={{ color: 'var(--nebula-success)' }}>{lo.attainment}%</span>
                   </div>
                 ))}
               </div>
             ) : <p>{t('dashboard.all_lo_performing', 'All LOs performing well.')}</p>}
+          </div>
+
+          {/* Top Performing LOs Card */}
+          <div className="action-card top-lo">
+            <h3>🏆 {t('dashboard.top_performing_lo', 'Top Performing LOs')}</h3>
+            {topLOs.length > 0 ? (
+              <div className="action-list">
+                {topLOs.map(lo => (
+                  <div key={lo.name} className="action-item">
+                    <span style={{ fontWeight: '600', color: 'var(--nebula-text)' }}>{lo.name}</span>
+                    <span className="action-value" style={{ color: 'var(--nebula-success)' }}>{lo.attainment}%</span>
+                  </div>
+                ))}
+              </div>
+            ) : <p>{t('common.loading', 'Loading...')}</p>}
           </div>
         </div>
       </div>

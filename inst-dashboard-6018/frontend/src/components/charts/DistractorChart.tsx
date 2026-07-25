@@ -29,7 +29,7 @@ const DistractorChart: React.FC<Props> = ({ data }) => {
   });
 
   return (
-    <div style={{ width: '100%', height: '300px', padding: '10px', background: '#fff', borderRadius: '8px', border: '1px solid #f0f0f0' }}>
+    <div style={{ width: '100%', height: '300px', padding: '10px', background: 'transparent', borderRadius: '8px', border: '1px solid #f0f0f0' }}>
       <h3 style={{ textAlign: 'center' }}>
         {t('translation:dashboard.distractor_analysis')}
         <HelpTooltip 
@@ -49,7 +49,7 @@ const DistractorChart: React.FC<Props> = ({ data }) => {
               if (active && payload && payload.length) {
                 const data = payload[0].payload;
                 return (
-                  <div style={{ background: '#fff', padding: '10px', border: '1px solid #ccc', fontSize: '12px' }}>
+                  <div style={{ background: 'transparent', padding: '10px', border: '1px solid var(--nebula-border)', fontSize: '12px' }}>
                     <p>{`Option ${data.label}: ${data.text}`}</p>
                     <p>{`Count: ${data.count}`}</p>
                   </div>

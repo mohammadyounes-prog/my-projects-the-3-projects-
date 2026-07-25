@@ -55,13 +55,15 @@ const LoginPage = () => {
   return (
     <div
       dir={i18n.dir()}
-      className={isRtl ? 'rtl-layout' : 'ltr-layout'}
+      className={isRtl ? 'rtl-layout nebula-motion-page' : 'ltr-layout nebula-motion-page'}
       style={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        fontFamily: 'var(--font-body)',
-        backgroundColor: 'var(--color-bg-app, var(--suite-surface, #f8fafc))',
+        fontFamily: 'var(--nebula-font-body)',
+        backgroundColor: 'var(--nebula-bg-deep)',
+        background: 'var(--nebula-gradient-hero)',
+        color: 'var(--nebula-text)'
       }}
     >
       <header
@@ -69,39 +71,38 @@ const LoginPage = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           alignItems: 'center',
-          paddingBlock: 'var(--space-md, 1rem)',
-          paddingInline: 'var(--space-lg, 1.5rem)',
+          paddingBlock: 'var(--nebula-space-3)',
+          paddingInline: 'var(--nebula-space-5)',
         }}
       >
         <LanguageSwitcher />
       </header>
 
       <div
+        className="nebula-glass-card nebula-motion-card"
         style={{
           maxWidth: '400px',
           width: '100%',
           marginBlock: '1.5rem',
           marginInline: 'auto',
-          padding: 'var(--space-lg, 1.5rem)',
-          border: '1px solid var(--suite-border, #ddd)',
-          borderRadius: 'var(--suite-radius-md, 8px)',
-          backgroundColor: 'var(--suite-surface-raised, #fff)',
-          boxShadow: 'var(--suite-shadow-1)',
+          padding: 'var(--nebula-space-5)',
           textAlign: 'start',
         }}
       >
         <h1
           style={{
-            fontFamily: 'var(--font-display)',
-            color: 'var(--suite-primary, #2c5282)',
+            fontFamily: 'var(--nebula-font-display)',
+            color: 'var(--nebula-accent-cyan)',
             marginTop: 0,
+            textShadow: 'var(--nebula-glow-cyan-sm)',
+            textAlign: 'center'
           }}
         >
           {t('login.title', 'Login')}
         </h1>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="login-username">{t('login.username', 'Username/Email')}</label>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--nebula-space-4)' }}>
+          <div>
+            <label htmlFor="login-username" style={{ color: 'var(--nebula-text-muted)', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>{t('login.username', 'Username/Email')}</label>
             <input
               id="login-username"
               type="text"
@@ -110,17 +111,28 @@ const LoginPage = () => {
               style={{
                 width: '100%',
                 boxSizing: 'border-box',
-                padding: '8px',
-                marginTop: '5px',
-                borderRadius: 'var(--suite-radius-sm, 4px)',
-                border: '1px solid var(--suite-border, #ccc)',
-                fontFamily: 'var(--font-body)',
+                padding: '12px',
+                borderRadius: 'var(--nebula-radius-sm)',
+                border: '1px solid var(--nebula-border)',
+                backgroundColor: 'var(--nebula-bg-input)',
+                color: 'var(--nebula-text)',
+                fontFamily: 'var(--nebula-font-body)',
+                outline: 'none',
+                transition: 'border-color var(--nebula-duration-fast), box-shadow var(--nebula-duration-fast)'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--nebula-accent-cyan)';
+                e.target.style.boxShadow = 'var(--nebula-glow-cyan-sm)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--nebula-border)';
+                e.target.style.boxShadow = 'none';
               }}
               required
             />
           </div>
-          <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="login-password">{t('login.password', 'Password')}</label>
+          <div>
+            <label htmlFor="login-password" style={{ color: 'var(--nebula-text-muted)', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>{t('login.password', 'Password')}</label>
             <input
               id="login-password"
               type="password"
@@ -129,11 +141,22 @@ const LoginPage = () => {
               style={{
                 width: '100%',
                 boxSizing: 'border-box',
-                padding: '8px',
-                marginTop: '5px',
-                borderRadius: 'var(--suite-radius-sm, 4px)',
-                border: '1px solid var(--suite-border, #ccc)',
-                fontFamily: 'var(--font-body)',
+                padding: '12px',
+                borderRadius: 'var(--nebula-radius-sm)',
+                border: '1px solid var(--nebula-border)',
+                backgroundColor: 'var(--nebula-bg-input)',
+                color: 'var(--nebula-text)',
+                fontFamily: 'var(--nebula-font-body)',
+                outline: 'none',
+                transition: 'border-color var(--nebula-duration-fast), box-shadow var(--nebula-duration-fast)'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--nebula-accent-cyan)';
+                e.target.style.boxShadow = 'var(--nebula-glow-cyan-sm)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--nebula-border)';
+                e.target.style.boxShadow = 'none';
               }}
               required
             />
@@ -143,21 +166,30 @@ const LoginPage = () => {
             disabled={loading}
             style={{
               width: '100%',
-              padding: '10px',
-              backgroundColor: 'var(--suite-primary, #2c5282)',
-              color: 'var(--suite-on-primary, #fff)',
+              padding: '12px',
+              background: 'var(--nebula-gradient-btn)',
+              color: 'var(--nebula-on-accent)',
               border: 'none',
-              borderRadius: 'var(--suite-radius-sm, 4px)',
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
+              borderRadius: 'var(--nebula-radius-sm)',
+              fontFamily: 'var(--nebula-font-body)',
+              fontWeight: 700,
               cursor: loading ? 'wait' : 'pointer',
+              marginTop: '8px',
+              transition: 'transform var(--nebula-duration-fast), box-shadow var(--nebula-duration-fast)',
+              boxShadow: 'var(--nebula-glow-cyan-sm)'
+            }}
+            onMouseOver={(e) => {
+              if(!loading) e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              if(!loading) e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             {loading ? t('common.loading', 'Loading...') : t('login.login_button', 'Login')}
           </button>
         </form>
         {error && (
-          <p style={{ color: 'var(--suite-danger, #dc2626)', marginTop: '15px' }}>{error}</p>
+          <p style={{ color: 'var(--nebula-danger)', marginTop: '15px', textAlign: 'center' }}>{error}</p>
         )}
       </div>
     </div>

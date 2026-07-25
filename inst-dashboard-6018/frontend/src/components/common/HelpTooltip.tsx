@@ -41,7 +41,7 @@ const HelpTooltip: React.FC<Props> = ({ title, description, benefit }) => {
         ref={buttonRef}
         onClick={(e) => { e.stopPropagation(); setShow(!show); }}
         style={{
-          background: '#1890ff',
+          background: 'var(--nebula-accent-cyan)',
           color: 'white',
           borderRadius: '50%',
           width: '20px',
@@ -61,8 +61,8 @@ const HelpTooltip: React.FC<Props> = ({ title, description, benefit }) => {
           top: `${coords.top}px`,
           left: `${coords.left}px`,
           width: '250px',
-          backgroundColor: '#fff',
-          border: '1px solid #ccc',
+          backgroundColor: 'var(--nebula-bg-glass)',
+          border: '1px solid var(--nebula-border)',
           borderRadius: '8px',
           padding: '15px',
           boxShadow: '0 8px 16px rgba(0,0,0,0.2)',

@@ -11,7 +11,7 @@ const PassRateTrendChart: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ width: '100%', height: '400px', backgroundColor: '#fff', padding: '20px', borderRadius: '12px', border: '1px solid #e0e0e0' }}>
+    <div style={{ width: '100%', height: '400px', backgroundColor: 'var(--nebula-bg-glass)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(148,163,184,0.1)' }}>
       <h3 style={{ textAlign: 'center', marginBottom: '10px' }}>
         {t('dashboard.pass_rate_trend', 'Pass Rate Trend')}
         <HelpTooltip 
@@ -27,7 +27,7 @@ const PassRateTrendChart: React.FC<Props> = ({ data }) => {
             <XAxis dataKey="date" />
             <YAxis domain={[0, 100]} />
             <Tooltip />
-            <Line type="monotone" dataKey="attainment" stroke="#faad14" strokeWidth={3} />
+            <Line type="monotone" dataKey="attainment" stroke="var(--nebula-warning)" strokeWidth={3} />
           </LineChart>
         </ResponsiveContainer>
       </div>

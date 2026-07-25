@@ -23,42 +23,6 @@ const AdminView = () => {
 
     if (!stats || !bankHealth) return <div>{t('common.loading')}</div>;
 
-    // ... inside AdminView return block:
-    return (
-        <div>
-            {/* ... Existing Widgets ... */}
-            
-            <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px', marginTop: '20px' }}>
-                <h2 style={{ display: 'flex', alignItems: 'center' }}>
-                    {t('dashboard.bank_health_title', 'Question Bank Health')}
-                    <InfoIcon desc={t('dashboard.bank_health_desc', 'Question bank composition.')} benefit={t('dashboard.bank_health_benefit', 'Ensure balanced assessments.')} />
-                </h2>
-                <div style={{ display: 'flex', gap: '40px' }}>
-                    <div style={{ width: '300px' }}>
-                        <h4>{t('dashboard.difficulty_distribution', 'Difficulty Distribution')}</h4>
-                        <PieChart width={300} height={200}>
-                            <Pie data={bankHealth.difficulty} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={60} fill="#8884d8">
-                                {bankHealth.difficulty.map((entry: any, index: number) => <Cell key={index} fill={['#52c41a', '#faad14', '#f5222d'][index]} />)}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </div>
-                    <div style={{ width: '300px' }}>
-                        <h4>{t('dashboard.discrimination_index', 'Discrimination Index')}</h4>
-                        <PieChart width={300} height={200}>
-                            <Pie data={bankHealth.discrimination} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={60} fill="#82ca9d">
-                                {bankHealth.discrimination.map((entry: any, index: number) => <Cell key={index} fill={['#1890ff', '#faad14', '#8c8c8c'][index]} />)}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </PieChart>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
     // Mock data for heatmap
     const heatmapData = [
         { competency: 'Python', role: 'Engineer', score: 85 },
@@ -71,15 +35,15 @@ const AdminView = () => {
 
     return (
         <div>
-            <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
-                <div style={{ flex: '1', padding: '20px', borderRadius: '12px', border: '1px solid #722ed1', background: '#f9f0ff' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ flex: '1 1 220px', padding: '20px', borderRadius: '12px', border: '1px solid var(--nebula-accent-purple)', background: 'var(--nebula-accent-purple-dim)' }}>
                     <h3 style={{ display: 'flex', alignItems: 'center' }}>
                         {t('corporate.onboarding_speed')}
                         <InfoIcon desc={t('corporate.onboarding_desc')} benefit={t('corporate.onboarding_benefit')} />
                     </h3>
                     <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.onboarding_days} {t('corporate.days')}</div>
                 </div>
-                <div style={{ flex: '1', padding: '20px', borderRadius: '12px', border: '1px solid #fa8c16', background: '#fff7e6' }}>
+                <div style={{ flex: '1 1 220px', padding: '20px', borderRadius: '12px', border: '1px solid #fa8c16', background: 'var(--nebula-bg-glass)' }}>
                     <h3 style={{ display: 'flex', alignItems: 'center' }}>
                         {t('corporate.skill_gap')}
                         <InfoIcon desc={t('corporate.skill_gap_desc')} benefit={t('corporate.skill_gap_benefit')} />
@@ -87,29 +51,64 @@ const AdminView = () => {
                     <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.skill_gap}%</div>
                 </div>
             </div>
-            
-            <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
-                <div style={{ flex: '1' }}>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginBottom: '30px' }}>
+                <div style={{ flex: '1 1 320px' }}>
                     <KPIRadarChart data={stats} />
                 </div>
-                <div style={{ flex: '1' }}>
+                <div style={{ flex: '1 1 320px' }}>
                     <CompetencyHeatmap data={heatmapData} />
                 </div>
             </div>
 
-            <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px' }}>
+            <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px', marginBottom: '30px' }}>
                 <h2 style={{ display: 'flex', alignItems: 'center' }}>
                     {t('corporate.performance_by_dept')}
                     <InfoIcon desc={t('corporate.dept_perf_desc')} benefit={t('corporate.dept_perf_benefit')} />
                 </h2>
                 <div style={{ height: '300px', width: '100%' }}>
-                    <BarChart width={500} height={300} data={stats.dept_performance}>
-                        <XAxis dataKey="dept" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="score" fill="#722ed1" />
-                    </BarChart>
+                    <ResponsiveContainer width="100%" height={300} minWidth={200}>
+                        <BarChart data={stats.dept_performance}>
+                            <XAxis dataKey="dept" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="score" fill="var(--nebula-accent-purple)" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+
+            <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px' }}>
+                <h2 style={{ display: 'flex', alignItems: 'center' }}>
+                    {t('dashboard.bank_health_title', 'Question Bank Health')}
+                    <InfoIcon desc={t('dashboard.bank_health_desc', 'Question bank composition.')} benefit={t('dashboard.bank_health_benefit', 'Ensure balanced assessments.')} />
+                </h2>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
+                    <div style={{ flex: '1 1 260px', maxWidth: '320px' }}>
+                        <h4>{t('dashboard.difficulty_distribution', 'Difficulty Distribution')}</h4>
+                        <ResponsiveContainer width="100%" height={200} minWidth={200}>
+                            <PieChart>
+                                <Pie data={bankHealth.difficulty} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={60}>
+                                    {bankHealth.difficulty.map((entry: any, index: number) => <Cell key={index} fill={['var(--nebula-success)', 'var(--nebula-warning)', 'var(--nebula-danger)'][index]} />)}
+                                </Pie>
+                                <Tooltip />
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
+                    <div style={{ flex: '1 1 260px', maxWidth: '320px' }}>
+                        <h4>{t('dashboard.discrimination_index', 'Discrimination Index')}</h4>
+                        <ResponsiveContainer width="100%" height={200} minWidth={200}>
+                            <PieChart>
+                                <Pie data={bankHealth.discrimination} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={60}>
+                                    {bankHealth.discrimination.map((entry: any, index: number) => <Cell key={index} fill={['var(--nebula-accent-cyan)', 'var(--nebula-warning)', 'var(--nebula-text-dim)'][index]} />)}
+                                </Pie>
+                                <Tooltip />
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,8 +137,8 @@ const EmployeeView = () => {
     return (
         <div>
             {/* Advancement Widget */}
-            <div style={{ padding: '20px', marginBottom: '20px', borderRadius: '12px', border: `1px solid ${advancement.is_ready ? '#52c41a' : '#faad14'}`, backgroundColor: advancement.is_ready ? '#f6ffed' : '#fff7e6' }}>
-                <h3 style={{ color: advancement.is_ready ? '#389e0d' : '#d46b08', display: 'flex', alignItems: 'center' }}>
+            <div style={{ padding: '20px', marginBottom: '20px', borderRadius: '12px', border: `1px solid ${advancement.is_ready ? 'var(--nebula-success)' : 'var(--nebula-warning)'}`, backgroundColor: advancement.is_ready ? 'var(--nebula-success-dim)' : 'var(--nebula-warning-dim)' }}>
+                <h3 style={{ color: advancement.is_ready ? 'var(--nebula-success)' : 'var(--nebula-warning)', display: 'flex', alignItems: 'center' }}>
                     {t('corporate.advancement_title')}
                     <InfoIcon desc={t('corporate.advancement_desc')} benefit={t('corporate.advancement_benefit')} />
                 </h3>
@@ -148,46 +147,46 @@ const EmployeeView = () => {
             </div>
 
             {/* 360-Degree Feedback Widget */}
-            <div style={{ padding: '20px', marginBottom: '20px', border: '1px solid #ddd', borderRadius: '12px', background: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ padding: '20px', marginBottom: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px', background: 'transparent', boxShadow: '0 2px 4px var(--nebula-shadow-glass)' }}>
                 <h2 style={{ display: 'flex', alignItems: 'center' }}>
                     {t('corporate.feedback_360')}
                     <InfoIcon desc={t('corporate.feedback_360_desc')} benefit={t('corporate.feedback_360_benefit')} />
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     {feedback.feedback.map((item: any, index: number) => (
-                        <div key={index} style={{ padding: '15px', borderRadius: '8px', background: '#f8f9fa', borderLeft: '4px solid #1677ff' }}>
+                        <div key={index} style={{ padding: '15px', borderRadius: '8px', background: 'var(--nebula-bg-input)', borderLeft: '4px solid var(--nebula-accent-cyan)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                                 <span style={{ fontWeight: 'bold' }}>{item.reviewer}</span>
-                                <span style={{ color: '#888', fontSize: '0.9em' }}>{item.role}</span>
+                                <span style={{ color: 'var(--nebula-text-muted)', fontSize: '0.9em' }}>{item.role}</span>
                             </div>
-                            <p style={{ margin: 0, color: '#444', fontStyle: 'italic' }}>"{item.comment}"</p>
+                            <p style={{ margin: 0, color: 'var(--nebula-text-muted)', fontStyle: 'italic' }}>"{item.comment}"</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Development Recommendations Widget */}
-            <div style={{ padding: '20px', marginBottom: '20px', border: '1px solid #ddd', borderRadius: '12px', background: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ padding: '20px', marginBottom: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px', background: 'transparent', boxShadow: '0 2px 4px var(--nebula-shadow-glass)' }}>
                 <h2 style={{ display: 'flex', alignItems: 'center' }}>
                     {t('corporate.development_recommendations')}
                     <InfoIcon desc={t('corporate.dev_recommendations_desc')} benefit={t('corporate.dev_recommendations_benefit')} />
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {recommendations.recommendations.map((rec: any, index: number) => (
-                        <div key={index} style={{ padding: '15px', borderRadius: '8px', border: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#fafafa' }}>
+                        <div key={index} style={{ padding: '15px', borderRadius: '8px', border: '1px solid #e8e8e8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--nebula-bg-input)' }}>
                             <div>
                                 <div style={{ fontWeight: 'bold', fontSize: '16px' }}>{rec.task}</div>
-                                <div style={{ fontSize: '0.9em', color: '#666' }}>{t('corporate.gap_area')}: {rec.gap}</div>
+                                <div style={{ fontSize: '0.9em', color: 'var(--nebula-text-muted)' }}>{t('corporate.gap_area')}: {rec.gap}</div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                 <span style={{ 
                                     padding: '4px 12px', borderRadius: '20px', fontSize: '0.8em', fontWeight: 'bold',
-                                    backgroundColor: rec.priority === 'High' ? '#ffccc7' : '#fff7e6',
-                                    color: rec.priority === 'High' ? '#cf1322' : '#d46b08'
+                                    backgroundColor: rec.priority === 'High' ? 'var(--nebula-danger-dim)' : 'var(--nebula-warning-dim)',
+                                    color: rec.priority === 'High' ? 'var(--nebula-danger)' : 'var(--nebula-warning)'
                                 }}>
                                     {rec.priority === 'High' ? t('corporate.priority_high') : t('corporate.priority_medium')}
                                 </span>
-                                <button style={{ padding: '6px 12px', backgroundColor: '#1677ff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                                <button style={{ padding: '6px 12px', backgroundColor: 'var(--nebula-accent-cyan)', color: 'var(--nebula-bg-glass)', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                                     {t('corporate.action_start_training')}
                                 </button>
                             </div>
@@ -197,7 +196,7 @@ const EmployeeView = () => {
             </div>
 
             <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
-                <div style={{ flex: '1', padding: '20px', border: '1px solid #ddd', borderRadius: '12px' }}>
+                <div style={{ flex: '1', padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px' }}>
                     <h2 style={{ display: 'flex', alignItems: 'center' }}>
                         {t('corporate.personality_insights')}
                         <InfoIcon desc={t('corporate.personality_insights_desc')} benefit={t('corporate.personality_insights_benefit')} />
@@ -208,13 +207,13 @@ const EmployeeView = () => {
                                 <XAxis type="number" domain={[0, 100]} />
                                 <YAxis dataKey="trait" type="category" />
                                 <Tooltip />
-                                <Bar dataKey="score" fill="#1677ff" />
+                                <Bar dataKey="score" fill="var(--nebula-accent-cyan)" />
                             </BarChart>
                         </ResponsiveContainer>                    </div>
                 </div>
             </div>
 
-            <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px' }}>
+            <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px' }}>
                 <h2 style={{ display: 'flex', alignItems: 'center' }}>
                     {t('corporate.performance_scorecard')}
                     <InfoIcon desc={t('corporate.performance_scorecard_desc')} benefit={t('corporate.performance_scorecard_benefit')} />
@@ -225,7 +224,7 @@ const EmployeeView = () => {
                             <ResponsiveContainer width="100%" height={150} minWidth={100} minHeight={100}>
                                 <PieChart>
                                     <Pie data={[{val: metric.value}, {val: metric.target - metric.value}]} dataKey="val" innerRadius={40} outerRadius={60}>
-                                        <Cell fill="#1890ff" /><Cell fill="#eee" />
+                                        <Cell fill="var(--nebula-accent-cyan)" /><Cell fill="var(--nebula-border)" />
                                     </Pie>
                                 </PieChart>
                             </ResponsiveContainer>
@@ -249,18 +248,18 @@ const CorporateDashboard = () => {
         <div style={{ padding: '20px' }}>
             <h1>{t('corporate.title')}</h1>
             
-            <div style={{ marginBottom: '20px', borderBottom: '2px solid #eee' }}>
+            <div style={{ marginBottom: '20px', borderBottom: '2px solid var(--nebula-border)' }}>
                 <button 
                     onClick={() => setActiveTab('admin')}
                     className={`tab-button ${activeTab === 'admin' ? 'active' : ''}`}
                 >
-                    <span style={{ color: activeTab === 'admin' ? '#000' : 'inherit' }}>{t('corporate.admin_view')}</span>
+                    <span style={{ color: activeTab === 'admin' ? 'var(--nebula-text)' : 'inherit' }}>{t('corporate.admin_view')}</span>
                 </button>
                 <button 
                     onClick={() => setActiveTab('employee')}
                     className={`tab-button ${activeTab === 'employee' ? 'active' : ''}`}
                 >
-                    <span style={{ color: activeTab === 'employee' ? '#000' : 'inherit' }}>{t('corporate.employee_view')}</span>
+                    <span style={{ color: activeTab === 'employee' ? 'var(--nebula-text)' : 'inherit' }}>{t('corporate.employee_view')}</span>
                 </button>
             </div>
 

@@ -41,15 +41,15 @@ const AIInsightCard = ({ isVisible, onClose }: { isVisible: boolean, onClose: ()
     if (!isVisible) return null;
 
     return (
-        <div style={{ padding: '20px', border: '1px solid #1677ff', borderRadius: '12px', background: '#e6f7ff', marginBottom: '20px', position: 'relative' }}>
+        <div style={{ padding: '20px', border: '1px solid var(--nebula-accent-cyan)', borderRadius: '12px', background: 'var(--nebula-bg-glass)', backdropFilter: 'blur(8px)', marginBottom: '20px', position: 'relative' }}>
             <button 
                 onClick={onClose}
-                style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '18px', fontWeight: 'bold' }}
+                style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '18px', fontWeight: 'bold', color: 'var(--nebula-text-muted)' }}
             >
                 &times;
             </button>
-            <h3 style={{ color: '#0050b3', marginRight: '20px' }}>{t('dashboard.ai_insight_title')}</h3>
-            <p style={{ whiteSpace: 'pre-wrap' }}>{advice || t('common.loading')}</p>
+            <h3 style={{ color: 'var(--nebula-accent-cyan)', marginRight: '20px' }}>{t('dashboard.ai_insight_title')}</h3>
+            <p style={{ whiteSpace: 'pre-wrap', color: 'var(--nebula-text)' }}>{advice || t('common.loading')}</p>
         </div>
     );
 };
@@ -77,12 +77,12 @@ const ExecutiveDashboard = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h1>{t('executive.title')}</h1>
                 {!isInsightVisible && (
                     <button 
                         onClick={() => setIsInsightVisible(true)}
-                        style={{ padding: '8px 16px', background: '#1677ff', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+                        style={{ padding: '8px 16px', background: 'var(--nebula-accent-cyan)', color: 'var(--nebula-bg-glass)', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
                     >
                         {t('dashboard.show_ai_insight')}
                     </button>
@@ -98,15 +98,15 @@ const ExecutiveDashboard = () => {
             )}
 
             {/* 1. Strategic ROI Section */}
-            <div style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginBottom: '30px' }}>
                 <StrategicKPICard 
                     title={t('executive.prep_hours_title')}
                     value={`${stats.prep_hours_saved.value} ${stats.prep_hours_saved.unit}`} 
                     desc={t('executive.prep_hours_desc')}
                     benefit={t('executive.prep_hours_benefit')}
-                    color="#1677ff" 
+                    color="var(--nebula-accent-cyan)" 
                 >
-                    <ResponsiveContainer width="100%" height="100%"><LineChart data={hoursData}><Line type="monotone" dataKey="val" stroke="#1677ff" strokeWidth={2} /></LineChart></ResponsiveContainer>
+                    <ResponsiveContainer width="100%" height="100%"><LineChart data={hoursData}><Line type="monotone" dataKey="val" stroke="var(--nebula-accent-cyan)" strokeWidth={2} /></LineChart></ResponsiveContainer>
                 </StrategicKPICard>
 
                 <StrategicKPICard 
@@ -114,12 +114,12 @@ const ExecutiveDashboard = () => {
                     value={`${stats.accreditation_readiness.value}${stats.accreditation_readiness.unit}`} 
                     desc={t('executive.accreditation_desc')}
                     benefit={t('executive.accreditation_benefit')}
-                    color="#52c41a" 
+                    color="var(--nebula-success)" 
                 >
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Pie data={[{val: stats.accreditation_readiness.value}, {val: 100 - stats.accreditation_readiness.value}]} dataKey="val" innerRadius={30} outerRadius={40}>
-                                <Cell fill="#52c41a" /><Cell fill="#eee" />
+                                <Cell fill="var(--nebula-success)" /><Cell fill="var(--nebula-border)" />
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
@@ -130,14 +130,14 @@ const ExecutiveDashboard = () => {
                     value={`${stats.intervention_efficiency.value} ${stats.intervention_efficiency.unit}`} 
                     desc={t('executive.intervention_desc')}
                     benefit={t('executive.intervention_benefit')}
-                    color="#faad14" 
+                    color="var(--nebula-warning)" 
                 >
-                    <ResponsiveContainer width="100%" height="100%"><LineChart data={interventionData}><Line type="monotone" dataKey="val" stroke="#faad14" strokeWidth={2} /></LineChart></ResponsiveContainer>
+                    <ResponsiveContainer width="100%" height="100%"><LineChart data={interventionData}><Line type="monotone" dataKey="val" stroke="var(--nebula-warning)" strokeWidth={2} /></LineChart></ResponsiveContainer>
                 </StrategicKPICard>
             </div>
 
             {/* 2. Strategic Insights Area */}
-            <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '12px' }}>
+            <div style={{ padding: '20px', border: '1px solid var(--nebula-border)', borderRadius: '12px' }}>
                 <h2>{t('executive.resource_allocation_title')}</h2>
                 <p>{t('executive.resource_allocation_desc')}</p>
                 <div style={{ height: '300px' }}>
@@ -146,7 +146,7 @@ const ExecutiveDashboard = () => {
                             <XAxis dataKey="lo" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="count" fill="#cf1322" />
+                            <Bar dataKey="count" fill="var(--nebula-danger)" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>

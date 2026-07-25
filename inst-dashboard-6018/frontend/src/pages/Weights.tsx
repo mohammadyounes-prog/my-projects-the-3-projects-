@@ -56,21 +56,21 @@ const WeightsPage = () => {
   if (loading) return <div>Loading settings...</div>;
 
   return (
-    <div className="dashboard-container suite-motion-page">
+    <div className="dashboard-container nebula-motion-page">
       <div className="dashboard-section" style={{ maxWidth: '680px', marginInline: 'auto' }}>
-        <span style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--suite-primary)', display: 'block', marginBottom: '0.5rem' }}>
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--nebula-accent-cyan)', display: 'block', marginBottom: '0.5rem' }}>
           Analytics Configuration
         </span>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '700', color: 'var(--suite-text)', margin: '0 0 0.5rem' }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '700', color: 'var(--nebula-text)', margin: '0 0 0.5rem' }}>
           {t('common.weights_config', 'Indexes Weights Configuration')}
         </h1>
-        <p style={{ color: 'var(--suite-text-muted)', fontSize: '0.9rem', marginBottom: '1.75rem', lineHeight: '1.5' }}>
+        <p style={{ color: 'var(--nebula-text-muted)', fontSize: '0.9rem', marginBottom: '1.75rem', lineHeight: '1.5' }}>
           {t('weights.description', 'Adjust how much each index contributes to the Overall Performance Score. The sum must be exactly 1.0.')}
         </p>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--nebula-accent-cyan)' }}>
               {t('weights.lo_weight', 'LO Attainment Weight')}
             </label>
             <input 
@@ -80,12 +80,12 @@ const WeightsPage = () => {
               min="0"
               value={weights.lo_attainment} 
               onChange={(e) => setWeights({...weights, lo_attainment: parseFloat(e.target.value) || 0})}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--nebula-radius-sm)', border: '1px solid var(--nebula-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
             />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--nebula-accent-cyan)' }}>
               {t('weights.pass_rate_weight', 'Pass Rate Weight')}
             </label>
             <input 
@@ -95,12 +95,12 @@ const WeightsPage = () => {
               min="0"
               value={weights.pass_rate} 
               onChange={(e) => setWeights({...weights, pass_rate: parseFloat(e.target.value) || 0})}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--nebula-radius-sm)', border: '1px solid var(--nebula-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
             />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--nebula-accent-cyan)' }}>
               {t('weights.exam_quality_weight', 'Exam Quality Weight')}
             </label>
             <input 
@@ -110,12 +110,12 @@ const WeightsPage = () => {
               min="0"
               value={weights.exam_quality} 
               onChange={(e) => setWeights({...weights, exam_quality: parseFloat(e.target.value) || 0})}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--nebula-radius-sm)', border: '1px solid var(--nebula-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
             />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--suite-primary)' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--nebula-accent-cyan)' }}>
               {t('weights.bank_health_weight', 'Question Bank Health Weight')}
             </label>
             <input 
@@ -125,21 +125,21 @@ const WeightsPage = () => {
               min="0"
               value={weights.question_bank} 
               onChange={(e) => setWeights({...weights, question_bank: parseFloat(e.target.value) || 0})}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--suite-radius-sm)', border: '1px solid var(--suite-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '0.75rem', borderRadius: 'var(--nebula-radius-sm)', border: '1px solid var(--nebula-border)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
             />
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', padding: '1.25rem', backgroundColor: 'var(--suite-primary-soft)', borderRadius: 'var(--suite-radius-md)', border: '1px solid var(--suite-border)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', padding: '1.25rem', backgroundColor: 'var(--nebula-bg-input)', borderRadius: 'var(--nebula-radius-md)', border: '1px solid var(--nebula-border)' }}>
           <button 
             onClick={handleSave} 
             disabled={saving || !isValid}
             style={{ 
               padding: '0.75rem 1.5rem', 
-              backgroundColor: !isValid ? 'var(--suite-text-muted)' : 'var(--suite-primary)', 
-              color: 'var(--suite-on-primary)', 
+              backgroundColor: !isValid ? 'var(--nebula-text-muted)' : 'var(--nebula-accent-cyan)', 
+              color: 'var(--nebula-on-accent)', 
               border: 'none', 
-              borderRadius: 'var(--suite-radius-sm)',
+              borderRadius: 'var(--nebula-radius-sm)',
               fontWeight: '600',
               cursor: !isValid ? 'not-allowed' : 'pointer',
               transition: 'background-color 0.2s'
@@ -150,19 +150,19 @@ const WeightsPage = () => {
 
           <div style={{ 
             padding: '0.5rem 1rem', 
-            borderRadius: 'var(--suite-radius-sm)', 
-            backgroundColor: !isValid ? '#fef2f2' : '#ecfdf5',
-            border: `1px solid ${!isValid ? '#fca5a5' : '#a7f3d0'}`,
+            borderRadius: 'var(--nebula-radius-sm)', 
+            backgroundColor: !isValid ? 'var(--nebula-danger-dim)' : 'var(--nebula-success-dim)',
+            border: `1px solid ${!isValid ? 'var(--nebula-danger)' : 'var(--nebula-success)'}`,
             fontWeight: '700',
             fontSize: '0.9rem',
-            color: !isValid ? 'var(--suite-danger)' : 'var(--suite-success)'
+            color: !isValid ? 'var(--nebula-danger)' : 'var(--nebula-success)'
           }}>
             Total Sum: {total.toFixed(2)}
           </div>
         </div>
 
         {message && (
-          <p style={{ marginTop: '1rem', color: message.includes('Error') ? 'var(--suite-danger)' : 'var(--suite-success)', fontWeight: '600', fontSize: '0.9rem' }}>
+          <p style={{ marginTop: '1rem', color: message.includes('Error') ? 'var(--nebula-danger)' : 'var(--nebula-success)', fontWeight: '600', fontSize: '0.9rem' }}>
             {message}
           </p>
         )}

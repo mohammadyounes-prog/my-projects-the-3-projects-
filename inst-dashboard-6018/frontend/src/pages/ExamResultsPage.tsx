@@ -54,8 +54,8 @@ const ExamResultsPage = () => {
   const totalPages = Math.ceil(filteredResults.length / recordsPerPage);
   const paginatedResults = filteredResults.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage);
 
-  const thStyle = { padding: '10px', borderBottom: '2px solid #ddd', textAlign: 'left' as const };
-  const tdStyle = { padding: '10px', borderBottom: '1px solid #eee' };
+  const thStyle = { padding: '10px', borderBottom: '2px solid var(--nebula-border)', textAlign: 'left' as const };
+  const tdStyle = { padding: '10px', borderBottom: '1px solid var(--nebula-border)' };
 
   return (
     <div style={{ padding: '20px' }}>
@@ -70,42 +70,55 @@ const ExamResultsPage = () => {
           <span>records per page</span>
         </div>
       </div>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-        <thead>
-          <tr>
-            <th style={thStyle}>No</th><th style={thStyle}>xId</th><th style={thStyle}>Name</th><th style={thStyle}>Mark</th>
-            <th style={thStyle}>Order</th><th style={thStyle}>Answered</th><th style={thStyle}>True</th>
-            <th style={thStyle}>False</th><th style={thStyle}>Not Corrected</th><th style={thStyle}>Start Time</th>
-            <th style={thStyle}>Take Time</th><th style={thStyle}>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedResults.map((r, i) => (
-            <tr key={i}>
-              <td style={tdStyle}>{i + 1}</td><td style={tdStyle}>{r.studentXId}</td><td style={tdStyle}>{r.studentName}</td>
-              <td style={tdStyle}>{r.mark}</td><td style={tdStyle}>{r.studentOrder}</td><td style={tdStyle}>{r.answered}</td>
-              <td style={tdStyle}>{r.true_ans}</td><td style={tdStyle}>{r.false_ans}</td><td style={tdStyle}>{r.not_corrected}</td>
-              <td style={tdStyle}>{r.startTime}</td><td style={tdStyle}>{r.takeTime}s</td>
-              <td style={tdStyle}>
-                <button onClick={() => openViewModal(r)} style={{ backgroundColor: '#28a745', color: 'white', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}>
-                  <span style={{ fontSize: '14px', verticalAlign: 'middle' }}>👁</span> View
-                </button>
-              </td>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px', minWidth: '900px' }}>
+          <thead>
+            <tr>
+              <th style={thStyle}>No</th><th style={thStyle}>xId</th><th style={thStyle}>Name</th><th style={thStyle}>Mark</th>
+              <th style={thStyle}>Order</th><th style={thStyle}>Answered</th><th style={thStyle}>True</th>
+              <th style={thStyle}>False</th><th style={thStyle}>Not Corrected</th><th style={thStyle}>Start Time</th>
+              <th style={thStyle}>Take Time</th><th style={thStyle}>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {paginatedResults.map((r, i) => (
+              <tr key={i}>
+                <td style={tdStyle}>{i + 1}</td><td style={tdStyle}>{r.studentXId}</td><td style={tdStyle}>{r.studentName}</td>
+                <td style={tdStyle}>{r.mark}</td><td style={tdStyle}>{r.studentOrder}</td><td style={tdStyle}>{r.answered}</td>
+                <td style={tdStyle}>{r.true_ans}</td><td style={tdStyle}>{r.false_ans}</td><td style={tdStyle}>{r.not_corrected}</td>
+                <td style={tdStyle}>{r.startTime}</td><td style={tdStyle}>{r.takeTime}s</td>
+                <td style={tdStyle}>
+                  <button onClick={() => openViewModal(r)} style={{ backgroundColor: 'var(--nebula-success)', color: '#fff', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer', border: 'none' }}>
+                    <span style={{ fontSize: '14px', verticalAlign: 'middle' }}>👁</span> View
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
 
       <div style={{ marginTop: '10px', display: 'flex', gap: '5px' }}>
         {Array.from({ length: totalPages }, (_, i) => (
-          <button key={i} onClick={() => setCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: currentPage === i + 1 ? '#1677ff' : '#ddd' }}>{i + 1}</button>
+          <button key={i} onClick={() => setCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: currentPage === i + 1 ? 'var(--nebula-accent-cyan)' : 'var(--nebula-border)' }}>{i + 1}</button>
         ))}
       </div>
 
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={{ content: { width: '80%', margin: 'auto', maxHeight: '90%' } }}>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={{
+          overlay: { backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1000 },
+          content: {
+            width: '80%', margin: 'auto', maxHeight: '90%', overflow: 'auto',
+            background: 'var(--nebula-bg-raised)', color: 'var(--nebula-text)',
+            border: '1px solid var(--nebula-border)', borderRadius: '12px'
+          }
+        }}
+      >
         <h3>Student Details: {studentDetails?.summary.studentName}</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', background: '#f0f0f0', padding: '15px', borderRadius: '5px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', background: 'var(--nebula-bg-glass)', padding: '15px', borderRadius: '5px' }}>
           <span><strong>Name:</strong> {studentDetails?.summary.studentName}</span>
           <span><strong>ID:</strong> {studentDetails?.summary.studentXId}</span>
           <span><strong>Mark:</strong> {studentDetails?.summary.mark}</span>
@@ -114,9 +127,10 @@ const ExamResultsPage = () => {
           <span><strong>Not Corrected:</strong> {studentDetails?.summary.not_corrected}</span>
           <span><strong>Unanswered:</strong> {studentDetails?.summary.unanswered}</span>
         </div>
-        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
+        <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse', minWidth: '800px' }}>
           <thead>
-            <tr style={{ background: '#ddd', textAlign: 'left' }}>
+            <tr style={{ background: 'var(--nebula-border)', textAlign: 'left' }}>
               <th style={{ padding: '8px' }}>Question Text</th>
               <th style={{ padding: '8px' }}>Answers</th>
               <th style={{ padding: '8px' }}>Q. Mark</th>
@@ -145,7 +159,7 @@ const ExamResultsPage = () => {
               });
               
               return (
-                <tr key={i} style={{ borderBottom: '1px solid #eee' }}>
+                <tr key={i} style={{ borderBottom: '1px solid var(--nebula-border)' }}>
                   <td style={{ padding: '8px' }}>{d.questionText}</td>
                   <td style={{ padding: '8px' }}>
                     {parsedAnswers.map((a: any, idx: number) => (
@@ -166,7 +180,8 @@ const ExamResultsPage = () => {
             })}
           </tbody>
         </table>
-        <button onClick={() => setModalIsOpen(false)} style={{ marginTop: '20px' }}>Close</button>
+        </div>
+        <button onClick={() => setModalIsOpen(false)} style={{ marginTop: '20px', padding: '6px 14px', backgroundColor: 'var(--nebula-bg-glass)', color: 'var(--nebula-text)', border: '1px solid var(--nebula-border)', borderRadius: '6px', cursor: 'pointer' }}>Close</button>
       </Modal>
     </div>
   );

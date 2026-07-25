@@ -27,25 +27,36 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section id="testimonials" className="bg-light-blue py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-text-color mb-12">
+    <section id="testimonials" className="bg-nebula-bg-deep py-20 relative z-10">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h2 className="font-display text-4xl font-bold text-center text-white mb-12 nebula-text-glow">
           {t("testimonials_title")}
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-white p-8 rounded-lg shadow-lg text-center border border-gray-200"
+              className="nebula-glass-card p-6 pt-8 text-center relative mt-6 nebula-motion-card"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
-              <p className="italic text-text-color mb-4">
+              {/* Glowing Quotation Mark Accent */}
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full nebula-glass border border-nebula-border-glow flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.3)] bg-nebula-bg-surface">
+                <span className="text-2xl font-display text-nebula-accent-purple pt-1.5">&ldquo;</span>
+              </div>
+              <p className="italic text-nebula-text-muted mb-5 pt-2 text-sm leading-relaxed">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
-              <p className="font-semibold text-primary-blue">
-                {testimonial.author}
-              </p>
-              <p className="text-sm text-gray-600">{testimonial.title}</p>
+              
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="w-10 h-10 rounded-full bg-nebula-bg-surface border-2 border-nebula-accent-cyan shadow-[0_0_10px_rgba(0,229,255,0.3)] mb-1 flex items-center justify-center">
+                  <span className="text-nebula-accent-cyan font-bold">{testimonial.author.charAt(0)}</span>
+                </div>
+                <p className="font-semibold text-white">
+                  {testimonial.author}
+                </p>
+                <p className="text-xs text-nebula-accent-cyan opacity-80">{testimonial.title}</p>
+              </div>
             </div>
           ))}
         </div>

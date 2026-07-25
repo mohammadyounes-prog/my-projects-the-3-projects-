@@ -22,10 +22,10 @@ const LanguageSwitcher = () => {
     paddingBlock: '5px',
     paddingInline: '10px',
     cursor: active === lng ? 'default' : 'pointer',
-    border: '1px solid var(--suite-border, #ccc)',
+    border: '1px solid var(--suite-border, var(--nebula-border))',
     borderRadius: 'var(--suite-radius-sm, 4px)',
-    backgroundColor: active === lng ? 'var(--suite-primary, #2c5282)' : 'var(--suite-surface-raised, #fff)',
-    color: active === lng ? 'var(--suite-on-primary, #fff)' : 'var(--suite-text, #333)',
+    backgroundColor: active === lng ? 'var(--suite-primary, #2c5282)' : 'var(--suite-surface-raised, var(--nebula-bg-glass))',
+    color: active === lng ? 'var(--suite-on-primary, var(--nebula-bg-glass))' : 'var(--suite-text, #333)',
     fontFamily: 'var(--font-body, inherit)',
     fontWeight: 600,
   });

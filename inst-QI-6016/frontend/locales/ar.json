@@ -14,7 +14,12 @@
     "logout": "تسجيل الخروج",
     "resultReport": "تقرير النتائج",
     "takeATest": "اختبار",
-    "userPreferences": "تفضيلات المستخدم"
+    "userPreferences": "تفضيلات المستخدم",
+    "groupWorkspace": "مساحة العمل",
+    "groupReports": "التقارير",
+    "groupAccount": "الحساب",
+    "groupAdmin": "الإدارة",
+    "addQuestion": "إضافة سؤال"
   },
   "home": {
     "title": "الرئيسية",

@@ -142,15 +142,15 @@ const ExamsAndMarks = () => {
 
   const paginatedResults = filteredResults.slice((resultsCurrentPage - 1) * pageSize, (resultsCurrentPage - 1) * pageSize + pageSize);
   const totalResultsPages = Math.ceil(filteredResults.length / pageSize);
-  const tdStyle = { padding: '5px', border: '1px solid #ddd', fontSize: '12px' };
-  const thStyle = { padding: '5px', border: '1px solid #ddd', fontSize: '12px', background: '#f4f4f4' };
+  const tdStyle = { padding: '5px', border: '1px solid var(--nebula-border)', fontSize: '12px' };
+  const thStyle = { padding: '5px', border: '1px solid var(--nebula-border)', fontSize: '12px', background: 'var(--nebula-bg-raised)' };
 
   return (
     <div style={{ marginTop: '20px' }}>
       {step === 2 && (loading ? <p>{t('common.loading')}</p> : (
         <div>
           {trendData && trendData.length > 0 && (
-            <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid #ddd', height: '300px', marginBottom: '30px' }}>
+            <div style={{ background: 'transparent', padding: '20px', borderRadius: '8px', border: '1px solid var(--nebula-border)', height: '300px', marginBottom: '30px' }}>
                 <h4 style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                     {t('instructor.performance_trend', 'Performance Trend')}
                     <HelpTooltip 
@@ -165,7 +165,7 @@ const ExamsAndMarks = () => {
                     <XAxis dataKey="date" fontSize={10} label={{ value: t('instructor.stats.date', 'Date'), position: 'bottom', offset: 0, fontSize: 12 }} />
                     <YAxis fontSize={10} domain={[0, 100]} label={{ value: t('instructor.stats.avg', 'Average'), angle: -90, position: 'insideLeft', fontSize: 12 }} />
                     <Tooltip formatter={(value: any) => [value, t('instructor.stats.avg', 'Average')]} />
-                    <Line type="monotone" dataKey="avg" stroke="#1677ff" strokeWidth={2} />
+                    <Line type="monotone" dataKey="avg" stroke="var(--nebula-accent-cyan)" strokeWidth={2} />
                 </LineChart>
                 </ResponsiveContainer>
             </div>
@@ -185,7 +185,8 @@ const ExamsAndMarks = () => {
             </div>
             <span>{t('instructor.total_exams', 'Total Exams')}: {filteredData.length}</span>
           </div>
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+          <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px', minWidth: '760px' }}>
             <thead>
               <tr>
                 <th style={thStyle}>{t('instructor.name', 'Name')}</th>
@@ -205,15 +206,16 @@ const ExamsAndMarks = () => {
                   <td style={tdStyle}>{item.name}</td><td style={tdStyle}>{item.grade}</td><td style={tdStyle}>{item.material}</td><td style={tdStyle}>{item.division}</td>
                   <td style={tdStyle}>{item.date ? item.date.split('T')[0] : ''}</td><td style={tdStyle}>{item.status}</td><td style={tdStyle}>{item.applicants}</td><td style={tdStyle}>{item.examinees}</td>
                   <td style={tdStyle}>
-                    <button onClick={() => handleChoose(item)} style={{ backgroundColor: '#007bff', color: 'white', padding: '2px 5px', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}>{t('instructor.choose', 'Choose')}</button>
+                    <button onClick={() => handleChoose(item)} style={{ backgroundColor: 'var(--nebula-accent-cyan)', color: 'var(--nebula-bg-deep)', border: 'none', padding: '2px 5px', borderRadius: '4px', fontSize: '12px', cursor: 'pointer' }}>{t('instructor.choose', 'Choose')}</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
           <div style={{ marginTop: '10px', display: 'flex', gap: '5px' }}>
             {Array.from({ length: totalPages }, (_, i) => (
-              <button key={i} onClick={() => setCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: currentPage === i + 1 ? '#1677ff' : '#ddd' }}>{i + 1}</button>
+              <button key={i} onClick={() => setCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: currentPage === i + 1 ? 'var(--nebula-accent-cyan)' : 'var(--nebula-border)' }}>{i + 1}</button>
             ))}
           </div>
         </div>
@@ -221,10 +223,11 @@ const ExamsAndMarks = () => {
 
       {step === 3 && selectedExam && (
           <div>
-            <button onClick={handleBack} style={{ marginBottom: '10px', padding: '5px 10px', cursor: 'pointer', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '4px' }}>&larr; {t('instructor.back_to_selection', 'Back to Selection')}</button>
+            <button onClick={handleBack} style={{ marginBottom: '10px', padding: '5px 10px', cursor: 'pointer', backgroundColor: 'var(--nebula-bg-raised)', color: 'var(--nebula-text)', border: '1px solid var(--nebula-border)', borderRadius: '4px' }}>&larr; {t('instructor.back_to_selection', 'Back to Selection')}</button>
             
             <h3>{t('instructor.results_for', 'Results for')}: {selectedExam.name}</h3>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+            <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px', minWidth: '640px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>{t('instructor.no', 'No')}</th>
@@ -250,7 +253,7 @@ const ExamsAndMarks = () => {
                   <td style={tdStyle}>{r.true_ans}</td>
                   <td style={tdStyle}>{r.false_ans}</td>
                   <td style={tdStyle}>
-                    <button onClick={() => openViewModal(r)} style={{ backgroundColor: '#28a745', color: 'white', padding: '1px 4px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer', lineHeight: '1' }}>
+                    <button onClick={() => openViewModal(r)} style={{ backgroundColor: 'var(--nebula-success)', color: '#fff', border: 'none', padding: '1px 4px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer', lineHeight: '1' }}>
                       <span style={{ fontSize: '14px', verticalAlign: 'middle' }}>👁</span> {t('instructor.view', 'View')}
                     </button>
                   </td>
@@ -258,9 +261,10 @@ const ExamsAndMarks = () => {
               ))}
             </tbody>
           </table>
+          </div>
           <div style={{ marginTop: '10px', display: 'flex', gap: '5px' }}>
             {Array.from({ length: totalResultsPages }, (_, i) => (
-              <button key={i} onClick={() => setResultsCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: resultsCurrentPage === i + 1 ? '#1677ff' : '#ddd' }}>{i + 1}</button>
+              <button key={i} onClick={() => setResultsCurrentPage(i + 1)} style={{ padding: '5px 10px', backgroundColor: resultsCurrentPage === i + 1 ? 'var(--nebula-accent-cyan)' : 'var(--nebula-border)' }}>{i + 1}</button>
             ))}
           </div>
 
@@ -274,15 +278,15 @@ const ExamsAndMarks = () => {
                   { label: t('instructor.stats.median', 'Median'), value: examStats.median },
                   { label: t('instructor.stats.stdev', 'Std Deviation'), value: examStats.standard_deviation }
                 ].map((stat, i) => (
-                  <div key={i} style={{ background: '#fff', padding: '15px', borderRadius: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-                    <div style={{ color: '#666', fontSize: '12px' }}>{stat.label}</div>
-                    <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#003366' }}>{stat.value}</div>
+                  <div key={i} style={{ background: 'transparent', padding: '15px', borderRadius: '8px', border: '1px solid var(--nebula-border)', textAlign: 'center' }}>
+                    <div style={{ color: 'var(--nebula-text-muted)', fontSize: '12px' }}>{stat.label}</div>
+                    <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--nebula-accent-cyan)' }}>{stat.value}</div>
                   </div>
                 ))}
               </div>
               
               {/* Histogram Chart */}
-                <div style={{ flex: 2, background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid #ddd', height: '250px', position: 'relative' }}>
+                <div style={{ flex: 2, background: 'transparent', padding: '20px', borderRadius: '8px', border: '1px solid var(--nebula-border)', height: '250px', position: 'relative' }}>
                   <h4 style={{ margin: '0 0 10px 0', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                       {t('instructor.stats.grade_distribution', 'Grade Distribution')}
                       <HelpTooltip 
@@ -306,7 +310,7 @@ const ExamsAndMarks = () => {
                       label={{ value: t('instructor.stats.frequency'), angle: -90, position: 'insideLeft', fontSize: 12 }} 
                     />
                     <Tooltip formatter={(value: any) => [value, t('instructor.stats.frequency')]} />
-                    <Bar dataKey="count" name={t('instructor.stats.frequency')} fill="#1677ff" />                      <ReferenceLine x={`${Math.max(0, Math.floor((examStats.average - examStats.standard_deviation) / 10) * 10)}-${Math.max(0, Math.floor((examStats.average - examStats.standard_deviation) / 10) * 10 + 10)}`} stroke="red" strokeDasharray="3 3" />
+                    <Bar dataKey="count" name={t('instructor.stats.frequency')} fill="var(--nebula-accent-cyan)" />                      <ReferenceLine x={`${Math.max(0, Math.floor((examStats.average - examStats.standard_deviation) / 10) * 10)}-${Math.max(0, Math.floor((examStats.average - examStats.standard_deviation) / 10) * 10 + 10)}`} stroke="red" strokeDasharray="3 3" />
                       <ReferenceLine x={`${Math.min(9, Math.floor((examStats.average + examStats.standard_deviation) / 10)) * 10}-${Math.min(9, Math.floor((examStats.average + examStats.standard_deviation) / 10)) * 10 + 10}`} stroke="red" strokeDasharray="3 3" />
                     </BarChart>
                   </ResponsiveContainer>
@@ -318,10 +322,17 @@ const ExamsAndMarks = () => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeViewModal}
-        style={{ content: { width: '80%', margin: 'auto', maxHeight: '90%' } }}
+        style={{
+          overlay: { backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1000 },
+          content: {
+            width: '80%', margin: 'auto', maxHeight: '90%', overflow: 'auto',
+            background: 'var(--nebula-bg-raised)', color: 'var(--nebula-text)',
+            border: '1px solid var(--nebula-border)', borderRadius: '12px'
+          }
+        }}
       >
-        <h3 style={{ background: '#003366', color: 'white', padding: '10px', borderRadius: '5px' }}>{t('instructor.student_details', 'Student Details')}: {studentDetails?.summary.studentName}</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', background: '#e6f7ff', padding: '15px', borderRadius: '5px' }}>
+        <h3 style={{ background: 'var(--nebula-bg-glass)', color: 'var(--nebula-accent-cyan)', padding: '10px', borderRadius: '5px' }}>{t('instructor.student_details', 'Student Details')}: {studentDetails?.summary.studentName}</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', background: 'var(--nebula-bg-glass)', padding: '15px', borderRadius: '5px' }}>
           <span><strong>{t('instructor.name', 'Name')}:</strong> {studentDetails?.summary.studentName}</span>
           <span><strong>{t('instructor.id', 'ID')}:</strong> {studentDetails?.summary.studentXId}</span>
           <span><strong>{t('instructor.mark', 'Mark')}:</strong> {studentDetails?.summary.mark}</span>
@@ -330,9 +341,10 @@ const ExamsAndMarks = () => {
           <span><strong>{t('instructor.not_corrected', 'Not Corrected')}:</strong> {studentDetails?.summary.not_corrected}</span>
           <span><strong>{t('instructor.unanswered', 'Unanswered')}:</strong> {studentDetails?.summary.unanswered}</span>
         </div>
-        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
+        <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse', minWidth: '800px' }}>
           <thead>
-            <tr style={{ background: '#cceeff' }}>
+            <tr style={{ background: 'var(--nebula-bg-glass)' }}>
               <th>{t('instructor.question_text', 'Question Text')}</th>
               <th>{t('instructor.answers', 'Answers')}</th>
               <th>{t('instructor.question_mark', 'Question Mark')}</th>
@@ -381,7 +393,8 @@ const ExamsAndMarks = () => {
             })}
           </tbody>
         </table>
-        <button onClick={closeViewModal} style={{ marginTop: '20px' }}>{t('common.cancel', 'Close')}</button>
+        </div>
+        <button onClick={closeViewModal} style={{ marginTop: '20px', padding: '6px 14px', backgroundColor: 'var(--nebula-bg-glass)', color: 'var(--nebula-text)', border: '1px solid var(--nebula-border)', borderRadius: '6px', cursor: 'pointer' }}>{t('common.cancel', 'Close')}</button>
       </Modal>
     </div>
   );

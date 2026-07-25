@@ -14,7 +14,12 @@
     "home": "Home",
     "resultReport": "Result Report",
     "bundlesManagement": "Products",
-    "userPreferences": "User Preferences"
+    "userPreferences": "User Preferences",
+    "groupWorkspace": "Workspace",
+    "groupReports": "Reports",
+    "groupAccount": "Account",
+    "groupAdmin": "Admin",
+    "addQuestion": "Add Question"
   },
   "home": {
     "title": "QuestAI Home",

@@ -115,110 +115,99 @@ export default function HubPage() {
   };
 
   return (
-    <div className="suite-motion-page min-h-screen bg-slate-50 font-sans pt-28 pb-20">
+    <div className="nebula-motion-page min-h-screen bg-nebula-bg-deep font-sans pt-28 pb-20 relative z-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hub Header */}
         <header className="mb-14 text-center max-w-2xl mx-auto">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-[#2c5282]/10 text-[#2c5282] text-xs font-bold tracking-wide uppercase mb-3">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-nebula-accent-cyan-dim text-nebula-accent-cyan border border-nebula-border-glow text-xs font-bold tracking-wide uppercase mb-3 shadow-[0_0_10px_rgba(0,229,255,0.1)]">
             {t("tdm_systems")}
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 nebula-text-glow">
             {t("hub_title")}
           </h1>
-          <p className="text-lg text-slate-600 leading-relaxed">{t("hub_subtitle")}</p>
+          <p className="text-lg text-nebula-text-muted leading-relaxed">{t("hub_subtitle")}</p>
         </header>
 
         {/* Available Apps Grid */}
         <section aria-labelledby="hub-available-heading" className="mb-20">
-          <div className="flex items-center justify-between mb-8 border-b border-slate-200/80 pb-4">
-            <h2 id="hub-available-heading" className="font-display text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+          <div className="flex items-center justify-between mb-8 border-b border-nebula-border pb-4">
+            <h2 id="hub-available-heading" className="font-display text-xl font-bold text-white flex items-center gap-2 drop-shadow-md">
+              <span className="h-2.5 w-2.5 rounded-full bg-nebula-accent-cyan shadow-[0_0_8px_rgba(0,229,255,0.8)]" />
               {t("hub_available_section")}
             </h2>
-            <span className="text-xs font-semibold text-slate-500 bg-slate-200/60 px-2.5 py-1 rounded-md">
+            <span className="text-xs font-semibold text-nebula-text-muted bg-nebula-bg-surface border border-nebula-border px-2.5 py-1 rounded-md">
               3 Active Apps
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col gap-3 max-w-2xl">
             {availableApps.map((app, index) => (
-              <div
+              <button
                 key={app.id}
-                className="suite-motion-card suite-card-hover group relative flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#2c5282]/40 hover:shadow-xl"
+                type="button"
+                onClick={() => handleRedirect(app.id)}
+                className="nebula-motion-card group flex w-full items-center gap-4 rounded-xl border border-nebula-border bg-nebula-bg-glass p-4 text-start backdrop-blur-md transition-all duration-200 hover:border-nebula-border-glow hover:bg-nebula-bg-surface"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div>
-                  <div className="mb-6 flex items-center justify-between">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#2c5282]/10 text-[#2c5282] transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#2c5282] group-hover:text-white">
-                      <app.icon className="h-7 w-7" aria-hidden />
-                    </div>
-                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200/60">
-                      Available
-                    </span>
-                  </div>
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-nebula-accent-cyan-dim text-nebula-accent-cyan transition-all duration-300 group-hover:bg-nebula-accent-cyan group-hover:text-nebula-on-accent group-hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] border border-nebula-border-glow">
+                  <app.icon className="h-5 w-5" aria-hidden />
+                </div>
 
-                  <h3 className="mb-3 font-display text-2xl font-bold text-slate-900 group-hover:text-[#2c5282] transition-colors">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-base font-bold text-white group-hover:text-nebula-accent-cyan transition-colors">
                     {t(app.nameKey)}
                   </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-8">
+                  <p className="text-sm text-nebula-text-muted leading-snug truncate">
                     {t(app.descKey)}
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleRedirect(app.id)}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#2c5282] px-5 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#1e3a8a] shadow-md shadow-[#2c5282]/20 hover:shadow-lg"
-                >
-                  <span>{t("hub_open")}</span>
-                  <svg className="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
+                <span className="hidden sm:inline-flex flex-shrink-0 items-center rounded-full bg-nebula-success-dim px-2.5 py-1 text-xs font-semibold text-nebula-success border border-[rgba(16,185,129,0.3)]">
+                  Available
+                </span>
+
+                <svg className="h-4 w-4 flex-shrink-0 text-nebula-text-dim group-hover:text-nebula-accent-cyan transition-colors rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             ))}
           </div>
         </section>
 
         {/* Upcoming Modules Grid */}
         <section aria-labelledby="hub-upcoming-heading">
-          <div className="flex items-center justify-between mb-8 border-b border-slate-200/80 pb-4">
-            <h2 id="hub-upcoming-heading" className="font-display text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+          <div className="flex items-center justify-between mb-8 border-b border-nebula-border pb-4">
+            <h2 id="hub-upcoming-heading" className="font-display text-xl font-bold text-white flex items-center gap-2 opacity-80">
+              <span className="h-2.5 w-2.5 rounded-full bg-nebula-accent-purple shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
               {t("hub_upcoming_section")}
             </h2>
-            <span className="text-xs font-semibold text-slate-500 bg-slate-200/60 px-2.5 py-1 rounded-md">
+            <span className="text-xs font-semibold text-nebula-text-dim bg-nebula-bg-surface border border-nebula-border px-2.5 py-1 rounded-md">
               In Development
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col gap-3 max-w-2xl">
             {upcomingApps.map((app) => (
               <div
                 key={app.id}
-                className="relative flex flex-col justify-between rounded-2xl border border-slate-200/60 bg-white/60 p-8 shadow-sm opacity-80 backdrop-blur-sm"
+                className="flex w-full items-center gap-4 rounded-xl border border-nebula-border bg-nebula-bg-glass p-4 opacity-60 backdrop-blur-sm transition-opacity hover:opacity-80"
               >
-                <div>
-                  <div className="mb-6 flex items-center justify-between">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
-                      <app.icon className="h-7 w-7" aria-hidden />
-                    </div>
-                    <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500 border border-slate-200">
-                      {t("hub_upcoming")}
-                    </span>
-                  </div>
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-nebula-bg-surface text-nebula-text-dim border border-nebula-border">
+                  <app.icon className="h-5 w-5" aria-hidden />
+                </div>
 
-                  <h3 className="mb-3 font-display text-xl font-bold text-slate-800">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-base font-bold text-slate-300">
                     {t(app.nameKey)}
                   </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-8">
+                  <p className="text-sm text-nebula-text-dim leading-snug truncate">
                     {t(app.descKey)}
                   </p>
                 </div>
 
-                <div className="w-full rounded-xl bg-slate-100/80 px-4 py-3 text-center text-xs font-semibold text-slate-500 cursor-not-allowed">
+                <span className="flex-shrink-0 rounded-full bg-nebula-bg-surface border border-nebula-border px-2.5 py-1 text-xs font-semibold text-nebula-text-dim cursor-not-allowed">
                   {t("hub_upcoming")}
-                </div>
+                </span>
               </div>
             ))}
           </div>

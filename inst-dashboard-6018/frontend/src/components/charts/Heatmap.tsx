@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  HeatMap,
   XAxis,
   YAxis,
   ZAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   ScatterChart,
   Scatter,
@@ -34,20 +32,20 @@ const Heatmap: React.FC<Props> = ({ data = [], loading = false }) => {
   }));
 
   const getColor = (value: number) => {
-    if (value < 40) return '#ff4d4f'; // Low
-    if (value < 70) return '#faad14'; // Mid
-    return '#52c41a'; // High
+    if (value < 40) return 'var(--nebula-danger)'; // Low
+    if (value < 70) return 'var(--nebula-warning)'; // Mid
+    return 'var(--nebula-success)'; // High
   };
 
   return (
     <div style={{ 
-      border: '1px solid #e0e0e0', 
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)', 
+      border: '1px solid rgba(148,163,184,0.1)', 
+      boxShadow: '0 2px 4px var(--nebula-border-strong)', 
       borderRadius: '8px', 
       padding: '20px', 
-      margin: '10px', 
       width: '100%', 
-      backgroundColor: '#ffffff',
+      boxSizing: 'border-box',
+      backgroundColor: 'var(--nebula-bg-glass)',
       height: '400px'
     }}>
       <h3>LO Performance Heatmap</h3>

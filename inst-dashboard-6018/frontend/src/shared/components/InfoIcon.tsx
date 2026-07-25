@@ -26,7 +26,7 @@ const InfoIcon = ({ desc, benefit }: { desc: string; benefit: string }) => {
     <span ref={containerRef} style={{ position: 'relative', display: 'inline-block', marginLeft: '8px' }}>
       <span 
         onClick={() => setShow(!show)}
-        style={{ cursor: 'pointer', color: '#1677ff', fontWeight: 'bold', border: '1px solid #1677ff', borderRadius: '50%', width: '16px', height: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px' }}
+        style={{ cursor: 'pointer', color: 'var(--nebula-accent-cyan)', fontWeight: 'bold', border: '1px solid var(--nebula-accent-cyan)', borderRadius: '50%', width: '16px', height: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px' }}
       >
         ?
       </span>
@@ -36,8 +36,8 @@ const InfoIcon = ({ desc, benefit }: { desc: string; benefit: string }) => {
             right: isRtl ? '0' : 'auto', 
             left: isRtl ? 'auto' : '0', 
             width: '250px', 
-            padding: '10px', backgroundColor: '#fff', border: '1px solid #ccc', 
-            borderRadius: '8px', zIndex: 1000, boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+            padding: '10px', backgroundColor: 'var(--nebula-bg-glass)', border: '1px solid var(--nebula-border)', 
+            borderRadius: '8px', zIndex: 1000, boxShadow: '0 4px 6px var(--nebula-border-strong)',
             fontSize: '0.85em', marginTop: '5px', textAlign: 'start'
         }}>
           <p style={{ margin: '0 0 5px 0' }}><strong>{t('common.description')}:</strong> {desc}</p>
