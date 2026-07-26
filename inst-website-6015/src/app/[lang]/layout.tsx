@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
-  Space_Grotesk,
-  Plus_Jakarta_Sans,
+  Inter,
   IBM_Plex_Sans_Arabic,
   Cairo,
 } from "next/font/google";
@@ -10,15 +9,9 @@ import { loadTranslation } from "../../lib/i18n-server";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -59,10 +52,9 @@ export default async function LangLayout({
     <html
       lang={validLang}
       dir={dir}
-      className={`${spaceGrotesk.variable} ${plusJakartaSans.variable} ${ibmPlexSansArabic.variable} ${cairo.variable} nebula-root bg-nebula-bg-deep`}
+      className={`${inter.variable} ${ibmPlexSansArabic.variable} ${cairo.variable} nebula-root`}
     >
-      <body className="font-sans antialiased bg-nebula-bg-deep text-slate-100 min-h-screen">
-        <div className="nebula-neural-grid"></div>
+      <body className="font-sans antialiased bg-[#F7F8FA] text-[#1A1F2E] min-h-screen">
         <I18nProviderClient resources={resources} locale={validLang}>
           <div className="relative z-10 flex flex-col min-h-screen">
             <Header />

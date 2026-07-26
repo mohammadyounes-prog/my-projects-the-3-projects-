@@ -1,11 +1,9 @@
-/* SYNCED FROM DESIGN SYSTEM */
 /**
- * TDM Systems — NEBULA Design Tokens
- * Futuristic AI-Inspired Dark Design System
+ * TDM Systems — Academic Clarity Design Tokens / Clean Light Theme for Educational Institutions
  * Source of truth for cross-app adoption.
  *
  * Load fonts (all three apps):
- *   Space Grotesk, Plus Jakarta Sans, IBM Plex Sans Arabic, Cairo
+ *   Inter, Space Grotesk, Plus Jakarta Sans, IBM Plex Sans Arabic, Cairo
  *   (Google Fonts or self-hosted)
  */
 
@@ -13,65 +11,63 @@
    1. COLOR TOKENS
    ═══════════════════════════════════════════════════════ */
 :root {
-  /* ——— Deep Space Backgrounds ——— */
-  --nebula-bg-deep:       #0a0e1a;
-  --nebula-bg-surface:    #111827;
-  --nebula-bg-raised:     #1e293b;
-  --nebula-bg-glass:      rgba(17, 24, 39, 0.6);
-  --nebula-bg-glass-heavy: rgba(10, 14, 26, 0.85);
-  --nebula-bg-input:      rgba(30, 41, 59, 0.8);
+  /* ——— Light Backgrounds ——— */
+  --nebula-bg-deep:       #F7F8FA;
+  --nebula-bg-surface:    #FFFFFF;
+  --nebula-bg-raised:     #F0F2F5;
+  --nebula-bg-glass:      rgba(255, 255, 255, 0.85);
+  --nebula-bg-glass-heavy: rgba(255, 255, 255, 0.95);
+  --nebula-bg-input:      #F0F2F5;
 
   /* ——— Accent Colors ——— */
-  --nebula-accent-cyan:    #00e5ff;
-  --nebula-accent-purple:  #a855f7;
-  --nebula-accent-blue:    #3b82f6;
-  --nebula-accent-pink:    #ec4899;
-  --nebula-accent-cyan-dim: rgba(0, 229, 255, 0.15);
-  --nebula-accent-purple-dim: rgba(168, 85, 247, 0.15);
+  --nebula-accent-cyan:    #2D9F93;
+  --nebula-accent-purple:  #1B2A4A;
+  --nebula-accent-blue:    #247A8A;
+  --nebula-accent-pink:    #D4943A;
+  --nebula-accent-cyan-dim: rgba(45, 159, 147, 0.1);
+  --nebula-accent-purple-dim: rgba(27, 42, 74, 0.08);
 
   /* ——— Semantic Colors ——— */
-  --nebula-success:        #10b981;
-  --nebula-success-dim:    rgba(16, 185, 129, 0.15);
-  --nebula-warning:        #f59e0b;
-  --nebula-warning-dim:    rgba(245, 158, 11, 0.15);
-  --nebula-danger:         #ef4444;
-  --nebula-danger-dim:     rgba(239, 68, 68, 0.15);
+  --nebula-success:        #27AE60;
+  --nebula-success-dim:    rgba(39, 174, 96, 0.1);
+  --nebula-warning:        #D4943A;
+  --nebula-warning-dim:    rgba(212, 148, 58, 0.1);
+  --nebula-danger:         #E74C3C;
+  --nebula-danger-dim:     rgba(231, 76, 60, 0.1);
 
   /* ——— Text ——— */
-  --nebula-text:           #f1f5f9;
-  --nebula-text-muted:     #94a3b8;
-  --nebula-text-dim:       #64748b;
-  --nebula-on-accent:      #0a0e1a;
+  --nebula-text:           #1A1F2E;
+  --nebula-text-muted:     #6B7280;
+  --nebula-text-dim:       #9CA3AF;
+  --nebula-on-accent:      #FFFFFF;
 
   /* ——— Borders ——— */
-  --nebula-border:         rgba(148, 163, 184, 0.1);
-  --nebula-border-strong:  rgba(148, 163, 184, 0.2);
-  --nebula-border-glow:    rgba(0, 229, 255, 0.25);
+  --nebula-border:         #E2E5EB;
+  --nebula-border-strong:  #CBD0D8;
+  --nebula-border-glow:    #2D9F93;
 
-  /* ——— Glow Shadows ——— */
-  --nebula-glow-cyan:      0 0 20px rgba(0, 229, 255, 0.3);
-  --nebula-glow-cyan-sm:   0 0 10px rgba(0, 229, 255, 0.2);
-  --nebula-glow-cyan-lg:   0 0 40px rgba(0, 229, 255, 0.25), 0 0 80px rgba(0, 229, 255, 0.1);
-  --nebula-glow-purple:    0 0 20px rgba(168, 85, 247, 0.3);
-  --nebula-glow-purple-sm: 0 0 10px rgba(168, 85, 247, 0.2);
-  --nebula-glow-blue:      0 0 20px rgba(59, 130, 246, 0.3);
-  --nebula-glow-success:   0 0 15px rgba(16, 185, 129, 0.3);
+  /* ——— Shadows (clean, no glows) ——— */
+  --nebula-glow-cyan:      0 2px 8px rgba(45, 159, 147, 0.15);
+  --nebula-glow-cyan-sm:   0 1px 4px rgba(45, 159, 147, 0.1);
+  --nebula-glow-cyan-lg:   0 4px 16px rgba(45, 159, 147, 0.2);
+  --nebula-glow-purple:    0 2px 8px rgba(27, 42, 74, 0.15);
+  --nebula-glow-purple-sm: 0 1px 4px rgba(27, 42, 74, 0.1);
+  --nebula-glow-blue:      0 2px 8px rgba(36, 122, 138, 0.15);
+  --nebula-glow-success:   0 1px 4px rgba(39, 174, 96, 0.15);
 
   /* ——— Gradients ——— */
-  --nebula-gradient-hero:  linear-gradient(135deg, #0a0e1a 0%, #1e1b4b 40%, #0f172a 70%, #0a0e1a 100%);
-  --nebula-gradient-accent: linear-gradient(135deg, #00e5ff, #3b82f6, #a855f7);
-  --nebula-gradient-btn:   linear-gradient(135deg, #00e5ff, #a855f7);
-  --nebula-gradient-btn-hover: linear-gradient(135deg, #22d3ee, #c084fc);
-  --nebula-gradient-card:  linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(168, 85, 247, 0.05));
-  --nebula-gradient-mesh:  radial-gradient(ellipse at 20% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 50%),
-                           radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-                           radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+  --nebula-gradient-hero:  linear-gradient(135deg, #F7F8FA 0%, #EBF5F4 50%, #F7F8FA 100%);
+  --nebula-gradient-accent: linear-gradient(135deg, #2D9F93, #247A8A, #1B2A4A);
+  --nebula-gradient-btn:   #2D9F93;
+  --nebula-gradient-btn-hover: #268B80;
+  --nebula-gradient-card:  linear-gradient(135deg, rgba(45, 159, 147, 0.03), rgba(27, 42, 74, 0.03));
+  --nebula-gradient-mesh:  none;
 
   /* ═══════════════════════════════════════════════════════
      2. TYPOGRAPHY TOKENS
      ═══════════════════════════════════════════════════════ */
-  --nebula-font-display: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
-  --nebula-font-body:    "Plus Jakarta Sans", "Cairo", sans-serif;
+  --nebula-font-display: "Inter", "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+  --nebula-font-body:    "Inter", "Cairo", -apple-system, BlinkMacSystemFont, sans-serif;
   --nebula-font-mono:    "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
   --nebula-text-hero:    clamp(2.5rem, 5vw, 4rem);
@@ -108,18 +104,20 @@
   --nebula-radius-full: 9999px;
 
   --nebula-shadow-0: none;
-  --nebula-shadow-1: 0 4px 15px rgba(0, 0, 0, 0.3);
-  --nebula-shadow-2: 0 10px 30px rgba(0, 0, 0, 0.4);
-  --nebula-shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --nebula-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --nebula-shadow-2: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --nebula-shadow-glass: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   /* ═══════════════════════════════════════════════════════
      5. CHROME TOKENS
      ═══════════════════════════════════════════════════════ */
   --nebula-header-height: 4rem;
-  --nebula-header-bg: rgba(10, 14, 26, 0.8);
+  --nebula-header-bg: rgba(255, 255, 255, 0.9);
   --nebula-header-fg: var(--nebula-text);
-  --nebula-header-blur: 16px;
+  --nebula-header-blur: 12px;
   --nebula-sidebar-width: 260px;
+  --nebula-topbar-height: 3.5rem;
+  --nebula-sidebar-breakpoint: 991px;
 
   /* ═══════════════════════════════════════════════════════
      6. MOTION TOKENS
@@ -218,8 +216,8 @@ html.suite {
 
 /* --- Glow & shimmer effects --- */
 @keyframes nebula-glow-pulse {
-  0%, 100% { box-shadow: var(--nebula-glow-cyan-sm); }
-  50%      { box-shadow: var(--nebula-glow-cyan); }
+  0%, 100% { box-shadow: none; }
+  50%      { box-shadow: none; }
 }
 
 @keyframes nebula-shimmer {
@@ -234,8 +232,8 @@ html.suite {
 }
 
 @keyframes nebula-text-glow {
-  0%, 100% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
-  50%      { text-shadow: 0 0 20px rgba(0, 229, 255, 0.5), 0 0 40px rgba(0, 229, 255, 0.2); }
+  0%, 100% { text-shadow: none; }
+  50%      { text-shadow: none; }
 }
 
 /* --- Floating / particle effects --- */
@@ -305,24 +303,18 @@ html.suite {
    ═══════════════════════════════════════════════════════ */
 .nebula-glass {
   background: var(--nebula-bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-lg);
 }
 
 .nebula-glass-heavy {
   background: var(--nebula-bg-glass-heavy);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--nebula-border-strong);
   border-radius: var(--nebula-radius-lg);
 }
 
 .nebula-glass-card {
   background: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-lg);
   box-shadow: var(--nebula-shadow-glass);
@@ -333,9 +325,9 @@ html.suite {
 
 .nebula-glass-card:hover,
 .suite-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--nebula-shadow-2), var(--nebula-glow-cyan-sm);
-  border-color: var(--nebula-border-glow);
+  transform: translateY(-2px);
+  box-shadow: var(--nebula-shadow-2);
+  border-color: var(--nebula-border-strong);
 }
 
 
@@ -369,21 +361,18 @@ html.suite {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 229, 255, 0.04) 50%,
+    rgba(45, 159, 147, 0.03) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
   animation: nebula-shimmer 3s ease-in-out infinite;
 }
 
-/* Hover-triggered variant — plain CSS classes can't be conditionally applied
-   via Tailwind's `hover:` modifier (that only works on real Tailwind
-   utilities), so this bakes the `:hover` trigger into the class itself. */
 .nebula-shimmer-hover:hover {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 229, 255, 0.04) 50%,
+    rgba(45, 159, 147, 0.03) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
@@ -391,16 +380,18 @@ html.suite {
 }
 
 .nebula-gradient-text {
-  background: var(--nebula-gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--nebula-accent-cyan);
+}
+
+.nebula-brand-text {
+  font-family: var(--nebula-font-display);
+  font-weight: 700;
+  letter-spacing: var(--nebula-tracking-display);
+  color: var(--nebula-accent-cyan);
 }
 
 .nebula-mesh-bg {
-  background: var(--nebula-gradient-mesh);
-  background-size: 200% 200%;
-  animation: nebula-mesh-move 15s ease infinite;
+  display: none;
 }
 
 
@@ -408,22 +399,5 @@ html.suite {
    12. NEURAL GRID BACKGROUND PATTERN
    ═══════════════════════════════════════════════════════ */
 .nebula-neural-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image:
-    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-.nebula-neural-grid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(0, 229, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
+  display: none;
 }

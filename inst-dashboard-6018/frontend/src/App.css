@@ -50,15 +50,13 @@ body {
   margin-bottom: var(--nebula-space-5);
   padding: var(--nebula-space-5) var(--nebula-space-4);
   background-color: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
   border-radius: var(--nebula-radius-lg);
   border: 1px solid var(--nebula-border);
   box-shadow: var(--nebula-shadow-glass);
 }
 
 .kpi-section {
-  background-color: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
+  background-color: var(--nebula-bg-surface);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -91,8 +89,7 @@ body {
   border: 1px solid var(--nebula-border);
   box-shadow: var(--nebula-shadow-glass);
   border-radius: var(--nebula-radius-md);
-  background-color: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
+  background-color: var(--nebula-bg-surface);
   padding: var(--nebula-space-4);
   margin: var(--nebula-space-2);
   min-width: 260px;
@@ -107,7 +104,7 @@ body {
 
 .widget-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--nebula-shadow-2), var(--nebula-glow-cyan-sm);
+  box-shadow: var(--nebula-shadow-2);
   border-color: var(--nebula-border-glow);
 }
 
@@ -183,8 +180,7 @@ body {
 }
 
 .chart-container {
-  background-color: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
+  background-color: var(--nebula-bg-surface);
   border: 1px solid var(--nebula-border);
   box-shadow: var(--nebula-shadow-glass);
   border-radius: var(--nebula-radius-lg);
@@ -275,13 +271,12 @@ h2.section-title {
 .tab-button {
   padding: 10px 20px;
   border: 1px solid var(--nebula-border);
-  background-color: rgba(30, 41, 59, 0.4);
+  background-color: var(--nebula-bg-raised);
   color: var(--nebula-text-muted);
   cursor: pointer;
   border-radius: 6px 6px 0 0;
   margin-right: 5px;
   transition: all 0.2s;
-  backdrop-filter: blur(8px);
 }
 
 .tab-button.active,
@@ -341,10 +336,10 @@ th, td {
 }
 
 th {
-  background-color: rgba(30, 41, 59, 0.8);
+  background-color: var(--nebula-bg-raised);
   font-family: var(--nebula-font-display);
   font-weight: 600;
-  color: var(--nebula-accent-cyan);
+  color: var(--nebula-text-muted);
 }
 
 tr:hover {

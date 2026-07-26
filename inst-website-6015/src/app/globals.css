@@ -7,9 +7,10 @@
 
 :root {
   /* next/font CSS vars (set on <html>) override string stacks from tokens */
-  --nebula-font-display: var(--font-space-grotesk), var(--font-ibm-plex-arabic),
-    sans-serif;
-  --nebula-font-body: var(--font-plus-jakarta), var(--font-cairo), sans-serif;
+  --nebula-font-display: var(--font-inter), "IBM Plex Sans Arabic",
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  --nebula-font-body: var(--font-inter), "Cairo",
+    -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Legacy aliases → suite (do not fork hex) */
   --primary-blue: var(--nebula-accent-cyan);
@@ -20,12 +21,12 @@
 
 @layer base {
   html, body {
-    @apply bg-[#0a0e1a] text-[#f1f5f9] font-sans antialiased;
+    @apply bg-[#F7F8FA] text-[#1A1F2E] font-sans antialiased;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-display text-white;
+    @apply font-display text-[#1A1F2E];
   }
 }
