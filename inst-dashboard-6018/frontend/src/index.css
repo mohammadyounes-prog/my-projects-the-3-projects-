@@ -26,7 +26,7 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--nebula-bg-deep);
+  background: var(--nebula-bg-raised);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--nebula-border-strong);

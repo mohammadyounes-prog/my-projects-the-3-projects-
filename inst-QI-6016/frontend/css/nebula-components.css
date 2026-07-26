@@ -1,11 +1,11 @@
 /**
- * TDM Systems — NEBULA Shared Component Styles
- * Reusable UI components for the futuristic AI-inspired design.
+ * Academic Clarity Shared Component Styles
+ * Reusable UI components for the educational light design.
  * Import AFTER tokens.css in all apps.
  */
 
 /* ═══════════════════════════════════════════════════════
-   GLASS NAVBAR
+   NAVBAR
    ═══════════════════════════════════════════════════════ */
 .nebula-navbar {
   position: fixed;
@@ -18,8 +18,8 @@
   justify-content: space-between;
   padding-inline: var(--nebula-space-5);
   background: var(--nebula-header-bg);
-  backdrop-filter: blur(var(--nebula-header-blur));
-  -webkit-backdrop-filter: blur(var(--nebula-header-blur));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--nebula-border);
   animation: nebula-header-in var(--nebula-duration-med) var(--nebula-ease) both;
 }
@@ -40,13 +40,13 @@
   width: 32px;
   height: 32px;
   border-radius: var(--nebula-radius-sm);
-  background: var(--nebula-gradient-accent);
+  background: var(--nebula-accent-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.875rem;
-  color: var(--nebula-on-accent);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  color: white;
+  box-shadow: var(--nebula-shadow-1);
 }
 
 .nebula-navbar__nav {
@@ -84,7 +84,7 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   NEON BUTTONS
+   BUTTONS
    ═══════════════════════════════════════════════════════ */
 .nebula-btn {
   display: inline-flex;
@@ -105,15 +105,15 @@
 }
 
 .nebula-btn--primary {
-  background: var(--nebula-gradient-btn);
-  color: var(--nebula-on-accent);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  background: var(--nebula-accent-cyan);
+  color: #FFFFFF;
+  box-shadow: var(--nebula-shadow-1);
 }
 
 .nebula-btn--primary:hover {
-  background: var(--nebula-gradient-btn-hover);
-  box-shadow: var(--nebula-glow-cyan);
-  transform: translateY(-2px);
+  background: #268B80;
+  box-shadow: var(--nebula-shadow-2);
+  transform: translateY(-1px);
 }
 
 .nebula-btn--primary:active {
@@ -129,7 +129,7 @@
 
 .nebula-btn--ghost:hover {
   background: var(--nebula-accent-cyan-dim);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  box-shadow: none;
   transform: translateY(-2px);
 }
 
@@ -139,7 +139,7 @@
 }
 
 .nebula-btn--danger:hover {
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  box-shadow: var(--nebula-shadow-2);
   transform: translateY(-2px);
 }
 
@@ -155,7 +155,7 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   GLOW INPUTS
+   INPUTS
    ═══════════════════════════════════════════════════════ */
 .nebula-input {
   width: 100%;
@@ -177,7 +177,7 @@
 
 .nebula-input:focus {
   border-color: var(--nebula-accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15), var(--nebula-glow-cyan-sm);
+  box-shadow: 0 0 0 3px rgba(45, 159, 147, 0.12);
 }
 
 .nebula-input:hover:not(:focus) {
@@ -186,7 +186,7 @@
 
 .nebula-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236B7280' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-inline-end: 2.5rem;
@@ -205,7 +205,7 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   GLASS CARDS
+   CARDS
    ═══════════════════════════════════════════════════════ */
 .nebula-card {
   background: var(--nebula-bg-surface);
@@ -219,9 +219,9 @@
 }
 
 .nebula-card--interactive:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--nebula-shadow-2), var(--nebula-glow-cyan-sm);
-  border-color: var(--nebula-border-glow);
+  transform: translateY(-2px);
+  box-shadow: var(--nebula-shadow-2);
+  border-color: var(--nebula-accent-cyan);
 }
 
 .nebula-card__icon {
@@ -257,11 +257,11 @@
 }
 
 .nebula-card--interactive:hover .nebula-card__icon--cyan {
-  box-shadow: var(--nebula-glow-cyan-sm);
+  box-shadow: none;
 }
 
 .nebula-card--interactive:hover .nebula-card__icon--purple {
-  box-shadow: var(--nebula-glow-purple-sm);
+  box-shadow: none;
 }
 
 .nebula-card__title {
@@ -280,7 +280,7 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   KPI METRIC CARDS (Dashboard-specific)
+   KPI METRIC CARDS
    ═══════════════════════════════════════════════════════ */
 .nebula-kpi {
   background: var(--nebula-bg-surface);
@@ -301,10 +301,10 @@
   border-radius: 0 var(--nebula-radius-sm) var(--nebula-radius-sm) 0;
 }
 
-.nebula-kpi--cyan::before  { background: var(--nebula-accent-cyan); box-shadow: var(--nebula-glow-cyan-sm); }
-.nebula-kpi--purple::before { background: var(--nebula-accent-purple); box-shadow: var(--nebula-glow-purple-sm); }
-.nebula-kpi--blue::before   { background: var(--nebula-accent-blue); box-shadow: var(--nebula-glow-blue); }
-.nebula-kpi--success::before { background: var(--nebula-success); box-shadow: var(--nebula-glow-success); }
+.nebula-kpi--cyan::before  { background: var(--nebula-accent-cyan); box-shadow: none; }
+.nebula-kpi--purple::before { background: var(--nebula-accent-purple); box-shadow: none; }
+.nebula-kpi--blue::before   { background: var(--nebula-accent-blue); box-shadow: none; }
+.nebula-kpi--success::before { background: var(--nebula-success); box-shadow: none; }
 
 .nebula-kpi__label {
   font-size: var(--nebula-text-caption);
@@ -354,13 +354,13 @@
 
 .nebula-lang-switcher__btn--active {
   background: var(--nebula-accent-cyan);
-  color: var(--nebula-on-accent);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  color: white;
+  box-shadow: none;
 }
 
 
 /* ═══════════════════════════════════════════════════════
-   DATA TABLES (Dark theme)
+   DATA TABLES
    ═══════════════════════════════════════════════════════ */
 .nebula-table {
   width: 100%;
@@ -387,7 +387,7 @@
 }
 
 .nebula-table tr:hover td {
-  background: rgba(0, 229, 255, 0.03);
+  background: rgba(45, 159, 147, 0.04);
 }
 
 
@@ -412,7 +412,7 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   WIZARD / STEPPER (QuestAI specific but shared)
+   WIZARD / STEPPER
    ═══════════════════════════════════════════════════════ */
 .nebula-wizard {
   display: flex;
@@ -444,7 +444,7 @@
 
 .nebula-wizard__step--active::before {
   background: var(--nebula-accent-cyan);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  box-shadow: none;
 }
 
 .nebula-wizard__number {
@@ -468,7 +468,7 @@
   border-color: var(--nebula-accent-cyan);
   color: var(--nebula-accent-cyan);
   background: var(--nebula-accent-cyan-dim);
-  box-shadow: var(--nebula-glow-cyan-sm);
+  box-shadow: none;
 }
 
 .nebula-wizard__step--done .nebula-wizard__number {
@@ -490,13 +490,13 @@
 
 
 /* ═══════════════════════════════════════════════════════
-   MODALS (Glass)
+   MODALS
    ═══════════════════════════════════════════════════════ */
 .nebula-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
@@ -506,13 +506,13 @@
 }
 
 .nebula-modal {
-  background: var(--nebula-bg-surface);
+  background: white;
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-xl);
   padding: var(--nebula-space-6);
   max-width: 500px;
   width: 90%;
-  box-shadow: var(--nebula-shadow-2), var(--nebula-glow-cyan-sm);
+  box-shadow: var(--nebula-shadow-2);
   animation: nebula-scale-in var(--nebula-duration-med) var(--nebula-ease-spring) both;
 }
 
@@ -521,7 +521,7 @@
    TOOLTIPS
    ═══════════════════════════════════════════════════════ */
 .nebula-tooltip {
-  background: var(--nebula-bg-raised);
+  background: white;
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-md);
   padding: var(--nebula-space-2) var(--nebula-space-3);
@@ -533,11 +533,6 @@
 
 /* ═══════════════════════════════════════════════════════
    SIDEBAR APP SHELL
-   Persistent left-nav shell for internal / authenticated apps
-   with many nav destinations (e.g. the QuestAI workspace).
-   Collapses to an off-canvas drawer + slim topbar below
-   --nebula-sidebar-breakpoint. NOT intended for marketing
-   sites or dashboards whose pages need full chart/table width.
    ═══════════════════════════════════════════════════════ */
 .nebula-sidebar {
   position: fixed;
@@ -546,10 +541,8 @@
   width: var(--nebula-sidebar-width);
   display: flex;
   flex-direction: column;
-  background: var(--nebula-bg-glass-heavy);
-  backdrop-filter: blur(var(--nebula-header-blur));
-  -webkit-backdrop-filter: blur(var(--nebula-header-blur));
-  border-inline-end: 1px solid var(--nebula-border);
+  background: #1B2A4A;
+  border-inline-end: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1100;
   overflow-y: auto;
   transition: inset-inline-start var(--nebula-duration-med) var(--nebula-ease);
@@ -563,10 +556,10 @@
   font-family: var(--nebula-font-display);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--nebula-text);
+  color: #FFFFFF;
   text-decoration: none;
   flex-shrink: 0;
-  border-bottom: 1px solid var(--nebula-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nebula-sidebar__nav {
@@ -583,7 +576,7 @@
   font-weight: 600;
   letter-spacing: var(--nebula-tracking-wide);
   text-transform: uppercase;
-  color: var(--nebula-text-dim);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .nebula-sidebar__link {
@@ -596,7 +589,7 @@
   border-inline-start: 2px solid transparent;
   font-size: var(--nebula-text-caption);
   font-weight: 500;
-  color: var(--nebula-text-muted);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: color var(--nebula-duration-fast) var(--nebula-ease),
               background var(--nebula-duration-fast) var(--nebula-ease),
@@ -614,20 +607,20 @@
 }
 
 .nebula-sidebar__link:hover {
-  color: var(--nebula-text);
-  background: var(--nebula-bg-raised);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nebula-sidebar__link--active {
-  color: var(--nebula-accent-cyan);
-  background: var(--nebula-accent-cyan-dim);
+  color: #FFFFFF;
+  background: rgba(45, 159, 147, 0.2);
   border-inline-start-color: var(--nebula-accent-cyan);
 }
 
 .nebula-sidebar__footer {
   flex-shrink: 0;
   padding: var(--nebula-space-3);
-  border-top: 1px solid var(--nebula-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   gap: var(--nebula-space-2);
@@ -642,7 +635,7 @@
 
 .nebula-sidebar__username {
   font-size: var(--nebula-text-caption);
-  color: var(--nebula-text);
+  color: #FFFFFF;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -673,9 +666,7 @@
   align-items: center;
   gap: var(--nebula-space-3);
   padding-inline: var(--nebula-space-3);
-  background: var(--nebula-header-bg);
-  backdrop-filter: blur(var(--nebula-header-blur));
-  -webkit-backdrop-filter: blur(var(--nebula-header-blur));
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--nebula-border);
   z-index: 1080;
 }
@@ -697,7 +688,7 @@
 }
 
 .nebula-topbar__toggle:hover {
-  border-color: var(--nebula-border-glow);
+  border-color: var(--nebula-accent-cyan);
   color: var(--nebula-accent-cyan);
 }
 
@@ -710,7 +701,6 @@
   font-size: 1rem;
 }
 
-/* Applied to <body> by shell.js once the sidebar is mounted */
 body.nebula-has-sidebar {
   padding-inline-start: var(--nebula-sidebar-width);
 }
@@ -733,10 +723,7 @@ body.nebula-has-sidebar {
 
 
 /* ═══════════════════════════════════════════════════════
-   COMPACT MODULE LAUNCHER
-   A dense list of destination rows (icon + title + one-line
-   description + chevron). Replaces oversized 3-card "select
-   a module" grids across the suite's gateway/hub pages.
+   LAUNCHER
    ═══════════════════════════════════════════════════════ */
 .nebula-launcher {
   display: flex;
@@ -749,7 +736,7 @@ body.nebula-has-sidebar {
   align-items: center;
   gap: var(--nebula-space-4);
   padding: var(--nebula-space-3) var(--nebula-space-4);
-  background: var(--nebula-bg-glass);
+  background: var(--nebula-bg-surface);
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-md);
   text-decoration: none;
@@ -760,7 +747,7 @@ body.nebula-has-sidebar {
 
 .nebula-launcher__row:hover,
 .nebula-launcher__row:focus-visible {
-  border-color: var(--nebula-border-glow);
+  border-color: var(--nebula-accent-cyan);
   background: var(--nebula-bg-raised);
   color: inherit;
 }
@@ -777,7 +764,7 @@ body.nebula-has-sidebar {
   color: var(--nebula-accent-cyan);
   font-family: var(--nebula-font-display);
   font-weight: 700;
-  box-shadow: var(--nebula-glow-cyan-sm);
+  box-shadow: var(--nebula-shadow-1);
 }
 
 .nebula-launcher__body {
@@ -836,9 +823,6 @@ body.nebula-has-sidebar {
 
 /* ═══════════════════════════════════════════════════════
    NAV OVERFLOW MENU
-   Compact "more" grouping for top-header nav bars that can
-   grow past a handful of role-visible links (e.g. admin
-   roles in the analytics dashboard).
    ═══════════════════════════════════════════════════════ */
 .nebula-nav-overflow {
   position: relative;
@@ -870,7 +854,7 @@ body.nebula-has-sidebar {
   top: calc(100% + 6px);
   inset-inline-end: 0;
   min-width: 180px;
-  background: var(--nebula-bg-surface);
+  background: white;
   border: 1px solid var(--nebula-border);
   border-radius: var(--nebula-radius-md);
   box-shadow: var(--nebula-shadow-2);
@@ -896,9 +880,7 @@ body.nebula-has-sidebar {
 
 
 /* ═══════════════════════════════════════════════════════
-   TAB STRIP (Bootstrap .nav-tabs dark theming)
-   Scrolls horizontally instead of wrapping/cramming when a
-   console has many tabs (e.g. the admin console's 8 tabs).
+   TAB STRIP
    ═══════════════════════════════════════════════════════ */
 .nav-tabs {
   display: flex;
@@ -955,7 +937,7 @@ body.nebula-has-sidebar {
 
 
 /* ═══════════════════════════════════════════════════════
-   RECHARTS DARK THEME OVERRIDES
+   RECHARTS
    ═══════════════════════════════════════════════════════ */
 .recharts-cartesian-grid line {
   stroke: var(--nebula-border) !important;
@@ -968,7 +950,7 @@ body.nebula-has-sidebar {
 }
 
 .recharts-tooltip-wrapper .recharts-default-tooltip {
-  background: var(--nebula-bg-raised) !important;
+  background: white !important;
   border: 1px solid var(--nebula-border) !important;
   border-radius: var(--nebula-radius-md) !important;
   box-shadow: var(--nebula-shadow-2) !important;

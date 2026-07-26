@@ -15,10 +15,9 @@
   font-family: var(--nebula-font-display);
   font-size: var(--nebula-text-h1);
   font-weight: 700;
-  color: var(--nebula-accent-cyan);
+  color: var(--nebula-text);
   margin: 0 0 var(--nebula-space-1);
   letter-spacing: var(--nebula-tracking-display);
-  text-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .dashboard-title-group p {
@@ -30,14 +29,13 @@
 .ai-advice-btn {
   padding: 0.75rem 1.5rem;
   border-radius: var(--nebula-radius-md);
-  background: var(--nebula-gradient-btn);
-  color: var(--nebula-on-accent);
+  background: var(--nebula-accent-cyan);
+  color: #FFFFFF;
   border: none;
   font-family: var(--nebula-font-display);
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: var(--nebula-glow-cyan-sm);
   transition: all var(--nebula-duration-med) var(--nebula-ease);
   display: inline-flex;
   align-items: center;
@@ -46,20 +44,18 @@
 
 .ai-advice-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--nebula-glow-cyan);
+  box-shadow: var(--nebula-shadow-2);
 }
 
 .ai-insight-box {
   margin-bottom: var(--nebula-space-5);
   padding: var(--nebula-space-5);
-  background: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--nebula-bg-surface);
   border-radius: var(--nebula-radius-lg);
   border: 1px solid var(--nebula-border);
   border-inline-start: 5px solid var(--nebula-accent-cyan);
   position: relative;
-  box-shadow: var(--nebula-shadow-glass);
+  box-shadow: var(--nebula-shadow-1);
   animation: nebula-fade-in var(--nebula-duration-med) var(--nebula-ease);
 }
 
@@ -79,7 +75,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  text-shadow: var(--nebula-glow-cyan-sm);
 }
 
 .close-ai-btn {
@@ -113,13 +108,11 @@
 
 .dashboard-section {
   padding: var(--nebula-space-5);
-  background-color: var(--nebula-bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--nebula-bg-surface);
   border-radius: var(--nebula-radius-lg);
   border: 1px solid var(--nebula-border);
   margin-bottom: var(--nebula-space-5);
-  box-shadow: var(--nebula-shadow-glass);
+  box-shadow: var(--nebula-shadow-1);
 }
 
 .dashboard-section-title {
@@ -152,22 +145,20 @@
 }
 
 .chart-wrapper {
-  background: var(--nebula-bg-glass);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--nebula-bg-surface);
   padding: var(--nebula-space-4);
   border-radius: var(--nebula-radius-md);
   border: 1px solid var(--nebula-border);
   min-width: 0;
   min-height: 300px;
   overflow: hidden;
-  box-shadow: var(--nebula-shadow-glass);
+  box-shadow: var(--nebula-shadow-1);
   transition: transform var(--nebula-duration-med) var(--nebula-ease), box-shadow var(--nebula-duration-med) var(--nebula-ease);
 }
 
 .chart-wrapper:hover {
-  box-shadow: var(--nebula-shadow-2), var(--nebula-glow-cyan-sm);
-  border-color: var(--nebula-border-glow);
+  box-shadow: var(--nebula-shadow-2);
+  border-color: var(--nebula-accent-cyan);
 }
 
 .chart-wrapper--bare {
@@ -196,15 +187,13 @@
   padding: var(--nebula-space-4);
   border-radius: var(--nebula-radius-md);
   border: 1px solid var(--nebula-border);
-  background: var(--nebula-bg-glass);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--nebula-bg-surface);
   box-shadow: var(--nebula-shadow-glass);
 }
 
 .action-card.at-risk {
-  border-color: rgba(239, 68, 68, 0.3);
-  background-color: rgba(239, 68, 68, 0.05);
+  border-color: rgba(231, 76, 60, 0.3);
+  background-color: rgba(231, 76, 60, 0.04);
 }
 
 .action-card.priority-lo {
@@ -213,8 +202,8 @@
 }
 
 .action-card.top-lo {
-  border-color: rgba(0, 229, 255, 0.3);
-  background-color: rgba(0, 229, 255, 0.05);
+  border-color: rgba(45, 159, 147, 0.3);
+  background-color: rgba(45, 159, 147, 0.04);
 }
 
 .action-card h3 {
@@ -236,7 +225,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: rgba(30, 41, 59, 0.4);
+  background: var(--nebula-bg-raised);
   border-radius: var(--nebula-radius-sm);
   border: 1px solid var(--nebula-border);
   font-size: 0.875rem;
@@ -245,7 +234,7 @@
 
 .action-item:hover {
   transform: translateX(4px);
-  border-color: var(--nebula-border-glow);
+  border-color: var(--nebula-accent-cyan);
 }
 
 .action-value {
