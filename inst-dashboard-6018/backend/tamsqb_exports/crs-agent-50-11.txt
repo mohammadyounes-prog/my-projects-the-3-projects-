@@ -1,0 +1,15 @@
+TamsQB Export for Course: crs-agent-50-11 (ID: 45)
+Category: cat-agent-50-12-12-2025-1 (ID: 267)
+--------------------------------------------------
+
+Local Question ID: 557
+Bank Question ID: 3929
+FilterData Entry:
+  filterId 1: 5
+  filterId 2: 2
+  filterId 32: easy
+  filterId 86: agent-50
+  filterId 33: 1
+
+--------------------
+

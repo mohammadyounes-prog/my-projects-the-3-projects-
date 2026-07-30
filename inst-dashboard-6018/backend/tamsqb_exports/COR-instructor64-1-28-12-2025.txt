@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-instructor64-1-28-12-2025 (ID: 103)
+Category: CAT-instructor64-4-28-12-2025 (ID: 342)
+--------------------------------------------------
+
+Local Question ID: 695
+Bank Question ID: 4007
+FilterData Entry:
+  filters_added: 6
+  details: [(4007, 1, '5', 1), (4007, 2, '2', 1), (4007, 32, 'easy', 1), (4007, 53, 'instructor64', 1), (4007, 33, '1', 1), (4007, 529, 'Problem-Solving Abilities', 3)]
+
+--------------------
+

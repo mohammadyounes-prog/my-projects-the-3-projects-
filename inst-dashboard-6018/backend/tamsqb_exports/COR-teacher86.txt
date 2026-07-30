@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher86 (ID: 136)
+Category: CAT-teacher86-4-11-05-2026 (ID: 989)
+--------------------------------------------------
+
+Local Question ID: 1511
+Bank Question ID: 4923
+FilterData Entry:
+  filters_added: 6
+  details: [(4923, 1, '5', 1), (4923, 2, '2', 1), (4923, 32, 'medium', 1), (4923, 53, 'teacher86', 1), (4923, 33, '1', 1), (4923, 3194, 'Communication Proficiency', 3)]
+
+--------------------
+

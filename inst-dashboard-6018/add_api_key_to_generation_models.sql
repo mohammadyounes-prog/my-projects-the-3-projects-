@@ -1,0 +1,1 @@
+ALTER TABLE generation_models ADD COLUMN api_key TEXT;

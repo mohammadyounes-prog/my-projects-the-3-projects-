@@ -1,0 +1,14 @@
+TamsQB Export for Course: 21-11-2025 (ID: 20)
+Category: test77-3 (ID: 172)
+--------------------------------------------------
+
+Local Question ID: 473
+Bank Question ID: 3798
+FilterData Entry:
+  bankId: 3798
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

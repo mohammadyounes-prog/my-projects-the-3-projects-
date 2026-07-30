@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-instructor10-2-29-12-2025 (ID: 119)
+Category: CAT-instructor10-2-29-12-2025 (ID: 372)
+--------------------------------------------------
+
+Local Question ID: 669
+Bank Question ID: 4025
+FilterData Entry:
+  filters_added: 6
+  details: [(4025, 1, '5', 1), (4025, 2, '2', 1), (4025, 32, 'easy', 1), (4025, 53, 'instructor10', 1), (4025, 33, '1', 1), (4025, 707, 'Adaptability and Resilience', 3)]
+
+--------------------
+

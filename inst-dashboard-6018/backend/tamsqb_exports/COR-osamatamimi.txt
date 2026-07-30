@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-osamatamimi (ID: 190)
+Category: CAT-osamatamimi-2-17-05-2026 (ID: 994)
+--------------------------------------------------
+
+Local Question ID: 1526
+Bank Question ID: 4925
+FilterData Entry:
+  filters_added: 6
+  details: [(4925, 1, '5', 1), (4925, 2, '2', 1), (4925, 32, 'easy', 1), (4925, 53, 'osamatamimi', 1), (4925, 33, '1', 1), (4925, 3304, 'Technical  Competence', 3)]
+
+--------------------
+

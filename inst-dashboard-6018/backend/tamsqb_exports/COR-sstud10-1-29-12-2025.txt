@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-sstud10-1-29-12-2025 (ID: 122)
+Category: CAT-sstud10-1-29-12-2025 (ID: 375)
+--------------------------------------------------
+
+Local Question ID: 671
+Bank Question ID: 4027
+FilterData Entry:
+  filters_added: 6
+  details: [(4027, 1, '5', 1), (4027, 2, '2', 1), (4027, 32, 'easy', 1), (4027, 53, 'sstud10', 1), (4027, 33, '1', 1), (4027, 729, 'Adaptability and Resilience', 3)]
+
+--------------------
+

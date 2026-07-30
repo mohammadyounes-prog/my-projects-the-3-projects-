@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take a Test</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/suite-tokens.css">
+    <link rel="stylesheet" href="css/nebula-components.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force override for all form labels */
+        .form-label, 
+        label {
+            color: var(--nebula-accent-cyan) !important;
+        }
+
+        :root {
+            /* Palette - LMS Unified (Light Mode) */
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --accent-blue: var(--nebula-accent-cyan);
+            --label-blue: #1e3a8a; /* Darker blue for labels */
+            --accent-blue-glow: rgba(44, 82, 130, 0.2);
+            --accent-emerald: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #6B7280;
+            --border-light: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(12px);
+            
+            /* Typography */
+            --font-display: 'Inter', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--nebula-bg-deep);
+            color: var(--nebula-text);
+            font-family: var(--nebula-font-body);
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .app-name-style {
+            font-family: var(--nebula-font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #bfdbfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Refined Navbar */
+        .navbar {
+            background: var(--nebula-bg-glass) !important; 
+            
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .navbar .nav-link {
+            color: var(--nebula-text-muted) !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+            font-size: 0.9rem;
+        }
+        .navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+        #currentUserName {
+            color: #ffffff !important;
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--nebula-bg-glass) !important;
+            border: 1px solid var(--nebula-border) !important;
+            border-radius: 1.25rem !important;
+            color: var(--nebula-text) !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .page-header-orange {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a) !important;
+            color: white !important;
+            padding: 1.25rem !important;
+            border-radius: 1.25rem 1.25rem 0 0 !important;
+        }
+        .page-header-orange h2 {
+            font-family: var(--nebula-font-display);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.75rem;
+            color: white !important;
+        }
+
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+
+        .form-control, .form-select {
+            background-color: var(--nebula-bg-input) !important;
+            border: 1px solid var(--nebula-border) !important;
+            color: var(--nebula-text) !important;
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1rem !important;
+            transition: all 0.2s ease;
+        }
+        .form-control::placeholder {
+            color: var(--nebula-text-dim) !important;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: var(--nebula-bg-input) !important;
+            border-color: var(--nebula-accent-cyan) !important;
+            box-shadow: 0 0 0 4px var(--accent-blue-glow) !important;
+            outline: none;
+        }
+
+        /* Button Overhaul */
+        .btn {
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: none !important;
+        }
+
+        .nebula-btn--primary {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3) !important;
+        }
+        .nebula-btn--primary:hover {
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5) !important;
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <script src="shell.js"></script>
+    <div class="container">
+        <div class="card">
+            <div class="card-header page-header-orange">
+                <h2 data-i18n="nav.takeATest">Take a Test</h2>
+            </div>
+            <div class="card-body">
+                <p data-i18n="tamsqb.pageDescription"></p>
+                <button id="updateTamsQBButton" class="btn nebula-btn--primary" data-i18n="tamsqb.generateAndTakeTestButton"></button>
+                <div id="responseMessage" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Time Picker Modal -->
+    <div class="modal fade" id="dateTimePickerModal" tabindex="-1" aria-labelledby="dateTimePickerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dateTimePickerModalLabel" data-i18n="modal.selectExamDateTimeTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="examNameInput" class="form-label" data-i18n="modal.examNameLabel">Exam Name</label>
+                        <input type="text" id="examNameInput" class="form-control" data-i18n-placeholder="modal.examNamePlaceholder">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateTimePickerInput" class="form-label" data-i18n="modal.selectDateTimeLabel">Select Date and Time</label>
+                        <input type="text" id="dateTimePickerInput" class="form-control" data-i18n-placeholder="modal.selectDateTimePlaceholder">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="button.cancel"></button>
+                    <button type="button" class="btn nebula-btn--primary" id="setDateTimeButton" data-i18n="button.continue" disabled></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Take Exam Modal -->
+    <div class="modal fade" id="takeExamModal" tabindex="-1" aria-labelledby="takeExamModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="takeExamModalLabel" data-i18n="modal.takeExamTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="takeExamModalBody" data-i18n="modal.takeExamInitialBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="button.cancel"></button>
+                    <button type="button" class="btn nebula-btn--primary" id="goToExamButton" data-i18n="button.goToExam"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const i18n = window.i18n; // Use the global i18n object
+
+            const initPage = () => {
+
+
+                const backendBaseUrl = (typeof window !== 'undefined' && window.BACKEND_BASE_URL) ? window.BACKEND_BASE_URL : 'http://127.0.0.1:8000';
+                const updateTamsQBButton = document.getElementById('updateTamsQBButton');
+                const responseMessageDiv = document.getElementById('responseMessage');
+                let examTakenInPage = false;
+                let selectedExamDateTime = null;
+                let selectedExamName = '';
+
+                const dateTimePickerModal = new bootstrap.Modal(document.getElementById('dateTimePickerModal'));
+                const takeExamModal = new bootstrap.Modal(document.getElementById('takeExamModal'), {
+                    backdrop: 'static'
+                });
+
+                const dateTimePickerInput = document.getElementById('dateTimePickerInput');
+                flatpickr(dateTimePickerInput, {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i:S",
+                    minDate: "today",
+                    defaultDate: new Date()
+                });
+
+
+
+                updateTamsQBButton.addEventListener('click', function() {
+                    if (examTakenInPage) {
+                        if (confirm(i18n.t('tamsqb.confirm.retakeTest'))) {
+                            window.location.href = 'index.html';
+                        }
+                        return;
+                    }
+                    dateTimePickerModal.show();
+                });
+
+                const examNameInput = document.getElementById('examNameInput');
+                const setDateTimeButton = document.getElementById('setDateTimeButton');
+
+                examNameInput.addEventListener('input', function() {
+                    setDateTimeButton.disabled = !this.value.trim();
+                });
+
+                setDateTimeButton.addEventListener('click', function() {
+                    selectedExamDateTime = dateTimePickerInput.value;
+                    selectedExamName = examNameInput.value.trim();
+
+                    if (!selectedExamName) {
+                        alert(i18n.t('alert.enterExamDetails')); // Using existing key or similar
+                        return;
+                    }
+
+                    if (!selectedExamDateTime) {
+                        alert(i18n.t('tamsqb.alert.selectDateTime'));
+                        return;
+                    }
+                    dateTimePickerModal.hide();
+
+                    const takeExamModalBody = document.getElementById('takeExamModalBody');
+                    const aboutToStartMsg = i18n.t('modal.aboutToStart', { dateTime: `<strong>${new Date(selectedExamDateTime).toLocaleString()}</strong>` });
+                    const examNameHtml = `<p><strong>${i18n.t('modal.examName')}</strong> ${selectedExamName}</p>`;
+                    takeExamModalBody.innerHTML = `${examNameHtml}<p>${aboutToStartMsg}</p><p>${i18n.t('modal.pressToGo')}</p>`;
+                    takeExamModal.show();
+                });
+
+                document.getElementById('goToExamButton').addEventListener('click', async function() {
+                    const goToButton = this;
+
+                    if (goToButton.dataset.mode === 'redirect') {
+                        const redirectUrl = goToButton.dataset.redirectUrl;
+                        if (redirectUrl) {
+                            window.open(redirectUrl, '_blank');
+                        }
+                        takeExamModal.hide();
+                        return;
+                    }
+
+                    goToButton.disabled = true;
+                    goToButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${i18n.t('tamsqb.loading')}...`;
+
+                    try {
+                        let selectedQuestionIdsForExam = [];
+                        const storedIds = sessionStorage.getItem('selectedQuestionIdsForExam');
+                        if (storedIds) {
+                            selectedQuestionIdsForExam = JSON.parse(storedIds);
+                        }
+
+                        // NEW CHECK: If no questions are selected, alert the user and stop.
+                        if (selectedQuestionIdsForExam.length === 0) {
+                            alert(i18n.t('tamsqb.alert.noQuestionsSelected')); // Need to add this i18n key
+                            goToButton.disabled = false;
+                            goToButton.innerHTML = i18n.t('button.goToExam');
+                            return;
+                        }
+
+                        const requestBody = {
+                            exam_date_time: selectedExamDateTime,
+                            selected_question_ids: selectedQuestionIdsForExam.length > 0 ? selectedQuestionIdsForExam : null,
+                            exam_name: selectedExamName
+                        };
+
+                        const response = await fetchWithAuth(`${backendBaseUrl}/tamsqb/push-questions-to-bank`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(requestBody)
+                        });
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.detail || data.message || i18n.t('tamsqb.error.failedToCreateExam'));
+                        if (!data.exam_id) throw new Error(data.message || i18n.t('tamsqb.error.noExamCreated'));
+
+                        const examDetails = {
+                            exam_id: data.exam_id,
+                            exam_name: data.exam_name,
+                            exam_date_time: data.exam_date_time,
+                            exam_total_time: data.exam_total_time,
+                            redirect_url: data.redirect_url
+                        };
+
+                        const publishResponse = await fetchWithAuth(`${backendBaseUrl}/tamsqb/publish-exam/${examDetails.exam_id}`, { method: 'POST' });
+                        if (!publishResponse.ok) {
+                            const publishData = await publishResponse.json();
+                            throw new Error(publishData.detail || publishData.message || i18n.t('tamsqb.error.failedToPublish'));
+                        }
+
+                        const examReadyMsg = i18n.t('tamsqb.success.examReady', { examId: examDetails.exam_id });
+                        const goToLinkMsg = i18n.t('tamsqb.success.goToLink', { url: examDetails.redirect_url });
+                        const successMessage = `
+                            <div class="alert alert-info mt-3">
+                                <strong>${examReadyMsg}</strong><br>
+                                ${goToLinkMsg}<br>
+                                <em>${i18n.t('tamsqb.success.rememberLogin')}</em>
+                            </div>
+                        `;
+                        responseMessageDiv.innerHTML = successMessage;
+
+                        const takeExamModalBody = document.getElementById('takeExamModalBody');
+                        takeExamModalBody.innerHTML = `
+                            <div class="alert alert-success">${i18n.t('modal.examCreated')}</div>
+                            <p>${i18n.t('modal.examName')} <strong>${examDetails.exam_name}</strong></p>
+                            <p>${i18n.t('modal.examId')} <strong>${examDetails.exam_id}</strong></p>
+                            <p>${i18n.t('modal.scheduledTime')} <strong>${new Date(examDetails.exam_date_time).toLocaleString()}</strong></p>
+                            <p>${i18n.t('modal.totalTime')} <strong>${examDetails.exam_total_time} minutes</strong></p>
+                            <p>${i18n.t('modal.clickOkToRedirect')}</p>
+                        `;
+
+                        goToButton.innerHTML = i18n.t('tamsqb.ok');
+                        goToButton.disabled = false;
+                        goToButton.dataset.mode = 'redirect';
+                        goToButton.dataset.redirectUrl = examDetails.redirect_url;
+
+                        sessionStorage.removeItem('selectedQuestionIdsForExam'); // Clear selected IDs from session storage
+                        examTakenInPage = true;
+
+                    } catch (error) {
+                        console.error('Error during exam creation/publish process:', error);
+                        document.getElementById('takeExamModalBody').innerHTML = `<div class="alert alert-danger"><strong>${i18n.t('tamsqb.error')}:</strong> ${error.message}</div>`;
+                        goToButton.innerHTML = i18n.t('tamsqb.ok');
+                        goToButton.disabled = false;
+                    }
+                });
+
+                const takeExamModalEl = document.getElementById('takeExamModal');
+                takeExamModalEl.addEventListener('hide.bs.modal', function () {
+                    const goToButton = document.getElementById('goToExamButton');
+                    goToButton.innerHTML = i18n.t('button.goToExam');
+                    goToButton.disabled = false;
+                    delete goToButton.dataset.mode;
+                    delete goToButton.dataset.redirectUrl;
+                });
+            };
+
+            // This ensures i18n.apply() is run after the DOM is fully loaded,
+            // and then initPage is called once translations are applied.
+            document.addEventListener('i18n:applied', initPage, { once: true });
+        });
+    </script>
+</body>
+</html>

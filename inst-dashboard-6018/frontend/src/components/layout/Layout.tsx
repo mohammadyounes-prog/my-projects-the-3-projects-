@@ -54,19 +54,16 @@ const Layout = () => {
     return 'Dashboard Gateway';
   }, [path]);
 
-  /** Gateway: Home only. Module pages: role-filtered module links (no Contact — B6). */
+  /** Role-filtered module links in the header (no Contact — B6). */
   const navItems: NavItem[] = useMemo(() => {
     const home: NavItem = { to: '/', labelKey: 'nav.home', fallback: 'Home' };
-    if (isGateway) {
-      return [home];
-    }
     const role = getRole();
     const moduleNav: NavItem[] = visibleModules(role).map((mod) => {
       const link = MODULE_LINKS[mod];
       return { to: link.to, labelKey: link.labelKey, fallback: link.fallback };
     });
     return [home, ...moduleNav];
-  }, [isGateway]);
+  }, []);
 
   return (
     <div dir={i18n.dir()} className={isRtl ? 'rtl-layout nebula-root' : 'ltr-layout nebula-root'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -92,7 +89,7 @@ const Layout = () => {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className={isActive ? 'nav-link-active' : undefined}
+                  className={`nav-item-debug ${isActive ? 'nav-link-active' : ''}`}
                 >
                   {t(item.labelKey, item.fallback)}
                 </Link>

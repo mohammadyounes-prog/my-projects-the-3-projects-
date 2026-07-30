@@ -1,0 +1,15 @@
+{
+    "language": "Language",
+    "adminDashboard": "Admin Dashboard",
+    "generateQuestions": "Generate Questions",
+    "retrieveQuestions": "Retrieve Questions",
+    "taskHistory": "Task History",
+    "profile": "Profile",
+    "welcomeAdminDashboard": "Welcome to the Admin Dashboard",
+    "adminDashboardDescription": "This is the admin dashboard. You can manage users, view all tasks, and configure system settings.",
+    "moreFeatures": "More features coming soon!",
+    "manageUsers": "Manage Users",
+    "viewAllTasks": "View All Tasks (Coming soon)",
+    "systemSettings": "System Settings",
+    "logout": "Logout"
+}

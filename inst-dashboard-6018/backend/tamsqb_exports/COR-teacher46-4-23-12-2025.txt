@@ -1,0 +1,68 @@
+TamsQB Export for Course: COR-teacher46-4-23-12-2025 (ID: 60)
+Category: CAT-teacher46-1-23-12-2025 (ID: 278)
+--------------------------------------------------
+
+Local Question ID: 630
+Bank Question ID: 3939
+FilterData Entry:
+  filters_added: 5
+  details: [(3939, 1, '5', 1), (3939, 2, '2', 1), (3939, 32, 'easy', 1), (3939, 53, 'teacher46', 1), (3939, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 631
+Bank Question ID: 3940
+FilterData Entry:
+  filters_added: 5
+  details: [(3940, 1, '5', 1), (3940, 2, '2', 1), (3940, 32, 'easy', 1), (3940, 53, 'teacher46', 1), (3940, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 632
+Bank Question ID: 3941
+FilterData Entry:
+  filters_added: 5
+  details: [(3941, 1, '5', 1), (3941, 2, '2', 1), (3941, 32, 'easy', 1), (3941, 53, 'teacher46', 1), (3941, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 633
+Bank Question ID: 3942
+FilterData Entry:
+  filters_added: 5
+  details: [(3942, 1, '5', 1), (3942, 2, '2', 1), (3942, 32, 'medium', 1), (3942, 53, 'teacher46', 1), (3942, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 634
+Bank Question ID: 3943
+FilterData Entry:
+  filters_added: 5
+  details: [(3943, 1, '5', 1), (3943, 2, '2', 1), (3943, 32, 'medium', 1), (3943, 53, 'teacher46', 1), (3943, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 635
+Bank Question ID: 3944
+FilterData Entry:
+  filters_added: 5
+  details: [(3944, 1, '5', 1), (3944, 2, '2', 1), (3944, 32, 'easy', 1), (3944, 53, 'teacher46', 1), (3944, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 636
+Bank Question ID: 3945
+FilterData Entry:
+  filters_added: 5
+  details: [(3945, 1, '5', 1), (3945, 2, '2', 1), (3945, 32, 'easy', 1), (3945, 53, 'teacher46', 1), (3945, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 637
+Bank Question ID: 3946
+FilterData Entry:
+  filters_added: 5
+  details: [(3946, 1, '5', 1), (3946, 2, '2', 1), (3946, 32, 'easy', 1), (3946, 53, 'teacher46', 1), (3946, 33, '1', 1)]
+
+--------------------
+

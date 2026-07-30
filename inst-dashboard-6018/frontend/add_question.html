@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestAI Add New Question</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/suite-tokens.css">
+    <link rel="stylesheet" href="css/nebula-components.css">
+    <link rel="stylesheet" href="rtl.css">
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <style>
+        body {
+            background-color: var(--nebula-bg-deep);
+            color: var(--nebula-text);
+            font-family: var(--nebula-font-body), sans-serif;
+        }
+        .page-header-orange {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+        }
+        .form-control, .form-select {
+            background-color: var(--nebula-bg-input) !important;
+            border: 1px solid var(--nebula-border) !important;
+            color: var(--nebula-text) !important;
+        }
+    </style>
+</head>
+<body>
+    <script src="shell.js"></script>
+    <div class="container mt-4">
+        <h2 class="page-header-orange">Add a New <span class="nebula-brand-text">QuestAI</span> Question Manually</h2>
+        <div id="alert-container"></div>
+        <form id="add-question-form">
+            <!-- Core Question Fields -->
+            <div class="mb-3">
+                <label for="question_text" class="form-label">Question Text</label>
+                <textarea class="form-control" id="question_text" rows="3" required></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="question_type" class="form-label">Question Type</label>
+                    <select class="form-select" id="question_type" required></select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="audience_type" class="form-label">Audience Type</label>
+                    <select class="form-select" id="audience_type" required>
+                        <option value="">Select Audience</option>
+                        <option value="general">General</option>
+                        <option value="school">School</option>
+                        <option value="university">University</option>
+                        <option value="company">Company</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Choices for Multiple Choice -->
+            <div id="choices-container" class="mb-3">
+                <label class="form-label">Choices</label>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">A</span>
+                    <input type="text" class="form-control" id="choice_1" placeholder="Choice 1">
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">B</span>
+                    <input type="text" class="form-control" id="choice_2" placeholder="Choice 2">
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">C</span>
+                    <input type="text" class="form-control" id="choice_3" placeholder="Choice 3">
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">D</span>
+                    <input type="text" class="form-control" id="choice_4" placeholder="Choice 4">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="correct_option" class="form-label">Correct Option / Model Answer</label>
+                <input type="text" class="form-control" id="correct_option" required>
+            </div>
+
+            <!-- Metadata Fields -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="difficulty_level" class="form-label">Difficulty Level</label>
+                    <select class="form-select" id="difficulty_level"></select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="cognitive_level" class="form-label">Cognitive Level</label>
+                    <select class="form-select" id="cognitive_level"></select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="learning_outcome" class="form-label">Learning Outcome</label>
+                    <select class="form-select" id="learning_outcome"></select>
+                </div>
+            </div>
+            
+            <!-- Dynamic Fields Container -->
+            <div id="dynamic-fields-container" class="row"></div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="mark" class="form-label">Mark</label>
+                    <input type="number" class="form-control" id="mark" value="1">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="time_seconds" class="form-label">Time (seconds)</label>
+                    <input type="number" class="form-control" id="time_seconds" value="60">
+                </div>
+            </div>
+
+            <button type="submit" class="btn nebula-btn--primary">Save Question</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('access_token') || localStorage.getItem('isAdmin') !== '1') {
+                window.location.href = 'login.html';
+            }
+
+            const BASE_URL = 'http://127.0.0.1:8000';
+
+            // Function to populate select dropdowns
+            async function populateSelect(elementId, endpoint, extraParams = {}) { // Use an object for extra parameters
+                console.log(`DEBUG: populateSelect called for elementId: ${elementId}, endpoint: ${endpoint}, extraParams:`, extraParams); // NEW DEBUG
+                const select = document.getElementById(elementId);
+                // Ensure select is not null before proceeding
+                if (!select) {
+                    console.warn(`Select element with ID '${elementId}' not found.`);
+                    return;
+                }
+                select.innerHTML = '<option value="">Select...</option>'; // This line clears it.
+                try {
+                    const currentLang = localStorage.getItem('lang') || 'en';
+                    let url = `${BASE_URL}${endpoint}?lang=${currentLang}`;
+                    
+                    // Add all extra parameters
+                    for (const key in extraParams) {
+                        if (extraParams[key] !== null && extraParams[key] !== undefined) {
+                            url += `&${key}=${extraParams[key]}`;
+                        }
+                    }
+                    console.log(`DEBUG: Fetching from constructed URL for ${elementId}: ${url}`); // NEW DEBUG
+
+                    const response = await fetchWithAuth(url);
+                    if (!response.ok) throw new Error(`Failed to fetch from ${endpoint}`);
+                    const data = await response.json();
+
+                    console.log(`DEBUG: Dropdown (${elementId}) received data:`, data); // NEW DEBUG
+
+                    // Special handling for category endpoint if it returns 'category' and 'category_ar'
+                    if (endpoint.includes('/lookup/categories')) {
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.category; // Always use English category as value for filtering
+                            option.textContent = (currentLang === 'ar' && item.category_ar) ? item.category_ar : item.category;
+                            select.appendChild(option);
+                        });
+                    } else { // Standard lookup items (e.g., difficulty levels, learning outcomes)
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            // If learning outcomes, the backend should return 'name', 'name_ar', 'category', 'audience_type'
+                            // For general lookup items, it will be 'name' and 'name_ar' (translated as 'name')
+                            option.value = item.name;
+                            option.textContent = item.name;
+                            select.appendChild(option);
+                        });
+                    }
+                    console.log(`DEBUG: Dropdown (${elementId}) populated. Current options count: ${select.options.length}`); // NEW DEBUG
+            
+            const questionTypeSelect = document.getElementById('question_type');
+            const choicesContainer = document.getElementById('choices-container');
+            const choiceInputs = [
+                document.getElementById('choice_1'),
+                document.getElementById('choice_2'),
+                document.getElementById('choice_3'),
+                document.getElementById('choice_4')
+            ];
+
+            questionTypeSelect.addEventListener('change', function() {
+                const qType = this.value;
+                choicesContainer.style.display = 'block';
+                
+                // Reset read-only and values first
+                choiceInputs.forEach(input => {
+                    input.readOnly = false;
+                });
+
+                if (qType === 'Text (Fill in the blank)') {
+                    choicesContainer.style.display = 'none';
+                    choiceInputs.forEach(input => input.value = '');
+                } else if (qType === 'Yes/No') {
+                    choiceInputs[0].value = (localStorage.getItem('lang') === 'ar') ? 'نعم' : 'Yes';
+                    choiceInputs[1].value = (localStorage.getItem('lang') === 'ar') ? 'لا' : 'No';
+                    choiceInputs[2].value = '';
+                    choiceInputs[3].value = '';
+                    choiceInputs[0].readOnly = true;
+                    choiceInputs[1].readOnly = true;
+                } else if (qType === 'Accept/Reject') {
+                    const options = (localStorage.getItem('lang') === 'ar') 
+                        ? ['قبول', 'رفض']
+                        : ['Accept', 'Reject'];
+                    options.forEach((opt, i) => {
+                        choiceInputs[i].value = opt;
+                        choiceInputs[i].readOnly = true;
+                    });
+                    // Clear the third and fourth choice inputs
+                    choiceInputs[2].value = '';
+                    choiceInputs[3].value = '';
+                } else if (qType === 'Multiple Answer') {
+                    showAlert('For Multiple Answer, enter multiple letters in Correct Option (e.g., AB)', 'info');
+                }
+            });
+
+            // Populate initial dropdowns and re-populate on language change
+            async function initializeDropdowns() {
+                populateSelect('question_type', '/lookup/question_types');
+                populateSelect('difficulty_level', '/lookup/difficulty_levels');
+                populateSelect('cognitive_level', '/lookup/cognitive_levels');
+                // Removed populateSelect('learning_outcome', '/lookup/learning_outcomes');
+                // The audience_type select is static, but its change listener also populates dynamic selects
+                // which will now correctly fetch localized data due to the 'lang' parameter.
+            }
+
+            initializeDropdowns();
+
+            // Listen for language change events and re-populate dropdowns
+            document.addEventListener('language:changed', function(event) {
+                console.log('Language changed to:', event.detail.lang);
+                initializeDropdowns();
+            });
+
+            const audienceTypeSelect = document.getElementById('audience_type');
+            const dynamicFieldsContainer = document.getElementById('dynamic-fields-container');
+
+            audienceTypeSelect.addEventListener('change', async function() {
+                const audienceType = this.value;
+                dynamicFieldsContainer.innerHTML = ''; // Clear previous fields
+                // Also clear learning outcome dropdown when audience type changes
+                document.getElementById('learning_outcome').innerHTML = '<option value="">Select...</option>';
+                // Immediately populate learning outcomes filtered by audience type
+                console.log(`DEBUG: Audience type before initial LO population: ${audienceType}`); // NEW DEBUG
+                populateSelect('learning_outcome', '/lookup/learning_outcomes', { audience_type: document.getElementById('audience_type').value }); // NEW LINE
+                if (!audienceType) {
+                    showAlert('Please select an Audience Type.', 'warning');
+                    return;
+                }
+
+                try {
+                    const response = await fetchWithAuth(`${BASE_URL}/lookup/property_types/${audienceType}`);
+                    if (!response.ok) throw new Error('Failed to fetch property types');
+                    const properties = await response.json();
+
+                    let relevantCategoryPropertyName = null;
+                    if (audienceType === 'school') {
+                        relevantCategoryPropertyName = 'subject';
+                    } else if (audienceType === 'university') {
+                        relevantCategoryPropertyName = 'material';
+                    } else if (audienceType === 'company') {
+                        relevantCategoryPropertyName = 'job_role';
+                    }
+
+                    for (const prop of properties) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4 mb-3';
+                        
+                        const label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.setAttribute('for', `prop-${prop.api_name}`);
+                        label.textContent = prop.name;
+
+                        const select = document.createElement('select');
+                        select.className = 'form-select';
+                        select.id = `prop-${prop.api_name}`;
+                        const propertyName = prop.api_name.replace(/s$/, ''); // e.g., school_types -> school_type
+                        select.dataset.propertyName = propertyName;
+
+                        col.appendChild(label);
+                        col.appendChild(select);
+                        dynamicFieldsContainer.appendChild(col);
+
+                        // Populate the new dynamic select
+                        populateSelect(select.id, `/lookup/properties/${prop.api_name}`);
+
+                        // Add event listener to the relevant category field
+                        if (propertyName === relevantCategoryPropertyName) {
+                            select.addEventListener('change', async function() {
+                                const selectedCategory = this.value;
+                                const learningOutcomeSelect = document.getElementById('learning_outcome');
+                                if (selectedCategory) {
+                                    // Populate learning outcomes based on audience type and selected category
+                                    populateSelect('learning_outcome', '/lookup/learning_outcomes', {
+                                        audience_type: document.getElementById('audience_type').value, // MODIFIED
+                                        category: selectedCategory
+                                    });
+                                } else {
+                                    // Clear learning outcome dropdown if category is unselected
+                                    learningOutcomeSelect.innerHTML = '<option value="">Select...</option>';
+                                }
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading dynamic fields:', error);
+                    showAlert('Error loading dynamic fields: ' + error.message, 'danger');
+                }
+            });
+
+            // Form submission
+            document.getElementById('add-question-form').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const form = event.target;
+                const questionData = {
+                    question_text: form.question_text.value,
+                    question_type: form.question_type.value,
+                    audience_type: form.audience_type.value,
+                    choice_1: form.choice_1.value || null,
+                    choice_2: form.choice_2.value || null,
+                    choice_3: form.choice_3.value || null,
+                    choice_4: form.choice_4.value || null,
+                    correct_option: form.correct_option.value,
+                    difficulty_level: form.difficulty_level.value,
+                    cognitive_level: form.cognitive_level.value,
+                    learning_outcome: form.learning_outcome.value,
+                    status: form.status.value,
+                    mark: parseInt(form.mark.value),
+                    time_seconds: parseInt(form.time_seconds.value),
+                };
+
+                // Collect dynamic properties
+                const dynamicSelects = dynamicFieldsContainer.querySelectorAll('select');
+                dynamicSelects.forEach(select => {
+                    if (select.value) {
+                        questionData[select.dataset.propertyName] = select.value;
+                    }
+                });
+
+                try {
+                    const response = await fetchWithAuth(`${BASE_URL}/questions`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(questionData)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.detail || 'Failed to save question');
+                    }
+
+                    const newQuestion = await response.json();
+                    showAlert(`Question #${newQuestion.question_id} saved successfully!`, 'success');
+                    form.reset();
+                    dynamicFieldsContainer.innerHTML = '';
+                } catch (error) {
+                    showAlert(error.message, 'danger');
+                }
+            });
+
+            function showAlert(message, type) {
+                const container = document.getElementById('alert-container');
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type} alert-dismissible fade show`;
+                alert.role = 'alert';
+                alert.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                container.innerHTML = ''; // Clear previous alerts
+                container.appendChild(alert);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="home.title">QuestAI Home</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/suite-tokens.css">
+    <link rel="stylesheet" href="css/nebula-components.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force override for all form labels */
+        .form-label,
+        label {
+            color: var(--nebula-accent-cyan) !important;
+        }
+
+        body {
+            background-color: #F7F8FA;
+            color: var(--nebula-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #langSwitcher {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--nebula-text);
+            border: 1px solid var(--nebula-border);
+            border-radius: 4px;
+            font-family: var(--nebula-font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.3rem;
+        }
+        #langSwitcher option {
+            color: var(--nebula-text);
+            background: var(--nebula-bg-surface);
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--nebula-bg-glass) !important;
+            backdrop-filter: blur(12px) !important;
+            border: 1px solid var(--nebula-border-glow) !important;
+            border-radius: 12px !important;
+            color: var(--nebula-text) !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.05) !important;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.15) !important;
+        }
+
+        .welcome-section {
+            background: #F7F8FA;
+            position: relative;
+            padding: 56px 0 40px;
+            text-align: center;
+            color: var(--nebula-text);
+            border-bottom: 1px solid var(--nebula-border);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .welcome-brand {
+            font-family: var(--nebula-font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--nebula-accent-cyan);
+            margin-bottom: 0.5rem;
+            text-shadow: var(--nebula-glow-cyan-sm);
+        }
+        .welcome-section h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1B2A4A;
+            margin-bottom: 12px;
+        }
+        .welcome-section h1 .nebula-brand-text {
+            font-size: inherit;
+        }
+        .welcome-section p {
+            font-size: 1.05rem;
+            color: var(--nebula-text-muted);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        /* Gateway: compact module launcher (shared .nebula-launcher pattern) */
+        .gateway-section {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .gateway-heading {
+            font-family: var(--nebula-font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--nebula-text);
+            margin-bottom: 0.35rem;
+        }
+        .gateway-subtitle {
+            text-align: center;
+            color: var(--nebula-text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .info-card .card-header {
+            background: transparent !important;
+            color: var(--nebula-accent-cyan) !important;
+            font-weight: 600;
+            border-bottom: 1px solid var(--nebula-border) !important;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: var(--nebula-font-display);
+            text-shadow: var(--nebula-glow-cyan-sm);
+        }
+        .info-card.instructions .card-header {
+            color: var(--nebula-accent-purple) !important;
+            text-shadow: var(--nebula-glow-purple);
+        }
+        .info-card.features .card-header {
+            color: var(--nebula-accent-cyan) !important;
+        }
+        .info-card .card-body {
+            padding: 30px;
+        }
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-card ul li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            color: var(--nebula-text);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .info-card ul li::before {
+            content: "•";
+            color: var(--nebula-accent-purple);
+            font-weight: bold;
+            text-shadow: var(--nebula-glow-purple);
+        }
+
+        .footer {
+            background-color: var(--nebula-bg-surface);
+            border-top: 1px solid var(--nebula-border);
+            color: var(--nebula-text-muted);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            border-radius: 8px !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+            border: none !important;
+        }
+        .btn-outline-light {
+            border: 1px solid var(--nebula-border-glow) !important;
+            color: var(--nebula-accent-cyan) !important;
+            background: transparent !important;
+        }
+        .btn-outline-light:hover {
+            background: rgba(0, 229, 255, 0.1) !important;
+            box-shadow: var(--nebula-glow-cyan-sm) !important;
+        }
+    </style>
+</head>
+<body class="nebula-motion-page">
+    <script src="shell.js"></script>
+    <script>
+        async function processSSO() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let ssoToken = urlParams.get('sso_token');
+
+            // Fallback: Check cookies if not in URL
+            if (!ssoToken) {
+                const cookieMatch = document.cookie.match(new RegExp('(^| )sso_token=([^;]+)'));
+                if (cookieMatch) {
+                    ssoToken = cookieMatch[2];
+                    console.log("processSSO: Found token in cookies");
+                }
+            }
+
+            if (ssoToken) {
+                try {
+                    // Use BACKEND_BASE_URL if available, otherwise fallback to current origin
+                    const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+                    const response = await fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        localStorage.setItem('access_token', data.access_token);
+                        // Clean URL and Cookies
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                        document.cookie = "sso_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+                        // If updateUserInfo is already defined, call it to refresh the UI with new token
+                        if (typeof updateUserInfo === 'function') {
+                            updateUserInfo();
+                        }
+                    } else {
+                        console.error("SSO verification failed");
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.error("Error during SSO exchange:", error);
+                    window.location.href = 'login.html';
+                }
+            } else if (!localStorage.getItem('access_token')) {
+                window.location.href = 'login.html';
+            }
+        }
+        processSSO();
+    </script>
+
+    <div class="welcome-section">
+        <p class="welcome-brand" data-i18n="home.suiteBrand">TDM Systems</p>
+        <h1>
+            <span data-i18n="home.welcomePrefix">Welcome to</span>
+            <span class="nebula-brand-text" data-i18n="home.brandName">QuestAI</span>!
+        </h1>
+        <p data-i18n="home.tagline">Your ultimate platform for generating, managing, and retrieving high-quality questions for various educational and professional needs.</p>
+    </div>
+
+    <section class="gateway-section" aria-labelledby="gateway-heading">
+        <h2 id="gateway-heading" class="gateway-heading" data-i18n="home.modulesHeading">Select a module</h2>
+        <p class="gateway-subtitle" data-i18n="home.modulesSubtitle">Choose a QuestAI tool to get started</p>
+        <div class="nebula-launcher">
+            <a href="index.html" class="nebula-launcher__row nebula-motion-card" style="animation-delay: 0ms">
+                <span class="nebula-launcher__icon" aria-hidden="true">Q</span>
+                <div class="nebula-launcher__body">
+                    <p class="nebula-launcher__title" data-i18n="home.moduleGenerateTitle">Generate Questions</p>
+                    <p class="nebula-launcher__desc" data-i18n="home.moduleGenerateDesc">Create AI-powered questions tailored to topic, difficulty, and audience.</p>
+                </div>
+                <span class="nebula-launcher__chevron" aria-hidden="true">&#8250;</span>
+            </a>
+            <a href="tasks.html" class="nebula-launcher__row nebula-motion-card" style="animation-delay: 60ms">
+                <span class="nebula-launcher__icon" aria-hidden="true">H</span>
+                <div class="nebula-launcher__body">
+                    <p class="nebula-launcher__title" data-i18n="home.moduleTasksTitle">Task History</p>
+                    <p class="nebula-launcher__desc" data-i18n="home.moduleTasksDesc">Track generation jobs and review task status over time.</p>
+                </div>
+                <span class="nebula-launcher__chevron" aria-hidden="true">&#8250;</span>
+            </a>
+            <a href="tamsQB.html" class="nebula-launcher__row nebula-motion-card" style="animation-delay: 120ms">
+                <span class="nebula-launcher__icon" aria-hidden="true">T</span>
+                <div class="nebula-launcher__body">
+                    <p class="nebula-launcher__title" data-i18n="home.moduleTestTitle">Take a Test</p>
+                    <p class="nebula-launcher__desc" data-i18n="home.moduleTestDesc">Run practice assessments from your approved question sets.</p>
+                </div>
+                <span class="nebula-launcher__chevron" aria-hidden="true">&#8250;</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="container my-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card info-card features">
+                    <div class="card-header" data-i18n="home.aboutQuestAIHeader">
+                        About QuestAI
+                    </div>
+                    <div class="card-body">
+                        <p data-i18n="home.aboutQuestAIText1">QuestAI leverages advanced AI models to help educators, trainers, and content creators quickly generate diverse question types tailored to specific topics, difficulty levels, and audience types.</p>
+                        <p data-i18n="home.aboutQuestAIText2">Our platform supports multiple-choice and open-ended questions, with customizable parameters to ensure relevance and quality. Easily manage your generated questions, track their status, and export them for use in your assessments or learning materials.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card info-card instructions">
+                    <div class="card-header" data-i18n="home.howToUseHeader">
+                        How to Use
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li data-i18n="home.howToUse1">Generate Questions: Navigate to the "Generate Questions" page, fill in the required details like topic context, audience type, and desired number of questions, then click "Generate".</li>
+                            <li data-i18n="home.howToUse2">Review & Manage: After generation, review the questions. You can approve, reject, edit, or delete them. Approved questions are ready for use.</li>
+                            <li data-i18n="home.howToUse3">Retrieve Questions: Use the "Generate Questions" page to search, filter, and export your approved questions.</li>
+                            <li data-i18n="home.howToUse4">Task History: Keep track of all your generation tasks and their statuses.</li>
+                            <li data-i18n="home.howToUse5">Profile & Settings: Manage your account and access administrative settings if you have the necessary permissions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="home.copyright">&copy; 2025 QuestAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

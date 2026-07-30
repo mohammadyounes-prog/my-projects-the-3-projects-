@@ -1,0 +1,341 @@
+{
+  "nav": {
+    "brand": "مولد الأسئلة",
+    "searchQuestions": "بحث الأسئلة",
+    "generateQuestions": "توليد الأسئلة",
+    "retrieveQuestions": "استرجاع الأسئلة",
+    "taskHistory": "سجل المهام",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "admin": "لوحة التحكم",
+    "takeATest": "اختبار",
+    "logout": "تسجيل الخروج",
+    "helloUser": "مرحباً",
+    "home": "الرئيسية"
+  },
+  "home": {
+    "title": "الرئيسية",
+    "welcomeMessage": "مرحبًا بك في",
+    "tagline": "منصتك النهائية لتوليد وإدارة واسترجاع أسئلة عالية الجودة لمختلف الاحتياجات التعليمية والمهنية.",
+    "startGenerating": "ابدأ بتوليد الأسئلة",
+    "viewExisting": "عرض الأسئلة الموجودة",
+    "aboutQuestAIHeader": "حول QuestAI",
+    "aboutQuestAIText1": "تستفيد QuestAI من نماذج الذكاء الاصطناعي المتقدمة لمساعدة المعلمين والمدربين ومنشئي المحتوى على توليد أنواع مختلفة من الأسئلة بسرعة مصممة خصيصًا لمواضيع محددة ومستويات صعوبة وأنواع جمهور.",
+    "aboutQuestAIText2": "تدعم منصتنا أسئلة الاختيار من متعدد والأسئلة المفتوحة، مع معلمات قابلة للتخصيص لضمان الصلة والجودة. قم بإدارة أسئلتك التي تم إنشاؤها بسهولة، وتتبع حالتها، وتصديرها لاستخدامها في تقييماتك أو موادك التعليمية.",
+    "howToUseHeader": "كيفية الاستخدام",
+    "howToUse1": "<strong>توليد الأسئلة:</strong> انتقل إلى صفحة \"توليد الأسئلة\"، واملأ التفاصيل المطلوبة مثل سياق الموضوع ونوع الجمهور وعدد الأسئلة المطلوب، ثم انقر على \"توليد\".",
+    "howToUse2": "<strong>المراجعة والإدارة:</strong> بعد التوليد، راجع الأسئلة. يمكنك الموافقة عليها أو رفضها أو تعديلها أو حذفها. الأسئلة المعتمدة جاهزة للاستخدام.",
+    "howToUse3": "<strong>استرجاع الأسئلة:</strong> استخدم صفحة \"استرجاع الأسئلة\" للبحث عن أسئلتك المعتمدة وتصفيتها وتصديرها.",
+    "howToUse4": "<strong>سجل المهام:</strong> تتبع جميع مهام التوليد وحالاتها.",
+    "howToUse5": "<strong>الملف الشخصي والإعدادات:</strong> إدارة حسابك والوصول إلى إعدادات الإدارة إذا كان لديك الأذونات اللازمة.",
+    "copyright": "&copy; 2025 QuestAI. جميع الحقوق محفوظة."
+  },
+  "search": {
+    "title": "بحث الأسئلة",
+    "placeholder": "ابحث حسب الموضوع...",
+    "search": "بحث",
+    "statusFilter": "تصفية حسب الحالة",
+    "status": {
+      "all": "الكل",
+      "pending": "قيد المراجعة",
+      "approved": "مقبول",
+      "rejected": "مرفوض"
+    },
+    "dateFrom": "من",
+    "dateTo": "إلى",
+    "approvedBy": "وافق عليه",
+    "rejectedBy": "رُفض بواسطة",
+    "editedBy": "تم تعديله بواسطة",
+    "deletedBy": "حُذف بواسطة",
+    "reset": "إعادة ضبط المرشحات",
+    "generatedBy": "تم إنشاؤها بواسطة",
+    "allUsers": "كل المستخدمين",
+    "clearFilters": "مسح المرشحات",
+    "questionsList": "قائمة الأسئلة",
+    "exportCsv": "تصدير CSV",
+    "noResults": "لا توجد أسئلة.",
+    "history": "السجل",
+    "correctAnswer": "الإجابة الصحيحة:",
+    "approve": "قبول",
+    "reject": "رفض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "card": {
+      "question": "سؤال",
+      "status": "الحالة",
+      "difficulty": "الصعوبة",
+      "cognitiveLevel": "المستوى المعرفي",
+      "learningOutcome": "مخرجات التعلم",
+      "author": "المؤلف",
+      "date": "التاريخ"
+    }
+  },
+  "modal": {
+    "editTitle": "تعديل السؤال",
+    "close": "إغلاق",
+    "saveChanges": "حفظ التغييرات",
+    "questionText": "نص السؤال",
+    "choice1": "الاختيار ١",
+    "choice2": "الاختيار ٢",
+    "choice3": "الاختيار ٣",
+    "choice4": "الاختيار ٤",
+    "correctOption": "الخيار الصحيح",
+    "difficultyLevel": "مستوى الصعوبة",
+    "cognitiveLevel": "المستوى المعرفي",
+    "learningOutcome": "مخرجات التعلم"
+  },
+  "generate": {
+    "title": "توليد الأسئلة",
+    "country": "الدولة",
+    "selectCountry": "اختر الدولة",
+    "audienceType": "نوع الجمهور",
+    "selectAudienceType": "اختر نوع الجمهور",
+    "audience": {
+      "school": "مدرسة",
+      "university": "جامعة",
+      "company": "شركة"
+    },
+    "topicContext": "سياق الموضوع",
+    "topicContextPlaceholder": "أدخل نصًا للتوليد",
+    "questionType": "نوع السؤال",
+    "selectQuestionType": "اختر نوع السؤال",
+    "questionTypes": {
+      "multipleChoice": "اختيار من متعدد",
+      "openEnded": "سؤال مفتوح"
+    },
+    "difficultyLevel": "مستوى الصعوبة",
+    "selectDifficulty": "اختر مستوى الصعوبة",
+    "learningOutcome": "مخرجات التعلم",
+    "selectLearningOutcome": "اختر مخرجات التعلم",
+    "cognitiveLevel": "المستوى المعرفي",
+    "selectCognitiveLevel": "اختر المستوى المعرفي",
+    "numQuestions": "عدد الأسئلة",
+    "aiModel": "نموذج الذكاء الاصطناعي",
+    "similarityThreshold": "عتبة التشابه",
+    "submitButton": "توليد الأسئلة",
+    "generatedQuestions": "الأسئلة التي تم إنشاؤها",
+    "approveAll": "الموافقة على الكل",
+    "deleteAll": "حذف الكل",
+    "noQuestions": "لم يتم إنشاء أسئلة بعد."
+  },
+  "admin": {
+    "title": "لوحة التحكم",
+    "header": "إدارة المسؤولين",
+    "dashboardButton": "لوحة القيادة",
+    "tasksButton": "المهام",
+    "tenants": {
+      "title": "إدارة المستأجرين",
+      "addTenant": "إضافة مستأجر",
+      "table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "createdAt": "تاريخ الإنشاء",
+        "country": "الدولة",
+        "actions": "الإجراءات"
+      },
+      "modal": {
+        "addTitle": "إضافة مستأجر جديد",
+        "editTitle": "تعديل المستأجر",
+        "nameLabel": "اسم المستأجر",
+        "addButton": "إضافة مستأجر",
+        "saveButton": "حفظ التغييرات"
+      }
+    },
+    "users": {
+      "title": "إدارة المستخدمين",
+      "addUser": "إضافة مستخدم",
+      "table": {
+        "id": "المعرف",
+        "username": "اسم المستخدم",
+        "fullName": "الاسم الكامل",
+        "isAdmin": "مسؤول",
+        "agentName": "الوكيل",
+        "country": "الدولة",
+        "actions": "الإجراءات"
+      },
+      "rowsPerPage": "الصفوف لكل صفحة:",
+      "selectAll": "تحديد الكل",
+      "deselectAll": "إلغاء تحديد الكل",
+      "deleteSelected": "حذف المحدد",
+      "modal": {
+        "addTitle": "إضافة مستخدم جديد",
+        "editTitle": "تعديل المستخدم",
+        "fullNameLabel": "الاسم الكامل",
+        "usernameLabel": "اسم المستخدم",
+        "passwordLabel": "كلمة المرور",
+        "confirmPasswordLabel": "تأكيد كلمة المرور",
+        "tenantLabel": "الوكيل",
+        "isAdminLabel": "مسؤول",
+        "newPasswordLabel": "كلمة مرور جديدة (اتركها فارغة للاحتفاظ بالكلمة الحالية)",
+        "addButton": "إضافة مستخدم",
+        "saveButton": "حفظ التغييرات"
+      }
+    },
+    "models": {
+      "title": "إدارة النماذج",
+      "addModel": "إضافة نموذج",
+      "table": {
+        "id": "المعرف",
+        "modelName": "اسم النموذج",
+        "apiName": "اسم API",
+        "method": "الأسلوب",
+        "default": "افتراضي",
+        "active": "نشط",
+        "actions": "الإجراءات"
+      },
+      "modal": {
+        "addTitle": "إضافة نموذج جديد",
+        "editTitle": "تعديل النموذج",
+        "modelNameLabel": "اسم النموذج",
+        "apiNameLabel": "اسم API",
+        "apiKeyLabel": "مفتاح API",
+        "saveButton": "حفظ النموذج"
+      }
+    },
+    "currencies": {
+      "table": {
+        "code": "الرمز",
+        "name": "الاسم",
+        "decimalPlaces": "الخانات العشرية",
+        "active": "نشط",
+        "actions": "الإجراءات"
+      }
+    },
+    "products": {
+      "table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "type": "النوع",
+        "audience": "الجمهور",
+        "price": "السعر",
+        "questions": "الأسئلة",
+        "duration": "المدة (أيام)",
+        "active": "نشط",
+        "actions": "الإجراءات"
+      }
+    },
+    "audience": {
+      "title": "إدارة الجمهور",
+      "schoolTab": "مدرسة",
+      "universityTab": "جامعة",
+      "companyTab": "شركة"
+    },
+    "properties": {
+      "title": "خصائص السؤال",
+      "addNew": "إضافة",
+      "table": {
+        "rowsPerPage": "عدد الصفوف في الصفحة:",
+        "selectAll": "تحديد الكل",
+        "deselectAll": "إلغاء تحديد الكل",
+        "deleteSelected": "حذف المحدد",
+        "id": "المعرف",
+        "name": "الاسم",
+        "actions": "الإجراءات"
+      },
+      "tabs": {
+        "cognitive_levels": "المستويات المعرفية",
+        "difficulty_levels": "مستويات الصعوبة",
+        "question_types": "أنواع الأسئلة",
+        "learning_outcomes": "مخرجات التعلم"
+      },
+      "values": {
+        "difficulty_levels_1": "سهل",
+        "difficulty_levels_2": "متوسط",
+        "difficulty_levels_3": "صعب",
+        "cognitive_levels_1": "تذكر",
+        "cognitive_levels_2": "فهم",
+        "cognitive_levels_3": "تطبيق",
+        "cognitive_levels_4": "تحليل",
+        "cognitive_levels_5": "تقييم",
+        "cognitive_levels_6": "إنشاء",
+        "question_types_1": "اختيار من متعدد",
+        "question_types_2": "سؤال مفتوح",
+        "learning_outcomes_1": "المعرفة",
+        "learning_outcomes_2": "الفهم",
+        "learning_outcomes_3": "التطبيق"
+      },
+      "configuration": "إعدادات",
+      "save": "حفظ",
+      "modal": {
+        "addPropertyTypeTitle": "إضافة نوع خاصية جديد"
+      }
+    },
+    "reports": {
+      "title": "إدارة التقارير",
+      "agentReport": "تقرير الوكلاء",
+      "userReport": "تقرير المستخدمين",
+      "productsSoldReport": "تقرير المنتجات المباعة",
+      "generate_report": "توليد التقرير",
+      "download_excel_report": "تنزيل تقرير Excel",
+      "learning_outcomes_report_table": "جدول تقرير مخرجات التعلم",
+      "generate_report_first": "يرجى توليد التقرير أولاً.",
+      "final_score": "الدرجة النهائية",
+      "objective_achievement": "تحقيق الهدف",
+      "achievement_percentage": "نسبة الإنجاز",
+      "learning_outcomes_chart_title": "مخطط تحقيق مخرجات التعلم",
+      "column_number": "رقم العمود",
+      "student_id": "معرف الطالب",
+      "student_name": "اسم الطالب",
+      "no_data_for_report": "لا توجد بيانات لتوليد التقرير."
+    }
+  },
+  "tasks": {
+    "title": "سجل المهام",
+    "header": "سجل المهام",
+    "loading": "جاري تحميل المهام...",
+    "noTasks": "لم يتم العثور على مهام توليد.",
+    "card": {
+      "taskId": "معرف المهمة:",
+      "requested": "الأسئلة المطلوبة:",
+      "generated": "الأسئلة التي تم إنشاؤها:",
+      "status": "الحالة:",
+      "timestamp": "الطابع الزمني:",
+      "parameters": "المعلمات:"
+    }
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "header": "الملف الشخصي",
+    "username": "اسم المستخدم:",
+    "userId": "معرف المستخدم:",
+    "changePassword": {
+      "title": "تغيير كلمة المرور",
+      "current": "كلمة المرور الحالية",
+      "new": "كلمة المرور الجديدة",
+      "confirm": "تأكيد كلمة المرور الجديدة",
+      "button": "تغيير كلمة المرور"
+    },
+    "preferences": {
+      "title": "تفضيلات المستخدم",
+      "description": "إدارة تفضيلاتك الخاصة بالجمهور.",
+      "fields": {
+        "school_type": "نوع المدرسة",
+        "subject": "الموضوع",
+        "year": "السنة",
+        "major": "التخصص",
+        "course": "المساق",
+        "material": "المادة",
+        "semester": "الفصل الدراسي",
+        "company": "الشركة",
+        "department": "القسم",
+        "job_role": "المسمى الوظيفي",
+        "difficulty_level": "مستوى الصعوبة",
+        "cognitive_level": "المستوى المعرفي",
+        "learning_outcome": "مخرجات التعلم",
+        "question_type": "نوع السؤال"
+      }
+    }
+  },
+  "common": {
+    "delete": "حذف",
+    "selectExisting": "اختر من الموجود",
+    "orAddNewCustom": "أو أضف جديدًا مخصصًا",
+    "add": "إضافة"
+  },
+  "pagination": {
+    "first": "الأول",
+    "previous": "السابق",
+    "next": "التالي",
+    "last": "الأخير"
+  }
+}

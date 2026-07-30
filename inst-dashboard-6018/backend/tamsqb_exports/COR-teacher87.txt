@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher87 (ID: 139)
+Category: CAT-teacher87-2-08-01-2026 (ID: 500)
+--------------------------------------------------
+
+Local Question ID: 864
+Bank Question ID: 4218
+FilterData Entry:
+  filters_added: 5
+  details: [(4218, 1, '5', 1), (4218, 2, '2', 1), (4218, 32, 'none', 1), (4218, 53, 'teacher87', 1), (4218, 33, '1', 1)]
+
+--------------------
+

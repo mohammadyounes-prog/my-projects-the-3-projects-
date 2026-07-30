@@ -1,0 +1,34 @@
+TamsQB Export for Course: 15-11-2025 (ID: 16)
+Category: agent-50-27 (ID: 144)
+--------------------------------------------------
+
+Local Question ID: 443
+Bank Question ID: 3768
+FilterData Entry:
+  bankId: 3768
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 444
+Bank Question ID: 3769
+FilterData Entry:
+  bankId: 3769
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+
+Local Question ID: 445
+Bank Question ID: 3770
+FilterData Entry:
+  bankId: 3770
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

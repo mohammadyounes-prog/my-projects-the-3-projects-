@@ -1,0 +1,403 @@
+/**
+ * TDM Systems — Academic Clarity Design Tokens / Clean Light Theme for Educational Institutions
+ * Source of truth for cross-app adoption.
+ *
+ * Load fonts (all three apps):
+ *   Inter, Space Grotesk, Plus Jakarta Sans, IBM Plex Sans Arabic, Cairo
+ *   (Google Fonts or self-hosted)
+ */
+
+/* ═══════════════════════════════════════════════════════
+   1. COLOR TOKENS
+   ═══════════════════════════════════════════════════════ */
+:root {
+  /* ——— Light Backgrounds ——— */
+  --nebula-bg-deep:       #F7F8FA;
+  --nebula-bg-surface:    #FFFFFF;
+  --nebula-bg-raised:     #F0F2F5;
+  --nebula-bg-glass:      rgba(255, 255, 255, 0.85);
+  --nebula-bg-glass-heavy: rgba(255, 255, 255, 0.95);
+  --nebula-bg-input:      #F0F2F5;
+
+  /* ——— Accent Colors ——— */
+  --nebula-accent-cyan:    #2D9F93;
+  --nebula-accent-purple:  #1B2A4A;
+  --nebula-accent-blue:    #247A8A;
+  --nebula-accent-pink:    #D4943A;
+  --nebula-accent-cyan-dim: rgba(45, 159, 147, 0.1);
+  --nebula-accent-purple-dim: rgba(27, 42, 74, 0.08);
+
+  /* ——— Semantic Colors ——— */
+  --nebula-success:        #27AE60;
+  --nebula-success-dim:    rgba(39, 174, 96, 0.1);
+  --nebula-warning:        #D4943A;
+  --nebula-warning-dim:    rgba(212, 148, 58, 0.1);
+  --nebula-danger:         #E74C3C;
+  --nebula-danger-dim:     rgba(231, 76, 60, 0.1);
+
+  /* ——— Text ——— */
+  --nebula-text:           #1A1F2E;
+  --nebula-text-muted:     #6B7280;
+  --nebula-text-dim:       #9CA3AF;
+  --nebula-on-accent:      #FFFFFF;
+
+  /* ——— Borders ——— */
+  --nebula-border:         #E2E5EB;
+  --nebula-border-strong:  #CBD0D8;
+  --nebula-border-glow:    #2D9F93;
+
+  /* ——— Shadows (clean, no glows) ——— */
+  --nebula-glow-cyan:      0 2px 8px rgba(45, 159, 147, 0.15);
+  --nebula-glow-cyan-sm:   0 1px 4px rgba(45, 159, 147, 0.1);
+  --nebula-glow-cyan-lg:   0 4px 16px rgba(45, 159, 147, 0.2);
+  --nebula-glow-purple:    0 2px 8px rgba(27, 42, 74, 0.15);
+  --nebula-glow-purple-sm: 0 1px 4px rgba(27, 42, 74, 0.1);
+  --nebula-glow-blue:      0 2px 8px rgba(36, 122, 138, 0.15);
+  --nebula-glow-success:   0 1px 4px rgba(39, 174, 96, 0.15);
+
+  /* ——— Gradients ——— */
+  --nebula-gradient-hero:  linear-gradient(135deg, #F7F8FA 0%, #EBF5F4 50%, #F7F8FA 100%);
+  --nebula-gradient-accent: linear-gradient(135deg, #2D9F93, #247A8A, #1B2A4A);
+  --nebula-gradient-btn:   #2D9F93;
+  --nebula-gradient-btn-hover: #268B80;
+  --nebula-gradient-card:  linear-gradient(135deg, rgba(45, 159, 147, 0.03), rgba(27, 42, 74, 0.03));
+  --nebula-gradient-mesh:  none;
+
+  /* ═══════════════════════════════════════════════════════
+     2. TYPOGRAPHY TOKENS
+     ═══════════════════════════════════════════════════════ */
+  --nebula-font-display: "Inter", "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, sans-serif;
+  --nebula-font-body:    "Inter", "Cairo", -apple-system, BlinkMacSystemFont, sans-serif;
+  --nebula-font-mono:    "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --nebula-text-hero:    clamp(2.5rem, 5vw, 4rem);
+  --nebula-text-h1:      2.25rem;
+  --nebula-text-h2:      1.75rem;
+  --nebula-text-h3:      1.25rem;
+  --nebula-text-body:    1rem;
+  --nebula-text-caption: 0.875rem;
+  --nebula-text-small:   0.75rem;
+  --nebula-leading-tight: 1.15;
+  --nebula-leading-body:  1.6;
+  --nebula-tracking-display: -0.03em;
+  --nebula-tracking-wide:  0.05em;
+
+  /* ═══════════════════════════════════════════════════════
+     3. SPACING TOKENS
+     ═══════════════════════════════════════════════════════ */
+  --nebula-space-1: 0.25rem;  /* 4px  */
+  --nebula-space-2: 0.5rem;   /* 8px  */
+  --nebula-space-3: 1rem;     /* 16px */
+  --nebula-space-4: 1.5rem;   /* 24px */
+  --nebula-space-5: 2rem;     /* 32px */
+  --nebula-space-6: 3rem;     /* 48px */
+  --nebula-space-7: 4rem;     /* 64px */
+  --nebula-space-8: 6rem;     /* 96px */
+
+  /* ═══════════════════════════════════════════════════════
+     4. RADIUS / ELEVATION
+     ═══════════════════════════════════════════════════════ */
+  --nebula-radius-sm:  0.5rem;
+  --nebula-radius-md:  0.75rem;
+  --nebula-radius-lg:  1.25rem;
+  --nebula-radius-xl:  1.5rem;
+  --nebula-radius-full: 9999px;
+
+  --nebula-shadow-0: none;
+  --nebula-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --nebula-shadow-2: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --nebula-shadow-glass: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  /* ═══════════════════════════════════════════════════════
+     5. CHROME TOKENS
+     ═══════════════════════════════════════════════════════ */
+  --nebula-header-height: 4rem;
+  --nebula-header-bg: rgba(255, 255, 255, 0.9);
+  --nebula-header-fg: var(--nebula-text);
+  --nebula-header-blur: 12px;
+  --nebula-sidebar-width: 260px;
+  --nebula-topbar-height: 3.5rem;
+  --nebula-sidebar-breakpoint: 991px;
+
+  /* ═══════════════════════════════════════════════════════
+     6. MOTION TOKENS
+     ═══════════════════════════════════════════════════════ */
+  --nebula-ease:          cubic-bezier(0.4, 0, 0.2, 1);
+  --nebula-ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --nebula-duration-fast: 150ms;
+  --nebula-duration-med:  300ms;
+  --nebula-duration-slow: 600ms;
+
+  /* ═══════════════════════════════════════════════════════
+     BACKWARD COMPATIBILITY ALIASES
+     Maps old --suite-* names to new --nebula-* values
+     ═══════════════════════════════════════════════════════ */
+  --suite-primary:       var(--nebula-accent-cyan);
+  --suite-primary-dark:  var(--nebula-accent-blue);
+  --suite-primary-soft:  var(--nebula-accent-cyan-dim);
+  --suite-accent-sky:    var(--nebula-accent-blue);
+  --suite-success:       var(--nebula-success);
+  --suite-warning:       var(--nebula-warning);
+  --suite-danger:        var(--nebula-danger);
+  --suite-surface:       var(--nebula-bg-deep);
+  --suite-surface-raised: var(--nebula-bg-surface);
+  --suite-text:          var(--nebula-text);
+  --suite-text-muted:    var(--nebula-text-muted);
+  --suite-border:        var(--nebula-border);
+  --suite-on-primary:    var(--nebula-on-accent);
+  --suite-font-display:  var(--nebula-font-display);
+  --suite-font-body:     var(--nebula-font-body);
+  --suite-font-mono:     var(--nebula-font-mono);
+  --suite-header-height: var(--nebula-header-height);
+  --suite-header-bg:     var(--nebula-header-bg);
+  --suite-header-fg:     var(--nebula-header-fg);
+  --suite-ease:          var(--nebula-ease);
+
+  /* QI legacy aliases */
+  --accent-blue:     var(--nebula-accent-cyan);
+  --label-blue:      var(--nebula-accent-blue);
+  --bg-main:         var(--nebula-bg-deep);
+  --bg-panel:        var(--nebula-bg-surface);
+  --text-primary:    var(--nebula-text);
+  --text-secondary:  var(--nebula-text-muted);
+  --border-light:    var(--nebula-border);
+  --font-display:    var(--nebula-font-display);
+  --font-body:       var(--nebula-font-body);
+  --accent-emerald:  var(--nebula-success);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   7. BASE DOCUMENT DEFAULTS
+   ═══════════════════════════════════════════════════════ */
+.nebula-root,
+html.nebula,
+html.suite {
+  background-color: var(--nebula-bg-deep);
+  color: var(--nebula-text);
+  font-family: var(--nebula-font-body);
+  font-size: var(--nebula-text-body);
+  line-height: var(--nebula-leading-body);
+}
+
+.nebula-display,
+.suite-display {
+  font-family: var(--nebula-font-display);
+  letter-spacing: var(--nebula-tracking-display);
+  font-weight: 700;
+  line-height: var(--nebula-leading-tight);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   8. ANIMATION KEYFRAMES
+   ═══════════════════════════════════════════════════════ */
+
+/* --- Page & element entrances --- */
+@keyframes nebula-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nebula-header-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nebula-card-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes nebula-scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* --- Glow & shimmer effects --- */
+@keyframes nebula-glow-pulse {
+  0%, 100% { box-shadow: none; }
+  50%      { box-shadow: none; }
+}
+
+@keyframes nebula-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes nebula-border-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes nebula-text-glow {
+  0%, 100% { text-shadow: none; }
+  50%      { text-shadow: none; }
+}
+
+/* --- Floating / particle effects --- */
+@keyframes nebula-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%      { transform: translateY(-8px) rotate(1deg); }
+  66%      { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes nebula-particle-drift {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translate(var(--drift-x, 50px), var(--drift-y, -100px)) scale(0.5); opacity: 0; }
+}
+
+/* --- Gradient mesh animation --- */
+@keyframes nebula-mesh-move {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Legacy keyframes (backward compat) */
+@keyframes suite-header-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes suite-page-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes suite-card-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* ═══════════════════════════════════════════════════════
+   9. UTILITY CLASSES — MOTION
+   ═══════════════════════════════════════════════════════ */
+.nebula-motion-page,
+.suite-motion-page {
+  animation: nebula-fade-in var(--nebula-duration-slow) var(--nebula-ease) both;
+}
+
+.nebula-motion-header,
+.suite-motion-header {
+  animation: nebula-header-in var(--nebula-duration-med) var(--nebula-ease) both;
+}
+
+.nebula-motion-card,
+.suite-motion-card {
+  animation: nebula-card-rise var(--nebula-duration-slow) var(--nebula-ease) both;
+}
+
+.nebula-motion-scale {
+  animation: nebula-scale-in var(--nebula-duration-med) var(--nebula-ease) both;
+}
+
+.nebula-glow-pulse {
+  animation: nebula-glow-pulse 2s ease-in-out infinite;
+}
+
+.nebula-float {
+  animation: nebula-float 6s ease-in-out infinite;
+}
+
+.nebula-text-glow {
+  animation: nebula-text-glow 3s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   10. UTILITY CLASSES — GLASSMORPHISM
+   ═══════════════════════════════════════════════════════ */
+.nebula-glass {
+  background: var(--nebula-bg-glass);
+  border: 1px solid var(--nebula-border);
+  border-radius: var(--nebula-radius-lg);
+}
+
+.nebula-glass-heavy {
+  background: var(--nebula-bg-glass-heavy);
+  border: 1px solid var(--nebula-border-strong);
+  border-radius: var(--nebula-radius-lg);
+}
+
+.nebula-glass-card {
+  background: var(--nebula-bg-glass);
+  border: 1px solid var(--nebula-border);
+  border-radius: var(--nebula-radius-lg);
+  box-shadow: var(--nebula-shadow-glass);
+  transition: transform var(--nebula-duration-med) var(--nebula-ease),
+              box-shadow var(--nebula-duration-med) var(--nebula-ease),
+              border-color var(--nebula-duration-med) var(--nebula-ease);
+}
+
+.nebula-glass-card:hover,
+.suite-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nebula-shadow-2);
+  border-color: var(--nebula-border-strong);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   11. UTILITY CLASSES — GLOW & EFFECTS
+   ═══════════════════════════════════════════════════════ */
+.nebula-glow-border {
+  position: relative;
+}
+
+.nebula-glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--nebula-gradient-accent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--nebula-duration-med) var(--nebula-ease);
+}
+
+.nebula-glow-border:hover::before {
+  opacity: 1;
+}
+
+.nebula-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(45, 159, 147, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: nebula-shimmer 3s ease-in-out infinite;
+}
+
+.nebula-shimmer-hover:hover {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(45, 159, 147, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: nebula-shimmer 3s ease-in-out infinite;
+}
+
+.nebula-gradient-text {
+  color: var(--nebula-accent-cyan);
+}
+
+.nebula-brand-text {
+  font-family: var(--nebula-font-display);
+  font-weight: 700;
+  letter-spacing: var(--nebula-tracking-display);
+  color: var(--nebula-accent-cyan);
+}
+
+.nebula-mesh-bg {
+  display: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   12. NEURAL GRID BACKGROUND PATTERN
+   ═══════════════════════════════════════════════════════ */
+.nebula-neural-grid {
+  display: none;
+}

@@ -1,0 +1,52 @@
+TamsQB Export for Course: COR-sstud35 (ID: 145)
+Category: CAT-sstud35-1-01-02-2026 (ID: 671)
+--------------------------------------------------
+
+Local Question ID: 1049
+Bank Question ID: 4543
+FilterData Entry:
+  filters_added: 5
+  details: [(4543, 1, '5', 1), (4543, 2, '0', 1), (4543, 32, 'medium', 1), (4543, 53, 'sstud35', 1), (4543, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1118
+Bank Question ID: 4544
+FilterData Entry:
+  filters_added: 5
+  details: [(4544, 1, '5', 1), (4544, 2, '2', 1), (4544, 32, 'medium', 1), (4544, 53, 'sstud35', 1), (4544, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1119
+Bank Question ID: 4545
+FilterData Entry:
+  filters_added: 5
+  details: [(4545, 1, '5', 1), (4545, 2, '2', 1), (4545, 32, 'medium', 1), (4545, 53, 'sstud35', 1), (4545, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1120
+Bank Question ID: 4546
+FilterData Entry:
+  filters_added: 5
+  details: [(4546, 1, '5', 1), (4546, 2, '0', 1), (4546, 32, 'medium', 1), (4546, 53, 'sstud35', 1), (4546, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1121
+Bank Question ID: 4547
+FilterData Entry:
+  filters_added: 5
+  details: [(4547, 1, '5', 1), (4547, 2, '2', 1), (4547, 32, 'medium', 1), (4547, 53, 'sstud35', 1), (4547, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 1122
+Bank Question ID: 4548
+FilterData Entry:
+  filters_added: 5
+  details: [(4548, 1, '5', 1), (4548, 2, '0', 1), (4548, 32, 'medium', 1), (4548, 53, 'sstud35', 1), (4548, 33, '1', 1)]
+
+--------------------
+

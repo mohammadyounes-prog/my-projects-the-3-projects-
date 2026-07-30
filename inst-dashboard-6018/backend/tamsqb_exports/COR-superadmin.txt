@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-superadmin (ID: 138)
+Category: CAT-superadmin-3-26-05-2026 (ID: 998)
+--------------------------------------------------
+
+Local Question ID: 1530
+Bank Question ID: 4928
+FilterData Entry:
+  filters_added: 6
+  details: [(4928, 1, '5', 1), (4928, 2, '2', 1), (4928, 32, 'medium', 1), (4928, 53, 'superadmin', 1), (4928, 33, '1', 1), (4928, 3361, 'motivated', 3)]
+
+--------------------
+

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-university10 -2-29-12-2025 (ID: 117)
+Category: CAT-university10 -2-29-12-2025 (ID: 370)
+--------------------------------------------------
+
+Local Question ID: 668
+Bank Question ID: 4024
+FilterData Entry:
+  filters_added: 6
+  details: [(4024, 1, '5', 1), (4024, 2, '2', 1), (4024, 32, 'easy', 1), (4024, 53, 'university10 ', 1), (4024, 33, '1', 1), (4024, 686, 'Collaboration and Teamwork', 3)]
+
+--------------------
+

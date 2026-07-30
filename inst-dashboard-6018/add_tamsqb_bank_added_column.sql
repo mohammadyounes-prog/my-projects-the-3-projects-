@@ -1,0 +1,1 @@
+ALTER TABLE questions ADD COLUMN tamsqb_bank_added INTEGER DEFAULT 0;

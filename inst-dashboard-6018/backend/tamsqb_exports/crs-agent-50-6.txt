@@ -1,0 +1,14 @@
+TamsQB Export for Course: crs-agent-50-6 (ID: 40)
+Category: cat-agent-50-11-12-2025-1 (ID: 262)
+--------------------------------------------------
+
+Local Question ID: 552
+Bank Question ID: 3924
+FilterData Entry:
+  bankId: 3924
+  filterId: 32
+  value: متوسط
+  type: 1
+
+--------------------
+

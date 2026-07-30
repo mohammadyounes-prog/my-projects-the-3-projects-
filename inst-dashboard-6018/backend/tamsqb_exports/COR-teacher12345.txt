@@ -1,0 +1,20 @@
+TamsQB Export for Course: COR-teacher12345 (ID: 198)
+Category: CAT-teacher12345-2-20-06-2026 (ID: 1055)
+--------------------------------------------------
+
+Local Question ID: 1542
+Bank Question ID: 4989
+FilterData Entry:
+  filters_added: 6
+  details: [(4989, 1, '5', 1), (4989, 2, '2', 1), (4989, 32, 'medium', 1), (4989, 53, 'teacher12345', 1), (4989, 33, '1', 1), (4989, 3737, 'ability to identify places', 3)]
+
+--------------------
+
+Local Question ID: 1544
+Bank Question ID: 4990
+FilterData Entry:
+  filters_added: 6
+  details: [(4990, 1, '5', 1), (4990, 2, '2', 1), (4990, 32, 'medium', 1), (4990, 53, 'teacher12345', 1), (4990, 33, '1', 1), (4990, 3737, 'ability to identify places', 3)]
+
+--------------------
+

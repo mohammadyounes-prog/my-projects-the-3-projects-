@@ -1,0 +1,28 @@
+TamsQB Export for Course: COR-teacher44-2-22-12-2025 (ID: 55)
+Category: CAT-teacher44-1-22-12-2025 (ID: 273)
+--------------------------------------------------
+
+Local Question ID: 613
+Bank Question ID: 3932
+FilterData Entry:
+  filters_added: 5
+  details: [(3932, 1, '5', 1), (3932, 2, '2', 1), (3932, 32, 'easy', 1), (3932, 53, 'teacher44', 1), (3932, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 619
+Bank Question ID: 3933
+FilterData Entry:
+  filters_added: 5
+  details: [(3933, 1, '5', 1), (3933, 2, '2', 1), (3933, 32, 'easy', 1), (3933, 53, 'teacher44', 1), (3933, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 626
+Bank Question ID: 3934
+FilterData Entry:
+  filters_added: 5
+  details: [(3934, 1, '5', 1), (3934, 2, '2', 1), (3934, 32, 'easy', 1), (3934, 53, 'teacher44', 1), (3934, 33, '1', 1)]
+
+--------------------
+

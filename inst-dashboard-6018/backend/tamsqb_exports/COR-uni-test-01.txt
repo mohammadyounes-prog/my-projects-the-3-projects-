@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-uni-test-01 (ID: 173)
+Category: CAT-uni-test-01-2-21-02-2026 (ID: 786)
+--------------------------------------------------
+
+Local Question ID: 1276
+Bank Question ID: 4666
+FilterData Entry:
+  filters_added: 5
+  details: [(4666, 1, '5', 1), (4666, 2, '0', 1), (4666, 32, 'medium', 1), (4666, 53, 'uni-test-01', 1), (4666, 33, '1', 1)]
+
+--------------------
+

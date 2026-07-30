@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestAI User Preferences</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/suite-tokens.css">
+    <link rel="stylesheet" href="css/nebula-components.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <link href="rtl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force override for all form labels */
+        .form-label, 
+        label {
+            color: var(--nebula-accent-cyan) !important;
+        }
+
+        :root {
+            /* Palette - LMS Unified (Light Mode) */
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --accent-blue: var(--nebula-accent-cyan);
+            --label-blue: #1e3a8a; /* Darker blue for labels */
+            --accent-blue-glow: rgba(44, 82, 130, 0.2);
+            --accent-emerald: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #6B7280;
+            --border-light: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(12px);
+            
+            /* Typography */
+            --font-display: 'Inter', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--nebula-bg-deep);
+            color: var(--nebula-text);
+            font-family: var(--nebula-font-body);
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .app-name-style {
+            font-family: var(--nebula-font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #bfdbfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Refined Navbar */
+        .navbar {
+            background: var(--nebula-bg-glass) !important; 
+            
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .navbar .nav-link {
+            color: var(--nebula-text-muted) !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+            font-size: 0.9rem;
+        }
+        .navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+        #currentUserName {
+            color: #ffffff !important;
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--nebula-bg-glass) !important;
+            border: 1px solid var(--nebula-border) !important;
+            border-radius: 1.25rem !important;
+            color: var(--nebula-text) !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 2rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(44, 82, 130, 0.2);
+        }
+        .profile-header h1 {
+            font-family: var(--nebula-font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .page-header-orange {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a) !important;
+            color: white !important;
+            padding: 1.25rem !important;
+            border-radius: 1.25rem 1.25rem 0 0 !important;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+
+        .form-control, .form-select {
+            background-color: var(--nebula-bg-input) !important;
+            border: 1px solid var(--nebula-border) !important;
+            color: var(--nebula-text) !important;
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1rem !important;
+            transition: all 0.2s ease;
+        }
+        .form-control::placeholder {
+            color: var(--nebula-text-dim) !important;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: var(--nebula-bg-input) !important;
+            border-color: var(--nebula-accent-cyan) !important;
+            box-shadow: 0 0 0 4px var(--accent-blue-glow) !important;
+            outline: none;
+        }
+
+        /* Button Overhaul */
+        .btn {
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: none !important;
+        }
+
+        .nebula-btn--primary {
+            background: linear-gradient(135deg, var(--nebula-accent-cyan), #1e3a8a) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3) !important;
+        }
+        .nebula-btn--primary:hover {
+            box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5) !important;
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <script src="shell.js"></script>
+    <script>
+        if (!localStorage.getItem('access_token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    
+
+    <main>
+        <div class="profile-header page-header-orange">
+            <div class="container">
+                <h1 data-i18n="profile.preferences.title">User Preferences</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <!-- User Preferences Card -->
+                    <div class="card mt-4 shadow-sm rounded-3" id="userPreferencesCard">
+                        <div class="card-header">
+                            <h5 class="card-title text-primary" data-i18n="profile.preferences.title"><i class="bi bi-gear me-2"></i>User Preferences</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted" data-i18n="profile.preferences.description">Manage your audience-specific preferences.</p>
+                            <div id="dynamicUserPreferences"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', async function() {
+
+                // Function to initialize preferences after i18n is applied
+                async function initializePreferences() {
+                    const backendBaseUrl = (typeof window !== 'undefined' && window.BACKEND_BASE_URL) ? window.BACKEND_BASE_URL : 'http://127.0.0.1:8000';
+
+                    const userPreferencesCard = document.getElementById('userPreferencesCard');
+                    const dynamicUserPreferencesDiv = document.getElementById('dynamicUserPreferences');
+
+                    // Define field metadata for user-specific preferences
+                    const userPreferenceFieldMetadata = {
+                        school: {
+                            school_type: { displayName: 'School Type', lookupEndpoint: '/lookup/school_types' },
+                            subject: { displayName: 'Subject', lookupEndpoint: '/lookup/school_subjects' },
+                            year: { displayName: 'Year', lookupEndpoint: '/lookup/school_years' }
+                        },
+                        university: {
+                            major: { displayName: 'Major', lookupEndpoint: '/lookup/university_majors' },
+                            course: { displayName: 'Course', lookupEndpoint: '/lookup/university_courses' },
+                            material: { displayName: 'Material', lookupEndpoint: '/lookup/university_materials' },
+                            semester: { displayName: 'Semester', lookupEndpoint: '/lookup/university_semesters' }
+                        },
+                        company: {
+                            company: { displayName: 'Company', lookupEndpoint: '/lookup/companies' },
+                            department: { displayName: 'Department', lookupEndpoint: '/lookup/departments' },
+                            job_role: { displayName: 'Job Role', lookupEndpoint: '/lookup/job_roles' }
+                        },
+                        // Global question properties
+                        difficulty_level: { displayName: 'Difficulty Level', lookupEndpoint: '/lookup/difficulty_levels' },
+                        cognitive_level: { displayName: 'Cognitive Level', lookupEndpoint: '/lookup/cognitive_levels' },
+                        learning_outcome: { displayName: 'Learning Outcome', lookupEndpoint: '/lookup/learning_outcomes' },
+                        question_type: { displayName: 'Question Type', lookupEndpoint: '/lookup/question_types' }
+                    };
+
+                    let currentUser = null; // To store current user data
+
+                    // Fetch current user data
+                    try {
+                        const token = localStorage.getItem('access_token');
+                        if (token) {
+                            const response = await fetchWithAuth(`${backendBaseUrl}/users/me`);
+                            if (response.ok) {
+                                currentUser = await response.json();
+                            }
+                        }
+                    } catch (e) {
+                        console.error('Error fetching current user data:', e);
+                    }
+
+                    // Conditional display of user preferences based on user role and audience type
+                    if (currentUser && !currentUser.is_admin && currentUser.audience_type) {
+                        // The card is already visible by default in this standalone page, no need to set display: 'block'
+                        await renderUserPreferences(currentUser.audience_type);
+                    } else {
+                        // If not a regular user with audience_type, redirect or show a message
+                        dynamicUserPreferencesDiv.innerHTML = '<div class="alert alert-warning">You must be a non-admin user with an assigned audience type to manage preferences.</div>';
+                    }
+
+                    // Function to render user preferences
+                    async function renderUserPreferences(audienceType) {
+                        dynamicUserPreferencesDiv.innerHTML = ''; // Clear previous content
+
+                        const audienceSpecificFields = userPreferenceFieldMetadata[audienceType];
+                        const globalQuestionFields = {
+                            difficulty_level: userPreferenceFieldMetadata.difficulty_level,
+                            cognitive_level: userPreferenceFieldMetadata.cognitive_level,
+                            learning_outcome: userPreferenceFieldMetadata.learning_outcome,
+                            question_type: userPreferenceFieldMetadata.question_type
+                        };
+
+                        // Render audience-specific fields
+                        if (audienceSpecificFields) {
+                            const audienceCard = document.createElement('div');
+                            audienceCard.className = 'card mt-4 shadow-sm rounded-3';
+                            audienceCard.innerHTML = `
+                                <div class="card-header">
+                                    <h5 class="card-title text-secondary"><i class="bi bi-person-fill me-2"></i>Preferences for ${audienceType.charAt(0).toUpperCase() + audienceType.slice(1)}</h5>
+                                </div>
+                                <div class="card-body" id="${audienceType}PreferencesBody"></div>
+                            `;
+                            dynamicUserPreferencesDiv.appendChild(audienceCard);
+                            window.i18n.translateNode(audienceCard);
+                            const audienceBody = document.getElementById(`${audienceType}PreferencesBody`);
+                            await renderFieldGroup(audienceSpecificFields, audienceType, audienceBody);
+                        }
+
+                        // Render global question properties
+                        const questionCard = document.createElement('div');
+                        questionCard.className = 'card mt-4 shadow-sm rounded-3';
+                        questionCard.innerHTML = `
+                            <div class="card-header">
+                                <h5 class="card-title text-primary"><i class="bi bi-question-circle me-2"></i>Question Properties</h5>
+                            </div>
+                            <div class="card-body" id="questionPreferencesBody"></div>
+                        `;
+                        dynamicUserPreferencesDiv.appendChild(questionCard);
+                        window.i18n.translateNode(questionCard);
+                        const questionBody = document.getElementById('questionPreferencesBody');
+                        await renderFieldGroup(globalQuestionFields, audienceType, questionBody);
+                    }
+
+                    async function renderFieldGroup(fields, audienceType, container) {
+                        for (const fieldApiName in fields) {
+                            const fieldMeta = fields[fieldApiName];
+                            const fieldDisplayNameKey = `profile.preferences.fields.${fieldApiName}`;
+                            
+                            // Check if translation exists, otherwise fallback to displayName from metadata
+                            let fieldDisplayName = window.i18n.t(fieldDisplayNameKey);
+                            if (!fieldDisplayName || fieldDisplayName === fieldDisplayNameKey) {
+                                fieldDisplayName = fieldMeta.displayName || fieldApiName;
+                            }
+
+                            const lookupEndpoint = fieldMeta.lookupEndpoint;
+
+                            const preferences = await fetchUserSpecificPreferences(audienceType, fieldApiName);
+                            const globalLookupOptions = lookupEndpoint ? await fetchGlobalLookupOptions(lookupEndpoint) : [];
+
+                            const fieldDiv = document.createElement('div');
+                            fieldDiv.className = 'mb-3';
+
+                            let optionsHtml = globalLookupOptions.map(option => `<option value="${option.name}">${option.name}</option>`).join('');
+
+                            const isQuestionType = fieldApiName === 'question_type';
+                            
+                            fieldDiv.innerHTML = `
+                                <div class="card card-body mb-3">
+                                    <h6 class="card-title">${fieldDisplayName}</h6>
+                                    <div class="input-group mb-2">
+                                        <select class="form-select" id="select-${fieldApiName}">
+                                            <option value="">${window.i18n.t('common.selectExisting')}</option>
+                                            ${optionsHtml}
+                                        </select>
+                                        <input type="text" class="form-control" placeholder="${window.i18n.t('common.orAddNewCustom')} ${fieldDisplayName}" id="input-${fieldApiName}" ${isQuestionType ? 'disabled' : ''}>
+                                        <button class="btn nebula-btn--primary" type="button" id="addPreference-${fieldApiName}" ${isQuestionType ? 'disabled' : ''}>${window.i18n.t('common.add')}</button>
+                                    </div>
+                                    <ul class="list-group mb-2" id="list-${fieldApiName}"></ul>
+                                </div>
+                            `;
+                            container.appendChild(fieldDiv);
+
+                                                    const selectElement = document.getElementById(`select-${fieldApiName}`);
+                                                    const inputElement = document.getElementById(`input-${fieldApiName}`);
+                                                    const addPreferenceButton = document.getElementById(`addPreference-${fieldApiName}`);
+                                                    const listElement = document.getElementById(`list-${fieldApiName}`);
+                            
+                                                    // Populate existing preferences
+                                                    preferences.forEach(item => {
+                                                        addPreferenceToList(listElement, item.id, item.name, audienceType, fieldApiName);
+                                                    });
+                            
+                                                    // Add preference event listener (combines selected and custom)
+                                                    addPreferenceButton.addEventListener('click', async () => {
+                                                        const selectedItemName = selectElement.value;
+                                                        const customItemName = inputElement.value.trim();
+                                                        let itemToAdd = '';
+                            
+                                                        if (selectedItemName) {
+                                                            itemToAdd = selectedItemName;
+                                                        } else if (customItemName) {
+                                                            itemToAdd = customItemName;
+                                                        }
+
+                                                        if (itemToAdd) {
+                                                            await addUserSpecificPreference(audienceType, fieldApiName, itemToAdd, listElement);
+                                                            selectElement.value = ''; // Reset dropdown
+                                                            inputElement.value = ''; // Clear input
+                                                            // Re-fetch and update global lookup options for this field
+                                                            const updatedGlobalLookupOptions = await fetchGlobalLookupOptions(lookupEndpoint);
+                                                            selectElement.innerHTML = '<option value="">Select from existing</option>' +
+                                                                updatedGlobalLookupOptions.map(option => `<option value="${option.name}">${option.name}</option>`).join('');
+                                                        }
+                                                    });                    }
+                    }
+
+                    // Helper to fetch global lookup options
+                    async function fetchGlobalLookupOptions(endpoint) {
+                        try {
+                            const response = await fetchWithAuth(`${backendBaseUrl}${endpoint}`);
+                            if (!response.ok) throw new Error(`Failed to fetch global lookup options from ${endpoint}`);
+                            return await response.json();
+                        } catch (error) {
+                            console.error(`Error fetching global lookup options from ${endpoint}:`, error);
+                            return [];
+                        }
+                    }
+
+                    // Helper to fetch user-specific preferences
+                    async function fetchUserSpecificPreferences(audienceType, fieldApiName) {
+                        try {
+                            const response = await fetchWithAuth(`${backendBaseUrl}/users/me/preferences/${audienceType}?field_name=${fieldApiName}`);
+                            if (!response.ok) throw new Error('Failed to fetch user preferences');
+                            return await response.json();
+                        } catch (error) {
+                            console.error(`Error fetching preferences for ${fieldApiName}:`, error);
+                            return [];
+                        }
+                    }
+
+                    // Helper to add user-specific preference
+                    async function addUserSpecificPreference(audienceType, fieldApiName, name, listElement) {
+                        console.log(`DEBUG: Attempting to add preference: audienceType=${audienceType}, fieldApiName=${fieldApiName}, name=${name}`);
+                        try {
+                            const response = await fetchWithAuth(`${backendBaseUrl}/users/me/preferences/${audienceType}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ name: name, field_name: fieldApiName }) // Include field_name in body
+                            });
+                            if (!response.ok) throw new Error('Failed to add preference');
+                            const newItem = await response.json();
+                            console.log('DEBUG: New item added:', newItem);
+                            addPreferenceToList(listElement, newItem.id, newItem.name, audienceType, fieldApiName);
+                            console.log('DEBUG: Preference added to listElement.');
+                        } catch (error) {
+                            console.error('Error adding preference:', error);
+                            alert('Error adding preference: ' + error.message);
+                        }
+                    }
+
+                    // Helper to add a preference to the list
+                    function addPreferenceToList(listElement, id, name, audienceType, fieldApiName) {
+                        console.log(`DEBUG: addPreferenceToList called for id=${id}, name=${name}, listElement=`, listElement);
+                        const listItem = document.createElement('li');
+                        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        listItem.innerHTML = `
+                            <span>${name}</span>
+                            <button type="button" class="btn btn-danger btn-sm delete-preference-btn" data-id="${id}" data-audience-type="${audienceType}" data-field-api-name="${fieldApiName}" data-i18n="common.delete">Delete</button>
+                        `;
+                        listElement.appendChild(listItem);
+                        window.i18n.translateNode(listItem);
+                        console.log('DEBUG: listItem appended to listElement.');
+                    }
+
+                    // Event listener for deleting preferences (delegated)
+                    dynamicUserPreferencesDiv.addEventListener('click', async (event) => {
+                        const deleteButton = event.target.closest('.delete-preference-btn');
+                        if (deleteButton) {
+                            const id = deleteButton.dataset.id;
+                            const audienceType = deleteButton.dataset.audienceType;
+                            const fieldApiName = deleteButton.dataset.fieldApiName;
+                            if (confirm('Are you sure you want to delete this preference?')) {
+                                try {
+                                    const response = await fetchWithAuth(`${backendBaseUrl}/users/me/preferences/${audienceType}/${id}?field_name=${fieldApiName}`, {
+                                        method: 'DELETE'
+                                    });
+                                    if (!response.ok) throw new Error('Failed to delete preference');
+                                    deleteButton.closest('li').remove(); // Remove from UI
+                                } catch (error) {
+                                    console.error('Error deleting preference:', error);
+                                    alert('Error deleting preference: ' + error.message);
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Listen for the i18n:applied event before initializing preferences
+                document.addEventListener('i18n:applied', initializePreferences);
+
+                // If i18n is already applied (e.g., page loaded from cache or fast navigation),
+                // check if currentDict is available and initialize immediately.
+                // This prevents issues if the event fires before this listener is attached.
+                if (window.i18n && window.i18n.t('nav.home') !== 'nav.home') { // Check if a known key is translated
+                    initializePreferences();
+                }
+            });
+        </script>
+
+</body>
+</html>

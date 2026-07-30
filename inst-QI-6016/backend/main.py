@@ -1712,9 +1712,6 @@ async def generate_questions(request: QuestionRequest, current_user: User = Depe
 
         elif ("gemini" in name_lc) or ("google" in name_lc):
             api_key = model['api_key'] if 'api_key' in model else os.getenv('GOOGLE_API_KEY')
-            # Use models/ prefix as required by the library
-            raw_model_name = model['model_api_name']
-            gemini_model_name = f"models/{raw_model_name}" if not raw_model_name.startswith("models/") else raw_model_name
             # Pass ONLY the context and metadata. gemini_api.py will build the optimized prompt.
             gemini_output = generate_questions_with_gemini(
                 topic_context=generation_context,
@@ -1724,7 +1721,7 @@ async def generate_questions(request: QuestionRequest, current_user: User = Depe
                 learning_outcome=request.learning_outcome,
                 num_questions=request.num_questions,
                 api_key=api_key,
-                model=gemini_model_name,
+                model=model['model_api_name'],
                 lang=request.lang,
                 subject=request.subject,
                 country=request.country,

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-ibrahim-2-20-12-2025 (ID: 48)
+Category: CAT-ibrahim-1-20-12-2025 (ID: 266)
+--------------------------------------------------
+
+Local Question ID: 595
+Bank Question ID: 3911
+FilterData Entry:
+  filters_added: 5
+  details: [(3911, 1, '5', 1), (3911, 2, '2', 1), (3911, 32, 'medium', 1), (3911, 53, 'ibrahim', 1), (3911, 33, '1', 1)]
+
+--------------------
+

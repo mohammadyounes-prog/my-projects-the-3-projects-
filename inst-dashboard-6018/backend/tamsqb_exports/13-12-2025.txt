@@ -1,0 +1,20 @@
+TamsQB Export for Course: 13-12-2025 (ID: 47)
+Category: teacher7-1 (ID: 273)
+--------------------------------------------------
+
+Local Question ID: 549
+Bank Question ID: 3936
+FilterData Entry:
+  filters_added: 5
+  details: [(3936, 1, '5', 1), (3936, 2, '2', 1), (3936, 32, 'easy', 1), (3936, 53, 'teacher7', 1), (3936, 33, '1', 1)]
+
+--------------------
+
+Local Question ID: 550
+Bank Question ID: 3937
+FilterData Entry:
+  filters_added: 5
+  details: [(3937, 1, '5', 1), (3937, 2, '2', 1), (3937, 32, 'easy', 1), (3937, 53, 'teacher7', 1), (3937, 33, '1', 1)]
+
+--------------------
+

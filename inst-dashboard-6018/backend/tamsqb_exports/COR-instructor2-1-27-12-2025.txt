@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-instructor2-1-27-12-2025 (ID: 97)
+Category: CAT-instructor2-3-27-12-2025 (ID: 324)
+--------------------------------------------------
+
+Local Question ID: 681
+Bank Question ID: 3995
+FilterData Entry:
+  filters_added: 6
+  details: [(3995, 1, '5', 1), (3995, 2, '2', 1), (3995, 32, 'hard', 1), (3995, 53, 'instructor2', 1), (3995, 33, '1', 1), (3995, 164, 'Technical Competence', 3)]
+
+--------------------
+

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher90 (ID: 144)
+Category: CAT-teacher90-1-09-04-2026 (ID: 879)
+--------------------------------------------------
+
+Local Question ID: 992
+Bank Question ID: 4746
+FilterData Entry:
+  filters_added: 5
+  details: [(4746, 1, '5', 1), (4746, 2, '0', 1), (4746, 32, 'medium', 1), (4746, 53, 'teacher90', 1), (4746, 33, '1', 1)]
+
+--------------------
+

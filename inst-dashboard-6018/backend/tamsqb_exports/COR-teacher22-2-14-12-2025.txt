@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher22-2-14-12-2025 (ID: 55)
+Category: CAT-teacher22-1-14-12-2025 (ID: 281)
+--------------------------------------------------
+
+Local Question ID: 554
+Bank Question ID: 3941
+FilterData Entry:
+  filters_added: 5
+  details: [(3941, 1, '5', 1), (3941, 2, '2', 1), (3941, 32, 'easy', 1), (3941, 53, 'teacher22', 1), (3941, 33, '1', 1)]
+
+--------------------
+

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher67-1-27-12-2025 (ID: 101)
+Category: CAT-teacher67-4-27-12-2025 (ID: 335)
+--------------------------------------------------
+
+Local Question ID: 689
+Bank Question ID: 4002
+FilterData Entry:
+  filters_added: 6
+  details: [(4002, 1, '5', 1), (4002, 2, '2', 1), (4002, 32, 'medium', 1), (4002, 53, 'teacher67', 1), (4002, 33, '1', 1), (4002, 178, 'Technical Competence', 3)]
+
+--------------------
+

@@ -1,0 +1,12 @@
+TamsQB Export for Course: COR-teacher56-1-27-12-2025 (ID: 91)
+Category: teacher56 (ID: 312)
+--------------------------------------------------
+
+Local Question ID: 667
+Bank Question ID: 3981
+FilterData Entry:
+  filters_added: 6
+  details: [(3981, 1, '5', 1), (3981, 2, '2', 1), (3981, 32, 'easy', 1), (3981, 53, 'teacher56', 1), (3981, 33, '1', 1), (3981, 14, 'Adaptability and Resilience', 3)]
+
+--------------------
+

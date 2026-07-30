@@ -1,0 +1,1 @@
+UPDATE property_types SET audience_type = 'question' WHERE api_name IN ('difficulty_levels', 'cognitive_levels', 'learning_outcomes');

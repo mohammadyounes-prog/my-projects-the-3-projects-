@@ -30,12 +30,12 @@ def update_api_key(model_api_name: str, new_api_key: str):
             print("Database connection closed.")
 
 if __name__ == "__main__":
-    # IMPORTANT: Replace 'YOUR_NEW_GOOGLE_API_KEY' with your actual, valid Google API key.
+    # Ensure you have set the NEW_API_KEY environment variable with your actual, valid Google API key.
     # You can get a new API key from https://aistudio.google.com/app/apikey
-    model_to_update = "gemini-2.5-flash"
-    new_key = "YOUR_NEW_GOOGLE_API_KEY" 
+    model_to_update = "gemini-flash-latest"
+    new_key = os.getenv('NEW_API_KEY')
     
-    if new_key == "YOUR_NEW_GOOGLE_API_KEY":
-        print("\nERROR: Please replace 'YOUR_NEW_GOOGLE_API_KEY' in the script with your actual API key.")
+    if not new_key:
+        print("\nERROR: Please set the 'NEW_API_KEY' environment variable with your actual API key.")
     else:
         update_api_key(model_to_update, new_key)

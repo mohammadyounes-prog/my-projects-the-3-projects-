@@ -1,0 +1,232 @@
+login is ok, but in hub page when i click  on question retrieval app , it says your session  has expired
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+  Debugging SSO Session Expiry:
+  Investigate why the session is considered expired when navigating from the hub to the Question Retrieval app.
+
+  ✓  ReadFolder  instances\...\src\app\[lang]\hub → Found 1 item(s).
+  ✓  ReadFile  instances\...\[lang]\hub\page.tsx
+  ✓  ReadFolder  instances\...\inst-QI-6016\frontend → Found 33 item(s).
+  ✓  ReadFile  instances\...\frontend\home.html
+   → Read lines 1-100 of 361 from instances/cust-1/inst-QI-6016/frontend/home.html
+  ✓  ReadFile  instances\...\frontend\auth.js
+  ✓  ReadFile  instances\...\frontend\utils.js
+  ✓  SearchText  'sso_token' in instances/cust-1/inst-QI-6016/frontend/*.html → Found 3 matches
+  ✓  SearchText  'sso_token' in instances/cust-1/inst-QI-6016/frontend/index.html → No matches found
+  ✓  ReadFile  instances\...\frontend\config.js
+  ✓  ReadFile  instances\...\frontend\index.html
+   → Read lines 1-100 of 2901 from instances/cust-1/inst-QI-6016/frontend/index.html
+  Fixing Frontend SSO Exchange Logic:
+  Fix the SSO token exchange logic in the Question Retrieval frontend to prevent session expiry.
+
+  ✓  Edit  home.html → Accepted (+32, -11)
+
+      224   </head>
+      225   <body>
+      226       <script>
+      227 -         // Check for sso_token in URL and store in localStorage
+      228 -         const urlParams = new URLSearchParams(window.location.search);
+      229 -         const ssoToken = urlParams.get('sso_token');
+      230 -         if (ssoToken) {
+      231 -             localStorage.setItem('access_token', ssoToken);
+      232 -             // Optionally: Clean URL
+      233 -             window.history.replaceState({}, document.title, window.location.pathname);
+      227 +         async function processSSO() {
+      228 +             const urlParams = new URLSearchParams(window.location.search);
+      229 +             const ssoToken = urlParams.get('sso_token');
+      230 +
+      231 +             if (ssoToken) {
+      232 +                 try {
+      233 +                     // Use BACKEND_BASE_URL if available, otherwise fallback to current origin
+      234 +                     const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+      235 +                     const response = await
+          fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+      236 +
+      237 +                     if (response.ok) {
+      238 +                         const data = await response.json();
+      239 +                         localStorage.setItem('access_token', data.access_token);
+      240 +                         // Clean URL
+      241 +                         window.history.replaceState({}, document.title, window.location.pathname);
+      242 +
+      243 +                         // If updateUserInfo is already defined, call it to refresh the UI with new
+          token
+      244 +                         if (typeof updateUserInfo === 'function') {
+      245 +                             updateUserInfo();
+      246 +                         }
+      247 +                     } else {
+      248 +                         console.error("SSO verification failed");
+      249 +                         window.location.href = 'login.html';
+      250 +                     }
+      251 +                 } catch (error) {
+      252 +                     console.error("Error during SSO exchange:", error);
+      253 +                     window.location.href = 'login.html';
+      254 +                 }
+      255 +             } else if (!localStorage.getItem('access_token')) {
+      256 +                 window.location.href = 'login.html';
+      257 +             }
+      258           }
+      235 -
+      236 -         if (!localStorage.getItem('access_token')) {
+      237 -             window.location.href = 'login.html';
+      238 -         }
+      ══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+      259 +         processSSO();
+      260       </script>
+      261       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      262           <div class="container-fluid">
+
+  ✓  Edit  index.html → Accepted (+31, -0)
+
+      34   <script src="utils.js"></script>
+      35   <script src="auth.js"></script>
+      36   <script src="i18n.js"></script>
+      37 + <script>
+      38 +     async function processSSO() {
+      39 +         const urlParams = new URLSearchParams(window.location.search);
+      40 +         const ssoToken = urlParams.get('sso_token');
+      41 +
+      42 +         if (ssoToken) {
+      43 +             try {
+      44 +                 const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+      45 +                 const response = await
+         fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+      46 +
+      47 +                 if (response.ok) {
+      48 +                     const data = await response.json();
+      49 +                     localStorage.setItem('access_token', data.access_token);
+      50 +                     window.history.replaceState({}, document.title, window.location.pathname);
+      51 +                     if (typeof updateUserInfo === 'function') {
+      52 +                         updateUserInfo();
+      53 +                     }
+      54 +                 } else {
+      55 +                     console.error("SSO verification failed");
+      56 +                     window.location.href = 'login.html';
+      57 +                 }
+      58 +             } catch (error) {
+      59 +                 console.error("Error during SSO exchange:", error);
+      60 +                 window.location.href = 'login.html';
+      61 +             }
+      62 +         } else if (!localStorage.getItem('access_token')) {
+      63 +             window.location.href = 'login.html';
+      64 +         }
+      65 +     }
+      66 +     processSSO();
+      67 + </script>
+      68   <link href="rtl.css" rel="stylesheet">
+      69   <link rel="preconnect" href="https://fonts.googleapis.com">
+      70   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  ✓  ReadFolder  frontend → Found 33 item(s).
+  ✓  Edit  home.html → Accepted (+28, -11)
+
+      224   </head>
+      225   <body>
+      226       <script>
+      227 -         // Check for sso_token in URL and store in localStorage
+      228 -         const urlParams = new URLSearchParams(window.location.search);
+      229 -         const ssoToken = urlParams.get('sso_token');
+      230 -         if (ssoToken) {
+      231 -             localStorage.setItem('access_token', ssoToken);
+      232 -             // Optionally: Clean URL
+      233 -             window.history.replaceState({}, document.title, window.location.pathname);
+      227 +         async function processSSO() {
+      228 +             const urlParams = new URLSearchParams(window.location.search);
+      229 +             const ssoToken = urlParams.get('sso_token');
+      230 +
+      231 +             if (ssoToken) {
+      232 +                 try {
+      233 +                     const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+      234 +                     const response = await
+          fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+      235 +
+      236 +                     if (response.ok) {
+      237 +                         const data = await response.json();
+      238 +                         localStorage.setItem('access_token', data.access_token);
+      239 +                         window.history.replaceState({}, document.title, window.location.pathname);
+      240 +                         if (typeof updateUserInfo === 'function') {
+      241 +                             updateUserInfo();
+      242 +                         }
+      243 +                     } else {
+      244 +                         console.error("SSO verification failed");
+      245 +                         window.location.href = 'login.html';
+      246 +                     }
+      247 +                 } catch (error) {
+      248 +                     console.error("Error during SSO exchange:", error);
+      249 +                     window.location.href = 'login.html';
+      250 +                 }
+      251 +             } else if (!localStorage.getItem('access_token')) {
+      252 +                 window.location.href = 'login.html';
+      253 +             }
+      254           }
+      235 -
+      236 -         if (!localStorage.getItem('access_token')) {
+      237 -             window.location.href = 'login.html';
+      238 -         }
+      ══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+      255 +         processSSO();
+      256       </script>
+      257       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      258           <div class="container-fluid">
+
+  ✓  Edit  index.html → Accepted (+31, -0)
+
+      34   <script src="utils.js"></script>
+      35   <script src="auth.js"></script>
+      36   <script src="i18n.js"></script>
+      37 + <script>
+      38 +     async function processSSO() {
+      39 +         const urlParams = new URLSearchParams(window.location.search);
+      40 +         const ssoToken = urlParams.get('sso_token');
+      41 +
+      42 +         if (ssoToken) {
+      43 +             try {
+      44 +                 const baseUrl = window.BACKEND_BASE_URL || window.location.origin;
+      45 +                 const response = await
+         fetch(`${baseUrl}/verify-sso?sso_token=${encodeURIComponent(ssoToken)}`);
+      46 +
+      47 +                 if (response.ok) {
+      48 +                     const data = await response.json();
+      49 +                     localStorage.setItem('access_token', data.access_token);
+      50 +                     window.history.replaceState({}, document.title, window.location.pathname);
+      51 +                     if (typeof updateUserInfo === 'function') {
+      52 +                         updateUserInfo();
+      53 +                     }
+      54 +                 } else {
+      55 +                     console.error("SSO verification failed");
+      56 +                     window.location.href = 'login.html';
+      57 +                 }
+      58 +             } catch (error) {
+      59 +                 console.error("Error during SSO exchange:", error);
+      60 +                 window.location.href = 'login.html';
+      61 +             }
+      62 +         } else if (!localStorage.getItem('access_token')) {
+      63 +             window.location.href = 'login.html';
+      64 +         }
+      65 +     }
+      66 +     processSSO();
+      67 + </script>
+      68   <link href="rtl.css" rel="stylesheet">
+      69   <link rel="preconnect" href="https://fonts.googleapis.com">
+      70   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+✦ I have fixed the "session expired" issue when navigating from the hub to the Question Retrieval app.
+
+  Root Cause
+  The frontend of the Question Retrieval app was incorrectly taking the raw sso_token (a UUID) from the URL and saving
+  it directly as the access_token. Since the backend expects a JWT for authentication, it rejected the UUID, causing the
+  session to appear expired immediately.
+
+  Applied Fixes
+   1. Corrected SSO Handshake: Updated home.html and index.html (in both the active instance and the project source) to
+      properly exchange the sso_token for a valid JWT by calling the /verify-sso endpoint.
+   2. Robust Verification:
+       * The app now waits for the backend to verify the SSO session.
+       * Upon successful verification, it stores the returned JWT in localStorage.
+       * The URL is cleaned up (removing the token) after the exchange to prevent duplicate processing.
+   3. Consistency: Applied these changes to the source frontend directory as well, ensuring all future instances created
+      by the Config Manager will function correctly.
+
+  You should now be able to click on the Question Retrieval app from the hub and be logged in automatically without any
+  expiration errors.
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
